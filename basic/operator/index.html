@@ -1,0 +1,1979 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>演算子 · JavaScriptの入門書 #jsprimer</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-page-toc-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-anchors/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+         
+    
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../implicit-coercion/" />
+    
+    
+    <link rel="prev" href="../data-type/" />
+    
+
+    <link rel="canonical" href="https://jsprimer.net/basic/operator/">
+
+<meta name="google-site-verification" content="bMotEbgYwkzA3k4PkuyK_NUdz0bKh-Phz0oUwNmRSVo" />
+<style>
+    /*
+    Disable antialias
+    */
+    * {
+        -webkit-font-smoothing: initial !important
+    }
+
+    body {
+        text-rendering: initial !important;
+        font-smoothing: initial !important;
+    }
+
+    /* deny access chapter */
+    .summary li.chapter>span {
+        cursor: not-allowed;
+        opacity: .3;
+    }
+
+    /* console ui */
+
+    .mirror-console-attach-button-wrapper {
+        margin-top: -1.275em;
+        margin-bottom: 1.275em
+    }
+
+    .mirror-console-wrapper {
+        margin-top: 1.275em;
+        margin-bottom: 1.275em
+    }
+
+    /* file name for codeblock */
+    .code-filename {
+        background-color: #eee;
+        display: inline-block;
+        padding: 2px 8px;
+        line-height: inherit;
+        margin-bottom: 0px !important;
+    }
+</style>
+<meta name="theme-color" content="#ffffff">
+<link rel="manifest" href="../../manifest.json">
+<script src="https://unpkg.com/service-worker-updatefound-refresh-dialog@1.1.0/dist/service-worker-updatefound-refresh-dialog.umd.js"></script>
+<script>
+    if ("serviceWorker" in navigator) {
+        const isLocalhost = Boolean(
+            // preview
+            /netlify.com/.test(window.location.hostname) ||
+            // local
+            window.location.hostname === "localhost" ||
+            // [::1] is the IPv6 localhost address.
+            window.location.hostname === "[::1]" ||
+            // 127.0.0.1/8 is considered localhost for IPv4.
+            window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/)
+        );
+        if (!isLocalhost) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker.register("../../sw.js")
+                    .then(function(registration) {
+                        serviceWorkerUpdatefoundRefreshDialog.register(registration);
+                    });
+            });
+        }
+    }
+</script>
+
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    この書籍について
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../../intro/goal/">
+            
+                <a href="../../intro/goal/">
+            
+                    
+                    本書の目的
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../../intro/feedback/">
+            
+                <a href="../../intro/feedback/">
+            
+                    
+                    文章の間違いに気づいたら
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    第1部: 基礎文法
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../introduction/">
+            
+                <a href="../introduction/">
+            
+                    
+                    JavaScriptとは
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../comments/">
+            
+                <a href="../comments/">
+            
+                    
+                    コメント
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../variables/">
+            
+                <a href="../variables/">
+            
+                    
+                    変数と宣言
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../read-eval-print/">
+            
+                <a href="../read-eval-print/">
+            
+                    
+                    値の評価と表示
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../data-type/">
+            
+                <a href="../data-type/">
+            
+                    
+                    データ型とリテラル
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.4.6" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    演算子
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" data-path="../implicit-coercion/">
+            
+                <a href="../implicit-coercion/">
+            
+                    
+                    暗黙的な型変換
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.8" data-path="../function-declaration/">
+            
+                <a href="../function-declaration/">
+            
+                    
+                    関数と宣言
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.9" data-path="../statement-expression/">
+            
+                <a href="../statement-expression/">
+            
+                    
+                    文と式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.10" data-path="../condition/">
+            
+                <a href="../condition/">
+            
+                    
+                    条件分岐
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.11" data-path="../loop/">
+            
+                <a href="../loop/">
+            
+                    
+                    ループと反復処理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.12" data-path="../object/">
+            
+                <a href="../object/">
+            
+                    
+                    オブジェクト
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.13" data-path="../prototype-object/">
+            
+                <a href="../prototype-object/">
+            
+                    
+                    プロトタイプオブジェクト
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.14" data-path="../array/">
+            
+                <a href="../array/">
+            
+                    
+                    配列
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.15" data-path="../string/">
+            
+                <a href="../string/">
+            
+                    
+                    文字列
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.16" data-path="../wrapper-object/">
+            
+                <a href="../wrapper-object/">
+            
+                    
+                    ラッパーオブジェクト
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.17" data-path="../function-scope/">
+            
+                <a href="../function-scope/">
+            
+                    
+                    関数とスコープ
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.18" data-path="../function-this/">
+            
+                <a href="../function-this/">
+            
+                    
+                    関数とthis
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.19" data-path="../class/">
+            
+                <a href="../class/">
+            
+                    
+                    クラス
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.20" data-path="../error-try-catch/">
+            
+                <a href="../error-try-catch/">
+            
+                    
+                    例外処理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.21" data-path="../async/">
+            
+                <a href="../async/">
+            
+                    
+                    非同期処理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22" data-path="../map-and-set/">
+            
+                <a href="../map-and-set/">
+            
+                    
+                    Map/Set
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.23" data-path="../json/">
+            
+                <a href="../json/">
+            
+                    
+                    JSON
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.24" data-path="../date/">
+            
+                <a href="../date/">
+            
+                    
+                    Date
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.25" data-path="../math/">
+            
+                <a href="../math/">
+            
+                    
+                    Math
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.26" data-path="../ecmascript/">
+            
+                <a href="../ecmascript/">
+            
+                    
+                    ECMAScript
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.27" data-path="../other-parts/">
+            
+                <a href="../other-parts/">
+            
+                    
+                    第1部: おわりに
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../../use-case/">
+            
+                <a href="../../use-case/">
+            
+                    
+                    第2部: 応用編（ユースケース）
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../../use-case/setup-local-env/">
+            
+                <a href="../../use-case/setup-local-env/">
+            
+                    
+                    アプリケーション開発の準備
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../../use-case/module/">
+            
+                <a href="../../use-case/module/">
+            
+                    
+                    モジュール
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../../use-case/ajaxapp/">
+            
+                <a href="../../use-case/ajaxapp/">
+            
+                    
+                    Ajaxで通信
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.3.1" data-path="../../use-case/ajaxapp/entrypoint/">
+            
+                <a href="../../use-case/ajaxapp/entrypoint/">
+            
+                    
+                    エントリポイント
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3.2" data-path="../../use-case/ajaxapp/xhr/">
+            
+                <a href="../../use-case/ajaxapp/xhr/">
+            
+                    
+                    HTTP通信
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3.3" data-path="../../use-case/ajaxapp/display/">
+            
+                <a href="../../use-case/ajaxapp/display/">
+            
+                    
+                    データを表示する
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3.4" data-path="../../use-case/ajaxapp/promise/">
+            
+                <a href="../../use-case/ajaxapp/promise/">
+            
+                    
+                    Promiseを活用する
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../../use-case/nodecli/">
+            
+                <a href="../../use-case/nodecli/">
+            
+                    
+                    Node.jsでCLIアプリ
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.4.1" data-path="../../use-case/nodecli/helloworld/">
+            
+                <a href="../../use-case/nodecli/helloworld/">
+            
+                    
+                    Node.jsでHello World
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4.2" data-path="../../use-case/nodecli/argument-parse/">
+            
+                <a href="../../use-case/nodecli/argument-parse/">
+            
+                    
+                    コマンドライン引数を処理する
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4.3" data-path="../../use-case/nodecli/read-file/">
+            
+                <a href="../../use-case/nodecli/read-file/">
+            
+                    
+                    ファイルを読み込む
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4.4" data-path="../../use-case/nodecli/md-to-html/">
+            
+                <a href="../../use-case/nodecli/md-to-html/">
+            
+                    
+                    MarkdownをHTMLに変換する
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4.5" data-path="../../use-case/nodecli/refactor-and-unittest/">
+            
+                <a href="../../use-case/nodecli/refactor-and-unittest/">
+            
+                    
+                    ユニットテストを記述する
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="../../use-case/todoapp/">
+            
+                <a href="../../use-case/todoapp/">
+            
+                    
+                    Todoアプリ
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.5.1" data-path="../../use-case/todoapp/entrypoint/">
+            
+                <a href="../../use-case/todoapp/entrypoint/">
+            
+                    
+                    エントリポイント
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5.2" data-path="../../use-case/todoapp/app-structure/">
+            
+                <a href="../../use-case/todoapp/app-structure/">
+            
+                    
+                    アプリの構成要素
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5.3" data-path="../../use-case/todoapp/form-event/">
+            
+                <a href="../../use-case/todoapp/form-event/">
+            
+                    
+                    フォームとイベント
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5.4" data-path="../../use-case/todoapp/event-model/">
+            
+                <a href="../../use-case/todoapp/event-model/">
+            
+                    
+                    イベントとモデル
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5.5" data-path="../../use-case/todoapp/update-delete/">
+            
+                <a href="../../use-case/todoapp/update-delete/">
+            
+                    
+                    Todoの更新と削除を実装する
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5.6" data-path="../../use-case/todoapp/final/">
+            
+                <a href="../../use-case/todoapp/final/">
+            
+                    
+                    Todoアプリのリファクタリング
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<!-- Header -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css"/>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<style>
+    .book-header {
+        display: flex;
+        flex-direction: row;
+        background-color: #333;
+    }
+
+    /* link color */
+    .book-header a {
+        color: #fff;
+    }
+
+    /* hover color */
+    .book-header .btn:hover, .book-header .btn:focus, .book-header a:focus, .book-header a:hover {
+        color: hsla(0, 0%, 100%, 0.75) !important;
+    }
+
+    /* Mobile header fixed */
+    @media (max-width: 768px) {
+        /* Headerを固定する */
+        .book-header {
+            position: fixed;
+            width: 100%;
+        }
+
+        /* Icon only */
+        .book-header-title-img {
+            margin: auto 18px auto 0 !important;
+        }
+
+        .book-header-title-h {
+            display: none;
+        }
+
+        /* Header分のズレを入れる */
+        .page-wrapper {
+            padding-top: 60px;
+        }
+    }
+
+    /* Dynamic created by GitBook*/
+    .btn.pull-left.js-toolbar-action {
+        order: 1;
+    }
+
+    .book-header-title {
+        order: 2;
+        display: inline-flex;
+        flex-direction: row;
+        color: #fff;
+    }
+
+    .book-header-title:hover {
+        color: hsla(0, 0%, 100%, 0.75);
+    }
+
+    .book-header-title-img {
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        margin: auto 10px auto 0;
+    }
+
+    .book-header-title-h {
+        font-size: 20px;
+        margin: auto;
+        padding: 0;
+    }
+
+    .header-center {
+        order: 3;
+        display: inline-flex;
+        flex-direction: column;
+        justify-content: center;
+        /* self */
+        flex-grow: 1;
+        flex-shrink: 0;
+        flex-basis: auto;
+    }
+
+    .header-right {
+        order: 4;
+        display: inline-flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        /* icon size */
+        font-size: 24px;
+    }
+
+    .github-link {
+        color: #fff;
+    }
+
+    /* Desktop */
+    @media (min-width: 768px) {
+        .header-center {
+            align-items: center;
+        }
+
+        .header-right {
+            margin-right: 24px;
+        }
+    }
+
+    /* DocSearch */
+    @media (max-width: 768px) {
+        .algolia-autocomplete .ds-dropdown-menu {
+            max-width: calc(100vw - 32px) !important;
+            min-width: calc(100vw - 32px) !important;
+            width: calc(100vw - 32px) !important;
+            /* negative margin
+              This is absolute element
+              */
+            margin-left: -32px !important;
+        }
+
+        .algolia-autocomplete .algolia-docsearch-suggestion--content {
+            width: 100% !important;
+            padding-left: 0 !important;
+        }
+
+        .algolia-autocomplete .algolia-docsearch-suggestion--content:before {
+            display: none !important;
+        }
+
+        .algolia-autocomplete .algolia-docsearch-suggestion--subcategory-column {
+            display: none !important;
+        }
+    }
+
+    /* SearchBox */
+    .searchbarWrapper {
+        height: 50px;
+    }
+
+    @media (max-width: 768px) {
+        .sbx-custom {
+            width: 150px !important;
+            padding: initial !important;
+        }
+    }
+
+    .sbx-custom {
+        display: inline-block;
+        position: relative;
+        min-width: 150px;
+        width: 300px;
+        max-width: 300px;
+        height: 33px;
+        white-space: nowrap;
+        box-sizing: border-box;
+        font-size: 14px;
+    }
+
+    .sbx-custom__wrapper {
+        width: 100%;
+        height: 100%;
+    }
+
+    .sbx-custom__input {
+        display: inline-block;
+        -webkit-transition: box-shadow .4s ease, background .4s ease;
+        transition: box-shadow .4s ease, background .4s ease;
+        border: 0;
+        border-radius: 5px;
+        box-shadow: inset 0 0 0 2px #CCCCCC;
+        background: #FFFFFF;
+        padding: 0 27px 0 33px;
+        width: 100%;
+        height: 100%;
+        vertical-align: middle;
+        white-space: normal;
+        font-size: inherit;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+
+    .sbx-custom__input::-webkit-search-decoration, .sbx-custom__input::-webkit-search-cancel-button, .sbx-custom__input::-webkit-search-results-button, .sbx-custom__input::-webkit-search-results-decoration {
+        display: none;
+    }
+
+    .sbx-custom__input:hover {
+        box-shadow: inset 0 0 0 2px #b3b3b3;
+    }
+
+    .sbx-custom__input:focus, .sbx-custom__input:active {
+        outline: 0;
+        box-shadow: inset 0 0 0 2px #4B54DE;
+        background: #FFFFFF;
+    }
+
+    .sbx-custom__input::-webkit-input-placeholder {
+        color: #BBBBBB;
+    }
+
+    .sbx-custom__input::-moz-placeholder {
+        color: #BBBBBB;
+    }
+
+    .sbx-custom__input:-ms-input-placeholder {
+        color: #BBBBBB;
+    }
+
+    .sbx-custom__input::placeholder {
+        color: #BBBBBB;
+    }
+
+    .sbx-custom__submit {
+        position: absolute;
+        top: 0;
+        right: inherit;
+        left: 0;
+        margin: 0;
+        border: 0;
+        border-radius: 4px 0 0 4px;
+        background-color: rgba(255, 255, 255, 0);
+        padding: 0;
+        width: 33px;
+        height: 100%;
+        vertical-align: middle;
+        text-align: center;
+        font-size: inherit;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    .sbx-custom__submit::before {
+        display: inline-block;
+        margin-right: -4px;
+        height: 100%;
+        vertical-align: middle;
+        content: '';
+    }
+
+    .sbx-custom__submit:hover, .sbx-custom__submit:active {
+        cursor: pointer;
+    }
+
+    .sbx-custom__submit:focus {
+        outline: 0;
+    }
+
+    .sbx-custom__submit svg {
+        width: 17px;
+        height: 17px;
+        vertical-align: middle;
+        fill: #3A33D1;
+    }
+
+    .sbx-custom__reset {
+        display: none;
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        margin: 0;
+        border: 0;
+        background: none;
+        cursor: pointer;
+        padding: 0;
+        font-size: inherit;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        fill: rgba(0, 0, 0, 0.5);
+    }
+
+    .sbx-custom__reset:focus {
+        outline: 0;
+    }
+
+    .sbx-custom__reset svg {
+        display: block;
+        margin: 4px;
+        width: 17px;
+        height: 17px;
+    }
+
+    .sbx-custom__input:valid ~ .sbx-custom__reset {
+        display: block;
+        -webkit-animation-name: sbx-reset-in;
+        animation-name: sbx-reset-in;
+        -webkit-animation-duration: .15s;
+        animation-duration: .15s;
+    }
+
+    @-webkit-keyframes sbx-reset-in {
+        0% {
+            -webkit-transform: translate3d(-20%, 0, 0);
+            transform: translate3d(-20%, 0, 0);
+            opacity: 0;
+        }
+        100% {
+            -webkit-transform: none;
+            transform: none;
+            opacity: 1;
+        }
+    }
+
+    @keyframes sbx-reset-in {
+        0% {
+            -webkit-transform: translate3d(-20%, 0, 0);
+            transform: translate3d(-20%, 0, 0);
+            opacity: 0;
+        }
+        100% {
+            -webkit-transform: none;
+            transform: none;
+            opacity: 1;
+        }
+    }
+</style>
+<div class="book-header" role="navigation">
+    
+    <a class="book-header-title" href="../..">
+        <img class="book-header-title-img" alt="js-primer"
+             src="../../gitbook/icons/icon-128x128.png"/>
+        <h2 class="book-header-title-h" title="js-primer - JavaScriptの入門書">js-primer</h2>
+    </a>
+    <div class="searchbarWrapper header-center">
+        <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+            <symbol xmlns="http://www.w3.org/2000/svg" id="sbx-icon-search-8" viewBox="0 0 40 40">
+                <path d="M16 32c8.835 0 16-7.165 16-16 0-8.837-7.165-16-16-16C7.162 0 0 7.163 0 16c0 8.835 7.163 16 16 16zm0-5.76c5.654 0 10.24-4.586 10.24-10.24 0-5.656-4.586-10.24-10.24-10.24-5.656 0-10.24 4.584-10.24 10.24 0 5.654 4.584 10.24 10.24 10.24zM28.156 32.8c-1.282-1.282-1.278-3.363.002-4.643 1.282-1.284 3.365-1.28 4.642-.003l6.238 6.238c1.282 1.282 1.278 3.363-.002 4.643-1.283 1.283-3.366 1.28-4.643.002l-6.238-6.238z"
+                      fill-rule="evenodd"></path>
+            </symbol>
+            <symbol xmlns="http://www.w3.org/2000/svg" id="sbx-icon-clear-5" viewBox="0 0 20 20">
+                <path d="M10 20c5.523 0 10-4.477 10-10S15.523 0 10 0 0 4.477 0 10s4.477 10 10 10zm1.35-10.123l3.567 3.568-1.225 1.226-3.57-3.568-3.567 3.57-1.226-1.227 3.568-3.568-3.57-3.57 1.227-1.224 3.568 3.568 3.57-3.567 1.224 1.225-3.568 3.57zM10 18.272c4.568 0 8.272-3.704 8.272-8.272S14.568 1.728 10 1.728 1.728 5.432 1.728 10 5.432 18.272 10 18.272z"
+                      fill-rule="evenodd"></path>
+            </symbol>
+        </svg>
+
+        <form novalidate="novalidate" onsubmit="return false;" class="searchbox sbx-custom">
+            <div role="search" class="sbx-custom__wrapper">
+                <input name="search" placeholder="Search words" autocomplete="off" required="required"
+                       class="sbx-custom__input" type="search">
+                <button type="submit" title="Submit your search query." class="sbx-custom__submit">
+                    <svg role="img" aria-label="Search">
+                        <use xlink:href="#sbx-icon-search-8"></use>
+                    </svg>
+                </button>
+                <button type="reset" title="Clear the search query." class="sbx-custom__reset">
+                    <svg role="img" aria-label="Reset">
+                        <use xlink:href="#sbx-icon-clear-5"></use>
+                    </svg>
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="header-right">
+        <a class="github-link" title="GitHub: asciidwango/js-primer" href="https://github.com/asciidwango/js-primer"
+           target="_blank"><i
+                class="fa fa-github fa-fw"></i></a>
+    </div>
+</div>
+
+<script type="text/javascript">
+    document.querySelector('.searchbox [type="reset"]').addEventListener('click', function() {
+        this.parentNode.querySelector('input').focus();
+    });
+</script>
+<script>
+    var search = docsearch({
+        apiKey: 'fd28ebaba94be0c39fb9fa1b2fed4f23', // use a SEARCH-ONLY api key here
+        indexName: 'asciidwango',
+        inputSelector: '.sbx-custom__input',
+        debug: false // set to `true` if you want to inspect the dropdown menu's CSS
+    });
+</script>
+
+
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="operator"><a name="operator" class="plugin-anchor" href="#operator"><i class="fa fa-link" aria-hidden="true"></i></a>&#x6F14;&#x7B97;&#x5B50; </h1>
+<p>&#x6F14;&#x7B97;&#x5B50;&#x306F;&#x3088;&#x304F;&#x5229;&#x7528;&#x3059;&#x308B;&#x8A08;&#x7B97;&#x3092;&#x95A2;&#x6570;&#x3084;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3067;&#x306F;&#x306A;&#x304F;&#x3001;&#x8A18;&#x53F7;&#x3068;&#x3057;&#x3066;&#x8868;&#x73FE;&#x3057;&#x305F;&#x3082;&#x306E;&#x3067;&#x3059;&#x3002;
+&#x305F;&#x3068;&#x3048;&#x3070;&#x3001;&#x8DB3;&#x3057;&#x7B97;&#x3092;&#x884C;&#x3046; <code>+</code> &#x3082;&#x6F14;&#x7B97;&#x5B50;&#x306E;&#x4E00;&#x7A2E;&#x3067;&#x3001;&#x6F14;&#x7B97;&#x5B50;&#x306B;&#x306F;&#x591A;&#x304F;&#x306E;&#x7A2E;&#x985E;&#x304C;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x6F14;&#x7B97;&#x5B50;&#x306F;&#x6F14;&#x7B97;&#x3059;&#x308B;&#x5BFE;&#x8C61;&#x3092;&#x3082;&#x3061;&#x307E;&#x3059;&#x3002;&#x3053;&#x306E;&#x6F14;&#x7B97;&#x5B50;&#x306E;&#x5BFE;&#x8C61;&#x306E;&#x3053;&#x3068;&#x3092;<strong>&#x88AB;&#x6F14;&#x7B97;&#x5B50;&#xFF08;&#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;&#xFF09;</strong>&#x3068;&#x547C;&#x3073;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x6B21;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x306F;&#x3001;<code>+</code>&#x6F14;&#x7B97;&#x5B50;&#x304C;&#x5024;&#x540C;&#x58EB;&#x3092;&#x8DB3;&#x3057;&#x7B97;&#x3059;&#x308B;&#x52A0;&#x7B97;&#x6F14;&#x7B97;&#x3092;&#x884C;&#x3063;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;
+&#x3053;&#x306E;&#x3068;&#x304D;&#x3001;<code>+</code>&#x6F14;&#x7B97;&#x5B50;&#x306E;&#x5BFE;&#x8C61;&#x3068;&#x306A;&#x3063;&#x3066;&#x3044;&#x308B;<code>1</code>&#x3068;<code>2</code>&#x3068;&#x3044;&#x3046;2&#x3064;&#x306E;&#x5024;&#x304C;&#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;&#x3067;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-number">1</span> + <span class="hljs-number">2</span>;
+</code></pre>
+<p>&#x3053;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x306F;<code>+</code>&#x6F14;&#x7B97;&#x5B50;&#x306B;&#x5BFE;&#x3057;&#x3066;&#x3001;&#x524D;&#x5F8C;&#x306B;&#x5408;&#x8A08;2&#x3064;&#x306E;&#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;&#x304C;&#x3042;&#x308A;&#x307E;&#x3057;&#x305F;&#x3002;
+&#x3053;&#x306E;&#x3088;&#x3046;&#x306B;2&#x3064;&#x306E;&#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;&#x3092;&#x53D6;&#x308B;&#x6F14;&#x7B97;&#x5B50;&#x3092;<strong>&#x4E8C;&#x9805;&#x6F14;&#x7B97;&#x5B50;</strong>&#x3068;&#x547C;&#x3073;&#x307E;&#x3059;&#x3002;</p>
+<pre><code>// &#x4E8C;&#x9805;&#x6F14;&#x7B97;&#x5B50;&#x3068;&#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;&#x306E;&#x95A2;&#x4FC2;
+&#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;1 &#x6F14;&#x7B97;&#x5B50; &#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;2
+</code></pre><p>&#x307E;&#x305F;&#x3001;1&#x3064;&#x306E;&#x6F14;&#x7B97;&#x5B50;&#x306B;&#x5BFE;&#x3057;&#x3066;1&#x3064;&#x306E;&#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;&#x3060;&#x3051;&#x3092;&#x3068;&#x308B;&#x3082;&#x306E;&#x3082;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;
+&#x305F;&#x3068;&#x3048;&#x3070;&#x3001;&#x6B21;&#x306E;&#x3088;&#x3046;&#x306A;&#x6570;&#x5024;&#x3092;&#x30A4;&#x30F3;&#x30AF;&#x30EA;&#x30E1;&#x30F3;&#x30C8;&#x3059;&#x308B;<code>++</code>&#x6F14;&#x7B97;&#x5B50;&#x306F;&#x3001;&#x524D;&#x5F8C;&#x3069;&#x3061;&#x3089;&#x304B;&#x4E00;&#x65B9;&#x306B;&#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;&#x3092;&#x7F6E;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">let</span> num = <span class="hljs-number">1</span>;
+num++;
+<span class="hljs-comment">// &#x307E;&#x305F;&#x306F;</span>
+++num;
+</code></pre>
+<p>&#x3053;&#x306E;&#x3088;&#x3046;&#x306B;1&#x3064;&#x306E;&#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;&#x3092;&#x53D6;&#x308B;&#x6F14;&#x7B97;&#x5B50;&#x3092;<strong>&#x5358;&#x9805;&#x6F14;&#x7B97;&#x5B50;</strong>&#x3068;&#x547C;&#x3073;&#x307E;&#x3059;&#x3002;
+&#x5358;&#x9805;&#x6F14;&#x7B97;&#x5B50;&#x3068;&#x4E8C;&#x9805;&#x6F14;&#x7B97;&#x5B50;&#x3067;&#x540C;&#x3058;&#x8A18;&#x53F7;&#x3092;&#x4F7F;&#x3046;&#x3053;&#x3068;&#x304C;&#x3042;&#x308A;&#x3001;&#x305D;&#x306E;&#x305F;&#x3081;&#x306B;&#x547C;&#x3073;&#x65B9;&#x3092;&#x5909;&#x3048;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x3053;&#x306E;&#x7AE0;&#x3067;&#x306F;&#x3001;&#x6F14;&#x7B97;&#x5B50;&#x3054;&#x3068;&#x306B;&#x305D;&#x306E;&#x6F14;&#x7B97;&#x5B50;&#x306E;&#x51E6;&#x7406;&#x306B;&#x3064;&#x3044;&#x3066;&#x5B66;&#x3093;&#x3067;&#x3044;&#x304D;&#x307E;&#x3059;&#x3002;
+&#x307E;&#x305F;&#x3001;&#x6F14;&#x7B97;&#x5B50;&#x306E;&#x4E2D;&#x3067;&#x3082;&#x6BD4;&#x8F03;&#x6F14;&#x7B97;&#x5B50;&#x306F;&#x3001;JavaScript&#x3067;&#x3082;&#x7279;&#x306B;&#x6319;&#x52D5;&#x304C;&#x7406;&#x89E3;&#x306B;&#x3057;&#x306B;&#x304F;&#x3044;<strong>&#x6697;&#x9ED9;&#x7684;&#x306A;&#x578B;&#x5909;&#x63DB;</strong>&#x3068;&#x3044;&#x3046;&#x554F;&#x984C;&#x3068;&#x5BC6;&#x63A5;&#x306A;&#x95A2;&#x4FC2;&#x304C;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;
+&#x305D;&#x306E;&#x305F;&#x3081;&#x3001;&#x6F14;&#x7B97;&#x5B50;&#x3092;&#x3072;&#x3068;&#x3068;&#x304A;&#x308A;&#x898B;&#x305F;&#x5F8C;&#x306B;&#x3001;&#x6697;&#x9ED9;&#x7684;&#x306A;&#x578B;&#x5909;&#x63DB;&#x3068;&#x660E;&#x793A;&#x7684;&#x306A;&#x578B;&#x5909;&#x63DB;&#x306B;&#x3064;&#x3044;&#x3066;&#x5B66;&#x3093;&#x3067;&#x3044;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<h2 id="binary-operator"><a name="binary-operator" class="plugin-anchor" href="#binary-operator"><i class="fa fa-link" aria-hidden="true"></i></a>&#x4E8C;&#x9805;&#x6F14;&#x7B97;&#x5B50; </h2>
+<p>&#x56DB;&#x5247;&#x6F14;&#x7B97;&#x306A;&#x3069;&#x57FA;&#x672C;&#x7684;&#x306A;&#x4E8C;&#x9805;&#x6F14;&#x7B97;&#x5B50;&#x3092;&#x898B;&#x3066;&#x3044;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<h3 id="plus-operator"><a name="plus-operator" class="plugin-anchor" href="#plus-operator"><i class="fa fa-link" aria-hidden="true"></i></a>&#x30D7;&#x30E9;&#x30B9;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>+</code>&#xFF09; </h3>
+<p>2&#x3064;&#x306E;&#x6570;&#x5024;&#x3092;&#x52A0;&#x7B97;&#x3059;&#x308B;&#x6F14;&#x7B97;&#x5B50;&#x3067;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span> + <span class="hljs-number">1</span>); <span class="hljs-comment">// =&gt; 2</span>
+</code></pre>
+<p>JavaScript&#x3067;&#x306F;&#x3001;&#x6570;&#x5024;&#x306F;&#x5185;&#x90E8;&#x7684;&#x306B;IEEE 754&#x65B9;&#x5F0F;&#x306E;&#x6D6E;&#x52D5;&#x5C0F;&#x6570;&#x70B9;&#x6570;&#x3068;&#x3057;&#x3066;&#x8868;&#x73FE;&#x3055;&#x308C;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;
+&#xFF08; <a href="../data-type/">&#x30C7;&#x30FC;&#x30BF;&#x578B;&#x3068;&#x30EA;&#x30C6;&#x30E9;&#x30EB;</a>&#x3092;&#x53C2;&#x7167;&#xFF09;
+&#x305D;&#x306E;&#x305F;&#x3081;&#x3001;&#x6574;&#x6570;&#x3068;&#x6D6E;&#x52D5;&#x5C0F;&#x6570;&#x70B9;&#x6570;&#x306E;&#x52A0;&#x7B97;&#x3082;&#x30D7;&#x30E9;&#x30B9;&#x6F14;&#x7B97;&#x5B50;&#x3067;&#x884C;&#x3048;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log(<span class="hljs-number">10</span> + <span class="hljs-number">0.5</span>); <span class="hljs-comment">// =&gt; 10.5</span>
+</code></pre>
+<h3 id="minus-operator"><a name="minus-operator" class="plugin-anchor" href="#minus-operator"><i class="fa fa-link" aria-hidden="true"></i></a>&#x30DE;&#x30A4;&#x30CA;&#x30B9;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>-</code>&#xFF09; </h3>
+<p>2&#x3064;&#x306E;&#x6570;&#x5024;&#x3092;&#x6E1B;&#x7B97;&#x3059;&#x308B;&#x6F14;&#x7B97;&#x5B50;&#x3067;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span> - <span class="hljs-number">1</span>); <span class="hljs-comment">// =&gt; 0</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-number">10</span> - <span class="hljs-number">0.5</span>); <span class="hljs-comment">// =&gt; 9.5</span>
+</code></pre>
+<h3 id="multiplication-operator"><a name="multiplication-operator" class="plugin-anchor" href="#multiplication-operator"><i class="fa fa-link" aria-hidden="true"></i></a>&#x4E57;&#x7B97;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>*</code>&#xFF09; </h3>
+<p>2&#x3064;&#x306E;&#x6570;&#x5024;&#x3092;&#x4E57;&#x7B97;&#x3059;&#x308B;&#x6F14;&#x7B97;&#x5B50;&#x3067;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log(<span class="hljs-number">2</span> * <span class="hljs-number">8</span>); <span class="hljs-comment">// =&gt; 16</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-number">10</span> * <span class="hljs-number">0.5</span>); <span class="hljs-comment">// =&gt; 5</span>
+</code></pre>
+<h3 id="division-operator"><a name="division-operator" class="plugin-anchor" href="#division-operator"><i class="fa fa-link" aria-hidden="true"></i></a>&#x9664;&#x7B97;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>/</code>&#xFF09;</h3>
+<p>2&#x3064;&#x306E;&#x6570;&#x5024;&#x3092;&#x9664;&#x7B97;&#x3059;&#x308B;&#x6F14;&#x7B97;&#x5B50;&#x3067;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log(<span class="hljs-number">8</span> / <span class="hljs-number">2</span>); <span class="hljs-comment">// =&gt; 4</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-number">10</span> / <span class="hljs-number">0.5</span>); <span class="hljs-comment">// =&gt; 20</span>
+</code></pre>
+<h3 id="modulus-operator"><a name="modulus-operator" class="plugin-anchor" href="#modulus-operator"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5270;&#x4F59;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>%</code>&#xFF09; </h3>
+<p>2&#x3064;&#x306E;&#x6570;&#x5024;&#x306E;&#x3042;&#x307E;&#x308A;&#x3092;&#x6C42;&#x3081;&#x308B;&#x6F14;&#x7B97;&#x5B50;&#x3067;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log(<span class="hljs-number">8</span> % <span class="hljs-number">2</span>); <span class="hljs-comment">// =&gt; 0</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-number">9</span> % <span class="hljs-number">2</span>); <span class="hljs-comment">// =&gt; 1</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-number">10</span> % <span class="hljs-number">0.5</span>); <span class="hljs-comment">// =&gt; 0</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-number">10</span> % <span class="hljs-number">4.5</span>); <span class="hljs-comment">// =&gt; 1</span>
+</code></pre>
+<h3 id="pow-operator"><a name="pow-operator" class="plugin-anchor" href="#pow-operator"><i class="fa fa-link" aria-hidden="true"></i></a>[ES2016] &#x3079;&#x304D;&#x4E57;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>**</code>&#xFF09; </h3>
+<p>2&#x3064;&#x306E;&#x6570;&#x5024;&#x306E;&#x3079;&#x304D;&#x4E57;&#x3092;&#x6C42;&#x3081;&#x308B;&#x6F14;&#x7B97;&#x5B50;&#x3067;&#x3059;&#x3002;
+&#x5DE6;&#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;&#x3092;&#x53F3;&#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;&#x3067;&#x3079;&#x304D;&#x4E57;&#x3057;&#x305F;&#x5024;&#x3092;&#x8FD4;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-comment">// &#x3079;&#x304D;&#x4E57;&#x6F14;&#x7B97;&#x5B50;&#xFF08;ES2016&#xFF09;&#x3067;2&#x306E;4&#x4E57;&#x3092;&#x8A08;&#x7B97;</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-number">2</span> ** <span class="hljs-number">4</span>); <span class="hljs-comment">// =&gt; 16</span>
+</code></pre>
+<p>&#x3079;&#x304D;&#x4E57;&#x6F14;&#x7B97;&#x5B50;&#x3068;&#x540C;&#x3058;&#x52D5;&#x4F5C;&#x3092;&#x3059;&#x308B;<code>Math.pow</code>&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x304C;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">Math</span>.pow(<span class="hljs-number">2</span>, <span class="hljs-number">4</span>)); <span class="hljs-comment">// =&gt; 16</span>
+</code></pre>
+<p>&#x3079;&#x304D;&#x4E57;&#x6F14;&#x7B97;&#x5B50;&#x306F;ES2016&#x3067;&#x5F8C;&#x304B;&#x3089;&#x8FFD;&#x52A0;&#x3055;&#x308C;&#x305F;&#x6F14;&#x7B97;&#x5B50;&#x3067;&#x3042;&#x308B;&#x305F;&#x3081;&#x3001;&#x95A2;&#x6570;&#x3068;&#x6F14;&#x7B97;&#x5B50;&#x305D;&#x308C;&#x305E;&#x308C;&#x5B58;&#x5728;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;
+&#x4ED6;&#x306E;&#x4E8C;&#x9805;&#x6F14;&#x7B97;&#x5B50;&#x306F;&#x6F14;&#x7B97;&#x5B50;&#x304C;&#x5148;&#x306B;&#x5B58;&#x5728;&#x3057;&#x3066;&#x3044;&#x305F;&#x305F;&#x3081;&#x3001;<code>Math</code>&#x306B;&#x306F;&#x5BFE;&#x5FDC;&#x3059;&#x308B;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x304C;&#x3042;&#x308A;&#x307E;&#x305B;&#x3093;&#x3002;</p>
+<h2 id="unary-operator"><a name="unary-operator" class="plugin-anchor" href="#unary-operator"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5358;&#x9805;&#x6F14;&#x7B97;&#x5B50;&#xFF08;&#x7B97;&#x8853;&#xFF09; </h2>
+<p>&#x5358;&#x9805;&#x6F14;&#x7B97;&#x5B50;&#x306F;&#x3001;1&#x3064;&#x306E;&#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;&#x53D7;&#x3051;&#x53D6;&#x308A;&#x51E6;&#x7406;&#x3059;&#x308B;&#x6F14;&#x7B97;&#x5B50;&#x3067;&#x3059;&#x3002;</p>
+<h3 id="unary-plus-operator"><a name="unary-plus-operator" class="plugin-anchor" href="#unary-plus-operator"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5358;&#x9805;&#x30D7;&#x30E9;&#x30B9;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>+</code>&#xFF09; </h3>
+<p>&#x5358;&#x9805;&#x6F14;&#x7B97;&#x5B50;&#x306E;<code>+</code>&#x306F;&#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;&#x3092;&#x6570;&#x5024;&#x306B;&#x5909;&#x63DB;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x6B21;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x306F;&#x3001;&#x6570;&#x5024;&#x306E;<code>1</code>&#x3092;&#x6570;&#x5024;&#x3078;&#x5909;&#x63DB;&#x3059;&#x308B;&#x305F;&#x3081;&#x3001;&#x7D50;&#x679C;&#x306F;&#x5909;&#x308F;&#x3089;&#x305A;&#x6570;&#x5024;&#x306E;<code>1</code>&#x3067;&#x3059;&#x3002;
+<code>+&#x6570;&#x5024;</code>&#x306E;&#x3088;&#x3046;&#x306B;&#x6570;&#x5024;&#x306B;&#x5BFE;&#x3057;&#x3066;&#x3001;&#x5358;&#x884C;&#x30D7;&#x30E9;&#x30B9;&#x6F14;&#x7B97;&#x5B50;&#x3092;&#x4ED8;&#x3051;&#x308B;&#x30B1;&#x30FC;&#x30B9;&#x306F;&#x307B;&#x307C;&#x7121;&#x3044;&#x3067;&#x3057;&#x3087;&#x3046;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log(+<span class="hljs-number">1</span>); <span class="hljs-comment">// =&gt; 1</span>
+</code></pre>
+<p>&#x307E;&#x305F;&#x3001;&#x5358;&#x9805;&#x30D7;&#x30E9;&#x30B9;&#x6F14;&#x7B97;&#x5B50;&#x306F;&#x3001;&#x6570;&#x5024;&#x4EE5;&#x5916;&#x3082;&#x6570;&#x5024;&#x3078;&#x3068;&#x5909;&#x63DB;&#x3057;&#x307E;&#x3059;&#x3002;
+&#x6B21;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x306F;&#x3001;&#x6570;&#x5B57;&#xFF08;&#x6587;&#x5B57;&#x5217;&#xFF09;&#x3092;&#x6570;&#x5024;&#x3078;&#x5909;&#x63DB;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log(+<span class="hljs-string">&quot;1&quot;</span>); <span class="hljs-comment">// =&gt; 1</span>
+</code></pre>
+<p>&#x4E00;&#x65B9;&#x3001;&#x6570;&#x5024;&#x306B;&#x5909;&#x63DB;&#x3067;&#x304D;&#x306A;&#x3044;&#x6587;&#x5B57;&#x5217;&#x306A;&#x3069;&#x306F;<code>NaN</code>&#x3068;&#x3044;&#x3046;&#x7279;&#x6B8A;&#x306A;&#x5024;&#x3078;&#x3068;&#x5909;&#x63DB;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-comment">// &#x6570;&#x5024;&#x3067;&#x306F;&#x306A;&#x3044;&#x6587;&#x5B57;&#x5217;&#x306F;NaN&#x3068;&#x3044;&#x3046;&#x5024;&#x306B;&#x5909;&#x63DB;&#x3055;&#x308C;&#x308B;</span>
+<span class="hljs-built_in">console</span>.log(+<span class="hljs-string">&quot;&#x6587;&#x5B57;&#x5217;&quot;</span>); <span class="hljs-comment">// =&gt; NaN</span>
+</code></pre>
+<p><code>NaN</code>&#x306F;&quot;Not-a-Number&quot;&#x306E;&#x7565;&#x79F0;&#x3067;&#x3001;&#x6570;&#x5024;&#x3067;&#x306F;&#x306A;&#x3044;&#x304C;Number&#x578B;&#x306E;&#x5024;&#x3092;&#x8868;&#x73FE;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;
+<code>NaN</code>&#x306F;&#x3069;&#x306E;&#x5024;&#x3068;&#x3082;&#xFF08;NaN&#x81EA;&#x8EAB;&#x306B;&#x5BFE;&#x3057;&#x3066;&#x3082;&#xFF09;&#x4E00;&#x81F4;&#x3057;&#x306A;&#x3044;&#x7279;&#x6027;&#x304C;&#x3042;&#x308A;&#x3001;<code>Number.isNaN</code>&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3092;&#x4F7F;&#x3046;&#x3053;&#x3068;&#x3067;<code>NaN</code>&#x306E;&#x5224;&#x5B9A;&#x3092;&#x884C;&#x3048;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-comment">// &#x81EA;&#x5206;&#x81EA;&#x8EAB;&#x3068;&#x3082;&#x4E00;&#x81F4;&#x3057;&#x306A;&#x3044;</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-literal">NaN</span> === <span class="hljs-literal">NaN</span>); <span class="hljs-comment">// =&gt; false</span>
+<span class="hljs-comment">// Number&#x578B;&#x3067;&#x3042;&#x308B;</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">typeof</span> <span class="hljs-literal">NaN</span>); <span class="hljs-comment">// =&gt; &quot;number&quot;</span>
+<span class="hljs-comment">// Number.isNaN&#x3067;NaN&#x304B;&#x3069;&#x3046;&#x304B;&#x3092;&#x5224;&#x5B9A;</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-built_in">Number</span>.isNaN(<span class="hljs-literal">NaN</span>)); <span class="hljs-comment">// =&gt; true</span>
+</code></pre>
+<p>&#x3057;&#x304B;&#x3057;&#x3001;&#x5358;&#x9805;&#x30D7;&#x30E9;&#x30B9;&#x6F14;&#x7B97;&#x5B50;&#x306F;&#x6587;&#x5B57;&#x5217;&#x304B;&#x3089;&#x6570;&#x5024;&#x3078;&#x306E;&#x5909;&#x63DB;&#x306B;&#x4F7F;&#x3046;&#x3079;&#x304D;&#x3067;&#x306F;&#x3042;&#x308A;&#x307E;&#x305B;&#x3093;&#x3002;
+&#x306A;&#x305C;&#x306A;&#x3089;&#x3001;<code>Number</code>&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x95A2;&#x6570;&#x3084;<code>parseInt</code>&#x95A2;&#x6570;&#x306A;&#x3069;&#x306E;&#x660E;&#x793A;&#x7684;&#x306A;&#x5909;&#x63DB;&#x65B9;&#x6CD5;&#x304C;&#x5B58;&#x5728;&#x3059;&#x308B;&#x305F;&#x3081;&#x3067;&#x3059;&#x3002;
+&#x8A73;&#x3057;&#x304F;&#x306F;<a href="../implicit-coercion/README" title="&#x6697;&#x9ED9;&#x7684;&#x306A;&#x578B;&#x5909;&#x63DB;&#x306B;&#x3064;&#x3044;&#x3066;&#x89E3;&#x8AAC;&#x3059;&#x308B;&#x7AE0;">&#x6697;&#x9ED9;&#x7684;&#x306A;&#x578B;&#x5909;&#x63DB;</a>&#x306E;&#x7AE0;&#x3067;&#x89E3;&#x8AAC;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<h3 id="unary-minus-operator"><a name="unary-minus-operator" class="plugin-anchor" href="#unary-minus-operator"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5358;&#x9805;&#x30DE;&#x30A4;&#x30CA;&#x30B9;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>-</code>&#xFF09; </h3>
+<p>&#x5358;&#x9805;&#x30DE;&#x30A4;&#x30CA;&#x30B9;&#x6F14;&#x7B97;&#x5B50;&#x306F;&#x30DE;&#x30A4;&#x30CA;&#x30B9;&#x306E;&#x6570;&#x5024;&#x3092;&#x8A18;&#x8FF0;&#x3059;&#x308B;&#x5834;&#x5408;&#x306B;&#x5229;&#x7528;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x305F;&#x3068;&#x3048;&#x3070;&#x3001;&#x30DE;&#x30A4;&#x30CA;&#x30B9;&#x306E;1&#x3068;&#x3044;&#x3046;&#x6570;&#x5024;&#x3092; <code>-1</code> &#x3068;&#x66F8;&#x304F;&#x3053;&#x3068;&#x304C;&#x3067;&#x304D;&#x308B;&#x306E;&#x306F;&#x3001;&#x5358;&#x9805;&#x30DE;&#x30A4;&#x30CA;&#x30B9;&#x6F14;&#x7B97;&#x5B50;&#x3092;&#x5229;&#x7528;&#x3057;&#x3066;&#x3044;&#x308B;&#x304B;&#x3089;&#x3067;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log(<span class="hljs-number">-1</span>); <span class="hljs-comment">// =&gt; -1</span>
+</code></pre>
+<p>&#x307E;&#x305F;&#x3001;&#x5358;&#x9805;&#x30DE;&#x30A4;&#x30CA;&#x30B9;&#x6F14;&#x7B97;&#x5B50;&#x306F;&#x30DE;&#x30A4;&#x30CA;&#x30B9;&#x306E;&#x6570;&#x5024;&#x3092;&#x53CD;&#x8EE2;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;
+&#x305D;&#x306E;&#x305F;&#x3081;&#x3001;&quot;&#x30DE;&#x30A4;&#x30CA;&#x30B9;&#x306E;&#x30DE;&#x30A4;&#x30CA;&#x30B9;&#x306E;&#x6570;&#x5024;&quot;&#x306F;&#x30D7;&#x30E9;&#x30B9;&#x306E;&#x6570;&#x5024;&#x3068;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log(-(<span class="hljs-number">-1</span>)); <span class="hljs-comment">// =&gt; 1</span>
+</code></pre>
+<p>&#x5358;&#x9805;&#x30DE;&#x30A4;&#x30CA;&#x30B9;&#x6F14;&#x7B97;&#x5B50;&#x3082;&#x6587;&#x5B57;&#x5217;&#x306A;&#x3069;&#x3092;&#x6570;&#x5024;&#x3078;&#x5909;&#x63DB;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log(-<span class="hljs-string">&quot;1&quot;</span>); <span class="hljs-comment">// =&gt; -1</span>
+</code></pre>
+<p>&#x307E;&#x305F;&#x3001;&#x6570;&#x5024;&#x3078;&#x5909;&#x63DB;&#x3067;&#x304D;&#x306A;&#x3044;&#x6587;&#x5B57;&#x5217;&#x306A;&#x3069;&#x3092;&#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;&#x306B;&#x6307;&#x5B9A;&#x3057;&#x305F;&#x5834;&#x5408;&#x306F;&#x3001;<code>NaN</code>&#x3068;&#x3044;&#x3046;&#x7279;&#x6B8A;&#x306A;&#x5024;&#x306B;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;
+&#x305D;&#x306E;&#x305F;&#x3081;&#x3001;&#x5358;&#x9805;&#x30D7;&#x30E9;&#x30B9;&#x6F14;&#x7B97;&#x5B50;&#x3068;&#x540C;&#x3058;&#x304F;&#x3001;&#x6587;&#x5B57;&#x5217;&#x304B;&#x3089;&#x6570;&#x5024;&#x3078;&#x306E;&#x5909;&#x63DB;&#x306B;&#x5358;&#x884C;&#x30DE;&#x30A4;&#x30CA;&#x30B9;&#x6F14;&#x7B97;&#x5B50;&#x3092;&#x4F7F;&#x3046;&#x3079;&#x304D;&#x3067;&#x306F;&#x3042;&#x308A;&#x307E;&#x305B;&#x3093;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log(-<span class="hljs-string">&quot;&#x6587;&#x5B57;&#x5217;&quot;</span>); <span class="hljs-comment">// =&gt; NaN</span>
+</code></pre>
+<h3 id="increment-operator"><a name="increment-operator" class="plugin-anchor" href="#increment-operator"><i class="fa fa-link" aria-hidden="true"></i></a>&#x30A4;&#x30F3;&#x30AF;&#x30EA;&#x30E1;&#x30F3;&#x30C8;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>++</code>&#xFF09; </h3>
+<p>&#x30A4;&#x30F3;&#x30AF;&#x30EA;&#x30E1;&#x30F3;&#x30C8;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>++</code>&#xFF09;&#x306F;&#x3001;&#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;&#x306E;&#x6570;&#x5024;&#x3092;<code>+1</code>&#x3059;&#x308B;&#x6F14;&#x7B97;&#x5B50;&#x3067;&#x3059;&#x3002;
+&#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;&#x306E;&#x524D;&#x5F8C;&#x3069;&#x3061;&#x3089;&#x304B;&#x306B;&#x30A4;&#x30F3;&#x30AF;&#x30EA;&#x30E1;&#x30F3;&#x30C8;&#x6F14;&#x7B97;&#x5B50;&#x3092;&#x304A;&#x304F;&#x3053;&#x3068;&#x3067;&#x3001;&#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;&#x306B;&#x5BFE;&#x3057;&#x3066;&#x5024;&#x3092;<code>+1</code>&#x3057;&#x305F;&#x5024;&#x3092;&#x8FD4;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-keyword">let</span> num = <span class="hljs-number">1</span>;
+num++;
+<span class="hljs-built_in">console</span>.log(num); <span class="hljs-comment">// =&gt; 2</span>
+<span class="hljs-comment">// &#x6B21;&#x306E;&#x3088;&#x3046;&#x306B;&#x3057;&#x305F;&#x5834;&#x5408;&#x3068;&#x7D50;&#x679C;&#x306F;&#x540C;&#x3058;</span>
+<span class="hljs-comment">// num = num + 1;</span>
+</code></pre>
+<p>&#x30A4;&#x30F3;&#x30AF;&#x30EA;&#x30E1;&#x30F3;&#x30C8;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>++</code>&#xFF09;&#x306F;&#x3001;&#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;&#x306E;&#x5F8C;&#x308D;&#x306B;&#x7F6E;&#x304F;&#x304B;&#x524D;&#x306B;&#x7F6E;&#x304F;&#x304B;&#x3067;&#x3001;&#x305D;&#x308C;&#x305E;&#x308C;&#x3067;&#x8A55;&#x4FA1;&#x306E;&#x9806;&#x756A;&#x304C;&#x7570;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x5F8C;&#x7F6E;&#x30A4;&#x30F3;&#x30AF;&#x30EA;&#x30E1;&#x30F3;&#x30C8;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>num++</code>&#xFF09;&#x306F;&#x3001;&#x6B21;&#x306E;&#x3088;&#x3046;&#x306A;&#x9806;&#x3067;&#x51E6;&#x7406;&#x304C;&#x884C;&#x308F;&#x308C;&#x307E;&#x3059;&#x3002;</p>
+<ol>
+<li><code>num</code>&#x306E;&#x8A55;&#x4FA1;&#x7D50;&#x679C;&#x3092;&#x8FD4;&#x3059;</li>
+<li><code>num</code>&#x306B;&#x5BFE;&#x3057;&#x3066;<code>+1</code>&#x3059;&#x308B;</li>
+</ol>
+<p>&#x305D;&#x306E;&#x305F;&#x3081;&#x3001;<code>num++</code>&#x304C;&#x8FD4;&#x3059;&#x5024;&#x306F;<code>+1</code>&#x3059;&#x308B;&#x524D;&#x306E;&#x5024;&#x3068;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-keyword">let</span> x = <span class="hljs-number">1</span>;
+<span class="hljs-built_in">console</span>.log(x++); <span class="hljs-comment">// =&gt; 1</span>
+<span class="hljs-built_in">console</span>.log(x);   <span class="hljs-comment">// =&gt; 2</span>
+</code></pre>
+<p>&#x4E00;&#x65B9;&#x3001;&#x524D;&#x7F6E;&#x30A4;&#x30F3;&#x30AF;&#x30EA;&#x30E1;&#x30F3;&#x30C8;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>++num</code>&#xFF09;&#x306F;&#x3001;&#x6B21;&#x306E;&#x3088;&#x3046;&#x306A;&#x9806;&#x3067;&#x51E6;&#x7406;&#x304C;&#x884C;&#x308F;&#x308C;&#x307E;&#x3059;&#x3002;</p>
+<ol>
+<li><code>num</code>&#x306B;&#x5BFE;&#x3057;&#x3066;<code>+1</code>&#x3059;&#x308B;</li>
+<li><code>num</code>&#x306E;&#x8A55;&#x4FA1;&#x7D50;&#x679C;&#x3092;&#x8FD4;&#x3059;</li>
+</ol>
+<p>&#x305D;&#x306E;&#x305F;&#x3081;&#x3001;<code>++num</code>&#x304C;&#x8FD4;&#x3059;&#x5024;&#x306F;<code>+1</code>&#x3057;&#x305F;&#x5F8C;&#x306E;&#x5024;&#x3068;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-keyword">let</span> x = <span class="hljs-number">1</span>;
+<span class="hljs-built_in">console</span>.log(++x); <span class="hljs-comment">// =&gt; 2</span>
+<span class="hljs-built_in">console</span>.log(x);   <span class="hljs-comment">// =&gt; 2</span>
+</code></pre>
+<p>&#x3053;&#x306E;2&#x3064;&#x306E;&#x4F7F;&#x3044;&#x5206;&#x3051;&#x304C;&#x5FC5;&#x8981;&#x3068;&#x306A;&#x308B;&#x5834;&#x9762;&#x306F;&#x591A;&#x304F;&#x3042;&#x308A;&#x307E;&#x305B;&#x3093;&#x3002;
+&#x305D;&#x306E;&#x305F;&#x3081;&#x3001;&#x8A55;&#x4FA1;&#x306E;&#x9806;&#x756A;&#x304C;&#x7570;&#x306A;&#x308B;&#x3053;&#x3068;&#x3060;&#x3051;&#x3092;&#x899A;&#x3048;&#x3066;&#x304A;&#x3051;&#x3070;&#x554F;&#x984C;&#x306A;&#x3044;&#x3068;&#x3044;&#x3048;&#x307E;&#x3059;&#x3002;</p>
+<h3 id="decrement-operator"><a name="decrement-operator" class="plugin-anchor" href="#decrement-operator"><i class="fa fa-link" aria-hidden="true"></i></a>&#x30C7;&#x30AF;&#x30EA;&#x30E1;&#x30F3;&#x30C8;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>--</code>&#xFF09; </h3>
+<p>&#x30C7;&#x30AF;&#x30EA;&#x30E1;&#x30F3;&#x30C8;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>--</code>&#xFF09;&#x306F;&#x3001;&#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;&#x306E;&#x6570;&#x5024;&#x3092;<code>-1</code>&#x3059;&#x308B;&#x6F14;&#x7B97;&#x5B50;&#x3067;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-keyword">let</span> num = <span class="hljs-number">1</span>;
+num--;
+<span class="hljs-built_in">console</span>.log(num); <span class="hljs-comment">// =&gt; 0</span>
+<span class="hljs-comment">// &#x6B21;&#x306E;&#x3088;&#x3046;&#x306B;&#x3057;&#x305F;&#x5834;&#x5408;&#x3068;&#x7D50;&#x679C;&#x306F;&#x540C;&#x3058;</span>
+<span class="hljs-comment">// num = num - 1;</span>
+</code></pre>
+<p>&#x30C7;&#x30AF;&#x30EA;&#x30E1;&#x30F3;&#x30C8;&#x6F14;&#x7B97;&#x5B50;&#x306F;&#x3001;&#x30A4;&#x30F3;&#x30AF;&#x30EA;&#x30E1;&#x30F3;&#x30C8;&#x6F14;&#x7B97;&#x5B50;&#x3068;&#x540C;&#x69D8;&#x306B;&#x3001;&#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;&#x306E;&#x524D;&#x5F8C;&#x306E;&#x3069;&#x3061;&#x3089;&#x304B;&#x306B;&#x7F6E;&#x304F;&#x3053;&#x3068;&#x304C;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;
+&#x30C7;&#x30AF;&#x30EA;&#x30E1;&#x30F3;&#x30C8;&#x6F14;&#x7B97;&#x5B50;&#x3082;&#x3001;&#x524D;&#x5F8C;&#x3069;&#x3061;&#x3089;&#x306B;&#x7F6E;&#x304F;&#x304B;&#x3067;&#x306E;&#x8A55;&#x4FA1;&#x306E;&#x9806;&#x756A;&#x304C;&#x5909;&#x308F;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-comment">// &#x5F8C;&#x7F6E;&#x30C7;&#x30AF;&#x30EA;&#x30E1;&#x30F3;&#x30C8;&#x6F14;&#x7B97;&#x5B50;</span>
+<span class="hljs-keyword">let</span> x = <span class="hljs-number">1</span>;
+<span class="hljs-built_in">console</span>.log(x--); <span class="hljs-comment">// =&gt; 1</span>
+<span class="hljs-built_in">console</span>.log(x);   <span class="hljs-comment">// =&gt; 0</span>
+<span class="hljs-comment">// &#x524D;&#x7F6E;&#x30C7;&#x30AF;&#x30EA;&#x30E1;&#x30F3;&#x30C8;&#x6F14;&#x7B97;&#x5B50;</span>
+<span class="hljs-keyword">let</span> y = <span class="hljs-number">1</span>;
+<span class="hljs-built_in">console</span>.log(--y); <span class="hljs-comment">// =&gt; 0</span>
+<span class="hljs-built_in">console</span>.log(y);   <span class="hljs-comment">// =&gt; 0</span>
+</code></pre>
+<h2 id="comparison-operator"><a name="comparison-operator" class="plugin-anchor" href="#comparison-operator"><i class="fa fa-link" aria-hidden="true"></i></a>&#x6BD4;&#x8F03;&#x6F14;&#x7B97;&#x5B50; </h2>
+<p>&#x6BD4;&#x8F03;&#x6F14;&#x7B97;&#x5B50;&#x306F;&#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;&#x540C;&#x58EB;&#x306E;&#x5024;&#x3092;&#x6BD4;&#x8F03;&#x3057;&#x3001;&#x771F;&#x507D;&#x5024;&#x3092;&#x8FD4;&#x3059;&#x6F14;&#x7B97;&#x5B50;&#x3067;&#x3059;&#x3002;</p>
+<h3 id="strict-equal-operator"><a name="strict-equal-operator" class="plugin-anchor" href="#strict-equal-operator"><i class="fa fa-link" aria-hidden="true"></i></a>&#x53B3;&#x5BC6;&#x7B49;&#x4FA1;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>===</code>&#xFF09; </h3>
+<p>&#x53B3;&#x5BC6;&#x7B49;&#x4FA1;&#x6F14;&#x7B97;&#x5B50;&#x306F;&#x3001;&#x5DE6;&#x53F3;&#x306E;2&#x3064;&#x306E;&#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;&#x3092;&#x6BD4;&#x8F03;&#x3057;&#x307E;&#x3059;&#x3002;
+&#x540C;&#x3058;&#x578B;&#x3067;&#x540C;&#x3058;&#x5024;&#x3067;&#x3042;&#x308B;&#x5834;&#x5408;&#x306B;&#x3001;<code>true</code>&#x3092;&#x8FD4;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span> === <span class="hljs-number">1</span>); <span class="hljs-comment">// =&gt; true</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span> === <span class="hljs-string">&quot;1&quot;</span>); <span class="hljs-comment">// =&gt; false</span>
+</code></pre>
+<p>&#x307E;&#x305F;&#x3001;&#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;&#x304C;&#x3069;&#x3061;&#x3089;&#x3082;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x3067;&#x3042;&#x308B;&#x6642;&#x306F;&#x3001;
+&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;&#x53C2;&#x7167;&#x304C;&#x540C;&#x3058;&#x3067;&#x3042;&#x308B;&#x5834;&#x5408;&#x306B;&#x3001;<code>true</code>&#x3092;&#x8FD4;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x6B21;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x306F;&#x3001;&#x7A7A;&#x306E;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x30EA;&#x30C6;&#x30E9;&#x30EB;(<code>{}</code>)&#x540C;&#x58EB;&#x3092;&#x6BD4;&#x8F03;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;
+&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x30EA;&#x30C6;&#x30E9;&#x30EB;&#x306F;&#x3001;&#x65B0;&#x3057;&#x3044;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x3092;&#x4F5C;&#x6210;&#x3057;&#x307E;&#x3059;&#x3002;
+&#x305D;&#x306E;&#x305F;&#x3081;&#x3001;&#x7570;&#x306A;&#x308B;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x3092;&#x53C2;&#x7167;&#x3059;&#x308B;&#x5909;&#x6570;&#x3092;<code>===</code>&#x3067;&#x6BD4;&#x8F03;&#x3059;&#x308B;&#x3068;<code>false</code>&#x3092;&#x8FD4;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-comment">// {} &#x306F;&#x65B0;&#x3057;&#x3044;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x3092;&#x4F5C;&#x6210;&#x3057;&#x3066;&#x3044;&#x308B;</span>
+<span class="hljs-keyword">const</span> objA = {};
+<span class="hljs-keyword">const</span> objB = {};
+<span class="hljs-comment">// &#x751F;&#x6210;&#x3055;&#x308C;&#x305F;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306F;&#x7570;&#x306A;&#x308B;&#x53C2;&#x7167;&#x3068;&#x306A;&#x308B;</span>
+<span class="hljs-built_in">console</span>.log(objA === objB); <span class="hljs-comment">// =&gt; false</span>
+<span class="hljs-comment">// &#x540C;&#x3058;&#x53C2;&#x7167;&#x3092;&#x6BD4;&#x8F03;&#x3057;&#x3066;&#x3044;&#x308B;&#x5834;&#x5408;</span>
+<span class="hljs-built_in">console</span>.log(objA === objA); <span class="hljs-comment">// =&gt; true</span>
+</code></pre>
+<h3 id="strict-not-equal-operator"><a name="strict-not-equal-operator" class="plugin-anchor" href="#strict-not-equal-operator"><i class="fa fa-link" aria-hidden="true"></i></a>&#x53B3;&#x5BC6;&#x4E0D;&#x7B49;&#x4FA1;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>!==</code>&#xFF09;</h3>
+<p>&#x53B3;&#x5BC6;&#x4E0D;&#x7B49;&#x4FA1;&#x6F14;&#x7B97;&#x5B50;&#x306F;&#x3001;&#x5DE6;&#x53F3;&#x306E;2&#x3064;&#x306E;&#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;&#x3092;&#x6BD4;&#x8F03;&#x3057;&#x307E;&#x3059;&#x3002;
+&#x7570;&#x306A;&#x308B;&#x578B;&#x307E;&#x305F;&#x306F;&#x7570;&#x306A;&#x308B;&#x5024;&#x3067;&#x3042;&#x308B;&#x5834;&#x5408;&#x306B;&#x3001;<code>true</code>&#x3092;&#x8FD4;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span> !== <span class="hljs-number">1</span>); <span class="hljs-comment">// =&gt; false</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span> !== <span class="hljs-string">&quot;1&quot;</span>); <span class="hljs-comment">// =&gt; true</span>
+</code></pre>
+<p><code>===</code>&#x3092;&#x53CD;&#x8EE2;&#x3057;&#x305F;&#x7D50;&#x679C;&#x3092;&#x8FD4;&#x3059;&#x6F14;&#x7B97;&#x5B50;&#x3068;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<h3 id="equal-operator"><a name="equal-operator" class="plugin-anchor" href="#equal-operator"><i class="fa fa-link" aria-hidden="true"></i></a>&#x7B49;&#x4FA1;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>==</code>&#xFF09;</h3>
+<p>&#x7B49;&#x4FA1;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>==</code>&#xFF09;&#x306F;&#x3001;2&#x3064;&#x306E;&#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;&#x3092;&#x6BD4;&#x8F03;&#x3057;&#x307E;&#x3059;&#x3002;
+&#x540C;&#x3058;&#x30C7;&#x30FC;&#x30BF;&#x578B;&#x306E;&#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;&#x3092;&#x6BD4;&#x8F03;&#x3059;&#x308B;&#x5834;&#x5408;&#x306F;&#x3001;&#x53B3;&#x5BC6;&#x7B49;&#x4FA1;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>===</code>&#xFF09;&#x3068;&#x540C;&#x3058;&#x7D50;&#x679C;&#x306B;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span> == <span class="hljs-number">1</span>); <span class="hljs-comment">// =&gt; true</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;str&quot;</span> == <span class="hljs-string">&quot;str&quot;</span>); <span class="hljs-comment">// =&gt; true</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;JavaScript&quot;</span> == <span class="hljs-string">&quot;ECMAScript&quot;</span>); <span class="hljs-comment">// =&gt; false</span>
+<span class="hljs-comment">// &#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306F;&#x53C2;&#x7167;&#x304C;&#x4E00;&#x81F4;&#x3057;&#x3066;&#x3044;&#x308B;&#x306A;&#x3089;true&#x3092;&#x8FD4;&#x3059;</span>
+<span class="hljs-comment">// {} &#x306F;&#x65B0;&#x3057;&#x3044;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x3092;&#x4F5C;&#x6210;&#x3057;&#x3066;&#x3044;&#x308B;</span>
+<span class="hljs-keyword">const</span> objA = {};
+<span class="hljs-keyword">const</span> objB = {};
+<span class="hljs-built_in">console</span>.log(objA == objB); <span class="hljs-comment">// =&gt; false</span>
+<span class="hljs-built_in">console</span>.log(objA == objA); <span class="hljs-comment">// =&gt; true</span>
+</code></pre>
+<p>&#x3057;&#x304B;&#x3057;&#x3001;&#x7B49;&#x4FA1;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>==</code>&#xFF09;&#x306F;&#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;&#x540C;&#x58EB;&#x304C;&#x7570;&#x306A;&#x308B;&#x578B;&#x306E;&#x5024;&#x3067;&#x3042;&#x3063;&#x305F;&#x5834;&#x5408;&#x306B;&#x3001;
+&#x540C;&#x3058;&#x578B;&#x3068;&#x306A;&#x308B;&#x3088;&#x3046;&#x306B;<strong>&#x6697;&#x9ED9;&#x7684;&#x306A;&#x578B;&#x5909;&#x63DB;</strong>&#x3057;&#x3066;&#x304B;&#x3089;&#x6BD4;&#x8F03;&#x3092;&#x884C;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x305D;&#x306E;&#x305F;&#x3081;&#x3001;&#x6B21;&#x306E;&#x3088;&#x3046;&#x306A;&#x3001;&#x898B;&#x305F;&#x76EE;&#x304B;&#x3089;&#x306F;&#x7D50;&#x679C;&#x3092;&#x4E88;&#x6E2C;&#x3067;&#x304D;&#x306A;&#x3044;&#x6319;&#x52D5;&#x304C;&#x591A;&#x304F;&#x5B58;&#x5728;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-comment">// &#x6587;&#x5B57;&#x5217;&#x3092;&#x6570;&#x5024;&#x306B;&#x5909;&#x63DB;&#x3057;&#x3066;&#x304B;&#x3089;&#x6BD4;&#x8F03;</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span> == <span class="hljs-string">&quot;1&quot;</span>); <span class="hljs-comment">// =&gt; true</span>
+<span class="hljs-comment">// &quot;01&quot;&#x3092;&#x6570;&#x5024;&#x306B;&#x3059;&#x308B;&#x3068;`1`&#x3068;&#x306A;&#x308B;</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span> == <span class="hljs-string">&quot;01&quot;</span>); <span class="hljs-comment">// =&gt; true</span>
+<span class="hljs-comment">// &#x771F;&#x507D;&#x5024;&#x3092;&#x6570;&#x5024;&#x306B;&#x5909;&#x63DB;&#x3057;&#x3066;&#x304B;&#x3089;&#x6BD4;&#x8F03;</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-number">0</span> == <span class="hljs-literal">false</span>); <span class="hljs-comment">// =&gt; true</span>
+<span class="hljs-comment">// null&#x306E;&#x6BD4;&#x8F03;&#x306F;false&#x3092;&#x8FD4;&#x3059;</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-number">0</span> == <span class="hljs-literal">null</span>); <span class="hljs-comment">// =&gt; false</span>
+<span class="hljs-comment">// null&#x3068;undefeined&#x306E;&#x6BD4;&#x8F03;&#x306F;&#x5E38;&#x306B;true&#x3092;&#x8FD4;&#x3059;</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-literal">null</span> == <span class="hljs-literal">undefined</span>); <span class="hljs-comment">// =&gt; true</span>
+</code></pre>
+<p>&#x610F;&#x56F3;&#x3057;&#x306A;&#x3044;&#x6319;&#x52D5;&#x3068;&#x306A;&#x308B;&#x3053;&#x3068;&#x304C;&#x3042;&#x308B;&#x305F;&#x3081;&#x3001;&#x6697;&#x9ED9;&#x7684;&#x306A;&#x578B;&#x5909;&#x63DB;&#x304C;&#x884C;&#x308F;&#x308C;&#x308B;&#x7B49;&#x4FA1;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>==</code>&#xFF09;&#x3092;&#x4F7F;&#x3046;&#x3079;&#x304D;&#x3067;&#x306F;&#x3042;&#x308A;&#x307E;&#x305B;&#x3093;&#x3002;
+&#x4EE3;&#x308F;&#x308A;&#x306B;&#x3001;&#x53B3;&#x5BC6;&#x7B49;&#x4FA1;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>===</code>&#xFF09;&#x3092;&#x4F7F;&#x3044;&#x3001;&#x7570;&#x306A;&#x308B;&#x578B;&#x3092;&#x6BD4;&#x8F03;&#x3057;&#x305F;&#x3044;&#x5834;&#x5408;&#x306F;&#x660E;&#x793A;&#x7684;&#x306B;&#x578B;&#x3092;&#x5408;&#x308F;&#x305B;&#x308B;&#x3079;&#x304D;&#x3067;&#x3059;&#x3002;</p>
+<p>&#x4F8B;&#x5916;&#x7684;&#x306B;&#x3001;&#x7B49;&#x4FA1;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>==</code>&#xFF09;&#x304C;&#x4F7F;&#x308F;&#x308C;&#x308B;&#x30B1;&#x30FC;&#x30B9;&#x3068;&#x3057;&#x3066;&#x3001;<code>null</code>&#x3068;<code>undefined</code>&#x306E;&#x6BD4;&#x8F03;&#x304C;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x6B21;&#x306E;&#x3088;&#x3046;&#x306B;&#x3001;&#x6BD4;&#x8F03;&#x3057;&#x305F;&#x3044;&#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;&#x304C; <code>null</code> &#x307E;&#x305F;&#x306F; <code>undefined</code> &#x3067;&#x3042;&#x308B;&#x3053;&#x3068;&#x3092;&#x5224;&#x5B9A;&#x3057;&#x305F;&#x3044;&#x5834;&#x5408;&#x306B;&#x3001;
+&#x53B3;&#x5BC6;&#x7B49;&#x4FA1;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>===</code>&#xFF09;&#x3067;&#x306F;2&#x5EA6;&#x6BD4;&#x8F03;&#x3059;&#x308B;&#x5FC5;&#x8981;&#x304C;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;
+&#x7B49;&#x4FA1;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>==</code>&#xFF09;&#x3067;&#x306F;<code>null</code>&#x3068;<code>undefined</code>&#x306E;&#x6BD4;&#x8F03;&#x7D50;&#x679C;&#x306F;<code>true</code>&#x3068;&#x306A;&#x308B;&#x305F;&#x3081;&#x3001;&#x4E00;&#x5EA6;&#x306E;&#x6BD4;&#x8F03;&#x3067;&#x3088;&#x304F;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> value = <span class="hljs-literal">undefined</span>; <span class="hljs-comment">/* &#x307E;&#x305F;&#x306F; null */</span>
+<span class="hljs-comment">// === &#x3067;&#x306F;2&#x3064;&#x306E;&#x5024;&#x3068;&#x6BD4;&#x8F03;&#x3057;&#x306A;&#x3044;&#x3068;&#x3044;&#x3051;&#x306A;&#x3044;</span>
+<span class="hljs-keyword">if</span> (value === <span class="hljs-literal">null</span> || value === <span class="hljs-literal">undefined</span>) {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;value&#x304C;null&#x307E;&#x305F;&#x306F;undefined&#x3067;&#x3042;&#x308B;&#x5834;&#x5408;&#x306E;&#x51E6;&#x7406;&quot;</span>);
+}
+<span class="hljs-comment">// == &#x3067;&#x306F; null &#x3068;&#x6BD4;&#x8F03;&#x3059;&#x308B;&#x3060;&#x3051;&#x3067;&#x3088;&#x3044;</span>
+<span class="hljs-keyword">if</span> (value == <span class="hljs-literal">null</span>) {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;value&#x304C;null&#x307E;&#x305F;&#x306F;undefined&#x3067;&#x3042;&#x308B;&#x5834;&#x5408;&#x306E;&#x51E6;&#x7406;&quot;</span>);
+}
+</code></pre>
+<p>&#x3053;&#x306E;&#x3088;&#x3046;&#x306B;&#x7B49;&#x4FA1;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>==</code>&#xFF09;&#x3092;&#x4F7F;&#x3046;&#x4F8B;&#x5916;&#x7684;&#x306A;&#x30B1;&#x30FC;&#x30B9;&#x306F;&#x3042;&#x308A;&#x307E;&#x3059;&#x304C;&#x3001;
+&#x57FA;&#x672C;&#x7684;&#x306B;&#x7B49;&#x4FA1;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>==</code>&#xFF09;&#x306F;<a href="../implicit-coercion/README" title="&#x6697;&#x9ED9;&#x7684;&#x306A;&#x578B;&#x5909;&#x63DB;&#x306B;&#x3064;&#x3044;&#x3066;&#x89E3;&#x8AAC;&#x3059;&#x308B;&#x7AE0;">&#x6697;&#x9ED9;&#x7684;&#x306A;&#x578B;&#x5909;&#x63DB;</a>&#x3092;&#x884C;&#x3046;&#x305F;&#x3081;&#x30D0;&#x30B0;&#x3092;&#x5F15;&#x304D;&#x8D77;&#x3053;&#x3057;&#x3084;&#x3059;&#x3044;&#x3067;&#x3059;&#x3002;
+&#x305D;&#x306E;&#x305F;&#x3081;&#x3001;&#x4ED5;&#x7D44;&#x307F;&#x3092;&#x7406;&#x89E3;&#x3059;&#x308B;&#x307E;&#x3067;&#x306F;&#x5E38;&#x306B;&#x53B3;&#x5BC6;&#x7B49;&#x4FA1;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>===</code>&#xFF09;&#x3092;&#x5229;&#x7528;&#x3059;&#x308B;&#x3053;&#x3068;&#x3092;&#x63A8;&#x5968;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<h3 id="not-equal-operator"><a name="not-equal-operator" class="plugin-anchor" href="#not-equal-operator"><i class="fa fa-link" aria-hidden="true"></i></a>&#x4E0D;&#x7B49;&#x4FA1;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>!=</code>&#xFF09; </h3>
+<p>&#x4E0D;&#x7B49;&#x4FA1;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>!=</code>&#xFF09;&#x306F;&#x3001;2&#x3064;&#x306E;&#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;&#x3092;&#x6BD4;&#x8F03;&#x3057;&#x3001;&#x7B49;&#x3057;&#x304F;&#x306A;&#x3044;&#x306A;&#x3089;<code>true</code>&#x3092;&#x8FD4;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span> != <span class="hljs-number">1</span>); <span class="hljs-comment">// =&gt; false</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;str&quot;</span> != <span class="hljs-string">&quot;str&quot;</span>); <span class="hljs-comment">// =&gt; false</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;JavaScript&quot;</span> != <span class="hljs-string">&quot;ECMAScript&quot;</span>); <span class="hljs-comment">// =&gt; true</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-literal">true</span> != <span class="hljs-literal">true</span>);<span class="hljs-comment">// =&gt; false</span>
+<span class="hljs-comment">// &#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306F;&#x53C2;&#x7167;&#x304C;&#x4E00;&#x81F4;&#x3057;&#x3066;&#x3044;&#x306A;&#x3044;&#x306A;&#x3089;true&#x3092;&#x8FD4;&#x3059;</span>
+<span class="hljs-keyword">const</span> objA = {};
+<span class="hljs-keyword">const</span> objB = {};
+<span class="hljs-built_in">console</span>.log(objA != objB); <span class="hljs-comment">// =&gt; true</span>
+<span class="hljs-built_in">console</span>.log(objA != objA); <span class="hljs-comment">// =&gt; false</span>
+</code></pre>
+<p>&#x4E0D;&#x7B49;&#x4FA1;&#x6F14;&#x7B97;&#x5B50;&#x3082;&#x3001;&#x7B49;&#x4FA1;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>==</code>&#xFF09;&#x3068;&#x540C;&#x69D8;&#x306B;&#x7570;&#x306A;&#x308B;&#x578B;&#x306E;&#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;&#x3092;&#x6BD4;&#x8F03;&#x3059;&#x308B;&#x969B;&#x306B;&#x3001;&#x6697;&#x9ED9;&#x7684;&#x306A;&#x578B;&#x5909;&#x63DB;&#x3092;&#x884C;&#x3063;&#x3066;&#x304B;&#x3089;&#x6BD4;&#x8F03;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span> != <span class="hljs-string">&quot;1&quot;</span>); <span class="hljs-comment">// =&gt; false</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-number">0</span> != <span class="hljs-literal">false</span>); <span class="hljs-comment">// =&gt; false</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-number">0</span> != <span class="hljs-literal">null</span>); <span class="hljs-comment">// =&gt; true</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-literal">null</span> != <span class="hljs-literal">undefined</span>); <span class="hljs-comment">// =&gt; false</span>
+</code></pre>
+<p>&#x305D;&#x306E;&#x305F;&#x3081;&#x3001;&#x4E0D;&#x7B49;&#x4FA1;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>!=</code>&#xFF09;&#x306F;&#x3001;&#x5229;&#x7528;&#x3059;&#x308B;&#x3079;&#x304D;&#x3067;&#x306F;&#x3042;&#x308A;&#x307E;&#x305B;&#x3093;&#x3002;
+&#x4EE3;&#x308F;&#x308A;&#x306B;&#x6697;&#x9ED9;&#x7684;&#x306A;&#x578B;&#x5909;&#x63DB;&#x3092;&#x884C;&#x308F;&#x306A;&#x3044;&#x53B3;&#x5BC6;&#x4E0D;&#x7B49;&#x4FA1;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>!==</code>&#xFF09;&#x3092;&#x5229;&#x7528;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<h3 id="more-than"><a name="more-than" class="plugin-anchor" href="#more-than"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5927;&#x306A;&#x308A;&#x6F14;&#x7B97;&#x5B50;/&#x3088;&#x308A;&#x5927;&#x304D;&#x3044;&#xFF08;<code>&gt;</code>&#xFF09; </h3>
+<p>&#x5927;&#x306A;&#x308A;&#x6F14;&#x7B97;&#x5B50;&#x306F;&#x3001;&#x5DE6;&#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;&#x304C;&#x53F3;&#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;&#x3088;&#x308A;&#x5927;&#x304D;&#x3044;&#x306A;&#x3089;&#x3070;&#x3001;<code>true</code>&#x3092;&#x8FD4;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log(<span class="hljs-number">42</span> &gt; <span class="hljs-number">21</span>); <span class="hljs-comment">// =&gt; true</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-number">42</span> &gt; <span class="hljs-number">42</span>); <span class="hljs-comment">// =&gt; false</span>
+</code></pre>
+<h3 id="more-than-equal"><a name="more-than-equal" class="plugin-anchor" href="#more-than-equal"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5927;&#x306A;&#x308A;&#x30A4;&#x30B3;&#x30FC;&#x30EB;&#x6F14;&#x7B97;&#x5B50;/&#x4EE5;&#x4E0A;&#xFF08;<code>&gt;=</code>&#xFF09;</h3>
+<p>&#x5927;&#x306A;&#x308A;&#x30A4;&#x30B3;&#x30FC;&#x30EB;&#x6F14;&#x7B97;&#x5B50;&#x306F;&#x3001;&#x5DE6;&#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;&#x304C;&#x53F3;&#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;&#x3088;&#x308A;&#x5927;&#x304D;&#x3044;&#x307E;&#x305F;&#x306F;&#x7B49;&#x3057;&#x3044;&#x306A;&#x3089;&#x3070;&#x3001;<code>true</code>&#x3092;&#x8FD4;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log(<span class="hljs-number">42</span> &gt;= <span class="hljs-number">21</span>); <span class="hljs-comment">// =&gt; true</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-number">42</span> &gt;= <span class="hljs-number">42</span>); <span class="hljs-comment">// =&gt; true</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-number">42</span> &gt;= <span class="hljs-number">43</span>); <span class="hljs-comment">// =&gt; false</span>
+</code></pre>
+<h3 id="less-than"><a name="less-than" class="plugin-anchor" href="#less-than"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5C0F;&#x306A;&#x308A;&#x6F14;&#x7B97;&#x5B50;/&#x3088;&#x308A;&#x5C0F;&#x3055;&#x3044;&#xFF08;<code>&lt;</code>&#xFF09; </h3>
+<p>&#x5C0F;&#x306A;&#x308A;&#x6F14;&#x7B97;&#x5B50;&#x306F;&#x3001;&#x5DE6;&#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;&#x304C;&#x53F3;&#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;&#x3088;&#x308A;&#x5C0F;&#x3055;&#x3044;&#x306A;&#x3089;&#x3070;&#x3001;<code>true</code>&#x3092;&#x8FD4;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log(<span class="hljs-number">21</span> &lt; <span class="hljs-number">42</span>); <span class="hljs-comment">// =&gt; true</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-number">42</span> &lt; <span class="hljs-number">42</span>); <span class="hljs-comment">// =&gt; false</span>
+</code></pre>
+<h3 id="less-than-equal"><a name="less-than-equal" class="plugin-anchor" href="#less-than-equal"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5C0F;&#x306A;&#x308A;&#x30A4;&#x30B3;&#x30FC;&#x30EB;&#x6F14;&#x7B97;&#x5B50;/&#x4EE5;&#x4E0B;&#xFF08;<code>&lt;=</code>&#xFF09; </h3>
+<p>&#x5C0F;&#x306A;&#x308A;&#x30A4;&#x30B3;&#x30FC;&#x30EB;&#x6F14;&#x7B97;&#x5B50;&#x306F;&#x3001;&#x5DE6;&#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;&#x304C;&#x53F3;&#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;&#x3088;&#x308A;&#x5C0F;&#x3055;&#x3044;&#x307E;&#x305F;&#x306F;&#x7B49;&#x3057;&#x3044;&#x306A;&#x3089;&#x3070;&#x3001;<code>true</code>&#x3092;&#x8FD4;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log(<span class="hljs-number">21</span> &lt;= <span class="hljs-number">42</span>); <span class="hljs-comment">// =&gt; true</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-number">42</span> &lt;= <span class="hljs-number">42</span>); <span class="hljs-comment">// =&gt; true</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-number">43</span> &lt;= <span class="hljs-number">42</span>); <span class="hljs-comment">// =&gt; false</span>
+</code></pre>
+<h2 id="bit-operator"><a name="bit-operator" class="plugin-anchor" href="#bit-operator"><i class="fa fa-link" aria-hidden="true"></i></a>&#x30D3;&#x30C3;&#x30C8;&#x6F14;&#x7B97;&#x5B50; </h2>
+<p>&#x30D3;&#x30C3;&#x30C8;&#x6F14;&#x7B97;&#x5B50;&#x306F;&#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;&#x3092;&#x7B26;&#x53F7;&#x4ED8;&#x304D;32bit&#x6574;&#x6570;&#x306B;&#x5909;&#x63DB;&#x3057;&#x3066;&#x304B;&#x3089;&#x6F14;&#x7B97;&#x3057;&#x307E;&#x3059;&#x3002;
+&#x30D3;&#x30C3;&#x30C8;&#x6F14;&#x7B97;&#x5B50;&#x306B;&#x3088;&#x308B;&#x6F14;&#x7B97;&#x7D50;&#x679C;&#x306F;10&#x9032;&#x6570;&#x306E;&#x6570;&#x5024;&#x3092;&#x8FD4;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x305F;&#x3068;&#x3048;&#x3070;&#x3001;<code>9</code>&#x3068;&#x3044;&#x3046;&#x6570;&#x5024;&#x306F;&#x7B26;&#x53F7;&#x4ED8;&#x304D;32bit&#x6574;&#x6570;&#x3067;&#x306F;&#x6B21;&#x306E;&#x3088;&#x3046;&#x306B;&#x8868;&#x73FE;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log(<span class="hljs-number">0b0000000000000000000000000001001</span>); <span class="hljs-comment">// =&gt; 9</span>
+<span class="hljs-comment">// Number#toString&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3092;&#x4F7F;&#x3046;&#x3053;&#x3068;&#x3067;2&#x9032;&#x6570;&#x8868;&#x8A18;&#x306E;&#x6587;&#x5B57;&#x5217;&#x3092;&#x53D6;&#x5F97;&#x3067;&#x304D;&#x308B;</span>
+<span class="hljs-built_in">console</span>.log((<span class="hljs-number">9</span>).toString(<span class="hljs-number">2</span>)); <span class="hljs-comment">// =&gt; &quot;1001&quot;</span>
+</code></pre>
+<p>&#x307E;&#x305F;&#x3001;<code>-9</code>&#x3068;&#x3044;&#x3046;&#x6570;&#x5024;&#x306F;&#x3001;&#x30D3;&#x30C3;&#x30B0;&#x30A8;&#x30F3;&#x30C7;&#x30A3;&#x30A2;&#x30F3;&#x306E;2&#x306E;&#x88DC;&#x6570;&#x5F62;&#x5F0F;&#x3067;&#x8868;&#x73FE;&#x3055;&#x308C;&#x308B;&#x305F;&#x3081;&#x3001;&#x6B21;&#x306E;&#x3088;&#x3046;&#x306B;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log(<span class="hljs-number">0b11111111111111111111111111110111</span>); <span class="hljs-comment">// =&gt; 4294967287</span>
+<span class="hljs-comment">// &#x30BC;&#x30ED;&#x6841;&#x57CB;&#x3081;&#x53F3;&#x30B7;&#x30D5;&#x30C8;&#x3092;&#x3057;&#x3066;&#x304B;&#x3089;Number#toString&#x3067;2&#x9032;&#x6570;&#x8868;&#x8A18;&#x3092;&#x53D6;&#x5F97;&#x3067;&#x304D;&#x308B;</span>
+<span class="hljs-built_in">console</span>.log((<span class="hljs-number">-9</span> &gt;&gt;&gt; <span class="hljs-number">0</span>).toString(<span class="hljs-number">2</span>)); <span class="hljs-comment">// =&gt; &quot;11111111111111111111111111110111&quot;</span>
+</code></pre>
+<h3 id="bit-and"><a name="bit-and" class="plugin-anchor" href="#bit-and"><i class="fa fa-link" aria-hidden="true"></i></a>&#x30D3;&#x30C3;&#x30C8;&#x8AD6;&#x7406;&#x7A4D;&#xFF08;<code>&amp;</code>&#xFF09; </h3>
+<p>&#x8AD6;&#x7406;&#x7A4D;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>&amp;</code>&#xFF09;&#x306F;&#x30D3;&#x30C3;&#x30C8;&#x3054;&#x3068;&#x306E;<strong>AND</strong>&#x6F14;&#x7B97;&#x3057;&#x305F;&#x7D50;&#x679C;&#x3092;&#x8FD4;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log(<span class="hljs-number">15</span>     &amp; <span class="hljs-number">9</span>);      <span class="hljs-comment">// =&gt; 9</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-number">0b1111</span> &amp; <span class="hljs-number">0b1001</span>); <span class="hljs-comment">// =&gt; 0b1001</span>
+</code></pre>
+<h3 id="bit-or"><a name="bit-or" class="plugin-anchor" href="#bit-or"><i class="fa fa-link" aria-hidden="true"></i></a>&#x30D3;&#x30C3;&#x30C8;&#x8AD6;&#x7406;&#x548C;&#xFF08;<code>|</code>&#xFF09; </h3>
+<p>&#x8AD6;&#x7406;&#x548C;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>|</code>&#xFF09;&#x306F;&#x30D3;&#x30C3;&#x30C8;&#x3054;&#x3068;&#x306E;<strong>OR</strong>&#x6F14;&#x7B97;&#x3057;&#x305F;&#x7D50;&#x679C;&#x3092;&#x8FD4;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log(<span class="hljs-number">15</span>     | <span class="hljs-number">9</span>);      <span class="hljs-comment">// =&gt; 15</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-number">0b1111</span> | <span class="hljs-number">0b1001</span>); <span class="hljs-comment">// =&gt; 0b1111</span>
+</code></pre>
+<h3 id="bit-xor"><a name="bit-xor" class="plugin-anchor" href="#bit-xor"><i class="fa fa-link" aria-hidden="true"></i></a>&#x30D3;&#x30C3;&#x30C8;&#x6392;&#x4ED6;&#x7684;&#x8AD6;&#x7406;&#x548C;&#xFF08;<code>^</code>&#xFF09; </h3>
+<p>&#x6392;&#x4ED6;&#x7684;&#x8AD6;&#x7406;&#x548C;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>^</code>&#xFF09;&#x306F;&#x30D3;&#x30C3;&#x30C8;&#x3054;&#x3068;&#x306E;<strong>XOR</strong>&#x6F14;&#x7B97;&#x3057;&#x305F;&#x7D50;&#x679C;&#x3092;&#x8FD4;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log(<span class="hljs-number">15</span>     ^ <span class="hljs-number">9</span>);      <span class="hljs-comment">// =&gt; 6</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-number">0b1111</span> ^ <span class="hljs-number">0b1001</span>); <span class="hljs-comment">// =&gt; 0b0110</span>
+</code></pre>
+<h3 id="bit-not"><a name="bit-not" class="plugin-anchor" href="#bit-not"><i class="fa fa-link" aria-hidden="true"></i></a>&#x30D3;&#x30C3;&#x30C8;&#x5426;&#x5B9A;&#xFF08;<code>~</code>&#xFF09; </h3>
+<p>&#x5358;&#x9805;&#x6F14;&#x7B97;&#x5B50;&#x306E;&#x5426;&#x5B9A;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>~</code>&#xFF09;&#x306F;&#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;&#x3092;&#x53CD;&#x8EE2;&#x3057;&#x305F;&#x5024;&#x3092;&#x8FD4;&#x3057;&#x307E;&#x3059;&#x3002;
+&#x3053;&#x308C;&#x306F;1&#x306E;&#x88DC;&#x6570;&#x3068;&#x77E5;&#x3089;&#x308C;&#x3066;&#x3044;&#x308B;&#x5024;&#x3068;&#x540C;&#x3058;&#x3082;&#x306E;&#x3067;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log(~<span class="hljs-number">15</span>); <span class="hljs-comment">// =&gt; -16</span>
+<span class="hljs-built_in">console</span>.log(~<span class="hljs-number">0b1111</span>); <span class="hljs-comment">// =&gt; -0b10000</span>
+</code></pre>
+<p>&#x5426;&#x5B9A;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>~</code>&#xFF09;&#x306F;&#x30D3;&#x30C3;&#x30C8;&#x6F14;&#x7B97;&#x4EE5;&#x5916;&#x3067;&#x3082;&#x4F7F;&#x308F;&#x308C;&#x3066;&#x3044;&#x308B;&#x3053;&#x3068;&#x304C;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p>JavaScript&#x306E;<code>String#indexOf(string)</code>&#x306F;&#x3001;&#x6587;&#x5B57;&#x5217;&#x4E2D;&#x306B;&#x3042;&#x308B;<code>string</code>&#x306E;&#x4F4D;&#x7F6E;&#x3092;&#x898B;&#x3064;&#x3051;&#x3066;&#x8FD4;&#x3059;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3067;&#x3059;&#x3002;
+&#x3053;&#x306E;<code>indexOf</code>&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306F;&#x3001;&#x691C;&#x7D22;&#x5BFE;&#x8C61;&#x304C;&#x898B;&#x3064;&#x304B;&#x3089;&#x306A;&#x3044;&#x5834;&#x5408;&#x306B;&#x3001;<code>-1</code>&#x3092;&#x8FD4;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> string = <span class="hljs-string">&quot;&#x68EE;&#x68EE;&#x672C;&#x68EE;&#x68EE;&quot;</span>;
+<span class="hljs-comment">// &#x898B;&#x3064;&#x304B;&#x3063;&#x305F;&#x5834;&#x5408;&#x306F;index&#x5024;&#x3092;&#x8FD4;&#x3059;</span>
+<span class="hljs-built_in">console</span>.log(string.indexOf(<span class="hljs-string">&quot;&#x672C;&quot;</span>)); <span class="hljs-comment">// =&gt; 2</span>
+<span class="hljs-comment">// &#x898B;&#x3064;&#x304B;&#x3089;&#x306A;&#x3044;&#x5834;&#x5408;&#x306F;-1&#x3092;&#x8FD4;&#x3059;</span>
+<span class="hljs-built_in">console</span>.log(string.indexOf(<span class="hljs-string">&quot;&#x706B;&quot;</span>)); <span class="hljs-comment">// =&gt; -1</span>
+</code></pre>
+<p>&#x5426;&#x5B9A;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>~</code>&#xFF09;&#x306F;1&#x306E;&#x88DC;&#x6570;&#x3092;&#x8FD4;&#x3059;&#x305F;&#x3081;&#x3001;<code>~(-1)</code>&#x306E;<code>0</code>&#x3068;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log(~<span class="hljs-number">0</span>); <span class="hljs-comment">// =&gt; -1</span>
+<span class="hljs-built_in">console</span>.log(~(<span class="hljs-number">-1</span>)); <span class="hljs-comment">// =&gt; 0</span>
+</code></pre>
+<p>JavaScript&#x3067;&#x306F;<code>0</code>&#x3082;if&#x6587;&#x3067;&#x306F;<code>false</code>&#x3068;&#x3057;&#x3066;&#x6271;&#x308F;&#x308C;&#x307E;&#x3059;&#x3002;
+&#x305D;&#x306E;&#x305F;&#x3081;&#x3001;<code>~indexOf&#x306E;&#x7D50;&#x679C;</code>&#x304C;<code>0</code>&#x3068;&#x306A;&#x308B;&#x3053;&#x3068;&#x3092;&#x5229;&#x7528;&#x3057;&#x3066;&#x66F8;&#x304F;&#x30A4;&#x30C7;&#x30A3;&#x30AA;&#x30E0;&#x304C;&#x4E00;&#x90E8;&#x3067;&#x306F;&#x4F7F;&#x308F;&#x308C;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> string = <span class="hljs-string">&quot;&#x68EE;&#x68EE;&#x672C;&#x68EE;&#x68EE;&quot;</span>;
+<span class="hljs-keyword">if</span> (string.indexOf(<span class="hljs-string">&quot;&#x706B;&quot;</span>) === <span class="hljs-number">-1</span>) {
+    <span class="hljs-comment">// &#x898B;&#x3064;&#x304B;&#x3089;&#x306A;&#x304B;&#x3063;&#x305F;&#x5834;&#x5408;&#x306E;&#x51E6;&#x7406;</span>
+}
+<span class="hljs-comment">// &#x5426;&#x5B9A;&#x6F14;&#x7B97;&#x5B50;&#xFF08;`~`&#xFF09;&#x3067;&#x985E;&#x4F3C;&#x8868;&#x73FE;</span>
+<span class="hljs-keyword">if</span> (~string.indexOf(<span class="hljs-string">&quot;&#x706B;&quot;</span>)) {
+    <span class="hljs-comment">// &#x898B;&#x3064;&#x304B;&#x3089;&#x306A;&#x304B;&#x3063;&#x305F;&#x5834;&#x5408;&#x306E;&#x51E6;&#x7406;</span>
+}
+</code></pre>
+<p>&#x3053;&#x306E;&#x30A4;&#x30C7;&#x30A3;&#x30AA;&#x30E0;&#x306F;&#x6587;&#x5B57;&#x5217;&#x3092;&#x691C;&#x7D22;&#x3057;&#x305F;&#x7D50;&#x679C;&#x3092;&#x771F;&#x507D;&#x5024;&#x3067;&#x53D6;&#x5F97;&#x3067;&#x304D;&#x308C;&#x3070;&#x4E0D;&#x8981;&#x3068;&#x306A;&#x308B;&#x30B1;&#x30FC;&#x30B9;&#x304C;&#x6B86;&#x3069;&#x3067;&#x3059;&#x3002;
+ES2015&#x4EE5;&#x964D;&#x3067;&#x306F;<code>String#includes</code>&#x3067;&#x771F;&#x507D;&#x5024;&#x3092;&#x53D6;&#x5F97;&#x3067;&#x304D;&#x308B;&#x305F;&#x3081;&#x3001;&#x5206;&#x304B;&#x308A;&#x306B;&#x304F;&#x3044;&#x3060;&#x3051;&#x306E;&#x30A4;&#x30C7;&#x30A3;&#x30AA;&#x30E0;&#x3068;&#x306A;&#x308A;&#x3064;&#x3064;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> string = <span class="hljs-string">&quot;&#x68EE;&#x68EE;&#x672C;&#x68EE;&#x68EE;&quot;</span>;
+<span class="hljs-comment">// `String#includes`&#x306F;&quot;&#x706B;&quot;&#x304C;&#x3042;&#x308B;&#x306A;&#x3089;true&#x3092;&#x8FD4;&#x3059;</span>
+<span class="hljs-keyword">if</span> (!string.includes(<span class="hljs-string">&quot;&#x706B;&quot;</span>)) {
+    <span class="hljs-comment">// &#x898B;&#x3064;&#x304B;&#x3089;&#x306A;&#x304B;&#x3063;&#x305F;&#x5834;&#x5408;&#x306E;&#x51E6;&#x7406;</span>
+}
+</code></pre>
+<!-- textlint-disable eslint -->
+<h3 id="left-shift"><a name="left-shift" class="plugin-anchor" href="#left-shift"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5DE6;&#x30B7;&#x30D5;&#x30C8;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>&lt;&lt;</code>&#xFF09; </h3>
+<p>&#x5DE6;&#x30B7;&#x30D5;&#x30C8;&#x6F14;&#x7B97;&#x5B50;&#x306F;&#x3001;<code>number</code>&#x3092;<code>bit</code>&#x306E;&#x6570;&#x3060;&#x3051;&#x5DE6;&#x3078;&#x30B7;&#x30D5;&#x30C8;&#x3057;&#x307E;&#x3059;&#x3002;
+&#x5DE6;&#x306B;&#x3042;&#x3075;&#x308C;&#x305F;&#x30D3;&#x30C3;&#x30C8;&#x306F;&#x7834;&#x68C4;&#x3055;&#x308C;&#x3001;<code>0</code>&#x306E;&#x30D3;&#x30C3;&#x30C8;&#x3092;&#x53F3;&#x304B;&#x3089;&#x8A70;&#x3081;&#x307E;&#x3059;&#x3002;</p>
+<!-- doctest:disable -->
+<pre><code class="lang-js">number &lt;&lt; bit;
+</code></pre>
+<p>&#x6B21;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x306F;&#x3001;<code>9</code>&#x3092;2&#x30D3;&#x30C3;&#x30C8;&#x5206;&#x3060;&#x3051;&#x5DE6;&#x3078;&#x30B7;&#x30D5;&#x30C8;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log(     <span class="hljs-number">9</span> &lt;&lt; <span class="hljs-number">2</span>); <span class="hljs-comment">// =&gt; 36</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-number">0b1111</span> &lt;&lt; <span class="hljs-number">2</span>); <span class="hljs-comment">// =&gt; 0b111100</span>
+</code></pre>
+<h3 id="right-shift"><a name="right-shift" class="plugin-anchor" href="#right-shift"><i class="fa fa-link" aria-hidden="true"></i></a>&#x53F3;&#x30B7;&#x30D5;&#x30C8;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>&gt;&gt;</code>&#xFF09; </h3>
+<p>&#x53F3;&#x30B7;&#x30D5;&#x30C8;&#x6F14;&#x7B97;&#x5B50;&#x306F;&#x3001;<code>number</code>&#x3092;<code>bit</code>&#x306E;&#x6570;&#x3060;&#x3051;&#x53F3;&#x3078;&#x30B7;&#x30D5;&#x30C8;&#x3057;&#x307E;&#x3059;&#x3002;
+&#x53F3;&#x306B;&#x3042;&#x3075;&#x308C;&#x305F;&#x30D3;&#x30C3;&#x30C8;&#x306F;&#x7834;&#x68C4;&#x3055;&#x308C;&#x3001;&#x5DE6;&#x7AEF;&#x306E;&#x30D3;&#x30C3;&#x30C8;&#x306E;&#x30B3;&#x30D4;&#x30FC;&#x3092;&#x5DE6;&#x304B;&#x3089;&#x8A70;&#x3081;&#x307E;&#x3059;&#x3002;</p>
+<!-- doctest:disable -->
+<pre><code class="lang-js">number &gt;&gt; bit;
+</code></pre>
+<p>&#x6B21;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x306F;&#x3001;<code>-9</code>&#x3092;2&#x30D3;&#x30C3;&#x30C8;&#x5206;&#x3060;&#x3051;&#x53F3;&#x3078;&#x30B7;&#x30D5;&#x30C8;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;
+&#x5DE6;&#x7AEF;&#x306E;&#x30D3;&#x30C3;&#x30C8;&#x306E;&#x30B3;&#x30D4;&#x30FC;&#x3092;&#x4F7F;&#x3046;&#x305F;&#x3081;&#x3001;&#x5E38;&#x306B;&#x7B26;&#x53F7;&#x306F;&#x7DAD;&#x6301;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log((<span class="hljs-number">-9</span>) &gt;&gt; <span class="hljs-number">2</span>); <span class="hljs-comment">// =&gt; -3</span>
+<span class="hljs-comment">// 0b11111111111111111111111111110111 &gt;&gt; 2; // =&gt; 0b11111111111111111111111111111101</span>
+</code></pre>
+<h3 id="fill-zero-right-shift"><a name="fill-zero-right-shift" class="plugin-anchor" href="#fill-zero-right-shift"><i class="fa fa-link" aria-hidden="true"></i></a>&#x30BC;&#x30ED;&#x57CB;&#x3081;&#x53F3;&#x30B7;&#x30D5;&#x30C8;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>&gt;&gt;&gt;</code>&#xFF09; </h3>
+<p>&#x30BC;&#x30ED;&#x57CB;&#x3081;&#x53F3;&#x30B7;&#x30D5;&#x30C8;&#x6F14;&#x7B97;&#x5B50;&#x306F;&#x3001;<code>number</code>&#x3092;<code>bit</code>&#x306E;&#x6570;&#x3060;&#x3051;&#x53F3;&#x3078;&#x30B7;&#x30D5;&#x30C8;&#x3059;&#x308B;&#x306E;&#x306F;&#x53F3;&#x30B7;&#x30D5;&#x30C8;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>&gt;&gt;</code>&#xFF09;&#x3068;&#x540C;&#x3058;&#x3067;&#x3059;&#x3002;
+&#x53F3;&#x306B;&#x3042;&#x3075;&#x308C;&#x305F;&#x30D3;&#x30C3;&#x30C8;&#x306F;&#x7834;&#x68C4;&#x3055;&#x308C;&#x3001;<code>0</code>&#x306E;&#x30D3;&#x30C3;&#x30C8;&#x3092;&#x5DE6;&#x304B;&#x3089;&#x8A70;&#x3081;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x6B21;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x306F;&#x3001;<code>-9</code>&#x3092;2&#x30D3;&#x30C3;&#x30C8;&#x5206;&#x3060;&#x3051;&#x30BC;&#x30ED;&#x57CB;&#x3081;&#x53F3;&#x30B7;&#x30D5;&#x30C8;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;
+&#x5DE6;&#x7AEF;&#x306E;&#x30D3;&#x30C3;&#x30C8;&#x306F;<code>0</code>&#x3068;&#x306A;&#x308B;&#x305F;&#x3081;&#x3001;&#x5E38;&#x306B;&#x6B63;&#x306E;&#x5024;&#x3068;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log((<span class="hljs-number">-9</span>) &gt;&gt;&gt; <span class="hljs-number">2</span>); <span class="hljs-comment">// =&gt; 1073741821</span>
+<span class="hljs-comment">// 0b11111111111111111111111111110111 &gt;&gt;&gt; 2; // =&gt; 0b00111111111111111111111111111101</span>
+</code></pre>
+<!-- textlint-enable eslint -->
+<h2 id="assignment-operator"><a name="assignment-operator" class="plugin-anchor" href="#assignment-operator"><i class="fa fa-link" aria-hidden="true"></i></a>&#x4EE3;&#x5165;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>=</code>&#xFF09; </h2>
+<p>&#x4EE3;&#x5165;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>=</code>&#xFF09;&#x306F;&#x5909;&#x6570;&#x306B;&#x5BFE;&#x3057;&#x3066;&#x5024;&#x3092;&#x4EE3;&#x5165;&#x3057;&#x307E;&#x3059;&#x3002;
+&#x4EE3;&#x5165;&#x6F14;&#x7B97;&#x5B50;&#x306B;&#x3064;&#x3044;&#x3066;&#x306F;&#x300C;<a href="../variables/">&#x5909;&#x6570;&#x3068;&#x5BA3;&#x8A00;</a>&#x306E;&#x7AE0;&#x300D;&#x3082;&#x53C2;&#x7167;&#x3057;&#x3066;&#x304F;&#x3060;&#x3055;&#x3044;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-keyword">let</span> x = <span class="hljs-number">1</span>;
+x = <span class="hljs-number">42</span>;
+<span class="hljs-built_in">console</span>.log(x); <span class="hljs-comment">// =&gt; 42</span>
+</code></pre>
+<p>&#x307E;&#x305F;&#x3001;&#x4EE3;&#x5165;&#x6F14;&#x7B97;&#x5B50;&#x306F;&#x4E8C;&#x9805;&#x6F14;&#x7B97;&#x5B50;&#x3068;&#x7D44;&#x307F;&#x5408;&#x308F;&#x305B;&#x3066;&#x5229;&#x7528;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;
+<code>+=</code>&#x3001;<code>-=</code>&#x3001;<code>*=</code>&#x3001;<code>/=</code>&#x3001;<code>%=</code>&#x3001;<code>&lt;&lt;=</code>&#x3001;<code>&gt;&gt;=</code>&#x3001;<code>&gt;&gt;&gt;=</code>&#x3001;<code>&amp;=</code>&#x3001;<code>^=</code>&#x3001;<code>|=</code>&#x306E;&#x3088;&#x3046;&#x306B;&#x3001;&#x6F14;&#x7B97;&#x3057;&#x305F;&#x7D50;&#x679C;&#x3092;&#x4EE3;&#x5165;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">let</span> num = <span class="hljs-number">1</span>;
+num += <span class="hljs-number">10</span>; <span class="hljs-comment">// num = num + 10; &#x3068;&#x540C;&#x3058;</span>
+<span class="hljs-built_in">console</span>.log(num); <span class="hljs-comment">// =&gt; 11</span>
+</code></pre>
+<h3 id="destructuring-assignment"><a name="destructuring-assignment" class="plugin-anchor" href="#destructuring-assignment"><i class="fa fa-link" aria-hidden="true"></i></a>[ES2015] &#x5206;&#x5272;&#x4EE3;&#x5165;&#xFF08;Destructuring assignment&#xFF09; </h3>
+<p>&#x4ECA;&#x307E;&#x3067;&#x307F;&#x3066;&#x304D;&#x305F;&#x4EE3;&#x5165;&#x6F14;&#x7B97;&#x5B50;&#x306F;1&#x3064;&#x306E;&#x5909;&#x6570;&#x306B;&#x5024;&#x3092;&#x4EE3;&#x5165;&#x3059;&#x308B;&#x3082;&#x306E;&#x3067;&#x3057;&#x305F;&#x3002;
+&#x5206;&#x5272;&#x4EE3;&#x5165;&#x3092;&#x4F7F;&#x3046;&#x3053;&#x3068;&#x3067;&#x3001;&#x914D;&#x5217;&#x3084;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;&#x5024;&#x3092;&#x8907;&#x6570;&#x306E;&#x5909;&#x6570;&#x3078;&#x540C;&#x6642;&#x306B;&#x4EE3;&#x5165;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;
+&#x5206;&#x5272;&#x4EE3;&#x5165;&#x306F;&#x77ED;&#x7E2E;&#x8A18;&#x6CD5;&#x306E;&#x3072;&#x3068;&#x3064;&#x3067;ES2015&#x304B;&#x3089;&#x5C0E;&#x5165;&#x3055;&#x308C;&#x305F;&#x69CB;&#x6587;&#x3067;&#x3059;&#x3002;</p>
+<p>&#x5206;&#x5272;&#x4EE3;&#x5165;&#x306F;&#x3001;&#x4EE3;&#x5165;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>=</code>&#xFF09;&#x3092;&#x4F7F;&#x3046;&#x306E;&#x306F;&#x540C;&#x3058;&#x3067;&#x3059;&#x304C;&#x3001;&#x5DE6;&#x8FBA;&#x306E;&#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;&#x304C;&#x914D;&#x5217;&#x30EA;&#x30C6;&#x30E9;&#x30EB;&#x3084;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x30EA;&#x30C6;&#x30E9;&#x30EB;&#x3068;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x6B21;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x306F;&#x3001;&#x53F3;&#x8FBA;&#x306E;&#x914D;&#x5217;&#x306E;&#x5024;&#x3092;&#x3001;&#x5DE6;&#x8FBA;&#x306E;&#x914D;&#x5217;&#x30EA;&#x30C6;&#x30E9;&#x30EB;&#x306E;&#x5BFE;&#x5FDC;&#x3059;&#x308B;&#x30A4;&#x30F3;&#x30C7;&#x30C3;&#x30AF;&#x30B9;&#x306B;&#x304B;&#x304B;&#x308C;&#x305F;&#x5909;&#x6570;&#x540D;&#x3078;&#x4EE3;&#x5165;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> array = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>];
+<span class="hljs-comment">// a&#x306B;&#x306F;`array`&#x306E;0&#x756A;&#x76EE;&#x306E;&#x5024;&#x3001;b&#x306B;&#x306F;1&#x756A;&#x76EE;&#x306E;&#x5024;&#x304C;&#x4EE3;&#x5165;&#x3055;&#x308C;&#x308B;</span>
+<span class="hljs-keyword">const</span> [a, b] = array;
+<span class="hljs-built_in">console</span>.log(a); <span class="hljs-comment">// =&gt; 1</span>
+<span class="hljs-built_in">console</span>.log(b); <span class="hljs-comment">// =&gt; 2</span>
+</code></pre>
+<p>&#x3053;&#x308C;&#x306F;&#x3001;&#x6B21;&#x306E;&#x3088;&#x3046;&#x306B;&#x66F8;&#x3044;&#x305F;&#x306E;&#x3068;&#x540C;&#x3058;&#x7D50;&#x679C;&#x306B;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> array = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>];
+<span class="hljs-keyword">const</span> a = array[<span class="hljs-number">0</span>];
+<span class="hljs-keyword">const</span> b = array[<span class="hljs-number">1</span>];
+</code></pre>
+<p>&#x540C;&#x69D8;&#x306B;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x3082;&#x5206;&#x5272;&#x4EE3;&#x5165;&#x306B;&#x5BFE;&#x5FDC;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;
+&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;&#x5834;&#x5408;&#x306F;&#x3001;&#x53F3;&#x8FBA;&#x306E;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x5024;&#x3092;&#x3001;&#x5DE6;&#x8FBA;&#x306B;&#x5BFE;&#x5FDC;&#x3059;&#x308B;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x540D;&#x3078;&#x4EE3;&#x5165;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> object = {
+    <span class="hljs-string">&quot;key&quot;</span>: <span class="hljs-string">&quot;value&quot;</span>
+};
+<span class="hljs-comment">// &#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x540D;`key`&#x306E;&#x5024;&#x3092;&#x3001;&#x5909;&#x6570;`key`&#x3068;&#x3057;&#x3066;&#x5B9A;&#x7FA9;&#x3059;&#x308B;</span>
+<span class="hljs-keyword">const</span> { key } = object;
+<span class="hljs-built_in">console</span>.log(key); <span class="hljs-comment">// =&gt; &quot;value&quot;</span>
+</code></pre>
+<p>&#x3053;&#x308C;&#x306F;&#x3001;&#x6B21;&#x306E;&#x3088;&#x3046;&#x306B;&#x66F8;&#x3044;&#x305F;&#x306E;&#x3068;&#x540C;&#x3058;&#x7D50;&#x679C;&#x306B;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> object = {
+    <span class="hljs-string">&quot;key&quot;</span>: <span class="hljs-string">&quot;value&quot;</span>
+};
+<span class="hljs-keyword">const</span> key = object.key;
+</code></pre>
+<h2 id="ternary-perator"><a name="ternary-perator" class="plugin-anchor" href="#ternary-perator"><i class="fa fa-link" aria-hidden="true"></i></a>&#x6761;&#x4EF6;&#xFF08;&#x4E09;&#x9805;&#xFF09;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>?</code>&#x3068;<code>:</code>&#xFF09; </h2>
+<p>&#x6761;&#x4EF6;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>?</code>&#x3068;<code>:</code>&#xFF09;&#x306F;&#x4E09;&#x9805;&#x3092;&#x3068;&#x308B;&#x6F14;&#x7B97;&#x5B50;&#x3067;&#x3042;&#x308B;&#x305F;&#x3081;&#x3001;&#x4E09;&#x9805;&#x6F14;&#x7B97;&#x5B50;&#x3068;&#x3082;&#x547C;&#x3070;&#x308C;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x6761;&#x4EF6;&#x6F14;&#x7B97;&#x5B50;&#x306F;<code>&#x6761;&#x4EF6;&#x5F0F;</code>&#x3092;&#x8A55;&#x4FA1;&#x3057;&#x305F;&#x7D50;&#x679C;&#x304C;<code>true</code>&#x306A;&#x3089;&#x3070;&#x3001;<code>True&#x306E;&#x6642;&#x51E6;&#x7406;&#x3059;&#x308B;&#x5F0F;</code>&#x306E;&#x8A55;&#x4FA1;&#x7D50;&#x679C;&#x3092;&#x8FD4;&#x3057;&#x307E;&#x3059;&#x3002;
+<code>&#x6761;&#x4EF6;&#x5F0F;</code>&#x304C;<code>false</code>&#x3067;&#x3042;&#x308B;&#x5834;&#x5408;&#x306F;&#x3001;<code>False&#x306E;&#x6642;&#x51E6;&#x7406;&#x3059;&#x308B;&#x5F0F;</code>&#x306E;&#x8A55;&#x4FA1;&#x7D50;&#x679C;&#x3092;&#x8FD4;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<!-- doctest:disable -->
+<pre><code class="lang-js">&#x6761;&#x4EF6;&#x5F0F; ? True&#x306E;&#x6642;&#x51E6;&#x7406;&#x3059;&#x308B;&#x5F0F; : False&#x306E;&#x6642;&#x51E6;&#x7406;&#x3059;&#x308B;&#x5F0F;;
+</code></pre>
+<p>if&#x6587;&#x3068;&#x306E;&#x9055;&#x3044;&#x306F;&#x3001;&#x6761;&#x4EF6;&#x6F14;&#x7B97;&#x5B50;&#x306F;&#x5F0F;&#x3068;&#x3057;&#x3066;&#x66F8;&#x304F;&#x3053;&#x3068;&#x304C;&#x3067;&#x304D;&#x308B;&#x305F;&#x3081;&#x5024;&#x3092;&#x8FD4;&#x3057;&#x307E;&#x3059;&#x3002;
+&#x6B21;&#x306E;&#x3088;&#x3046;&#x306B;&#x3001;<code>&#x6761;&#x4EF6;&#x5F0F;</code>&#x306E;&#x8A55;&#x4FA1;&#x7D50;&#x679C;&#x306B;&#x3088;&#x308A;<code>&quot;A&quot;</code> &#x307E;&#x305F;&#x306F; <code>&quot;B&quot;</code> &#x3069;&#x3061;&#x3089;&#x304B;&#x3092;&#x8FD4;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> valueA = <span class="hljs-literal">true</span> ? <span class="hljs-string">&quot;A&quot;</span> : <span class="hljs-string">&quot;B&quot;</span>;
+<span class="hljs-built_in">console</span>.log(valueA); <span class="hljs-comment">// =&gt; &quot;A&quot;;</span>
+<span class="hljs-keyword">const</span> valueB = <span class="hljs-literal">false</span> ? <span class="hljs-string">&quot;A&quot;</span> : <span class="hljs-string">&quot;B&quot;</span>;
+<span class="hljs-built_in">console</span>.log(valueB); <span class="hljs-comment">// =&gt; &quot;B&quot;;</span>
+</code></pre>
+<p>&#x6761;&#x4EF6;&#x5206;&#x5C90;&#x306B;&#x3088;&#x308B;&#x5024;&#x3092;&#x8FD4;&#x305B;&#x308B;&#x305F;&#x3081;&#x3001;&#x6761;&#x4EF6;&#x306B;&#x3088;&#x3063;&#x3066;&#x5909;&#x6570;&#x306E;&#x521D;&#x671F;&#x5024;&#x304C;&#x9055;&#x3046;&#x5834;&#x5408;&#x306A;&#x3069;&#x306B;&#x4F7F;&#x308F;&#x308C;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x6B21;&#x306E;&#x4F8B;&#x3067;&#x306F;&#x3001;<code>text</code>&#x6587;&#x5B57;&#x5217;&#x306B;<code>prefix</code>&#x3068;&#x306A;&#x308B;&#x6587;&#x5B57;&#x5217;&#x3092;&#x5148;&#x982D;&#x306B;&#x4ED8;&#x3051;&#x308B;&#x95A2;&#x6570;&#x3092;&#x66F8;&#x3044;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;
+<code>prefix</code>&#x306E;&#x7B2C;&#x4E8C;&#x5F15;&#x6570;&#x3092;&#x7701;&#x7565;&#x3057;&#x305F;&#x308A;&#x6587;&#x5B57;&#x5217;&#x3067;&#x306F;&#x306A;&#x3044;&#x3082;&#x306E;&#x304C;&#x6307;&#x5B9A;&#x3055;&#x308C;&#x305F;&#x5834;&#x5408;&#x306B;&#x3001;&#x30C7;&#x30D5;&#x30A9;&#x30EB;&#x30C8;&#x306E;<code>prefix</code>&#x3092;&#x4F7F;&#x3044;&#x307E;&#x3059;&#x3002;
+&#x7B2C;&#x4E8C;&#x5F15;&#x6570;&#x304C;&#x7701;&#x7565;&#x3055;&#x308C;&#x305F;&#x5834;&#x5408;&#x306B;&#x306F;&#x3001;<code>prefix</code>&#x306B;<code>undefined</code>&#x304C;&#x5165;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x6761;&#x4EF6;&#x6F14;&#x7B97;&#x5B50;&#x306E;&#x8A55;&#x4FA1;&#x7D50;&#x679C;&#x306F;&#x5024;&#x3092;&#x8FD4;&#x3059;&#x306E;&#x3067;&#x3001;<code>const</code>&#x3092;&#x4F7F;&#x3063;&#x3066;&#x5BA3;&#x8A00;&#x3068;&#x540C;&#x6642;&#x306B;&#x4EE3;&#x5165;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addPrefix</span>(<span class="hljs-params">text, prefix</span>) </span>{
+    <span class="hljs-comment">// `prefix`&#x304C;&#x6307;&#x5B9A;&#x3055;&#x308C;&#x3066;&#x3044;&#x306A;&#x3044;&#x5834;&#x5408;&#x306F;&quot;&#x30C7;&#x30D5;&#x30A9;&#x30EB;&#x30C8;:&quot;&#x3092;&#x4ED8;&#x3051;&#x308B;</span>
+    <span class="hljs-keyword">const</span> pre = <span class="hljs-keyword">typeof</span> prefix === <span class="hljs-string">&quot;string&quot;</span> ? prefix : <span class="hljs-string">&quot;&#x30C7;&#x30D5;&#x30A9;&#x30EB;&#x30C8;:&quot;</span>;
+    <span class="hljs-keyword">return</span> pre + text;
+}
+
+<span class="hljs-built_in">console</span>.log(addPrefix(<span class="hljs-string">&quot;&#x6587;&#x5B57;&#x5217;&quot;</span>)); <span class="hljs-comment">// =&gt; &quot;&#x30C7;&#x30D5;&#x30A9;&#x30EB;&#x30C8;:&#x6587;&#x5B57;&#x5217;&quot;</span>
+<span class="hljs-built_in">console</span>.log(addPrefix(<span class="hljs-string">&quot;&#x6587;&#x5B57;&#x5217;&quot;</span>, <span class="hljs-string">&quot;&#x30AB;&#x30B9;&#x30BF;&#x30E0;&quot;</span>)); <span class="hljs-comment">// =&gt; &quot;&#x30AB;&#x30B9;&#x30BF;&#x30E0;&#x6587;&#x5B57;&#x5217;&quot;</span>
+</code></pre>
+<p>if&#x6587;&#x3092;&#x4F7F;&#x3063;&#x305F;&#x5834;&#x5408;&#x306F;&#x3001;&#x5BA3;&#x8A00;&#x3068;&#x4EE3;&#x5165;&#x3092;&#x5206;&#x3051;&#x308B;&#x5FC5;&#x8981;&#x304C;&#x3042;&#x308B;&#x305F;&#x3081;&#x3001;<code>const</code>&#x3092;&#x4F7F;&#x3046;&#x3053;&#x3068;&#x304C;&#x3067;&#x304D;&#x307E;&#x305B;&#x3093;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">addPrefix</span>(<span class="hljs-params">text, prefix</span>) </span>{
+    <span class="hljs-keyword">let</span> pre = <span class="hljs-string">&quot;&#x30C7;&#x30D5;&#x30A9;&#x30EB;&#x30C8;:&quot;</span>;
+    <span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> prefix === <span class="hljs-string">&quot;string&quot;</span>) {
+        pre = prefix;
+    }
+    <span class="hljs-keyword">return</span> pre + text;
+}
+
+<span class="hljs-built_in">console</span>.log(addPrefix(<span class="hljs-string">&quot;&#x6587;&#x5B57;&#x5217;&quot;</span>)); <span class="hljs-comment">// =&gt; &quot;&#x30C7;&#x30D5;&#x30A9;&#x30EB;&#x30C8;:&#x6587;&#x5B57;&#x5217;&quot;</span>
+<span class="hljs-built_in">console</span>.log(addPrefix(<span class="hljs-string">&quot;&#x6587;&#x5B57;&#x5217;&quot;</span>, <span class="hljs-string">&quot;&#x30AB;&#x30B9;&#x30BF;&#x30E0;&quot;</span>)); <span class="hljs-comment">// =&gt; &quot;&#x30AB;&#x30B9;&#x30BF;&#x30E0;&#x6587;&#x5B57;&#x5217;&quot;</span>
+</code></pre>
+<h2 id="logical-operator"><a name="logical-operator" class="plugin-anchor" href="#logical-operator"><i class="fa fa-link" aria-hidden="true"></i></a>&#x8AD6;&#x7406;&#x6F14;&#x7B97;&#x5B50; </h2>
+<p>&#x8AD6;&#x7406;&#x6F14;&#x7B97;&#x5B50;&#x306F;&#x57FA;&#x672C;&#x7684;&#x306B;&#x771F;&#x507D;&#x5024;&#x3092;&#x6271;&#x3046;&#x6F14;&#x7B97;&#x5B50;&#x3067;&#x3001;AND&#x3001;OR&#x3001;NOT&#x3092;&#x8868;&#x73FE;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<h3 id="and-operator"><a name="and-operator" class="plugin-anchor" href="#and-operator"><i class="fa fa-link" aria-hidden="true"></i></a>AND&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>&amp;&amp;</code>&#xFF09; </h3>
+<p>AND&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>&amp;&amp;</code>&#xFF09;&#x306F;&#x3001;&#x5DE6;&#x8FBA;&#x306E;&#x5024;&#x306E;&#x8A55;&#x4FA1;&#x7D50;&#x679C;&#x304C;<code>true</code>&#x3067;&#x3042;&#x308B;&#x306A;&#x3089;&#x3070;&#x3001;&#x53F3;&#x8FBA;&#x306E;&#x8A55;&#x4FA1;&#x7D50;&#x679C;&#x3092;&#x8FD4;&#x3057;&#x307E;&#x3059;&#x3002;
+&#x5DE6;&#x8FBA;&#x306E;&#x8A55;&#x4FA1;&#x304C;<code>true</code>&#x3067;&#x306F;&#x306A;&#x3044;&#x5834;&#x5408;&#x3001;&#x53F3;&#x8FBA;&#x306F;&#x8A55;&#x4FA1;&#x3055;&#x308C;&#x307E;&#x305B;&#x3093;&#x3002;</p>
+<p>&#x3053;&#x306E;&#x3088;&#x3046;&#x306A;&#x5024;&#x304C;&#x6C7A;&#x307E;&#x3063;&#x305F;&#x6642;&#x70B9;&#x3067;&#x305D;&#x308C;&#x4EE5;&#x4E0A;&#x8A55;&#x4FA1;&#x3057;&#x306A;&#x3044;&#x3082;&#x306E;&#x3092;<strong>&#x77ED;&#x7D61;&#x8A55;&#x4FA1;</strong>&#xFF08;&#x30B7;&#x30E7;&#x30FC;&#x30C8;&#x30B5;&#x30FC;&#x30AD;&#x30C3;&#x30C8;&#xFF09;&#x3068;&#x547C;&#x3073;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> x = <span class="hljs-literal">true</span>;
+<span class="hljs-keyword">const</span> y = <span class="hljs-literal">false</span>;
+<span class="hljs-comment">// x -&gt; y &#x306E;&#x9806;&#x306B;&#x8A55;&#x4FA1;&#x3055;&#x308C;&#x308B;</span>
+<span class="hljs-built_in">console</span>.log(x &amp;&amp; y); <span class="hljs-comment">// =&gt; false</span>
+<span class="hljs-comment">// &#x5DE6;&#x8FBA;&#x304C;falsy&#x3067;&#x3042;&#x308B;&#x306A;&#x3089;&#x3001;&#x305D;&#x306E;&#x6642;&#x70B9;&#x3067;false&#x3092;&#x8FD4;&#x3059;</span>
+<span class="hljs-comment">// x&#x306F;&#x8A55;&#x4FA1;&#x3055;&#x308C;&#x306A;&#x3044;</span>
+<span class="hljs-built_in">console</span>.log(y &amp;&amp; x); <span class="hljs-comment">// =&gt; false</span>
+</code></pre>
+<p>AND&#x6F14;&#x7B97;&#x5B50;&#x306F;&#x3001;if&#x6587;&#x3068;&#x7D44;&#x307F;&#x5408;&#x308F;&#x305B;&#x3066;&#x5229;&#x7528;&#x3059;&#x308B;&#x3053;&#x3068;&#x304C;&#x591A;&#x3044;&#x6F14;&#x7B97;&#x5B50;&#x3067;&#x3059;&#x3002;
+&#x6B21;&#x306E;&#x3088;&#x3046;&#x306B;&#x3001;<code>value</code>&#x304C;String&#x578B;&#x3067; <strong>&#x304B;&#x3064;</strong> &#x5024;&#x304C;<code>&quot;str&quot;</code>&#x3067;&#x3042;&#x308B;&#x5834;&#x5408;&#x3068;&#x3044;&#x3046;&#x6761;&#x4EF6;&#x3092;&#x3072;&#x3068;&#x3064;&#x306E;&#x5F0F;&#x3068;&#x3057;&#x3066;&#x66F8;&#x304F;&#x3053;&#x3068;&#x304C;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> value = <span class="hljs-string">&quot;str&quot;</span>;
+<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> value === <span class="hljs-string">&quot;string&quot;</span> &amp;&amp; value === <span class="hljs-string">&quot;str&quot;</span>) {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${value}</span> is string value`</span>);
+}
+<span class="hljs-comment">// if&#x6587;&#x306E;&#x30CD;&#x30B9;&#x30C8;&#x3067;&#x66F8;&#x3044;&#x305F;&#x5834;&#x5408;&#x3068;&#x7D50;&#x679C;&#x306F;&#x540C;&#x3058;&#x3068;&#x306A;&#x308B;</span>
+<span class="hljs-keyword">if</span> (<span class="hljs-keyword">typeof</span> value === <span class="hljs-string">&quot;string&quot;</span>) {
+    <span class="hljs-keyword">if</span> (value === <span class="hljs-string">&quot;str&quot;</span>) {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`<span class="hljs-subst">${value}</span> is string value`</span>);
+    }
+}
+</code></pre>
+<p>&#x3053;&#x306E;&#x3068;&#x304D;&#x306B;&#x3001;<code>value</code>&#x304C;String&#x578B;&#x3067;&#x306A;&#x3044;&#x5834;&#x5408;&#x306F;&#x3001;&#x305D;&#x306E;&#x6642;&#x70B9;&#x3067;<code>false</code>&#x3068;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x77ED;&#x7D61;&#x8A55;&#x4FA1;&#x306F;if&#x6587;&#x306E;&#x30CD;&#x30B9;&#x30C8;&#x306B;&#x6BD4;&#x3079;&#x3066;&#x77ED;&#x304F;&#x66F8;&#x304F;&#x3053;&#x3068;&#x304C;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x3057;&#x304B;&#x3057;&#x3001;if&#x6587;&#x304C;3&#x91CD;4&#x91CD;&#x306B;&#x30CD;&#x30B9;&#x30C8;&#x3057;&#x3066;&#x3044;&#x308B;&#x306E;&#x306F;&#x4E0D;&#x81EA;&#x7136;&#x306A;&#x306E;&#x3068;&#x540C;&#x69D8;&#x306B;&#x3001;
+AND&#x6F14;&#x7B97;&#x5B50;&#x3084;OR&#x6F14;&#x7B97;&#x5B50;&#x304C;3&#x3064;4&#x3064;&#x9023;&#x7D9A;&#x3059;&#x308B;&#x5834;&#x5408;&#x306F;&#x8907;&#x96D1;&#x3067;&#x8AAD;&#x307F;&#x306B;&#x304F;&#x3044;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x3059;&#x3002;
+&#x305D;&#x306E;&#x5834;&#x5408;&#x306F;&#x62BD;&#x8C61;&#x5316;&#x304C;&#x3067;&#x304D;&#x306A;&#x3044;&#x304B;&#x3092;&#x691C;&#x8A0E;&#x3059;&#x308B;&#x3079;&#x304D;&#x30B5;&#x30A4;&#x30F3;&#x3068;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<h3 id="or-operator"><a name="or-operator" class="plugin-anchor" href="#or-operator"><i class="fa fa-link" aria-hidden="true"></i></a>OR&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>||</code>&#xFF09; </h3>
+<p>OR&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>||</code>&#xFF09;&#x306F;&#x3001;&#x5DE6;&#x8FBA;&#x306E;&#x5024;&#x306E;&#x8A55;&#x4FA1;&#x7D50;&#x679C;&#x304C;<code>false</code>&#x3067;&#x3042;&#x308B;&#x306A;&#x3089;&#x3070;&#x3001;&#x53F3;&#x8FBA;&#x306E;&#x8A55;&#x4FA1;&#x7D50;&#x679C;&#x3092;&#x8FD4;&#x3057;&#x307E;&#x3059;&#x3002;
+AND&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>&amp;&amp;</code>&#xFF09;&#x3068;&#x306F;&#x9006;&#x306B;&#x3001;&#x5DE6;&#x8FBA;&#x304C;<code>true</code>&#x3067;&#x3042;&#x308B;&#x5834;&#x5408;&#x306F;&#x3001;&#x53F3;&#x8FBA;&#x3092;&#x8A55;&#x4FA1;&#x305B;&#x305A;<code>true</code>&#x3092;&#x8FD4;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> x = <span class="hljs-literal">true</span>;
+<span class="hljs-keyword">const</span> y = <span class="hljs-literal">false</span>;
+<span class="hljs-comment">// x&#x304C;true&#x306A;&#x306E;&#x3067;y&#x306F;&#x8A55;&#x4FA1;&#x3055;&#x308C;&#x306A;&#x3044;</span>
+<span class="hljs-built_in">console</span>.log(x || y); <span class="hljs-comment">// =&gt; true</span>
+<span class="hljs-comment">// y&#x306F;false&#x306A;&#x306E;&#x3067;x&#x3092;&#x8A55;&#x4FA1;&#x3057;&#x305F;&#x7D50;&#x679C;&#x3092;&#x8FD4;&#x3059;</span>
+<span class="hljs-built_in">console</span>.log(y || x); <span class="hljs-comment">// =&gt; true</span>
+</code></pre>
+<p>OR&#x6F14;&#x7B97;&#x5B50;&#x306F;&#x3001;if&#x6587;&#x3068;&#x7D44;&#x307F;&#x5408;&#x308F;&#x305B;&#x3066;&#x5229;&#x7528;&#x3059;&#x308B;&#x3053;&#x3068;&#x304C;&#x591A;&#x3044;&#x6F14;&#x7B97;&#x5B50;&#x3067;&#x3059;&#x3002;
+&#x6B21;&#x306E;&#x3088;&#x3046;&#x306B;&#x3001;<code>value</code>&#x304C;<code>0</code>&#x307E;&#x305F;&#x306F;<code>1</code>&#x306E;&#x5834;&#x5408;&#x306B;if&#x6587;&#x306E;&#x4E2D;&#x8EAB;&#x304C;&#x5B9F;&#x884C;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> value = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">if</span> (value === <span class="hljs-number">0</span> || value === <span class="hljs-number">1</span>) {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;value&#x306F;0&#x307E;&#x305F;&#x306F;1&#x3067;&#x3059;&#x3002;&quot;</span>);
+}
+</code></pre>
+<h3 id="not-operator"><a name="not-operator" class="plugin-anchor" href="#not-operator"><i class="fa fa-link" aria-hidden="true"></i></a>NOT&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>!</code>&#xFF09; </h3>
+<p>NOT&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>!</code>&#xFF09;&#x306F;&#x3001;<code>&#x30AA;&#x30DA;&#x30E9;&#x30F3;&#x30C9;</code>&#x306E;&#x8A55;&#x4FA1;&#x7D50;&#x679C;&#x304C;<code>true</code>&#x3067;&#x3042;&#x308B;&#x306A;&#x3089;&#x3070;&#x3001;<code>false</code>&#x3092;&#x8FD4;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log(!<span class="hljs-literal">false</span>); <span class="hljs-comment">// =&gt; true</span>
+<span class="hljs-built_in">console</span>.log(!<span class="hljs-literal">true</span>);  <span class="hljs-comment">// =&gt; false</span>
+</code></pre>
+<p>NOT&#x6F14;&#x7B97;&#x5B50;&#x306F;&#x5FC5;&#x305A;&#x771F;&#x507D;&#x5024;&#x3092;&#x8FD4;&#x3059;&#x305F;&#x3081;&#x3001;&#x6B21;&#x306E;&#x3088;&#x3046;&#x306B;2&#x3064;NOT&#x6F14;&#x7B97;&#x5B50;&#x3092;&#x91CD;&#x306D;&#x3066;&#x771F;&#x507D;&#x5024;&#x3078;&#x5909;&#x63DB;&#x3059;&#x308B;&#x3068;&#x3044;&#x3046;&#x4F7F;&#x3044;&#x65B9;&#x3082;&#x898B;&#x304B;&#x3051;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> string = <span class="hljs-string">&quot;&quot;</span>;
+<span class="hljs-comment">// &#x7A7A;&#x6587;&#x5B57;&#x306F;falsy&#x306A;&#x5024;</span>
+<span class="hljs-built_in">console</span>.log(!!string); <span class="hljs-comment">// =&gt; false</span>
+</code></pre>
+<p>&#x3053;&#x306E;&#x3088;&#x3046;&#x306A;&#x30B1;&#x30FC;&#x30B9;&#x306E;&#x591A;&#x304F;&#x306F;&#x3001;&#x6BD4;&#x8F03;&#x6F14;&#x7B97;&#x5B50;&#x3092;&#x4F7F;&#x3046;&#x306A;&#x3069;&#x3088;&#x308A;&#x660E;&#x793A;&#x7684;&#x306A;&#x65B9;&#x6CD5;&#x3067;&#x3001;&#x771F;&#x507D;&#x5024;&#x3092;&#x5F97;&#x308B;&#x3053;&#x3068;&#x304C;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;
+&#x5B89;&#x6613;&#x306B;<code>!!</code>&#x306B;&#x3088;&#x308B;&#x5909;&#x63DB;&#x306B;&#x983C;&#x308B;&#x3088;&#x308A;&#x306F;&#x5225;&#x306E;&#x65B9;&#x6CD5;&#x3092;&#x63A2;&#x3057;&#x3066;&#x307F;&#x308B;&#x306E;&#x304C;&#x3044;&#x3044;&#x3067;&#x3057;&#x3087;&#x3046;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> string = <span class="hljs-string">&quot;&quot;</span>;
+<span class="hljs-comment">// &#x7A7A;&#x6587;&#x5B57;&#x3067;&#x306A;&#x3044;&#x3053;&#x3068;&#x3092;&#x5224;&#x5B9A;</span>
+<span class="hljs-built_in">console</span>.log(string.length &gt; <span class="hljs-number">0</span>); <span class="hljs-comment">// =&gt; false</span>
+</code></pre>
+<h3 id="group-operator"><a name="group-operator" class="plugin-anchor" href="#group-operator"><i class="fa fa-link" aria-hidden="true"></i></a>&#x30B0;&#x30EB;&#x30FC;&#x30D7;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>(</code>&#x3068;<code>)</code>&#xFF09; </h3>
+<p>&#x30B0;&#x30EB;&#x30FC;&#x30D7;&#x6F14;&#x7B97;&#x5B50;&#x306F;&#x8907;&#x6570;&#x306E;&#x4E8C;&#x9805;&#x6F14;&#x7B97;&#x5B50;&#x304C;&#x7D44;&#x307F;&#x5408;&#x308F;&#x3055;&#x3063;&#x305F;&#x5834;&#x5408;&#x306B;&#x3001;&#x6F14;&#x7B97;&#x5B50;&#x306E;&#x512A;&#x5148;&#x9806;&#x5E8F;&#x3092;&#x660E;&#x793A;&#x3067;&#x304D;&#x308B;&#x6F14;&#x7B97;&#x5B50;&#x3067;&#x3059;&#x3002;</p>
+<p>&#x305F;&#x3068;&#x3048;&#x3070;&#x3001;&#x6B21;&#x306E;&#x3088;&#x3046;&#x306B;&#x30B0;&#x30EB;&#x30FC;&#x30D7;&#x6F14;&#x7B97;&#x5B50;&#x3067;&#x56F2;&#x3093;&#x3060;&#x90E8;&#x5206;&#x304C;&#x6700;&#x521D;&#x306B;&#x51E6;&#x7406;&#x3055;&#x308C;&#x308B;&#x305F;&#x3081;&#x3001;&#x7D50;&#x679C;&#x3082;&#x5909;&#x5316;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> a = <span class="hljs-number">1</span>;
+<span class="hljs-keyword">const</span> b = <span class="hljs-number">2</span>;
+<span class="hljs-keyword">const</span> c = <span class="hljs-number">3</span>;
+<span class="hljs-built_in">console</span>.log(a + b * c); <span class="hljs-comment">// 7</span>
+<span class="hljs-built_in">console</span>.log((a + b) * c); <span class="hljs-comment">// =&gt; 9</span>
+</code></pre>
+<p><a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Operators/Operator_Precedence#Table" title="&#x6F14;&#x7B97;&#x5B50;&#x306E;&#x512A;&#x5148;&#x9806;&#x4F4D; - JavaScript | MDN" target="_blank">&#x6F14;&#x7B97;&#x5B50;&#x306E;&#x512A;&#x5148;&#x9806;&#x5E8F;</a>&#x306F;ECMAScript&#x4ED5;&#x69D8;&#x3067;&#x5B9A;&#x7FA9;&#x3055;&#x308C;&#x3066;&#x3044;&#x307E;&#x3059;&#x304C;&#x3001;&#x591A;&#x69D8;&#x306A;&#x6F14;&#x7B97;&#x5B50;&#x304C;&#x51FA;&#x3066;&#x304D;&#x305F;&#x5834;&#x5408;&#x306B;&#x898B;&#x5206;&#x3051;&#x308B;&#x306E;&#x306F;&#x96E3;&#x3057;&#x3044;&#x3067;&#x3059;&#x3002;
+&#x30B0;&#x30EB;&#x30FC;&#x30D7;&#x6F14;&#x7B97;&#x5B50;&#x306F;&#x3082;&#x3063;&#x3068;&#x3082;&#x512A;&#x5148;&#x5EA6;&#x304C;&#x9AD8;&#x3044;&#x6F14;&#x7B97;&#x5B50;&#x3068;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;
+&#x305D;&#x306E;&#x305F;&#x3081;&#x3001;&#x30B0;&#x30EB;&#x30FC;&#x30D7;&#x6F14;&#x7B97;&#x5B50;&#x3092;&#x4F7F;&#x3044;&#x512A;&#x5148;&#x9806;&#x5E8F;&#x3092;&#x660E;&#x793A;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x6B21;&#x306E;&#x3088;&#x3046;&#x306A;&#x30B0;&#x30EB;&#x30FC;&#x30D7;&#x6F14;&#x7B97;&#x5B50;&#x3092;&#x4F7F;&#x308F;&#x305A;&#x306B;&#x66F8;&#x3044;&#x305F;&#x30B3;&#x30FC;&#x30C9;&#x3092;&#x898B;&#x3066;&#x307F;&#x307E;&#x3057;&#x3087;&#x3046;&#x3002;
+<code>a</code>&#x304C;<code>true</code>&#x307E;&#x305F;&#x306F;&#x3001;<code>b</code>&#x304B;&#x3064;<code>c</code>&#x304C;<code>true</code>&#x3067;&#x3042;&#x308B;&#x3068;&#x304D;&#x306B;&#x51E6;&#x7406;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;</p>
+<!-- doctest:disable -->
+<pre><code class="lang-js"><span class="hljs-keyword">if</span> (a || b &amp;&amp; c) {
+    <span class="hljs-comment">// a &#x304C; true &#x307E;&#x305F;&#x306F;</span>
+    <span class="hljs-comment">// b &#x304B;&#x3064; c &#x304C; true</span>
+}
+</code></pre>
+<p>&#x3072;&#x3068;&#x3064;&#x306E;&#x5F0F;&#x306B;&#x8907;&#x6570;&#x306E;&#x7A2E;&#x985E;&#x306E;&#x6F14;&#x7B97;&#x5B50;&#x304C;&#x51FA;&#x3066;&#x304F;&#x308B;&#x3068;&#x8AAD;&#x307F;&#x306B;&#x304F;&#x304F;&#x306A;&#x308B;&#x50BE;&#x5411;&#x304C;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;
+&#x3053;&#x306E;&#x3088;&#x3046;&#x306A;&#x5834;&#x5408;&#x306B;&#x306F;&#x30B0;&#x30EB;&#x30FC;&#x30D7;&#x6F14;&#x7B97;&#x5B50;&#x3092;&#x4F7F;&#x3044;&#x3001;&#x7D50;&#x5408;&#x9806;&#x3092;&#x660E;&#x793A;&#x3057;&#x3066;&#x66F8;&#x304F;&#x3088;&#x3046;&#x306B;&#x3057;&#x307E;&#x3057;&#x3087;&#x3046;&#x3002;</p>
+<!-- doctest:disable -->
+<pre><code class="lang-js"><span class="hljs-keyword">if</span> (a || (b &amp;&amp; c)) {
+    <span class="hljs-comment">// a &#x304C; true &#x307E;&#x305F;&#x306F;</span>
+    <span class="hljs-comment">// b &#x304B;&#x3064; c &#x304C; true</span>
+}
+</code></pre>
+<h2 id="string-combination-operator"><a name="string-combination-operator" class="plugin-anchor" href="#string-combination-operator"><i class="fa fa-link" aria-hidden="true"></i></a>&#x6587;&#x5B57;&#x5217;&#x7D50;&#x5408;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>+</code>&#xFF09; </h2>
+<p>&#x6570;&#x5024;&#x306B;&#x3067;&#x3066;&#x304D;&#x305F;&#x30D7;&#x30E9;&#x30B9;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>+</code>&#xFF09;&#x306F;&#x3001;&#x6587;&#x5B57;&#x5217;&#x306E;&#x7D50;&#x5408;&#x306B;&#x5229;&#x7528;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x30D7;&#x30E9;&#x30B9;&#x6F14;&#x7B97;&#x5B50;&#x306F;&#x3001;&#x6587;&#x5B57;&#x5217;&#x3092;&#x7D50;&#x5408;&#x3057;&#x305F;&#x6587;&#x5B57;&#x5217;&#x3092;&#x8FD4;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> value = <span class="hljs-string">&quot;&#x6587;&#x5B57;&#x5217;&quot;</span> + <span class="hljs-string">&quot;&#x7D50;&#x5408;&quot;</span>;
+<span class="hljs-built_in">console</span>.log(value); <span class="hljs-comment">// =&gt; &quot;&#x6587;&#x5B57;&#x5217;&#x7D50;&#x5408;&quot;</span>
+</code></pre>
+<h2 id="comma-operator"><a name="comma-operator" class="plugin-anchor" href="#comma-operator"><i class="fa fa-link" aria-hidden="true"></i></a>&#x30AB;&#x30F3;&#x30DE;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>,</code>&#xFF09; </h2>
+<p>&#x30AB;&#x30F3;&#x30DE;&#x6F14;&#x7B97;&#x5B50;&#xFF08;<code>,</code>&#xFF09;&#x306F;&#x3001;&#x30AB;&#x30F3;&#x30DE;&#xFF08;<code>,</code>&#xFF09;&#x3067;&#x533A;&#x5207;&#x3063;&#x305F;&#x5F0F;&#x3092;&#x5DE6;&#x304B;&#x3089;&#x9806;&#x306B;&#x8A55;&#x4FA1;&#x3057;&#x3001;
+&#x6700;&#x5F8C;&#x306E;&#x5F0F;&#x306E;&#x8A55;&#x4FA1;&#x7D50;&#x679C;&#x3092;&#x8FD4;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x6B21;&#x306E;&#x4F8B;&#x3067;&#x306F;&#x3001;<code>&#x5F0F;1</code>&#x3001;<code>&#x5F0F;2</code>&#x3001;<code>&#x5F0F;3</code>&#x306E;&#x9806;&#x306B;&#x8A55;&#x4FA1;&#x3055;&#x308C;&#x3001;<code>&#x5F0F;3</code>&#x306E;&#x8A55;&#x4FA1;&#x7D50;&#x679C;&#x3092;&#x8FD4;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<pre><code>&#x5F0F;1, &#x5F0F;2, &#x5F0F;3;
+</code></pre><p>&#x3053;&#x308C;&#x307E;&#x3067;&#x306B;&#x3001;&#x30AB;&#x30F3;&#x30DE;&#x3067;&#x533A;&#x5207;&#x308B;&#x3068;&#x3044;&#x3046;&#x8868;&#x73FE;&#x306F;&#x3001;<code>var</code>&#x306B;&#x3088;&#x308B;&#x5909;&#x6570;&#x5BA3;&#x8A00;&#x306A;&#x3069;&#x3067;&#x3082;&#x51FA;&#x3066;&#x304D;&#x307E;&#x3057;&#x305F;&#x3002;
+&#x5DE6;&#x304B;&#x3089;&#x9806;&#x306B;&#x5B9F;&#x884C;&#x3059;&#x308B;&#x70B9;&#x3067;&#x306F;&#x30AB;&#x30F3;&#x30DE;&#x6F14;&#x7B97;&#x5B50;&#x306E;&#x6319;&#x52D5;&#x306F;&#x540C;&#x3058;&#x3082;&#x306E;&#x3067;&#x3059;&#x304C;&#x3001;&#x69CB;&#x6587;&#x3068;&#x3057;&#x3066;&#x306F;&#x4F3C;&#x3066;&#x975E;&#x306A;&#x308B;&#x3082;&#x306E;&#x3067;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> a = <span class="hljs-number">1</span>, b = <span class="hljs-number">2</span>, c = a + b;
+<span class="hljs-built_in">console</span>.log(c); <span class="hljs-comment">// =&gt; 3</span>
+</code></pre>
+<p>&#x4E00;&#x822C;&#x306B;&#x30AB;&#x30F3;&#x30DE;&#x6F14;&#x7B97;&#x5B50;&#x3092;&#x5229;&#x7528;&#x3059;&#x308B;&#x6A5F;&#x4F1A;&#x306F;&#x6B86;&#x3069;&#x306A;&#x3044;&#x305F;&#x3081;&#x3001;&#x300C;&#x30AB;&#x30F3;&#x30DE;&#x3067;&#x533A;&#x5207;&#x3063;&#x305F;&#x5F0F;&#x306F;&#x5DE6;&#x304B;&#x3089;&#x9806;&#x306B;&#x8A55;&#x4FA1;&#x3055;&#x308C;&#x308B;&#x300D;&#x3068;&#x3044;&#x3046;&#x3053;&#x3068;&#x3060;&#x3051;&#x3092;&#x77E5;&#x3063;&#x3066;&#x3044;&#x308C;&#x3070;&#x554F;&#x984C;&#x3042;&#x308A;&#x307E;&#x305B;&#x3093;&#x3002;<sup><a href="#fn_1" id="reffn_1">1</a></sup></p>
+<blockquote id="fn_1">
+<sup>1</sup>. &#x30AB;&#x30F3;&#x30DE;&#x6F14;&#x7B97;&#x5B50;&#x3092;&#x6D3B;&#x7528;&#x3057;&#x305F;&#x30C6;&#x30AF;&#x30CB;&#x30C3;&#x30AF;&#x3068;&#x3057;&#x3066;indirect call&#x3068;&#x3044;&#x3046;&#x3082;&#x306E;&#x304C;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;<a href="#reffn_1" title="Jump back to footnote [1] in the text."> &#x21A9;</a>
+</blockquote>
+
+                                
+                                </section>
+                            
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../data-type/" class="navigation navigation-prev " aria-label="Previous page: データ型とリテラル">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../implicit-coercion/" class="navigation navigation-next " aria-label="Next page: 暗黙的な型変換">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"author":"azu","title":"演算子","level":"1.4.6","depth":2,"next":{"title":"暗黙的な型変換","level":"1.4.7","depth":2,"path":"basic/implicit-coercion/README.md","ref":"./basic/implicit-coercion/README.md","articles":[]},"previous":{"title":"データ型とリテラル","level":"1.4.5","depth":2,"path":"basic/data-type/README.md","ref":"./basic/data-type/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-search","-lunr","page-toc-button","include-codeblock","anchors","canonical-link","ga","js-console","github-issue-feedback","todo"],"root":"./source/","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"docSearch":{"apiKey":"fd28ebaba94be0c39fb9fa1b2fed4f23","index":"asciidwango"},"github-issue-feedback":{"repo":"asciidwango/js-primer"},"todo":{},"fontsettings":{"theme":"white","family":"sans","size":2},"js-console":{},"canonical-link":{"baseURL":"https://jsprimer.net"},"highlight":{},"page-toc-button":{"maxTocDepth":2,"minTocSize":2},"ga":{"configuration":"auto","token":"UA-2184335-18"},"include-codeblock":{"check":false,"edit":false,"lang":"","fixlang":false,"template":"./resources/gitbook-plugin-include-codeblock.hbs","theme":"chrome","unindent":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"base":"https://github.com/asciidwango/js-primer/edit/master/source/","label":"Edit"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"index.md","glossary":"GLOSSARY.md","summary":"README.md"},"variables":{"esversion":"2018","console":"<a class=\"gitbook-plugin-js-console\" aria-hidden=\"true\"></a>"},"title":"JavaScriptの入門書 #jsprimer","gitbook":">=3.0.0","description":"この書籍はES2015以降をベースとしたJavaScript入門書となる予定"},"file":{"path":"basic/operator/README.md","mtime":"2018-12-23T15:21:44.496Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-12-23T15:22:57.500Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-page-toc-button/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-ga/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-js-console/console-ui.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github-issue-feedback/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

@@ -1,0 +1,1805 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>イベントとモデル · JavaScriptの入門書 #jsprimer</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../../gitbook/gitbook-plugin-page-toc-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../../gitbook/gitbook-plugin-anchors/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+         
+    
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../update-delete/" />
+    
+    
+    <link rel="prev" href="../form-event/" />
+    
+
+    <link rel="canonical" href="https://jsprimer.net/use-case/todoapp/event-model/">
+
+<meta name="google-site-verification" content="bMotEbgYwkzA3k4PkuyK_NUdz0bKh-Phz0oUwNmRSVo" />
+<style>
+    /*
+    Disable antialias
+    */
+    * {
+        -webkit-font-smoothing: initial !important
+    }
+
+    body {
+        text-rendering: initial !important;
+        font-smoothing: initial !important;
+    }
+
+    /* deny access chapter */
+    .summary li.chapter>span {
+        cursor: not-allowed;
+        opacity: .3;
+    }
+
+    /* console ui */
+
+    .mirror-console-attach-button-wrapper {
+        margin-top: -1.275em;
+        margin-bottom: 1.275em
+    }
+
+    .mirror-console-wrapper {
+        margin-top: 1.275em;
+        margin-bottom: 1.275em
+    }
+
+    /* file name for codeblock */
+    .code-filename {
+        background-color: #eee;
+        display: inline-block;
+        padding: 2px 8px;
+        line-height: inherit;
+        margin-bottom: 0px !important;
+    }
+</style>
+<meta name="theme-color" content="#ffffff">
+<link rel="manifest" href="../../../manifest.json">
+<script src="https://unpkg.com/service-worker-updatefound-refresh-dialog@1.1.0/dist/service-worker-updatefound-refresh-dialog.umd.js"></script>
+<script>
+    if ("serviceWorker" in navigator) {
+        const isLocalhost = Boolean(
+            // preview
+            /netlify.com/.test(window.location.hostname) ||
+            // local
+            window.location.hostname === "localhost" ||
+            // [::1] is the IPv6 localhost address.
+            window.location.hostname === "[::1]" ||
+            // 127.0.0.1/8 is considered localhost for IPv4.
+            window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/)
+        );
+        if (!isLocalhost) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker.register("../../../sw.js")
+                    .then(function(registration) {
+                        serviceWorkerUpdatefoundRefreshDialog.register(registration);
+                    });
+            });
+        }
+    }
+</script>
+
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../../">
+            
+                <a href="../../../">
+            
+                    
+                    この書籍について
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../../../intro/goal/">
+            
+                <a href="../../../intro/goal/">
+            
+                    
+                    本書の目的
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../../../intro/feedback/">
+            
+                <a href="../../../intro/feedback/">
+            
+                    
+                    文章の間違いに気づいたら
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../../../basic/">
+            
+                <a href="../../../basic/">
+            
+                    
+                    第1部: 基礎文法
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../../../basic/introduction/">
+            
+                <a href="../../../basic/introduction/">
+            
+                    
+                    JavaScriptとは
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../../../basic/comments/">
+            
+                <a href="../../../basic/comments/">
+            
+                    
+                    コメント
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../../../basic/variables/">
+            
+                <a href="../../../basic/variables/">
+            
+                    
+                    変数と宣言
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../../../basic/read-eval-print/">
+            
+                <a href="../../../basic/read-eval-print/">
+            
+                    
+                    値の評価と表示
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../../../basic/data-type/">
+            
+                <a href="../../../basic/data-type/">
+            
+                    
+                    データ型とリテラル
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="../../../basic/operator/">
+            
+                <a href="../../../basic/operator/">
+            
+                    
+                    演算子
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" data-path="../../../basic/implicit-coercion/">
+            
+                <a href="../../../basic/implicit-coercion/">
+            
+                    
+                    暗黙的な型変換
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.8" data-path="../../../basic/function-declaration/">
+            
+                <a href="../../../basic/function-declaration/">
+            
+                    
+                    関数と宣言
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.9" data-path="../../../basic/statement-expression/">
+            
+                <a href="../../../basic/statement-expression/">
+            
+                    
+                    文と式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.10" data-path="../../../basic/condition/">
+            
+                <a href="../../../basic/condition/">
+            
+                    
+                    条件分岐
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.11" data-path="../../../basic/loop/">
+            
+                <a href="../../../basic/loop/">
+            
+                    
+                    ループと反復処理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.12" data-path="../../../basic/object/">
+            
+                <a href="../../../basic/object/">
+            
+                    
+                    オブジェクト
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.13" data-path="../../../basic/prototype-object/">
+            
+                <a href="../../../basic/prototype-object/">
+            
+                    
+                    プロトタイプオブジェクト
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.14" data-path="../../../basic/array/">
+            
+                <a href="../../../basic/array/">
+            
+                    
+                    配列
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.15" data-path="../../../basic/string/">
+            
+                <a href="../../../basic/string/">
+            
+                    
+                    文字列
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.16" data-path="../../../basic/wrapper-object/">
+            
+                <a href="../../../basic/wrapper-object/">
+            
+                    
+                    ラッパーオブジェクト
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.17" data-path="../../../basic/function-scope/">
+            
+                <a href="../../../basic/function-scope/">
+            
+                    
+                    関数とスコープ
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.18" data-path="../../../basic/function-this/">
+            
+                <a href="../../../basic/function-this/">
+            
+                    
+                    関数とthis
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.19" data-path="../../../basic/class/">
+            
+                <a href="../../../basic/class/">
+            
+                    
+                    クラス
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.20" data-path="../../../basic/error-try-catch/">
+            
+                <a href="../../../basic/error-try-catch/">
+            
+                    
+                    例外処理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.21" data-path="../../../basic/async/">
+            
+                <a href="../../../basic/async/">
+            
+                    
+                    非同期処理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22" data-path="../../../basic/map-and-set/">
+            
+                <a href="../../../basic/map-and-set/">
+            
+                    
+                    Map/Set
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.23" data-path="../../../basic/json/">
+            
+                <a href="../../../basic/json/">
+            
+                    
+                    JSON
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.24" data-path="../../../basic/date/">
+            
+                <a href="../../../basic/date/">
+            
+                    
+                    Date
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.25" data-path="../../../basic/math/">
+            
+                <a href="../../../basic/math/">
+            
+                    
+                    Math
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.26" data-path="../../../basic/ecmascript/">
+            
+                <a href="../../../basic/ecmascript/">
+            
+                    
+                    ECMAScript
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.27" data-path="../../../basic/other-parts/">
+            
+                <a href="../../../basic/other-parts/">
+            
+                    
+                    第1部: おわりに
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    第2部: 応用編（ユースケース）
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../../setup-local-env/">
+            
+                <a href="../../setup-local-env/">
+            
+                    
+                    アプリケーション開発の準備
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../../module/">
+            
+                <a href="../../module/">
+            
+                    
+                    モジュール
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../../ajaxapp/">
+            
+                <a href="../../ajaxapp/">
+            
+                    
+                    Ajaxで通信
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.3.1" data-path="../../ajaxapp/entrypoint/">
+            
+                <a href="../../ajaxapp/entrypoint/">
+            
+                    
+                    エントリポイント
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3.2" data-path="../../ajaxapp/xhr/">
+            
+                <a href="../../ajaxapp/xhr/">
+            
+                    
+                    HTTP通信
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3.3" data-path="../../ajaxapp/display/">
+            
+                <a href="../../ajaxapp/display/">
+            
+                    
+                    データを表示する
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3.4" data-path="../../ajaxapp/promise/">
+            
+                <a href="../../ajaxapp/promise/">
+            
+                    
+                    Promiseを活用する
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../../nodecli/">
+            
+                <a href="../../nodecli/">
+            
+                    
+                    Node.jsでCLIアプリ
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.4.1" data-path="../../nodecli/helloworld/">
+            
+                <a href="../../nodecli/helloworld/">
+            
+                    
+                    Node.jsでHello World
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4.2" data-path="../../nodecli/argument-parse/">
+            
+                <a href="../../nodecli/argument-parse/">
+            
+                    
+                    コマンドライン引数を処理する
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4.3" data-path="../../nodecli/read-file/">
+            
+                <a href="../../nodecli/read-file/">
+            
+                    
+                    ファイルを読み込む
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4.4" data-path="../../nodecli/md-to-html/">
+            
+                <a href="../../nodecli/md-to-html/">
+            
+                    
+                    MarkdownをHTMLに変換する
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4.5" data-path="../../nodecli/refactor-and-unittest/">
+            
+                <a href="../../nodecli/refactor-and-unittest/">
+            
+                    
+                    ユニットテストを記述する
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    Todoアプリ
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.5.1" data-path="../entrypoint/">
+            
+                <a href="../entrypoint/">
+            
+                    
+                    エントリポイント
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5.2" data-path="../app-structure/">
+            
+                <a href="../app-structure/">
+            
+                    
+                    アプリの構成要素
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5.3" data-path="../form-event/">
+            
+                <a href="../form-event/">
+            
+                    
+                    フォームとイベント
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.5.5.4" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    イベントとモデル
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5.5" data-path="../update-delete/">
+            
+                <a href="../update-delete/">
+            
+                    
+                    Todoの更新と削除を実装する
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5.6" data-path="../final/">
+            
+                <a href="../final/">
+            
+                    
+                    Todoアプリのリファクタリング
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<!-- Header -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css"/>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<style>
+    .book-header {
+        display: flex;
+        flex-direction: row;
+        background-color: #333;
+    }
+
+    /* link color */
+    .book-header a {
+        color: #fff;
+    }
+
+    /* hover color */
+    .book-header .btn:hover, .book-header .btn:focus, .book-header a:focus, .book-header a:hover {
+        color: hsla(0, 0%, 100%, 0.75) !important;
+    }
+
+    /* Mobile header fixed */
+    @media (max-width: 768px) {
+        /* Headerを固定する */
+        .book-header {
+            position: fixed;
+            width: 100%;
+        }
+
+        /* Icon only */
+        .book-header-title-img {
+            margin: auto 18px auto 0 !important;
+        }
+
+        .book-header-title-h {
+            display: none;
+        }
+
+        /* Header分のズレを入れる */
+        .page-wrapper {
+            padding-top: 60px;
+        }
+    }
+
+    /* Dynamic created by GitBook*/
+    .btn.pull-left.js-toolbar-action {
+        order: 1;
+    }
+
+    .book-header-title {
+        order: 2;
+        display: inline-flex;
+        flex-direction: row;
+        color: #fff;
+    }
+
+    .book-header-title:hover {
+        color: hsla(0, 0%, 100%, 0.75);
+    }
+
+    .book-header-title-img {
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        margin: auto 10px auto 0;
+    }
+
+    .book-header-title-h {
+        font-size: 20px;
+        margin: auto;
+        padding: 0;
+    }
+
+    .header-center {
+        order: 3;
+        display: inline-flex;
+        flex-direction: column;
+        justify-content: center;
+        /* self */
+        flex-grow: 1;
+        flex-shrink: 0;
+        flex-basis: auto;
+    }
+
+    .header-right {
+        order: 4;
+        display: inline-flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        /* icon size */
+        font-size: 24px;
+    }
+
+    .github-link {
+        color: #fff;
+    }
+
+    /* Desktop */
+    @media (min-width: 768px) {
+        .header-center {
+            align-items: center;
+        }
+
+        .header-right {
+            margin-right: 24px;
+        }
+    }
+
+    /* DocSearch */
+    @media (max-width: 768px) {
+        .algolia-autocomplete .ds-dropdown-menu {
+            max-width: calc(100vw - 32px) !important;
+            min-width: calc(100vw - 32px) !important;
+            width: calc(100vw - 32px) !important;
+            /* negative margin
+              This is absolute element
+              */
+            margin-left: -32px !important;
+        }
+
+        .algolia-autocomplete .algolia-docsearch-suggestion--content {
+            width: 100% !important;
+            padding-left: 0 !important;
+        }
+
+        .algolia-autocomplete .algolia-docsearch-suggestion--content:before {
+            display: none !important;
+        }
+
+        .algolia-autocomplete .algolia-docsearch-suggestion--subcategory-column {
+            display: none !important;
+        }
+    }
+
+    /* SearchBox */
+    .searchbarWrapper {
+        height: 50px;
+    }
+
+    @media (max-width: 768px) {
+        .sbx-custom {
+            width: 150px !important;
+            padding: initial !important;
+        }
+    }
+
+    .sbx-custom {
+        display: inline-block;
+        position: relative;
+        min-width: 150px;
+        width: 300px;
+        max-width: 300px;
+        height: 33px;
+        white-space: nowrap;
+        box-sizing: border-box;
+        font-size: 14px;
+    }
+
+    .sbx-custom__wrapper {
+        width: 100%;
+        height: 100%;
+    }
+
+    .sbx-custom__input {
+        display: inline-block;
+        -webkit-transition: box-shadow .4s ease, background .4s ease;
+        transition: box-shadow .4s ease, background .4s ease;
+        border: 0;
+        border-radius: 5px;
+        box-shadow: inset 0 0 0 2px #CCCCCC;
+        background: #FFFFFF;
+        padding: 0 27px 0 33px;
+        width: 100%;
+        height: 100%;
+        vertical-align: middle;
+        white-space: normal;
+        font-size: inherit;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+
+    .sbx-custom__input::-webkit-search-decoration, .sbx-custom__input::-webkit-search-cancel-button, .sbx-custom__input::-webkit-search-results-button, .sbx-custom__input::-webkit-search-results-decoration {
+        display: none;
+    }
+
+    .sbx-custom__input:hover {
+        box-shadow: inset 0 0 0 2px #b3b3b3;
+    }
+
+    .sbx-custom__input:focus, .sbx-custom__input:active {
+        outline: 0;
+        box-shadow: inset 0 0 0 2px #4B54DE;
+        background: #FFFFFF;
+    }
+
+    .sbx-custom__input::-webkit-input-placeholder {
+        color: #BBBBBB;
+    }
+
+    .sbx-custom__input::-moz-placeholder {
+        color: #BBBBBB;
+    }
+
+    .sbx-custom__input:-ms-input-placeholder {
+        color: #BBBBBB;
+    }
+
+    .sbx-custom__input::placeholder {
+        color: #BBBBBB;
+    }
+
+    .sbx-custom__submit {
+        position: absolute;
+        top: 0;
+        right: inherit;
+        left: 0;
+        margin: 0;
+        border: 0;
+        border-radius: 4px 0 0 4px;
+        background-color: rgba(255, 255, 255, 0);
+        padding: 0;
+        width: 33px;
+        height: 100%;
+        vertical-align: middle;
+        text-align: center;
+        font-size: inherit;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    .sbx-custom__submit::before {
+        display: inline-block;
+        margin-right: -4px;
+        height: 100%;
+        vertical-align: middle;
+        content: '';
+    }
+
+    .sbx-custom__submit:hover, .sbx-custom__submit:active {
+        cursor: pointer;
+    }
+
+    .sbx-custom__submit:focus {
+        outline: 0;
+    }
+
+    .sbx-custom__submit svg {
+        width: 17px;
+        height: 17px;
+        vertical-align: middle;
+        fill: #3A33D1;
+    }
+
+    .sbx-custom__reset {
+        display: none;
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        margin: 0;
+        border: 0;
+        background: none;
+        cursor: pointer;
+        padding: 0;
+        font-size: inherit;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        fill: rgba(0, 0, 0, 0.5);
+    }
+
+    .sbx-custom__reset:focus {
+        outline: 0;
+    }
+
+    .sbx-custom__reset svg {
+        display: block;
+        margin: 4px;
+        width: 17px;
+        height: 17px;
+    }
+
+    .sbx-custom__input:valid ~ .sbx-custom__reset {
+        display: block;
+        -webkit-animation-name: sbx-reset-in;
+        animation-name: sbx-reset-in;
+        -webkit-animation-duration: .15s;
+        animation-duration: .15s;
+    }
+
+    @-webkit-keyframes sbx-reset-in {
+        0% {
+            -webkit-transform: translate3d(-20%, 0, 0);
+            transform: translate3d(-20%, 0, 0);
+            opacity: 0;
+        }
+        100% {
+            -webkit-transform: none;
+            transform: none;
+            opacity: 1;
+        }
+    }
+
+    @keyframes sbx-reset-in {
+        0% {
+            -webkit-transform: translate3d(-20%, 0, 0);
+            transform: translate3d(-20%, 0, 0);
+            opacity: 0;
+        }
+        100% {
+            -webkit-transform: none;
+            transform: none;
+            opacity: 1;
+        }
+    }
+</style>
+<div class="book-header" role="navigation">
+    
+    <a class="book-header-title" href="../../..">
+        <img class="book-header-title-img" alt="js-primer"
+             src="../../../gitbook/icons/icon-128x128.png"/>
+        <h2 class="book-header-title-h" title="js-primer - JavaScriptの入門書">js-primer</h2>
+    </a>
+    <div class="searchbarWrapper header-center">
+        <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+            <symbol xmlns="http://www.w3.org/2000/svg" id="sbx-icon-search-8" viewBox="0 0 40 40">
+                <path d="M16 32c8.835 0 16-7.165 16-16 0-8.837-7.165-16-16-16C7.162 0 0 7.163 0 16c0 8.835 7.163 16 16 16zm0-5.76c5.654 0 10.24-4.586 10.24-10.24 0-5.656-4.586-10.24-10.24-10.24-5.656 0-10.24 4.584-10.24 10.24 0 5.654 4.584 10.24 10.24 10.24zM28.156 32.8c-1.282-1.282-1.278-3.363.002-4.643 1.282-1.284 3.365-1.28 4.642-.003l6.238 6.238c1.282 1.282 1.278 3.363-.002 4.643-1.283 1.283-3.366 1.28-4.643.002l-6.238-6.238z"
+                      fill-rule="evenodd"></path>
+            </symbol>
+            <symbol xmlns="http://www.w3.org/2000/svg" id="sbx-icon-clear-5" viewBox="0 0 20 20">
+                <path d="M10 20c5.523 0 10-4.477 10-10S15.523 0 10 0 0 4.477 0 10s4.477 10 10 10zm1.35-10.123l3.567 3.568-1.225 1.226-3.57-3.568-3.567 3.57-1.226-1.227 3.568-3.568-3.57-3.57 1.227-1.224 3.568 3.568 3.57-3.567 1.224 1.225-3.568 3.57zM10 18.272c4.568 0 8.272-3.704 8.272-8.272S14.568 1.728 10 1.728 1.728 5.432 1.728 10 5.432 18.272 10 18.272z"
+                      fill-rule="evenodd"></path>
+            </symbol>
+        </svg>
+
+        <form novalidate="novalidate" onsubmit="return false;" class="searchbox sbx-custom">
+            <div role="search" class="sbx-custom__wrapper">
+                <input name="search" placeholder="Search words" autocomplete="off" required="required"
+                       class="sbx-custom__input" type="search">
+                <button type="submit" title="Submit your search query." class="sbx-custom__submit">
+                    <svg role="img" aria-label="Search">
+                        <use xlink:href="#sbx-icon-search-8"></use>
+                    </svg>
+                </button>
+                <button type="reset" title="Clear the search query." class="sbx-custom__reset">
+                    <svg role="img" aria-label="Reset">
+                        <use xlink:href="#sbx-icon-clear-5"></use>
+                    </svg>
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="header-right">
+        <a class="github-link" title="GitHub: asciidwango/js-primer" href="https://github.com/asciidwango/js-primer"
+           target="_blank"><i
+                class="fa fa-github fa-fw"></i></a>
+    </div>
+</div>
+
+<script type="text/javascript">
+    document.querySelector('.searchbox [type="reset"]').addEventListener('click', function() {
+        this.parentNode.querySelector('input').focus();
+    });
+</script>
+<script>
+    var search = docsearch({
+        apiKey: 'fd28ebaba94be0c39fb9fa1b2fed4f23', // use a SEARCH-ONLY api key here
+        indexName: 'asciidwango',
+        inputSelector: '.sbx-custom__input',
+        debug: false // set to `true` if you want to inspect the dropdown menu's CSS
+    });
+</script>
+
+
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="event-model"><a name="event-model" class="plugin-anchor" href="#event-model"><i class="fa fa-link" aria-hidden="true"></i></a>&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x3068;&#x30E2;&#x30C7;&#x30EB; </h1>
+<p>Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x3092;&#x8FFD;&#x52A0;&#x3059;&#x308B;&#x6A5F;&#x80FD;&#x3092;&#x5B9F;&#x88C5;&#x3057;&#x307E;&#x3057;&#x305F;&#x304C;&#x3001;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x3092;&#x53D7;&#x3051;&#x53D6;&#x308A;&#x76F4;&#x63A5;DOM&#x3092;&#x66F4;&#x65B0;&#x3059;&#x308B;&#x65B9;&#x6CD5;&#x306F;&#x67D4;&#x8EDF;&#x6027;&#x304C;&#x306A;&#x304F;&#x306A;&#x308B;&#x3068;&#x3044;&#x3046;&#x554F;&#x984C;&#x304C;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;
+&#x307E;&#x305F;&#x300C;Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x306E;&#x66F4;&#x65B0;&#x300D;&#x3068;&#x3044;&#x3046;&#x6A5F;&#x80FD;&#x3092;&#x5B9F;&#x88C5;&#x3059;&#x308B;&#x306B;&#x306F;&#x8FFD;&#x52A0;&#x3057;&#x305F;Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x8981;&#x7D20;&#x3092;&#x8B58;&#x5225;&#x3059;&#x308B;&#x65B9;&#x6CD5;&#x304C;&#x5FC5;&#x8981;&#x3067;&#x3059;&#x3002;
+&#x5177;&#x4F53;&#x7684;&#x306B;&#x306F;<code>id</code>&#x5C5E;&#x6027;&#x306A;&#x3069;&#x30E6;&#x30CB;&#x30FC;&#x30AF;&#x306A;&#x8B58;&#x5225;&#x5B50;&#x306A;&#x3069;&#x304C;&#x3069;&#x3053;&#x306B;&#x3082;&#x306A;&#x3044;&#x305F;&#x3081;&#x3001;&#x7279;&#x5B9A;&#x306E;&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x3092;&#x6307;&#x5B9A;&#x3059;&#x308B;&#x66F4;&#x65B0;&#x3084;&#x524A;&#x9664;&#x304C;&#x5B9F;&#x88C5;&#x3067;&#x304D;&#x307E;&#x305B;&#x3093;&#x3002;</p>
+<p>&#x307E;&#x305A;&#x306F;&#x3069;&#x306E;&#x3088;&#x3046;&#x306A;&#x70B9;&#x3067;&#x67D4;&#x8EDF;&#x6027;&#x306E;&#x554F;&#x984C;&#x304C;&#x8D77;&#x304D;&#x3084;&#x3059;&#x304B;&#x306B;&#x3064;&#x3044;&#x3066;&#x3092;&#x898B;&#x3066;&#x3044;&#x304D;&#x307E;&#x3059;&#x3002;
+&#x305D;&#x306E;&#x5F8C;&#x3001;&#x67D4;&#x8EDF;&#x6027;&#x3084;&#x8B58;&#x5225;&#x5B50;&#x306E;&#x554F;&#x984C;&#x3092;&#x89E3;&#x6C7A;&#x3059;&#x308B;&#x305F;&#x3081;&#x306B;<strong>&#x30E2;&#x30C7;&#x30EB;</strong>&#x3068;&#x3044;&#x3046;&#x6982;&#x5FF5;&#x3092;&#x5C0E;&#x5165;&#x3057;&#x3001;&#x3042;&#x3089;&#x305F;&#x3081;&#x3066;&#x300C;Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x306E;&#x8FFD;&#x52A0;&#x300D;&#x306E;&#x6A5F;&#x80FD;&#x3092;&#x898B;&#x3066;&#x3044;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<h2 id="direct-dom-modification-issue"><a name="direct-dom-modification-issue" class="plugin-anchor" href="#direct-dom-modification-issue"><i class="fa fa-link" aria-hidden="true"></i></a>&#x76F4;&#x63A5;DOM&#x3092;&#x66F4;&#x65B0;&#x3059;&#x308B;&#x554F;&#x984C; </h2>
+<p><a href="../form-event/">&#x524D;&#x56DE;&#x306E;&#x30BB;&#x30AF;&#x30B7;&#x30E7;&#x30F3;</a>&#x3067;&#x306F;&#x3001;&#x64CD;&#x4F5C;&#x3057;&#x305F;&#x7D50;&#x679C;&#x767A;&#x751F;&#x3057;&#x305F;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x3068;&#x3044;&#x3046;&#x5165;&#x529B;&#x306B;&#x5BFE;&#x3057;&#x3066;&#x3001;DOM&#xFF08;&#x8868;&#x793A;&#xFF09;&#x306E;&#x66F4;&#x65B0;&#x3068;&#x3044;&#x3046;&#x51FA;&#x529B;&#x304C;1&#x5BFE;1&#x3067;&#x304A;&#x3053;&#x306A;&#x308F;&#x308C;&#x3066;&#x3044;&#x307E;&#x3057;&#x305F;&#x3002;
+&#x3064;&#x307E;&#x308A;Todo&#x30EA;&#x30B9;&#x30C8;&#x306B;Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x304C;&#x4F55;&#x500B;&#x3042;&#x308B;&#x304B;&#x3001;&#x3069;&#x306E;&#x3088;&#x3046;&#x306A;&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x304C;&#x3042;&#x308B;&#x304B;&#x3068;&#x3044;&#x3046;&#x72B6;&#x614B;&#x304C;DOM&#x4E0A;&#x306B;&#x3057;&#x304B;&#x5B58;&#x5728;&#x3057;&#x306A;&#x3044;&#x3053;&#x3068;&#x306B;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x305D;&#x306E;&#x305F;&#x3081;&#x3001;Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x306E;&#x72B6;&#x614B;&#x3092;&#x66F4;&#x65B0;&#x3059;&#x308B;&#x306B;&#x306F;&#x3001;HTML&#x8981;&#x7D20;&#x306B;Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x306E;&#x60C5;&#x5831;&#xFF08;&#x30BF;&#x30A4;&#x30C8;&#x30EB;&#x3084;&#x8B58;&#x5225;&#x5B50;&#x3068;&#x306A;&#x308B;id&#x306A;&#x3069;&#xFF09;&#x3092;&#x3059;&#x3079;&#x3066;&#x57CB;&#x3081;&#x8FBC;&#x3080;&#x5FC5;&#x8981;&#x304C;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;
+&#x3057;&#x304B;&#x3057;&#x3001;HTML&#x8981;&#x7D20;&#x306B;&#x5BFE;&#x3057;&#x3066;&#x6587;&#x5B57;&#x5217;&#x3057;&#x304B;&#x57CB;&#x3081;&#x8FBC;&#x3081;&#x306A;&#x3044;&#x305F;&#x3081;&#x3001;Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x306E;&#x30C7;&#x30FC;&#x30BF;&#x3092;&#x6587;&#x5B57;&#x5217;&#x306B;&#x3057;&#x306A;&#x3044;&#x3068;&#x3044;&#x3051;&#x306A;&#x3044;&#x3068;&#x3044;&#x3046;&#x5236;&#x9650;&#x304C;&#x767A;&#x751F;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x307E;&#x305F;&#x64CD;&#x4F5C;&#x3068;&#x8868;&#x793A;&#x304C;1&#x5BFE;1&#x3067;&#x66F4;&#x65B0;&#x3055;&#x308C;&#x308B;&#x5834;&#x5408;&#x3001;1&#x3064;&#x306E;&#x64CD;&#x4F5C;&#x306B;&#x5BFE;&#x3057;&#x3066;&#x8907;&#x6570;&#x306E;&#x7B87;&#x6240;&#x306E;&#x8868;&#x793A;&#x304C;&#x66F4;&#x65B0;&#x3055;&#x308C;&#x308B;&#x3053;&#x3068;&#x3082;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;
+&#x4ECA;&#x56DE;&#x306E;Todo&#x30A2;&#x30D7;&#x30EA;&#x3067;&#x3082;Todo&#x30EA;&#x30B9;&#x30C8;(<code>#js-todo-list</code>)&#x3068;Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x6570;&#xFF08;<code>#js-todo-count</code>&#xFF09;&#x306E;2&#x7B87;&#x6240;&#x3092;&#x66F4;&#x65B0;&#x3059;&#x308B;&#x5FC5;&#x8981;&#x304C;&#x3042;&#x308B;&#x3053;&#x3068;&#x304B;&#x3089;&#x3082;&#x5206;&#x304B;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x6B21;&#x306E;&#x8868;&#x306B;<strong>&#x64CD;&#x4F5C;</strong>&#x306B;&#x5BFE;&#x3057;&#x3066;&#x66F4;&#x65B0;&#x3059;&#x308B;<strong>&#x8868;&#x793A;</strong>&#x3092;&#x307E;&#x3068;&#x3081;&#x3066;&#x307F;&#x307E;&#x3059;&#x3002;</p>
+<table>
+<thead>
+<tr>
+<th>&#x6A5F;&#x80FD;</th>
+<th>&#x64CD;&#x4F5C;</th>
+<th>&#x8868;&#x793A;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x306E;&#x8FFD;&#x52A0;</td>
+<td>&#x30D5;&#x30A9;&#x30FC;&#x30E0;&#x3092;&#x5165;&#x529B;&#x3057;&#x9001;&#x4FE1;</td>
+<td>Todo&#x30EA;&#x30B9;&#x30C8;(<code>#js-todo-list</code>)&#x306B;Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x8981;&#x7D20;&#x3092;&#x4F5C;&#x6210;&#x3057;&#x5B50;&#x8981;&#x7D20;&#x3068;&#x3057;&#x3066;&#x8FFD;&#x52A0;&#x3002;&#x5408;&#x308F;&#x305B;&#x3066;Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x6570;&#xFF08;<code>#js-todo-count</code>&#xFF09;&#x3092;&#x66F4;&#x65B0;</td>
+</tr>
+<tr>
+<td>Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x306E;&#x66F4;&#x65B0;</td>
+<td>&#x30C1;&#x30A7;&#x30C3;&#x30AF;&#x30DC;&#x30C3;&#x30AF;&#x30B9;&#x3092;&#x30AF;&#x30EA;&#x30C3;&#x30AF;</td>
+<td>Todo&#x30EA;&#x30B9;&#x30C8;(<code>#js-todo-list</code>)&#x306B;&#x3042;&#x308B;&#x6307;&#x5B9A;&#x3057;&#x305F;Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x8981;&#x7D20;&#x306E;&#x30C1;&#x30A7;&#x30C3;&#x30AF;&#x72B6;&#x614B;&#x3092;&#x66F4;&#x65B0;</td>
+</tr>
+<tr>
+<td>Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x306E;&#x524A;&#x9664;</td>
+<td>&#x524A;&#x9664;&#x30DC;&#x30BF;&#x30F3;&#x3092;&#x30AF;&#x30EA;&#x30C3;&#x30AF;</td>
+<td>Todo&#x30EA;&#x30B9;&#x30C8;(<code>#js-todo-list</code>)&#x306B;&#x3042;&#x308B;&#x6307;&#x5B9A;&#x3057;&#x305F;Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x8981;&#x7D20;&#x3092;&#x524A;&#x9664;&#x3002;&#x5408;&#x308F;&#x305B;&#x3066;Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x6570;&#xFF08;<code>#js-todo-count</code>&#xFF09;&#x3092;&#x66F4;&#x65B0;</td>
+</tr>
+</tbody>
+</table>
+<p>&#x3053;&#x308C;&#x306F;&#x8868;&#x793A;&#x3092;&#x66F4;&#x65B0;&#x3057;&#x306A;&#x3051;&#x308C;&#x3070;&#x3044;&#x3051;&#x306A;&#x3044;&#x7B87;&#x6240;&#x304C;&#x5897;&#x3048;&#x308B;&#x307B;&#x3069;&#x3001;&#x64CD;&#x4F5C;&#x306B;&#x5BFE;&#x3059;&#x308B;&#x51E6;&#x7406;&#x304C;&#x8907;&#x96D1;&#x5316;&#x3057;&#x3066;&#x3044;&#x304F;&#x3053;&#x3068;&#x304C;&#x4E88;&#x60F3;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x3053;&#x3053;&#x3067;&#x306F;&#x6B21;&#x306E;2&#x3064;&#x306E;&#x554F;&#x984C;&#x304C;&#x898B;&#x3064;&#x304B;&#x308A;&#x307E;&#x3057;&#x305F;&#x3002;</p>
+<ul>
+<li>Todo&#x30EA;&#x30B9;&#x30C8;&#x306E;&#x72B6;&#x614B;&#x304C;DOM&#x4E0A;&#x306B;&#x3057;&#x304B;&#x5B58;&#x5728;&#x3057;&#x306A;&#x3044;&#x305F;&#x3081;&#x3001;&#x72B6;&#x614B;&#x3092;&#x3059;&#x3079;&#x3066;DOM&#x4E0A;&#x306B;&#x6587;&#x5B57;&#x5217;&#x3067;&#x57CB;&#x3081;&#x8FBC;&#x307E;&#x306A;&#x3044;&#x3068;&#x3044;&#x3051;&#x306A;&#x3044;</li>
+<li>&#x64CD;&#x4F5C;&#x306B;&#x5BFE;&#x3057;&#x3066;&#x66F4;&#x65B0;&#x3059;&#x308B;&#x8868;&#x793A;&#x7B87;&#x6240;&#x304C;&#x5897;&#x3048;&#x3066;&#x304F;&#x308B;&#x3068;&#x3001;&#x8868;&#x793A;&#x306E;&#x51E6;&#x7406;&#x304C;&#x8907;&#x96D1;&#x5316;&#x3059;&#x308B;</li>
+</ul>
+<h2 id="introduce-model"><a name="introduce-model" class="plugin-anchor" href="#introduce-model"><i class="fa fa-link" aria-hidden="true"></i></a>&#x30E2;&#x30C7;&#x30EB;&#x3092;&#x5C0E;&#x5165;&#x3059;&#x308B; </h2>
+<p>&#x3053;&#x306E;&#x554F;&#x984C;&#x3092;&#x907F;&#x3051;&#x308B;&#x305F;&#x3081;&#x306B;&#x3001;Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x3068;&#x3044;&#x3046;&#x60C5;&#x5831;&#x3092;JavaScript&#x30AF;&#x30E9;&#x30B9;&#x3068;&#x3057;&#x3066;&#x30E2;&#x30C7;&#x30EB;&#x5316;&#x3057;&#x307E;&#x3059;&#x3002;
+&#x3053;&#x3053;&#x3067;&#x306E;&#x30E2;&#x30C7;&#x30EB;&#x3068;&#x306F;Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x3084;Todo&#x30EA;&#x30B9;&#x30C8;&#x3068;&#x3044;&#x3063;&#x305F;<strong>&#x3082;&#x306E;</strong>&#x3092;&#x8868;&#x73FE;&#x3057;&#x3001;&#x64CD;&#x4F5C;&#x3084;&#x72B6;&#x614B;&#x3092;&#x3082;&#x305F;&#x305B;&#x305F;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x3068;&#x3044;&#x3046;&#x610F;&#x5473;&#x3067;&#x3059;&#x3002;
+&#x30AF;&#x30E9;&#x30B9;&#x3067;&#x306F;&#x64CD;&#x4F5C;&#x306F;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3068;&#x3057;&#x3066;&#x5B9F;&#x88C5;&#x3057;&#x3001;&#x72B6;&#x614B;&#x306F;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x306B;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x306E;&#x5024;&#x3067;&#x7BA1;&#x7406;&#x3067;&#x304D;&#x308B;&#x305F;&#x3081;&#x3001;&#x4ECA;&#x56DE;&#x306F;&#x30AF;&#x30E9;&#x30B9;&#x3067;&#x30E2;&#x30C7;&#x30EB;&#x3092;&#x8868;&#x73FE;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x305F;&#x3068;&#x3048;&#x3070;&#x3001;Todo&#x30EA;&#x30B9;&#x30C8;&#x3092;&#x8868;&#x73FE;&#x3059;&#x308B;&#x30E2;&#x30C7;&#x30EB;&#x3068;&#x3057;&#x3066;<code>TodoListModel</code>&#x30AF;&#x30E9;&#x30B9;&#x3092;&#x8003;&#x3048;&#x307E;&#x3059;&#x3002;
+Todo&#x30EA;&#x30B9;&#x30C8;&#x306B;&#x306F;Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x3092;&#x8FFD;&#x52A0;&#x3067;&#x304D;&#x308B;&#x306E;&#x3067;<code>TodoListModel#addItem</code>&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3092;&#x5B9F;&#x88C5;&#x3059;&#x308B;&#x5FC5;&#x8981;&#x304C;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;
+&#x307E;&#x305F;&#x3001;Todo&#x30EA;&#x30B9;&#x30C8;&#x304B;&#x3089;&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x306E;&#x4E00;&#x89A7;&#x3092;&#x53D6;&#x5F97;&#x3067;&#x304D;&#x308B;&#x5FC5;&#x8981;&#x3082;&#x3042;&#x308B;&#x306E;&#x3067;<code>TodoListModel#getAllItems</code>&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3082;&#x5FC5;&#x8981;&#x3067;&#x3059;&#x3002;
+&#x3053;&#x306E;&#x3088;&#x3046;&#x306B;Todo&#x30EA;&#x30B9;&#x30C8;&#x3092;&#x30AF;&#x30E9;&#x30B9;&#x3067;&#x8868;&#x73FE;&#x3059;&#x308B;&#x969B;&#x306B;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x304C;&#x3069;&#x306E;&#x3088;&#x3046;&#x306A;&#x51E6;&#x7406;&#x3084;&#x72B6;&#x614B;&#x3092;&#x3082;&#x3064;&#x304B;&#x3092;&#x8003;&#x3048;&#x5B9F;&#x88C5;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x3053;&#x306E;&#x3088;&#x3046;&#x306B;&#x30E2;&#x30C7;&#x30EB;&#x3092;&#x8003;&#x3048;&#x3001;&#x5148;&#x307B;&#x3069;&#x306E;&#x64CD;&#x4F5C;&#x3068;&#x8868;&#x793A;&#x306E;&#x9593;&#x306B;&#x30E2;&#x30C7;&#x30EB;&#x3092;&#x5165;&#x308C;&#x308B;&#x3053;&#x3068;&#x3092;&#x8003;&#x3048;&#x3066;&#x307F;&#x307E;&#x3059;&#x3002;
+&#x300C;&#x30D5;&#x30A9;&#x30FC;&#x30E0;&#x3092;&#x5165;&#x529B;&#x3057;&#x9001;&#x4FE1;&#x300D;&#x3068;&#x3044;&#x3046;<strong>&#x64CD;&#x4F5C;</strong>&#x3092;&#x884C;&#x3063;&#x305F;&#x5834;&#x5408;&#x3001;<code>TodoListModel</code>&#x3068;&#x3044;&#x3046;<strong>&#x30E2;&#x30C7;&#x30EB;</strong>&#x306B;&#x5BFE;&#x3057;&#x3066;<code>TodoItemModel</code>&#x3092;&#x8FFD;&#x52A0;&#x3057;&#x307E;&#x3059;&#x3002;
+&#x305D;&#x3057;&#x3066;&#x3001;<code>TodoListModel</code>&#x304B;&#x3089;&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x306E;&#x4E00;&#x89A7;&#x3092;&#x53D6;&#x5F97;&#x3057;&#x3001;DOM&#x3092;&#x7D44;&#x307F;&#x7ACB;&#x3066;<strong>&#x8868;&#x793A;</strong>&#x3092;&#x66F4;&#x65B0;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x5148;&#x307B;&#x3069;&#x306E;&#x8868;&#x306B;&#x30E2;&#x30C7;&#x30EB;&#x3092;&#x3044;&#x308C;&#x3066;&#x307F;&#x307E;&#x3059;&#x3002;
+<strong>&#x64CD;&#x4F5C;</strong>&#x306B;&#x5BFE;&#x3059;&#x308B;<strong>&#x30E2;&#x30C7;&#x30EB;&#x306E;&#x51E6;&#x7406;</strong>&#x306F;&#x3055;&#x307E;&#x3056;&#x307E;&#x3067;&#x3059;&#x304C;&#x3001;<strong>&#x64CD;&#x4F5C;</strong>&#x306B;&#x5BFE;&#x3059;&#x308B;<strong>&#x8868;&#x793A;</strong>&#x306E;&#x51E6;&#x7406;&#x306F;&#x3069;&#x306E;&#x5834;&#x5408;&#x3082;&#x540C;&#x3058;&#x306B;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;
+&#x3053;&#x308C;&#x306F;&#x8868;&#x793A;&#x7B87;&#x6240;&#x304C;&#x5897;&#x3048;&#x305F;&#x5834;&#x5408;&#x3082;<strong>&#x8868;&#x793A;</strong>&#x306E;&#x51E6;&#x7406;&#x306E;&#x8907;&#x96D1;&#x3055;&#x304C;&#x4E00;&#x5B9A;&#x306B;&#x4FDD;&#x3066;&#x308B;&#x3053;&#x3068;&#x3092;&#x610F;&#x5473;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<table>
+<thead>
+<tr>
+<th>&#x6A5F;&#x80FD;</th>
+<th>&#x64CD;&#x4F5C;</th>
+<th>&#x30E2;&#x30C7;&#x30EB;&#x306E;&#x51E6;&#x7406;</th>
+<th>&#x8868;&#x793A;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x306E;&#x8FFD;&#x52A0;</td>
+<td>&#x30D5;&#x30A9;&#x30FC;&#x30E0;&#x3092;&#x5165;&#x529B;&#x3057;&#x9001;&#x4FE1;</td>
+<td><code>TodoListModel</code>&#x3078;&#x65B0;&#x3057;&#x3044;<code>TodoItemModel</code>&#x3092;&#x8FFD;&#x52A0;</td>
+<td><code>TodoListModel</code>&#x3092;&#x5143;&#x306B;&#x8868;&#x793A;&#x3092;&#x66F4;&#x65B0;</td>
+</tr>
+<tr>
+<td>Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x306E;&#x66F4;&#x65B0;</td>
+<td>&#x30C1;&#x30A7;&#x30C3;&#x30AF;&#x30DC;&#x30C3;&#x30AF;&#x30B9;&#x3092;&#x30AF;&#x30EA;&#x30C3;&#x30AF;</td>
+<td><code>TodoListModel</code>&#x306E;&#x6307;&#x5B9A;&#x3057;&#x305F;<code>TodoItemModel</code>&#x306E;&#x72B6;&#x614B;&#x3092;&#x66F4;&#x65B0;</td>
+<td><code>TodoListModel</code>&#x3092;&#x5143;&#x306B;&#x8868;&#x793A;&#x3092;&#x66F4;&#x65B0;</td>
+</tr>
+<tr>
+<td>Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x306E;&#x524A;&#x9664;</td>
+<td>&#x524A;&#x9664;&#x30DC;&#x30BF;&#x30F3;&#x3092;&#x30AF;&#x30EA;&#x30C3;&#x30AF;</td>
+<td><code>TodoListModel</code>&#x304B;&#x3089;&#x6307;&#x5B9A;&#x306E;<code>TodoItemModel</code>&#x3092;&#x524A;&#x9664;</td>
+<td><code>TodoListModel</code>&#x3092;&#x5143;&#x306B;&#x8868;&#x793A;&#x3092;&#x66F4;&#x65B0;</td>
+</tr>
+</tbody>
+</table>
+<p>&#x3053;&#x306E;&#x8868;&#x3092;&#x5143;&#x306B;&#x3042;&#x3089;&#x305F;&#x3081;&#x3066;&#x5148;&#x307B;&#x3069;&#x306E;&#x554F;&#x984C;&#x70B9;&#x3092;&#x898B;&#x3066;&#x3044;&#x304D;&#x307E;&#x3057;&#x3087;&#x3046;&#x3002;</p>
+<blockquote>
+<p>Todo&#x30EA;&#x30B9;&#x30C8;&#x306E;&#x72B6;&#x614B;&#x304C;DOM&#x4E0A;&#x306B;&#x3057;&#x304B;&#x5B58;&#x5728;&#x3057;&#x306A;&#x3044;&#x305F;&#x3081;&#x3001;&#x72B6;&#x614B;&#x3092;&#x3059;&#x3079;&#x3066;DOM&#x4E0A;&#x306B;&#x6587;&#x5B57;&#x5217;&#x3067;&#x57CB;&#x3081;&#x8FBC;&#x307E;&#x306A;&#x3044;&#x3068;&#x3044;&#x3051;&#x306A;&#x3044;</p>
+</blockquote>
+<p>&#x30E2;&#x30C7;&#x30EB;&#x3067;&#x3042;&#x308B;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x3092;&#x53C2;&#x7167;&#x3059;&#x308C;&#x3070;&#x60C5;&#x5831;&#x304C;&#x624B;&#x306B;&#x5165;&#x308A;&#x307E;&#x3059;&#x3002;
+&#x307E;&#x305F;&#x30E2;&#x30C7;&#x30EB;&#x306F;&#x305F;&#x3060;&#x306E;JavaScript&#x30AF;&#x30E9;&#x30B9;&#x3067;&#x3042;&#x308B;&#x305F;&#x3081;&#x3001;&#x6587;&#x5B57;&#x5217;&#x3067;&#x306F;&#x306A;&#x3044;&#x60C5;&#x5831;&#x3082;&#x4FDD;&#x6301;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;
+&#x305D;&#x306E;&#x305F;&#x3081;&#x3001;DOM&#x306B;&#x3059;&#x3079;&#x3066;&#x306E;&#x60C5;&#x5831;&#x3092;&#x57CB;&#x3081;&#x8FBC;&#x3080;&#x5FC5;&#x8981;&#x306F;&#x3042;&#x308A;&#x307E;&#x305B;&#x3093;&#x3002;</p>
+<blockquote>
+<p>&#x64CD;&#x4F5C;&#x306B;&#x5BFE;&#x3057;&#x3066;&#x66F4;&#x65B0;&#x3059;&#x308B;&#x8868;&#x793A;&#x7B87;&#x6240;&#x304C;&#x5897;&#x3048;&#x3066;&#x304F;&#x308B;&#x3068;&#x3001;&#x8868;&#x793A;&#x306E;&#x51E6;&#x7406;&#x304C;&#x8907;&#x96D1;&#x5316;&#x3059;&#x308B;</p>
+</blockquote>
+<p>&#x8868;&#x793A;&#x306F;&#x30E2;&#x30C7;&#x30EB;&#x306E;&#x72B6;&#x614B;&#x3092;&#x5143;&#x306B;&#x3057;&#x3066;HTML&#x8981;&#x7D20;&#x3092;&#x4F5C;&#x6210;&#x3057;&#x8868;&#x793A;&#x3092;&#x66F4;&#x65B0;&#x3057;&#x307E;&#x3059;&#x3002;
+&#x30E2;&#x30C7;&#x30EB;&#x306E;&#x72B6;&#x614B;&#x304C;&#x5909;&#x5316;&#x3057;&#x3066;&#x3044;&#x306A;&#x3051;&#x308C;&#x3070;&#x3001;&#x8868;&#x793A;&#x306F;&#x5909;&#x308F;&#x3089;&#x306A;&#x304F;&#x3066;&#x3082;&#x554F;&#x984C;&#x3042;&#x308A;&#x307E;&#x305B;&#x3093;&#x3002;</p>
+<p>&#x305D;&#x306E;&#x305F;&#x3081;&#x64CD;&#x4F5C;&#x3057;&#x305F;&#x30BF;&#x30A4;&#x30DF;&#x30F3;&#x30B0;&#x3067;&#x306F;&#x306A;&#x304F;&#x3001;&#x30E2;&#x30C7;&#x30EB;&#x306E;&#x72B6;&#x614B;&#x304C;&#x5909;&#x5316;&#x3057;&#x305F;&#x30BF;&#x30A4;&#x30DF;&#x30F3;&#x30B0;&#x3067;&#x8868;&#x793A;&#x3092;&#x66F4;&#x65B0;&#x3059;&#x308C;&#x3070;&#x3088;&#x3044;&#x306F;&#x305A;&#x3067;&#x3059;&#x3002;
+&#x5177;&#x4F53;&#x7684;&#x306B;&#x306F;&#x300C;&#x30D5;&#x30A9;&#x30FC;&#x30E0;&#x3092;&#x5165;&#x529B;&#x3057;&#x9001;&#x4FE1;&#x300D;&#x3055;&#x308C;&#x305F;&#x304B;&#x3089;&#x8868;&#x793A;&#x3092;&#x66F4;&#x65B0;&#x3059;&#x308B;&#x306E;&#x3067;&#x306F;&#x306A;&#x304F;&#x3001;
+&#x300C;<code>TodoListModel</code>&#x3068;&#x3044;&#x3046;&#x30E2;&#x30C7;&#x30EB;&#x306E;&#x72B6;&#x614B;&#x304C;&#x5909;&#x5316;&#x300D;&#x3057;&#x305F;&#x304B;&#x3089;&#x8868;&#x793A;&#x3092;&#x66F4;&#x65B0;&#x3059;&#x308C;&#x3070;&#x3044;&#x3044;&#x306F;&#x305A;&#x3067;&#x3059;&#x3002;</p>
+<p>&#x305D;&#x306E;&#x305F;&#x3081;&#x306B;&#x306F;&#x3001;<code>TodoListModel</code>&#x3068;&#x3044;&#x3046;&#x30E2;&#x30C7;&#x30EB;&#x306E;&#x72B6;&#x614B;&#x304C;&#x5909;&#x5316;&#x3057;&#x305F;&#x3053;&#x3068;&#x3092;&#x8868;&#x793A;&#x5074;&#x304B;&#x3089;&#x77E5;&#x308B;&#x5FC5;&#x8981;&#x304C;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;
+&#x3053;&#x3053;&#x3067;&#x518D;&#x3073;&#x51FA;&#x3066;&#x304F;&#x308B;&#x306E;&#x304C;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x3067;&#x3059;&#x3002;</p>
+<h2 id="model-and-event"><a name="model-and-event" class="plugin-anchor" href="#model-and-event"><i class="fa fa-link" aria-hidden="true"></i></a>&#x30E2;&#x30C7;&#x30EB;&#x306E;&#x5909;&#x5316;&#x3092;&#x4F1D;&#x3048;&#x308B;&#x30A4;&#x30D9;&#x30F3;&#x30C8; </h2>
+<p>&#x30D5;&#x30A9;&#x30FC;&#x30E0;&#x3092;&#x9001;&#x4FE1;&#x3057;&#x305F;&#x3089;form&#x8981;&#x7D20;&#x304B;&#x3089;<code>submit</code>&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x304C;&#x767A;&#x751F;&#x3057;&#x307E;&#x3059;&#x3002;
+&#x3053;&#x308C;&#x3068;&#x540C;&#x3058;&#x3088;&#x3046;&#x306B;<code>TodoListModel</code>&#x306E;&#x72B6;&#x614B;&#x304C;&#x5909;&#x5316;&#x3057;&#x305F;&#x3089;&#x81EA;&#x5206;&#x81EA;&#x8EAB;&#x3078;<code>change</code>&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x3092;&#x30C7;&#x30A3;&#x30B9;&#x30D1;&#x30C3;&#x30C1;&#x3057;&#x307E;&#x3059;&#x3002;
+&#x8868;&#x793A;&#x5074;&#x306F;&#x305D;&#x306E;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x3092;&#x30EA;&#x30C3;&#x30B9;&#x30F3;&#x3057;&#x3066;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x304C;&#x767A;&#x751F;&#x3057;&#x305F;&#x3089;&#x8868;&#x793A;&#x3092;&#x66F4;&#x65B0;&#x3059;&#x308C;&#x3070;&#x3088;&#x3044;&#x306F;&#x305A;&#x3067;&#x3059;&#x3002;</p>
+<p><code>TodoListModel</code>&#x306E;&#x72B6;&#x614B;&#x306E;&#x5909;&#x5316;&#x3068;&#x306F;&#x3001;&#x300C;<code>TodoListModel</code>&#x306B;&#x65B0;&#x3057;&#x3044;<code>TodoItemModel</code>&#x304C;&#x8FFD;&#x52A0;&#x3055;&#x308C;&#x308B;&#x300D;&#x306A;&#x3069;&#x304C;&#x8A72;&#x5F53;&#x3057;&#x307E;&#x3059;&#x3002;
+&#x5148;&#x307B;&#x3069;&#x8868;&#x306E;&#x300C;&#x30E2;&#x30C7;&#x30EB;&#x306E;&#x51E6;&#x7406;&#x300D;&#x306F;&#x4F55;&#x304B;&#x3057;&#x3089;&#x72B6;&#x614B;&#x304C;&#x5909;&#x5316;&#x3057;&#x3066;&#x3044;&#x308B;&#x306E;&#x3067;&#x3001;&#x8868;&#x793A;&#x3092;&#x66F4;&#x65B0;&#x3059;&#x308B;&#x5FC5;&#x8981;&#x304C;&#x3042;&#x308B;&#x308F;&#x3051;&#x3067;&#x3059;&#x3002;</p>
+<p>DOM API&#x306E;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x306E;&#x4ED5;&#x7D44;&#x307F;&#x3092;&#x30E2;&#x30C7;&#x30EB;&#x3067;&#x3082;&#x5229;&#x7528;&#x3067;&#x304D;&#x308C;&#x3070;&#x3001;&#x30E2;&#x30C7;&#x30EB;&#x304C;&#x66F4;&#x65B0;&#x3055;&#x308C;&#x305F;&#x3089;&#x8868;&#x793A;&#x3092;&#x66F4;&#x65B0;&#x3059;&#x308B;&#x4ED5;&#x7D44;&#x307F;&#x3092;&#x4F5C;&#x308C;&#x305D;&#x3046;&#x3067;&#x3059;&#x3002;
+&#x30D6;&#x30E9;&#x30A6;&#x30B6;&#x306E;DOM API&#x3067;&#x306F;&#x3053;&#x306E;&#x3088;&#x3046;&#x306A;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x4ED5;&#x7D44;&#x307F;&#x3092;DOM Events&#x3068;&#x547C;&#x3073;&#x307E;&#x3059;&#x3002;
+Node.js&#x3067;&#x306F;<code>events</code>&#x3068;&#x547C;&#x3070;&#x308C;&#x308B;&#x30E2;&#x30B8;&#x30E5;&#x30FC;&#x30EB;&#x3067;API&#x306F;&#x7570;&#x306A;&#x308A;&#x307E;&#x3059;&#x304C;&#x540C;&#x69D8;&#x306E;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x306E;&#x4ED5;&#x7D44;&#x307F;&#x304C;&#x5229;&#x7528;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;
+&#x3053;&#x3053;&#x3067;&#x306F;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x306E;&#x4ED5;&#x7D44;&#x307F;&#x3092;&#x7406;&#x89E3;&#x3059;&#x308B;&#x305F;&#x3081;&#x306B;&#x3001;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x306E;&#x30C7;&#x30A3;&#x30B9;&#x30D1;&#x30C3;&#x30C1;&#x3068;&#x30EA;&#x30C3;&#x30B9;&#x30F3;&#x3059;&#x308B;&#x6A5F;&#x80FD;&#x3092;&#x3082;&#x3064;&#x30AF;&#x30E9;&#x30B9;&#x3092;&#x4F5C;&#x3063;&#x3066;&#x307F;&#x307E;&#x3057;&#x3087;&#x3046;&#x3002;</p>
+<p>&#x3068;&#x3066;&#x3082;&#x96E3;&#x3057;&#x304F;&#x805E;&#x3053;&#x3048;&#x307E;&#x3059;&#x304C;&#x3001;&#x4ECA;&#x307E;&#x3067;&#x5B66;&#x3093;&#x3060;&#x30AF;&#x30E9;&#x30B9;&#x3084;&#x30B3;&#x30FC;&#x30EB;&#x30D0;&#x30C3;&#x30AF;&#x95A2;&#x6570;&#x306A;&#x3069;&#x3092;&#x4F7F;&#x3048;&#x3070;&#x5B9F;&#x73FE;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<h2 id="event-emitter"><a name="event-emitter" class="plugin-anchor" href="#event-emitter"><i class="fa fa-link" aria-hidden="true"></i></a>EventEmitter </h2>
+<p>&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x306E;&#x4ED5;&#x7D44;&#x307F;&#x3068;&#x306F;&#x300C;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x3092;&#x30C7;&#x30A3;&#x30B9;&#x30D1;&#x30C3;&#x30C1;&#x3059;&#x308B;&#x5074;&#x300D;&#x3068;&#x300C;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x3092;&#x30EA;&#x30C3;&#x30B9;&#x30F3;&#x3059;&#x308B;&#x5074;&#x300D;&#x306E;2&#x3064;&#x306E;&#x9762;&#x304B;&#x3089;&#x6210;&#x308A;&#x7ACB;&#x3061;&#x307E;&#x3059;&#x3002;
+&#x5834;&#x5408;&#x306B;&#x3088;&#x3063;&#x3066;&#x306F;&#x81EA;&#x5206;&#x81EA;&#x8EAB;&#x3078;&#x306E;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x3092;&#x30C7;&#x30A3;&#x30B9;&#x30D1;&#x30C3;&#x30C1;&#x3057;&#x3001;&#x81EA;&#x5206;&#x81EA;&#x8EAB;&#x3067;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x3092;&#x30EA;&#x30C3;&#x30B9;&#x30F3;&#x3059;&#x308B;&#x3053;&#x3068;&#x3082;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x3053;&#x306E;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x306E;&#x4ED5;&#x7D44;&#x307F;&#x3092;&#x8A00;&#x3044;&#x63DB;&#x3048;&#x308B;&#x3068;&#x300C;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x3092;&#x30C7;&#x30A3;&#x30B9;&#x30D1;&#x30C3;&#x30C1;&#x3057;&#x305F;&#xFF08;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x304C;&#x767A;&#x751F;&#xFF09;&#x3068;&#x304D;&#x306B;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x3092;&#x30EA;&#x30C3;&#x30B9;&#x30F3;&#x3057;&#x3066;&#x3044;&#x308B;&#x30B3;&#x30FC;&#x30EB;&#x30D0;&#x30C3;&#x30AF;&#x95A2;&#x6570;&#xFF08;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x30EA;&#x30B9;&#x30CA;&#x30FC;&#xFF09;&#x3092;&#x547C;&#x3073;&#x51FA;&#x3059;&#x300D;&#x3068;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x30E2;&#x30C7;&#x30EB;&#x304C;&#x66F4;&#x65B0;&#x3055;&#x308C;&#x305F;&#x3089;&#x8868;&#x793A;&#x3092;&#x66F4;&#x65B0;&#x3059;&#x308B;&#x306B;&#x306F;&#x300C;<code>TodoListModel</code>&#x304C;&#x66F4;&#x65B0;&#x3057;&#x305F;&#x3068;&#x304D;&#x306B;&#x6307;&#x5B9A;&#x3057;&#x305F;&#x30B3;&#x30FC;&#x30EB;&#x30D0;&#x30C3;&#x30AF;&#x95A2;&#x6570;&#x3092;&#x547C;&#x3073;&#x51FA;&#x3059;&#x30AF;&#x30E9;&#x30B9;&#x300D;&#x3092;&#x4F5C;&#x308C;&#x3070;&#x76EE;&#x7684;&#x306F;&#x9054;&#x6210;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;
+&#x3057;&#x304B;&#x3057;&#x3001;&#x300C;<code>TodoListModel</code>&#x304C;&#x66F4;&#x65B0;&#x3055;&#x308C;&#x305F;&#x3068;&#x304D;&#x300D;&#x3068;&#x3044;&#x3046;&#x306E;&#x306F;&#x3068;&#x3066;&#x3082;&#x5177;&#x4F53;&#x7684;&#x306A;&#x51E6;&#x7406;&#x3067;&#x3042;&#x308B;&#x305F;&#x3081;&#x3001;&#x30E2;&#x30C7;&#x30EB;&#x3092;&#x5897;&#x3084;&#x3059;&#x305F;&#x3073;&#x306B;&#x540C;&#x3058;&#x51E6;&#x7406;&#x3092;&#x305D;&#x308C;&#x305E;&#x308C;&#x306E;&#x30E2;&#x30C7;&#x30EB;&#x3078;&#x5B9F;&#x88C5;&#x3059;&#x308B;&#x5FC5;&#x8981;&#x304C;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x305D;&#x306E;&#x305F;&#x3081;&#x3001;&#x5148;&#x307B;&#x3069;&#x306E;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x306E;&#x4ED5;&#x7D44;&#x307F;&#x3092;&#x6301;&#x3063;&#x305F;&#x6982;&#x5FF5;&#x3068;&#x3057;&#x3066;<code>EventEmitter</code>&#x3068;&#x3044;&#x3046;&#x30AF;&#x30E9;&#x30B9;&#x3092;&#x4F5C;&#x6210;&#x3057;&#x307E;&#x3059;&#x3002;
+&#x305D;&#x3057;&#x3066;<code>TodoListModel</code>&#x306F;&#x4F5C;&#x6210;&#x3057;&#x305F;<code>EventEmitter</code>&#x3092;&#x7D99;&#x627F;&#x3059;&#x308B;&#x3053;&#x3068;&#x3067;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x306E;&#x4ED5;&#x7D44;&#x307F;&#x3092;&#x5C0E;&#x5165;&#x3057;&#x3066;&#x3044;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<ul>
+<li>&#x89AA;&#x30AF;&#x30E9;&#x30B9;&#xFF08;<code>EventEmitter</code>&#xFF09;: &#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x3092;&#x30C7;&#x30A3;&#x30B9;&#x30D1;&#x30C3;&#x30C1;&#x3057;&#x305F;&#x6642;&#x3001;&#x767B;&#x9332;&#x3055;&#x308C;&#x3066;&#x3044;&#x308B;&#x30B3;&#x30FC;&#x30EB;&#x30D0;&#x30C3;&#x30AF;&#x95A2;&#x6570;&#xFF08;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x30EA;&#x30B9;&#x30CA;&#x30FC;&#xFF09;&#x3092;&#x547C;&#x3073;&#x51FA;&#x3059;&#x30AF;&#x30E9;&#x30B9;</li>
+<li>&#x5B50;&#x30AF;&#x30E9;&#x30B9;&#xFF08;<code>TodoListModel</code>&#xFF09;: &#x5024;&#x3092;&#x66F4;&#x65B0;&#x3057;&#x305F;&#x6642;&#x3001;&#x767B;&#x9332;&#x3055;&#x308C;&#x3066;&#x3044;&#x308B;&#x30B3;&#x30FC;&#x30EB;&#x30D0;&#x30C3;&#x30AF;&#x95A2;&#x6570;&#x3092;&#x547C;&#x3073;&#x51FA;&#x3059;&#x30AF;&#x30E9;&#x30B9;</li>
+</ul>
+<p>&#x307E;&#x305A;&#x306F;&#x3001;&#x89AA;&#x30AF;&#x30E9;&#x30B9;&#x3068;&#x306A;&#x308B;<code>EventEmitter</code>&#x3092;&#x4F5C;&#x6210;&#x3057;&#x3066;&#x3044;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<p><code>EventEmitter</code>&#x306F;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x306E;&#x4ED5;&#x7D44;&#x307F;&#x3067;&#x66F8;&#x3044;&#x305F;&#x30C7;&#x30A3;&#x30B9;&#x30D1;&#x30C3;&#x30C1;&#x5074;&#x3068;&#x30EA;&#x30C3;&#x30B9;&#x30F3;&#x5074;&#x306E;&#x6A5F;&#x80FD;&#x3092;&#x6301;&#x3063;&#x305F;&#x30AF;&#x30E9;&#x30B9;&#x3068;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<ul>
+<li>&#x30C7;&#x30A3;&#x30B9;&#x30D1;&#x30C3;&#x30C1;&#x5074;: <code>addEventLister</code>&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306F;&#x3001;&#x6307;&#x5B9A;&#x3057;&#x305F;<code>&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x540D;</code>&#x306B;&#x4EFB;&#x610F;&#x306E;&#x30B3;&#x30FC;&#x30EB;&#x30D0;&#x30C3;&#x30AF;&#x95A2;&#x6570;&#x3092;&#x767B;&#x9332;&#x3067;&#x304D;&#x308B;</li>
+<li>&#x30EA;&#x30C3;&#x30B9;&#x30F3;&#x5074;: <code>emit</code>&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306F;&#x3001;&#x6307;&#x5B9A;&#x3055;&#x308C;&#x305F;<code>&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x540D;</code>&#x306B;&#x767B;&#x9332;&#x6E08;&#x307F;&#x306E;&#x3059;&#x3079;&#x3066;&#x306E;&#x30B3;&#x30FC;&#x30EB;&#x30D0;&#x30C3;&#x30AF;&#x95A2;&#x6570;&#x3092;&#x547C;&#x3073;&#x51FA;&#x3059;</li>
+</ul>
+<p>&#x3053;&#x308C;&#x306B;&#x3088;&#x3063;&#x3066;&#x3001;<code>emit</code>&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3092;&#x547C;&#x3073;&#x51FA;&#x3059;&#x3068;&#x6307;&#x5B9A;&#x3057;&#x305F;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x306B;&#x95A2;&#x4FC2;&#x3059;&#x308B;&#x767B;&#x9332;&#x6E08;&#x307F;&#x306E;&#x30B3;&#x30FC;&#x30EB;&#x30D0;&#x30C3;&#x30AF;&#x95A2;&#x6570;&#x3092;&#x547C;&#x3073;&#x51FA;&#x305B;&#x307E;&#x3059;&#x3002;
+&#x3053;&#x306E;&#x3088;&#x3046;&#x306A;&#x30D1;&#x30BF;&#x30FC;&#x30F3;&#x306F;Observer&#x30D1;&#x30BF;&#x30FC;&#x30F3;&#x3068;&#x3082;&#x547C;&#x3070;&#x308C;&#x3001;&#x30D6;&#x30E9;&#x30A6;&#x30B6;&#x3084;Node.js&#x306A;&#x3069;&#x591A;&#x304F;&#x306E;&#x5B9F;&#x884C;&#x74B0;&#x5883;&#x3067;&#x985E;&#x4F3C;&#x3059;&#x308B;API&#x304C;&#x5B58;&#x5728;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x6B21;&#x306E;&#x3088;&#x3046;&#x306B;<code>src/EventEmitter.js</code>&#x3078;<code>EventEmitter</code>&#x30AF;&#x30E9;&#x30B9;&#x3092;&#x5B9A;&#x7FA9;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<div class="code-filename-block">
+    <p class="code-filename">src/EventEmitter.js</p>
+</div>
+
+<pre><code class="lang-javascript"><span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">EventEmitter</span> </span>{
+    <span class="hljs-keyword">constructor</span>() {
+        <span class="hljs-comment">// &#x767B;&#x9332;&#x3059;&#x308B; [&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x540D;, Set(&#x30EA;&#x30B9;&#x30CA;&#x30FC;&#x95A2;&#x6570;)] &#x3092;&#x7BA1;&#x7406;&#x3059;&#x308B;Map</span>
+        <span class="hljs-keyword">this</span>._listeners = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Map</span>();
+    }
+
+    <span class="hljs-comment">/**
+     * &#x6307;&#x5B9A;&#x3057;&#x305F;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x304C;&#x5B9F;&#x884C;&#x3055;&#x308C;&#x305F;&#x3068;&#x304D;&#x306B;&#x547C;&#x3073;&#x51FA;&#x3055;&#x308C;&#x308B;&#x30EA;&#x30B9;&#x30CA;&#x30FC;&#x95A2;&#x6570;&#x3092;&#x767B;&#x9332;&#x3059;&#x308B;
+     * @param {string} type &#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x540D;
+     * @param {Function} listener &#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x30EA;&#x30B9;&#x30CA;&#x30FC;
+     */</span>
+    addEventLister(type, listener) {
+        <span class="hljs-comment">// &#x6307;&#x5B9A;&#x3057;&#x305F;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x306B;&#x5BFE;&#x5FDC;&#x3059;&#x308B;Set&#x3092;&#x4F5C;&#x6210;&#x3057;&#x30EA;&#x30B9;&#x30CA;&#x30FC;&#x95A2;&#x6570;&#x3092;&#x767B;&#x9332;&#x3059;&#x308B;</span>
+        <span class="hljs-keyword">if</span> (!<span class="hljs-keyword">this</span>._listeners.has(type)) {
+            <span class="hljs-keyword">this</span>._listeners.set(type, <span class="hljs-keyword">new</span> <span class="hljs-built_in">Set</span>());
+        }
+        <span class="hljs-keyword">const</span> listenerSet = <span class="hljs-keyword">this</span>._listeners.get(type);
+        listenerSet.add(listener);
+    }
+
+    <span class="hljs-comment">/**
+     * &#x6307;&#x5B9A;&#x3057;&#x305F;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x3092;&#x30C7;&#x30A3;&#x30B9;&#x30D1;&#x30C3;&#x30C1;&#x3059;&#x308B;
+     * @param {string} type &#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x540D;
+     */</span>
+    emit(type) {
+        <span class="hljs-comment">// &#x6307;&#x5B9A;&#x3057;&#x305F;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x306B;&#x5BFE;&#x5FDC;&#x3059;&#x308B;Set&#x3092;&#x53D6;&#x308A;&#x51FA;&#x3057;&#x3001;&#x3059;&#x3079;&#x3066;&#x306E;&#x30EA;&#x30B9;&#x30CA;&#x30FC;&#x95A2;&#x6570;&#x3092;&#x547C;&#x3073;&#x51FA;&#x3059;</span>
+        <span class="hljs-keyword">const</span> listenerSet = <span class="hljs-keyword">this</span>._listeners.get(type);
+        <span class="hljs-keyword">if</span> (!listenerSet) {
+            <span class="hljs-keyword">return</span>;
+        }
+        listenerSet.forEach(listener =&gt; {
+            listener.call(<span class="hljs-keyword">this</span>);
+        });
+    }
+
+    <span class="hljs-comment">/**
+     * &#x6307;&#x5B9A;&#x3057;&#x305F;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x306E;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x30EA;&#x30B9;&#x30CA;&#x30FC;&#x3092;&#x89E3;&#x9664;&#x3059;&#x308B;
+     * @param {string} type &#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x540D;
+     * @param {Function} listener &#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x30EA;&#x30B9;&#x30CA;&#x30FC;
+     */</span>
+    removeEventLister(type, listener) {
+        <span class="hljs-comment">// &#x6307;&#x5B9A;&#x3057;&#x305F;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x306B;&#x5BFE;&#x5FDC;&#x3059;&#x308B;Set&#x3092;&#x53D6;&#x308A;&#x51FA;&#x3057;&#x3001;&#x8A72;&#x5F53;&#x3059;&#x308B;&#x30EA;&#x30B9;&#x30CA;&#x30FC;&#x95A2;&#x6570;&#x3092;&#x524A;&#x9664;&#x3059;&#x308B;</span>
+        <span class="hljs-keyword">const</span> listenerSet = <span class="hljs-keyword">this</span>._listeners.get(type);
+        <span class="hljs-keyword">if</span> (!listenerSet) {
+            <span class="hljs-keyword">return</span>;
+        }
+        listenerSet.forEach(ownListener =&gt; {
+            <span class="hljs-keyword">if</span> (ownListener === listener) {
+                listenerSet.delete(listener);
+            }
+        });
+    }
+}
+</code></pre>
+<p>&#x3053;&#x306E;<code>EventEmitter</code>&#x306F;&#x6B21;&#x306E;&#x3088;&#x3046;&#x306B;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x306E;&#x30EA;&#x30C3;&#x30B9;&#x30F3;&#x3068;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x306E;&#x30C7;&#x30A3;&#x30B9;&#x30D1;&#x30C3;&#x30C1;&#x306E;&#x6A5F;&#x80FD;&#x304C;&#x5229;&#x7528;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;
+&#x30EA;&#x30C3;&#x30B9;&#x30F3;&#x5074;&#x306F;<code>addEventLister</code>&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3067;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x306E;&#x7A2E;&#x985E;&#xFF08;<code>type</code>&#xFF09;&#x306B;&#x5BFE;&#x3059;&#x308B;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x30EA;&#x30B9;&#x30CA;&#x30FC;&#xFF08;<code>listener</code>&#xFF09;&#x3092;&#x767B;&#x9332;&#x3057;&#x307E;&#x3059;&#x3002;
+&#x30C7;&#x30A3;&#x30B9;&#x30D1;&#x30C3;&#x30C1;&#x5074;&#x306F;<code>emit</code>&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3067;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x3092;&#x30C7;&#x30A3;&#x30B9;&#x30D1;&#x30C3;&#x30C1;&#x3057;&#x3001;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x30EA;&#x30B9;&#x30CA;&#x30FC;&#x3092;&#x547C;&#x3073;&#x51FA;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x6B21;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x306F;&#x3001;<code>addEventLister</code>&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3067;<code>test-event</code>&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x306B;&#x5BFE;&#x3057;&#x3066;2&#x3064;&#x306E;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x30EA;&#x30B9;&#x30CA;&#x30FC;&#x3092;&#x767B;&#x9332;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;
+&#x305D;&#x306E;&#x305F;&#x3081;&#x3001;<code>emit</code>&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3067;<code>test-event</code>&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x3092;&#x30C7;&#x30A3;&#x30B9;&#x30D1;&#x30C3;&#x30C1;&#x3059;&#x308B;&#x3068;&#x3001;&#x767B;&#x9332;&#x6E08;&#x307F;&#x306E;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x30EA;&#x30B9;&#x30CA;&#x30FC;&#x304C;&#x547C;&#x3073;&#x51FA;&#x3055;&#x308C;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<div class="code-filename-block">
+    <p class="code-filename">EventEmitter&#x306E;&#x5B9F;&#x884C;&#x30B5;&#x30F3;&#x30D7;&#x30EB;</p>
+</div>
+
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { EventEmitter } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./EventEmitter.js&quot;</span>;
+<span class="hljs-keyword">const</span> event = <span class="hljs-keyword">new</span> EventEmitter();
+<span class="hljs-comment">// &#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x30EA;&#x30B9;&#x30CA;&#x30FC;&#xFF08;&#x30B3;&#x30FC;&#x30EB;&#x30D0;&#x30C3;&#x30AF;&#x95A2;&#x6570;&#xFF09;&#x3092;&#x767B;&#x9332;</span>
+event.addEventLister(<span class="hljs-string">&quot;test-event&quot;</span>, () =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;One!&quot;</span>));
+event.addEventLister(<span class="hljs-string">&quot;test-event&quot;</span>, () =&gt; <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;Two!&quot;</span>));
+<span class="hljs-comment">// &#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x3092;&#x30C7;&#x30A3;&#x30B9;&#x30D1;&#x30C3;&#x30C1;&#x3059;&#x308B;</span>
+event.emit(<span class="hljs-string">&quot;test-event&quot;</span>);
+<span class="hljs-comment">// &#x30B3;&#x30FC;&#x30EB;&#x30D0;&#x30C3;&#x30AF;&#x95A2;&#x6570;&#x304C;&#x305D;&#x308C;&#x305E;&#x308C;&#x547C;&#x3073;&#x3060;&#x3055;&#x308C;&#x3001;&#x30B3;&#x30F3;&#x30BD;&#x30FC;&#x30EB;&#x306B;&#x306F;&#x6B21;&#x306E;&#x3088;&#x3046;&#x306B;&#x51FA;&#x529B;&#x3055;&#x308C;&#x308B;</span>
+<span class="hljs-comment">// &quot;One!&quot;</span>
+<span class="hljs-comment">// &quot;Two!&quot;</span>
+</code></pre>
+<h2 id="event-emitter-todolist-model"><a name="event-emitter-todolist-model" class="plugin-anchor" href="#event-emitter-todolist-model"><i class="fa fa-link" aria-hidden="true"></i></a>EventEmitter&#x3092;&#x7D99;&#x627F;&#x3057;&#x305F;TodoList&#x30E2;&#x30C7;&#x30EB; </h2>
+<p>&#x6B21;&#x306F;&#x4F5C;&#x6210;&#x3057;&#x305F;<code>EventEmitter</code>&#x30AF;&#x30E9;&#x30B9;&#x3092;&#x7D99;&#x627F;&#x3057;&#x305F;<code>TodoListModel</code>&#x30AF;&#x30E9;&#x30B9;&#x3092;&#x4F5C;&#x6210;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;
+<code>src/model/</code>&#x30C7;&#x30A3;&#x30EC;&#x30AF;&#x30C8;&#x30EA;&#x3092;&#x65B0;&#x305F;&#x306B;&#x4F5C;&#x6210;&#x3057;&#x3001;&#x3053;&#x306E;&#x30C7;&#x30A3;&#x30EC;&#x30AF;&#x30C8;&#x30EA;&#x306B;&#x5404;&#x30E2;&#x30C7;&#x30EB;&#x30AF;&#x30E9;&#x30B9;&#x3092;&#x5B9F;&#x88C5;&#x3057;&#x305F;&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x3092;&#x4F5C;&#x6210;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x4F5C;&#x6210;&#x3059;&#x308B;&#x30E2;&#x30C7;&#x30EB;&#x306F;&#x3001;Todo&#x30EA;&#x30B9;&#x30C8;&#x3092;&#x8868;&#x73FE;&#x3059;&#x308B;<code>TodoListModel</code>&#x3068;&#x5404;Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x3092;&#x8868;&#x73FE;&#x3059;&#x308B;<code>TodoItemModel</code>&#x3067;&#x3059;&#x3002;
+<code>TodoListModel</code>&#x304C;&#x8907;&#x6570;&#x306E;<code>TodoItemModel</code>&#x3092;&#x4FDD;&#x6301;&#x3059;&#x308B;&#x3053;&#x3068;&#x3067;Todo&#x30EA;&#x30B9;&#x30C8;&#x3092;&#x8868;&#x73FE;&#x3059;&#x308B;&#x3053;&#x3068;&#x306B;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<ul>
+<li><code>TodoListModel</code>: Todo&#x30EA;&#x30B9;&#x30C8;&#x3092;&#x8868;&#x73FE;&#x3059;&#x308B;&#x30E2;&#x30C7;&#x30EB;</li>
+<li><code>TodoItemModel</code>: Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x3092;&#x8868;&#x73FE;&#x3059;&#x308B;&#x30E2;&#x30C7;&#x30EB;</li>
+</ul>
+<p>&#x307E;&#x305A;&#x306F;<code>TodoItemModel</code>&#x3092;<code>src/model/TodoItemModel.js</code>&#x3078;&#x4F5C;&#x6210;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p><code>TodoItemModel</code>&#x30AF;&#x30E9;&#x30B9;&#x306F;&#x5404;Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x306B;&#x5FC5;&#x8981;&#x306A;&#x60C5;&#x5831;&#x3092;&#x5B9A;&#x7FA9;&#x3057;&#x307E;&#x3059;&#x3002;
+&#x5404;Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x306B;&#x306F;&#x30BF;&#x30A4;&#x30C8;&#x30EB;&#xFF08;<code>title</code>&#xFF09;&#x3001;&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x306E;&#x5B8C;&#x4E86;&#x72B6;&#x614B;&#xFF08;<code>completed</code>&#xFF09;&#x3001;&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x3054;&#x3068;&#x306B;&#x30E6;&#x30CB;&#x30FC;&#x30AF;&#x306A;&#x8B58;&#x5225;&#x5B50;&#xFF08;<code>id</code>&#xFF09;&#x3092;&#x3082;&#x305F;&#x305B;&#x307E;&#x3059;&#x3002;
+&#x305F;&#x3060;&#x306E;&#x30C7;&#x30FC;&#x30BF;&#x306E;&#x96C6;&#x5408;&#x3067;&#x3042;&#x308B;&#x305F;&#x3081;&#x3001;&#x30AF;&#x30E9;&#x30B9;&#x3067;&#x306F;&#x306A;&#x304F;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x3067;&#x3082;&#x554F;&#x984C;&#x306F;&#x3042;&#x308A;&#x307E;&#x305B;&#x3093;&#x304C;&#x3001;&#x4ECA;&#x56DE;&#x306F;&#x30AF;&#x30E9;&#x30B9;&#x3068;&#x3057;&#x3066;&#x4F5C;&#x6210;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x6B21;&#x306E;&#x3088;&#x3046;&#x306B;<code>src/model/TodoItemModel.js</code>&#x3078;<code>TodoItemModel</code>&#x30AF;&#x30E9;&#x30B9;&#x3092;&#x5B9A;&#x7FA9;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<div class="code-filename-block">
+    <p class="code-filename">src/model/TodoItemModel.js</p>
+</div>
+
+<pre><code class="lang-javascript"><span class="hljs-comment">// &#x30E6;&#x30CB;&#x30FC;&#x30AF;&#x306A;ID&#x3092;&#x7BA1;&#x7406;&#x3059;&#x308B;&#x5909;&#x6570;</span>
+<span class="hljs-keyword">let</span> todoIdx = <span class="hljs-number">0</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TodoItemModel</span> </span>{
+    <span class="hljs-comment">/**
+     * @param {string} title Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x306E;&#x30BF;&#x30A4;&#x30C8;&#x30EB;
+     * @param {boolean} completed Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x304C;&#x5B8C;&#x4E86;&#x6E08;&#x307F;&#x306A;&#x3089;&#x3070;true&#x3001;&#x305D;&#x3046;&#x3067;&#x306A;&#x3044;&#x5834;&#x5408;&#x306F;false
+     */</span>
+    <span class="hljs-keyword">constructor</span>({ title, completed }) {
+        <span class="hljs-comment">// id&#x306F;&#x81EA;&#x52D5;&#x7684;&#x306B;&#x9023;&#x756A;&#x3068;&#x306A;&#x308A;&#x305D;&#x308C;&#x305E;&#x308C;&#x306E;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x6BCE;&#x306B;&#x7570;&#x306A;&#x308B;&#x3082;&#x306E;&#x3068;&#x3059;&#x308B;</span>
+        <span class="hljs-keyword">this</span>.id = todoIdx++;
+        <span class="hljs-keyword">this</span>.title = title;
+        <span class="hljs-keyword">this</span>.completed = completed;
+    }
+}
+</code></pre>
+<p>&#x6B21;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x306F;<code>TodoItemModel</code>&#x30AF;&#x30E9;&#x30B9;&#x306F;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x5316;&#x3067;&#x304D;&#x3001;&#x305D;&#x308C;&#x305E;&#x308C;&#x306E;<code>id</code>&#x304C;&#x81EA;&#x52D5;&#x7684;&#x306B;&#x7570;&#x306A;&#x308B;&#x5024;&#x3068;&#x306A;&#x3063;&#x3066;&#x3044;&#x308B;&#x3053;&#x3068;&#x304C;&#x78BA;&#x8A8D;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;
+&#x3053;&#x306E;<code>id</code>&#x306F;&#x5F8C;&#x307B;&#x3069;&#x7279;&#x5B9A;&#x306E;Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x3092;&#x6307;&#x5B9A;&#x3057;&#x305F;&#x66F4;&#x65B0;&#x3059;&#x308B;&#x51E6;&#x7406;&#x3068;&#x304D;&#x306B;&#x3001;&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x3092;&#x533A;&#x5225;&#x3059;&#x308B;&#x8B58;&#x5225;&#x5B50;&#x3068;&#x3057;&#x3066;&#x5229;&#x7528;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { TodoItemModel } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./TodoItemModel&quot;</span>;
+<span class="hljs-keyword">const</span> item = <span class="hljs-keyword">new</span> TodoItemModel({
+    title: <span class="hljs-string">&quot;&#x672A;&#x5B8C;&#x4E86;&#x306E;Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&quot;</span>,
+    completed: <span class="hljs-literal">false</span>
+});
+<span class="hljs-keyword">const</span> completedItem = <span class="hljs-keyword">new</span> TodoItemModel({
+    title: <span class="hljs-string">&quot;&#x5B8C;&#x4E86;&#x6E08;&#x307F;&#x306E;Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&quot;</span>,
+    completed: <span class="hljs-literal">true</span>
+});
+<span class="hljs-comment">// &#x305D;&#x308C;&#x305E;&#x308C;&#x306E;`id`&#x306F;&#x7570;&#x306A;&#x308B;</span>
+<span class="hljs-built_in">console</span>.log(item.id !== completedItem.id); <span class="hljs-comment">// =&gt; true</span>
+</code></pre>
+<p>&#x6B21;&#x306B;<code>TodoListModel</code>&#x3092;<code>src/model/TodoListModel.js</code>&#x3078;&#x4F5C;&#x6210;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p><code>TodoListModel</code>&#x30AF;&#x30E9;&#x30B9;&#x306F;&#x3001;&#x5148;&#x307B;&#x3069;&#x4F5C;&#x6210;&#x3057;&#x305F;<code>EventEmitter</code>&#x30AF;&#x30E9;&#x30B9;&#x3092;&#x7D99;&#x627F;&#x3057;&#x307E;&#x3059;&#x3002;
+<code>TodoListModel</code>&#x30AF;&#x30E9;&#x30B9;&#x306F;<code>TodoItemModel</code>&#x306E;&#x914D;&#x5217;&#x3092;&#x4FDD;&#x6301;&#x3057;&#x3001;&#x65B0;&#x3057;&#x3044;Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x3092;&#x8FFD;&#x52A0;&#x3059;&#x308B;&#x969B;&#x306F;&#x305D;&#x306E;&#x914D;&#x5217;&#x306B;&#x8FFD;&#x52A0;&#x3057;&#x307E;&#x3059;&#x3002;
+&#x3053;&#x306E;&#x3068;&#x304D;<code>TodoListModel</code>&#x306E;&#x72B6;&#x614B;&#x304C;&#x5909;&#x66F4;&#x3057;&#x305F;&#x3053;&#x3068;&#x3092;&#x901A;&#x77E5;&#x3059;&#x308B;&#x305F;&#x3081;&#x306B;&#x81EA;&#x5206;&#x81EA;&#x8EAB;&#x3078;<code>change</code>&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x3092;&#x30C7;&#x30A3;&#x30B9;&#x30D1;&#x30C3;&#x30C1;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<div class="code-filename-block">
+    <p class="code-filename">src/model/TodoListModel.js</p>
+</div>
+
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { EventEmitter } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;../EventEmitter.js&quot;</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">TodoListModel</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">EventEmitter</span> </span>{
+    <span class="hljs-comment">/**
+     * @param {TodoItemModel[]} [items] &#x521D;&#x671F;&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x4E00;&#x89A7;&#xFF08;&#x30C7;&#x30D5;&#x30A9;&#x30EB;&#x30C8;&#x306F;&#x7A7A;&#x306E;&#x914D;&#x5217;&#xFF09;
+     */</span>
+    <span class="hljs-keyword">constructor</span>(items = []) {
+        <span class="hljs-keyword">super</span>();
+        <span class="hljs-keyword">this</span>.items = items;
+    }
+
+    <span class="hljs-comment">/**
+     * TodoItem&#x306E;&#x5408;&#x8A08;&#x6570;&#x3092;&#x8FD4;&#x3059;
+     * @returns {number}
+     */</span>
+    get totalCount() {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.items.length;
+    }
+
+    <span class="hljs-comment">/**
+     * &#x8868;&#x793A;&#x3067;&#x304D;&#x308B;TodoItem&#x306E;&#x914D;&#x5217;&#x3092;&#x8FD4;&#x3059;
+     * @returns {TodoItemModel[]}
+     */</span>
+    getTodoItems() {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.items;
+    }
+
+    <span class="hljs-comment">/**
+     * TodoList&#x306E;&#x72B6;&#x614B;&#x304C;&#x66F4;&#x65B0;&#x3055;&#x308C;&#x305F;&#x3068;&#x304D;&#x306B;&#x547C;&#x3073;&#x51FA;&#x3055;&#x308C;&#x308B;&#x30EA;&#x30B9;&#x30CA;&#x30FC;&#x95A2;&#x6570;&#x3092;&#x767B;&#x9332;&#x3059;&#x308B;
+     * @param {Function} listener
+     * @returns {Function} &#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x30EA;&#x30B9;&#x30CA;&#x30FC;&#x306E;&#x767B;&#x9332;&#x3092;&#x89E3;&#x9664;&#x3059;&#x308B;&#x95A2;&#x6570;&#x3092;&#x8FD4;&#x3059;
+     */</span>
+    onChange(listener) {
+        <span class="hljs-keyword">this</span>.addEventLister(<span class="hljs-string">&quot;change&quot;</span>, listener);
+        <span class="hljs-keyword">return</span> () =&gt; {
+            <span class="hljs-keyword">this</span>.removeEventLister(<span class="hljs-string">&quot;change&quot;</span>, listener);
+        };
+    }
+
+    <span class="hljs-comment">/**
+     * &#x72B6;&#x614B;&#x304C;&#x5909;&#x66F4;&#x3055;&#x308C;&#x305F;&#x3068;&#x304D;&#x306B;&#x547C;&#x3076;&#x3002;&#x767B;&#x9332;&#x6E08;&#x307F;&#x306E;&#x30EA;&#x30B9;&#x30CA;&#x30FC;&#x95A2;&#x6570;&#x3092;&#x547C;&#x3073;&#x51FA;&#x3059;
+     */</span>
+    emitChange() {
+        <span class="hljs-keyword">this</span>.emit(<span class="hljs-string">&quot;change&quot;</span>);
+    }
+
+    <span class="hljs-comment">/**
+     * TodoItem&#x3092;&#x8FFD;&#x52A0;&#x3059;&#x308B;
+     * @param {TodoItemModel} todoItem
+     */</span>
+    addTodo(todoItem) {
+        <span class="hljs-keyword">this</span>.items.push(todoItem);
+        <span class="hljs-keyword">this</span>.emitChange();
+    }
+}
+</code></pre>
+<p>&#x6B21;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x306F;<code>TodoListModel</code>&#x30AF;&#x30E9;&#x30B9;&#x3092;&#x53D6;&#x308A;&#x8FBC;&#x307F;&#x3001;&#x65B0;&#x3057;&#x3044;<code>TodoItemModel</code>&#x3092;&#x8FFD;&#x52A0;&#x3059;&#x308B;&#x30B5;&#x30F3;&#x30D7;&#x30EB;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x3059;&#x3002;
+<code>TodoListModel#addTodo</code>&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3067;&#x65B0;&#x3057;&#x3044;Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x3092;&#x8FFD;&#x52A0;&#x3057;&#x305F;&#x6642;&#x306B;&#x3001;<code>TodoListModel#onChange</code>&#x3067;&#x767B;&#x9332;&#x3057;&#x305F;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x30EA;&#x30B9;&#x30CA;&#x30FC;&#x304C;&#x547C;&#x3073;&#x51FA;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { TodoItemModel } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./TodoItemModel&quot;</span>;
+<span class="hljs-keyword">import</span> { TodoListModel } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./TodoListModel&quot;</span>;
+<span class="hljs-comment">// &#x65B0;&#x3057;&#x3044;Todo&#x30EA;&#x30B9;&#x30C8;&#x3092;&#x4F5C;&#x6210;&#x3059;&#x308B;</span>
+<span class="hljs-keyword">const</span> todoListModel = <span class="hljs-keyword">new</span> TodoListModel();
+<span class="hljs-comment">// &#x73FE;&#x5728;&#x306E;Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x6570;&#x306F;0</span>
+<span class="hljs-built_in">console</span>.log(todoListModel.totalCount); <span class="hljs-comment">// =&gt; 0</span>
+<span class="hljs-comment">// Todo&#x30EA;&#x30B9;&#x30C8;&#x304C;&#x5909;&#x66F4;&#x3055;&#x308C;&#x305F;&#x3089;&#x547C;&#x3070;&#x308C;&#x308B;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x30EA;&#x30B9;&#x30CA;&#x30FC;&#x3092;&#x767B;&#x9332;&#x3059;&#x308B;</span>
+todoListModel.onChange(() =&gt; {
+    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;TodoList&#x306E;&#x72B6;&#x614B;&#x304C;&#x5909;&#x308F;&#x308A;&#x307E;&#x3057;&#x305F;&quot;</span>);
+});
+<span class="hljs-comment">// &#x65B0;&#x3057;&#x3044;Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x3092;&#x8FFD;&#x52A0;&#x3059;&#x308B;</span>
+<span class="hljs-comment">// =&gt; `onChange`&#x3067;&#x767B;&#x9332;&#x3057;&#x305F;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x30EA;&#x30B9;&#x30CA;&#x30FC;&#x304C;&#x547C;&#x3073;&#x51FA;&#x3055;&#x308C;&#x308B;</span>
+todoListModel.addTodo(<span class="hljs-keyword">new</span> TodoItemModel({
+    title: <span class="hljs-string">&quot;&#x65B0;&#x3057;&#x3044;Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&quot;</span>,
+    completed: <span class="hljs-literal">false</span>
+}));
+<span class="hljs-comment">// Todo&#x30EA;&#x30B9;&#x30C8;&#x306B;&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x304C;&#x5897;&#x3048;&#x308B;</span>
+<span class="hljs-built_in">console</span>.log(todoListModel.totalCount); <span class="hljs-comment">// =&gt; 1;</span>
+</code></pre>
+<p>&#x3053;&#x308C;&#x3067;Todo&#x30EA;&#x30B9;&#x30C8;&#x306B;&#x5FC5;&#x8981;&#x306A;&#x305D;&#x308C;&#x305E;&#x308C;&#x306E;&#x30E2;&#x30C7;&#x30EB;&#x30AF;&#x30E9;&#x30B9;&#x304C;&#x4F5C;&#x6210;&#x3067;&#x304D;&#x307E;&#x3057;&#x305F;&#x3002;
+&#x6B21;&#x306F;&#x3053;&#x308C;&#x3089;&#x306E;&#x30E2;&#x30C7;&#x30EB;&#x3092;&#x4F7F;&#x3044;&#x8868;&#x793A;&#x306E;&#x66F4;&#x65B0;&#x3092;&#x884C;&#x3063;&#x3066;&#x307F;&#x307E;&#x3057;&#x3087;&#x3046;&#x3002;</p>
+<h2 id="model-update-view"><a name="model-update-view" class="plugin-anchor" href="#model-update-view"><i class="fa fa-link" aria-hidden="true"></i></a>&#x30E2;&#x30C7;&#x30EB;&#x3092;&#x4F7F;&#x3063;&#x3066;&#x8868;&#x793A;&#x3092;&#x66F4;&#x65B0;&#x3059;&#x308B; </h2>
+<p>&#x3055;&#x304D;&#x307B;&#x3069;&#x4F5C;&#x6210;&#x3057;&#x305F;<code>TodoListModel</code>&#x3068;<code>TodoItemModel</code>&#x30AF;&#x30E9;&#x30B9;&#x3092;&#x4F7F;&#x3044;&#x3001;&#x300C;Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x306E;&#x8FFD;&#x52A0;&#x300D;&#x3092;&#x66F8;&#x304D;&#x76F4;&#x3057;&#x3066;&#x307F;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x524D;&#x56DE;&#x306E;&#x30BB;&#x30AF;&#x30B7;&#x30E7;&#x30F3;&#x3067;&#x306F;&#x3001;&#x30D5;&#x30A9;&#x30FC;&#x30E0;&#x3092;&#x9001;&#x4FE1;&#x3059;&#x308B;&#x3068;&#x76F4;&#x63A5;DOM&#x3078;&#x8981;&#x7D20;&#x3092;&#x8FFD;&#x52A0;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;
+&#x4ECA;&#x56DE;&#x306E;&#x30BB;&#x30AF;&#x30B7;&#x30E7;&#x30F3;&#x3067;&#x306F;&#x3001;&#x30D5;&#x30A9;&#x30FC;&#x30E0;&#x3092;&#x9001;&#x4FE1;&#x3059;&#x308B;&#x3068;<code>TodoListModel</code>&#x3078;<code>TodoItemModel</code>&#x3092;&#x8FFD;&#x52A0;&#x3057;&#x307E;&#x3059;&#x3002;
+<code>TodoListModel</code>&#x306B;&#x65B0;&#x3057;&#x3044;Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x304C;&#x5897;&#x3048;&#x308B;&#x3068;&#x3001;<code>onChange</code>&#x306B;&#x767B;&#x9332;&#x3057;&#x305F;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x30EA;&#x30B9;&#x30CA;&#x30FC;&#x304C;&#x547C;&#x3073;&#x51FA;&#x3055;&#x308C;&#x308B;&#x305F;&#x3081;&#x3001;
+&#x305D;&#x306E;&#x30EA;&#x30B9;&#x30CA;&#x30FC;&#x95A2;&#x6570;&#x5185;&#x3067;DOM&#xFF08;&#x8868;&#x793A;&#xFF09;&#x3092;&#x66F4;&#x65B0;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x307E;&#x305A;&#x306F;&#x66F8;&#x304D;&#x63DB;&#x3048;&#x5F8C;&#x306E;<code>App.js</code>&#x3092;&#x898B;&#x3066;&#x3044;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">import</span> { TodoListModel } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./model/TodoListModel.js&quot;</span>;
+<span class="hljs-keyword">import</span> { TodoItemModel } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./model/TodoItemModel.js&quot;</span>;
+<span class="hljs-keyword">import</span> { element, render } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./view/html-util.js&quot;</span>;
+
+<span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> </span>{
+    <span class="hljs-keyword">constructor</span>() {
+        <span class="hljs-comment">// 1. TodoList&#x306E;&#x521D;&#x671F;&#x5316;</span>
+        <span class="hljs-keyword">this</span>.todoListModel = <span class="hljs-keyword">new</span> TodoListModel();
+    }
+    mount() {
+        <span class="hljs-keyword">const</span> formElement = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&quot;#js-form&quot;</span>);
+        <span class="hljs-keyword">const</span> inputElement = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&quot;#js-form-input&quot;</span>);
+        <span class="hljs-keyword">const</span> containerElement = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&quot;#js-todo-list&quot;</span>);
+        <span class="hljs-keyword">const</span> todoItemCountElement = <span class="hljs-built_in">document</span>.querySelector(<span class="hljs-string">&quot;#js-todo-count&quot;</span>);
+        <span class="hljs-comment">// 2. TodoListModel&#x306E;&#x72B6;&#x614B;&#x304C;&#x66F4;&#x65B0;&#x3055;&#x308C;&#x305F;&#x3089;&#x8868;&#x793A;&#x3092;&#x66F4;&#x65B0;&#x3059;&#x308B;</span>
+        <span class="hljs-keyword">this</span>.todoListModel.onChange(() =&gt; {
+            <span class="hljs-comment">// Todo&#x30EA;&#x30B9;&#x30C8;&#x3092;&#x307E;&#x3068;&#x3081;&#x308B;List&#x8981;&#x7D20;</span>
+            <span class="hljs-keyword">const</span> todoListElement = element<span class="hljs-string">`&lt;ul /&gt;`</span>;
+            <span class="hljs-comment">// &#x305D;&#x308C;&#x305E;&#x308C;&#x306E;TodoItem&#x8981;&#x7D20;&#x3092;todoListElement&#x4EE5;&#x4E0B;&#x3078;&#x8FFD;&#x52A0;&#x3059;&#x308B;</span>
+            <span class="hljs-keyword">const</span> todoItems = <span class="hljs-keyword">this</span>.todoListModel.getTodoItems();
+            todoItems.forEach(item =&gt; {
+                <span class="hljs-keyword">const</span> todoItemElement = element<span class="hljs-string">`&lt;li&gt;<span class="hljs-subst">${item.title}</span>&lt;/li&gt;`</span>;
+                todoListElement.appendChild(todoItemElement);
+            });
+            <span class="hljs-comment">// containerElement&#x306E;&#x4E2D;&#x8EAB;&#x3092;todoListElement&#x3067;&#x4E0A;&#x66F8;&#x304D;&#x3059;&#x308B;</span>
+            render(todoListElement, containerElement);
+            <span class="hljs-comment">// &#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x6570;&#x306E;&#x8868;&#x793A;&#x3092;&#x66F4;&#x65B0;</span>
+            todoItemCountElement.textContent = <span class="hljs-string">`Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x6570;: <span class="hljs-subst">${this.todoListModel.totalCount}</span>`</span>;
+        });
+        <span class="hljs-comment">// 3. &#x30D5;&#x30A9;&#x30FC;&#x30E0;&#x3092;&#x9001;&#x4FE1;&#x3057;&#x305F;&#x3089;&#x3001;&#x65B0;&#x3057;&#x3044;TodoItemModel&#x3092;&#x8FFD;&#x52A0;&#x3059;&#x308B;</span>
+        formElement.addEventListener(<span class="hljs-string">&quot;submit&quot;</span>, (event) =&gt; {
+            event.preventDefault();
+            <span class="hljs-comment">// &#x65B0;&#x3057;&#x3044;TodoItem&#x3092;TodoList&#x3078;&#x8FFD;&#x52A0;&#x3059;&#x308B;</span>
+            <span class="hljs-keyword">this</span>.todoListModel.addTodo(<span class="hljs-keyword">new</span> TodoItemModel({
+                title: inputElement.value,
+                completed: <span class="hljs-literal">false</span>
+            }));
+            inputElement.value = <span class="hljs-string">&quot;&quot;</span>;
+        });
+    }
+}
+</code></pre>
+<p>&#x5909;&#x66F4;&#x5F8C;&#x306E;<code>App.js</code>&#x3067;&#x306F;&#x5927;&#x304D;&#x304F;&#x5206;&#x3051;&#x3066;3&#x3064;&#x306E;&#x90E8;&#x5206;&#x304C;&#x5909;&#x66F4;&#x3055;&#x308C;&#x3066;&#x3044;&#x308B;&#x306E;&#x3067;&#x9806;&#x756A;&#x306B;&#x898B;&#x3066;&#x3044;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<h3 id="app-todolist-initialize"><a name="app-todolist-initialize" class="plugin-anchor" href="#app-todolist-initialize"><i class="fa fa-link" aria-hidden="true"></i></a>1. TodoList&#x306E;&#x521D;&#x671F;&#x5316; </h3>
+<p>&#x4F5C;&#x6210;&#x3057;&#x305F;<code>TodoListModel</code>&#x3068;<code>TodoItemModel</code>&#x3092;&#x53D6;&#x308A;&#x8FBC;&#x3093;&#x3067;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<!-- doctest:disable -->
+<pre><code class="lang-js"><span class="hljs-keyword">import</span> { TodoListModel } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./model/TodoListModel.js&quot;</span>;
+<span class="hljs-keyword">import</span> { TodoItemModel } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./model/TodoItemModel.js&quot;</span>;
+</code></pre>
+<p>&#x305D;&#x3057;&#x3066;&#x3001;<code>App</code>&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x5185;&#x3067;<code>TodoListModel</code>&#x3092;&#x521D;&#x671F;&#x5316;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;
+<code>App</code>&#x306E;&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x3067;<code>TodoListModel</code>&#x3092;&#x521D;&#x671F;&#x5316;&#x3057;&#x3066;&#x3044;&#x308B;&#x306E;&#x306F;&#x3001;
+&#x3053;&#x306E;Todo&#x30A2;&#x30D7;&#x30EA;&#x3067;&#x306F;&#x958B;&#x59CB;&#x6642;&#x306B;Todo&#x30EA;&#x30B9;&#x30C8;&#x306E;&#x4E2D;&#x8EAB;&#x304C;&#x7A7A;&#x306E;&#x72B6;&#x614B;&#x3067;&#x958B;&#x59CB;&#x3055;&#x308C;&#x308B;&#x306E;&#x306B;&#x5408;&#x308F;&#x305B;&#x308B;&#x305F;&#x3081;&#x3067;&#x3059;&#x3002;</p>
+<!-- doctest:disable -->
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> </span>{
+    <span class="hljs-keyword">constructor</span>() {
+        <span class="hljs-comment">// 1. TodoList&#x306E;&#x521D;&#x671F;&#x5316;</span>
+        <span class="hljs-keyword">this</span>.todoListModel = <span class="hljs-keyword">new</span> TodoListModel();
+    }
+    <span class="hljs-comment">// ...&#x7701;&#x7565;..</span>
+}
+</code></pre>
+<h3 id="app-todolist-onchange"><a name="app-todolist-onchange" class="plugin-anchor" href="#app-todolist-onchange"><i class="fa fa-link" aria-hidden="true"></i></a>2. TodoListModel&#x306E;&#x72B6;&#x614B;&#x304C;&#x66F4;&#x65B0;&#x3055;&#x308C;&#x305F;&#x3089;&#x8868;&#x793A;&#x3092;&#x66F4;&#x65B0;&#x3059;&#x308B; </h3>
+<p><code>mount</code>&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x5185;&#x3067;<code>TodoListModel</code>&#x304C;&#x66F4;&#x65B0;&#x3055;&#x308C;&#x305F;&#x3089;&#x8868;&#x793A;&#x3092;&#x66F4;&#x65B0;&#x3059;&#x308B;&#x3068;&#x3044;&#x3046;&#x51E6;&#x7406;&#x3092;&#x5B9F;&#x88C5;&#x3057;&#x307E;&#x3059;&#x3002;
+<code>TodoListModel#onChange</code>&#x3067;&#x767B;&#x9332;&#x3057;&#x305F;&#x30EA;&#x30B9;&#x30CA;&#x30FC;&#x95A2;&#x6570;&#x306F;&#x3001;<code>TodoListModel</code>&#x306E;&#x72B6;&#x614B;&#x304C;&#x66F4;&#x65B0;&#x3055;&#x308C;&#x305F;&#x3089;&#x547C;&#x3073;&#x51FA;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x3053;&#x306E;&#x30EA;&#x30B9;&#x30CA;&#x30FC;&#x95A2;&#x6570;&#x5185;&#x3067;&#x306F;<code>TodoListModel#getTodoItems</code>&#x3067;Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x3092;&#x53D6;&#x5F97;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;
+&#x305D;&#x3057;&#x3066;&#x3001;&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x4E00;&#x89A7;&#x304B;&#x3089;&#x6B21;&#x306E;&#x3088;&#x3046;&#x306A;&#x30EA;&#x30B9;&#x30C8;&#x8981;&#x7D20;&#xFF08;<code>todoListElement</code>&#xFF09;&#x3092;&#x4F5C;&#x6210;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<pre><code class="lang-html"><span class="hljs-comment">&lt;!-- todoListElement&#x306E;&#x5B9F;&#x8CEA;&#x7684;&#x306A;&#x4E2D;&#x8EAB; --&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">ul</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0; 1&#x306E;&#x30BF;&#x30A4;&#x30C8;&#x30EB;<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">li</span>&gt;</span>Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0; 2&#x306E;&#x30BF;&#x30A4;&#x30C8;&#x30EB;<span class="hljs-tag">&lt;/<span class="hljs-name">li</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">ul</span>&gt;</span>
+</code></pre>
+<p>&#x3053;&#x306E;&#x4F5C;&#x6210;&#x3057;&#x305F;<code>todoListElement</code>&#x8981;&#x7D20;&#x3092;&#x524D;&#x56DE;&#x4F5C;&#x6210;&#x3057;&#x305F;&#x3001;<code>html-util.js</code>&#x306E;<code>render</code>&#x95A2;&#x6570;&#x3092;&#x4F7F;&#x3044;<code>containerElement</code>&#x306E;&#x4E2D;&#x8EAB;&#x3092;&#x4E0A;&#x66F8;&#x304D;&#x3057;&#x3066;&#x307E;&#x3059;&#x3002;
+&#x307E;&#x305F;&#x3001;&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x6570;&#x306F;<code>TodoListModel#totalCount</code>&#x3067;&#x53D6;&#x5F97;&#x3067;&#x304D;&#x308B;&#x305F;&#x3081;&#x3001;&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x6570;&#x3060;&#x3051;&#x3092;&#x7BA1;&#x7406;&#x3057;&#x3066;&#x3044;&#x305F;<code>todoItemCount</code>&#x3068;&#x3044;&#x3046;&#x5909;&#x6570;&#x306F;&#x524A;&#x9664;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<!-- doctest:disable -->
+<pre><code class="lang-js"><span class="hljs-comment">// render&#x95A2;&#x6570;&#x3092;import&#x306B;&#x8FFD;&#x52A0;&#x3059;&#x308B;</span>
+<span class="hljs-keyword">import</span> { element, render } <span class="hljs-keyword">from</span> <span class="hljs-string">&quot;./view/html-util.js&quot;</span>;
+<span class="hljs-comment">// ...&#x7701;&#x7565;...</span>
+<span class="hljs-comment">// `containerElement`&#x306E;&#x4E2D;&#x8EAB;&#x3092;`todoListElement`&#x3067;&#x4E0A;&#x66F8;&#x304D;&#x3057;&#x3066;&#x8868;&#x793A;&#x3092;&#x66F4;&#x65B0;</span>
+render(todoListElement, containerElement);
+<span class="hljs-comment">// &#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x6570;&#x306E;&#x8868;&#x793A;&#x3092;&#x66F4;&#x65B0;</span>
+todoItemCountElement.textContent = <span class="hljs-string">`Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x6570;: <span class="hljs-subst">${this.todoListModel.totalCount}</span>`</span>;
+</code></pre>
+<h3 id="app-add-new-todoitem"><a name="app-add-new-todoitem" class="plugin-anchor" href="#app-add-new-todoitem"><i class="fa fa-link" aria-hidden="true"></i></a>3. &#x30D5;&#x30A9;&#x30FC;&#x30E0;&#x3092;&#x9001;&#x4FE1;&#x3057;&#x305F;&#x3089;&#x3001;&#x65B0;&#x3057;&#x3044;TodoItem&#x3092;&#x8FFD;&#x52A0;&#x3059;&#x308B; </h3>
+<p>&#x524D;&#x56DE;&#x306E;&#x30BB;&#x30AF;&#x30B7;&#x30E7;&#x30F3;&#x3067;&#x306F;&#x3001;&#x30D5;&#x30A9;&#x30FC;&#x30E0;&#x3092;&#x9001;&#x4FE1;&#xFF08;<code>submit</code>&#xFF09;&#x304C;&#x884C;&#x308F;&#x308C;&#x308B;&#x3068;&#x76F4;&#x63A5;DOM&#x3078;&#x8981;&#x7D20;&#x3092;&#x8FFD;&#x52A0;&#x3057;&#x3066;&#x3044;&#x307E;&#x3057;&#x305F;&#x3002;
+&#x4ECA;&#x56DE;&#x306E;&#x30BB;&#x30AF;&#x30B7;&#x30E7;&#x30F3;&#x3067;&#x306F;&#x3001;<code>TodoListModel</code>&#x306E;&#x72B6;&#x614B;&#x304C;&#x66F4;&#x65B0;&#x3055;&#x308C;&#x305F;&#x3089;&#x8868;&#x793A;&#x3092;&#x66F4;&#x65B0;&#x3059;&#x308B;&#x4ED5;&#x7D44;&#x307F;&#x304C;&#x3059;&#x3067;&#x306B;&#x3067;&#x304D;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x305D;&#x306E;&#x305F;&#x3081;&#x3001;<code>submit</code>&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x306E;&#x30EA;&#x30B9;&#x30CA;&#x30FC;&#x95A2;&#x6570;&#x5185;&#x3067;&#x306F;<code>TodoListModel</code>&#x306B;&#x5BFE;&#x3057;&#x3066;&#x65B0;&#x3057;&#x3044;<code>TodoItemModel</code>&#x3092;&#x8FFD;&#x52A0;&#x3059;&#x308B;&#x3060;&#x3051;&#x3067;&#x8868;&#x793A;&#x304C;&#x66F4;&#x65B0;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;
+&#x76F4;&#x63A5;DOM&#x3078;<code>appendChild</code>&#x3057;&#x3066;&#x3044;&#x305F;&#x90E8;&#x5206;&#x3092;<code>TodoListModel#addTodo</code>&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3092;&#x4F7F;&#x3044;&#x30E2;&#x30C7;&#x30EB;&#x3092;&#x66F4;&#x65B0;&#x3059;&#x308B;&#x51E6;&#x7406;&#x3078;&#x7F6E;&#x304D;&#x63DB;&#x3048;&#x308B;&#x3060;&#x3051;&#x3067;&#x3059;&#x3002;</p>
+<h2 id="conclusion"><a name="conclusion" class="plugin-anchor" href="#conclusion"><i class="fa fa-link" aria-hidden="true"></i></a>&#x307E;&#x3068;&#x3081; </h2>
+<p>&#x4ECA;&#x56DE;&#x306E;&#x30BB;&#x30AF;&#x30B7;&#x30E7;&#x30F3;&#x3067;&#x306F;&#x3001;<a href="../form-event/">&#x524D;&#x56DE;&#x306E;&#x30BB;&#x30AF;&#x30B7;&#x30E7;&#x30F3;</a>&#x3068;&#x540C;&#x7B49;&#x306E;&#x6A5F;&#x80FD;&#x3092;&#x30E2;&#x30C7;&#x30EB;&#x3068;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x306E;&#x4ED5;&#x7D44;&#x307F;&#x3092;&#x4F7F;&#x3046;&#x3088;&#x3046;&#x306B;&#x30EA;&#x30D5;&#x30A1;&#x30AF;&#x30BF;&#x30EA;&#x30F3;&#x30B0;&#x3057;&#x307E;&#x3057;&#x305F;&#x3002;
+&#x30B3;&#x30FC;&#x30C9;&#x91CF;&#x306F;&#x5897;&#x3048;&#x307E;&#x3057;&#x305F;&#x304C;&#x3001;&#x6B21;&#x306B;&#x5B9F;&#x88C5;&#x3059;&#x308B;&#x300C;Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x306E;&#x66F4;&#x65B0;&#x300D;&#x3084;&#x300C;Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x306E;&#x524A;&#x9664;&#x300D;&#x3082;&#x540C;&#x69D8;&#x306E;&#x4ED5;&#x7D44;&#x307F;&#x3067;&#x5B9F;&#x88C5;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;
+&#x524D;&#x56DE;&#x306E;&#x30BB;&#x30AF;&#x30B7;&#x30E7;&#x30F3;&#x306E;&#x3088;&#x3046;&#x306B;&#x64CD;&#x4F5C;&#x306B;&#x5BFE;&#x3057;&#x3066;DOM&#x3092;&#x76F4;&#x63A5;&#x66F4;&#x65B0;&#x3057;&#x305F;&#x5834;&#x5408;&#x3001;&#x8FFD;&#x52A0;&#x306F;&#x7C21;&#x5358;&#x3067;&#x3059;&#x304C;&#x65E2;&#x5B58;&#x306E;&#x8981;&#x7D20;&#x3092;&#x6307;&#x5B9A;&#x3059;&#x308B;&#x5FC5;&#x8981;&#x304C;&#x3042;&#x308B;&#x66F4;&#x65B0;&#x3084;&#x524A;&#x9664;&#x306F;&#x96E3;&#x3057;&#x304F;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x6B21;&#x306E;&#x30BB;&#x30AF;&#x30B7;&#x30E7;&#x30F3;&#x3067;&#x306F;&#x3001;&#x4ECA;&#x56DE;&#x306E;&#x30E2;&#x30C7;&#x30EB;&#x3068;&#x540C;&#x3058;&#x3088;&#x3046;&#x306B;&#x300C;&#x8868;&#x793A;&#x300D;&#x306B;&#x95A2;&#x3057;&#x3066;&#x3082;&#x6574;&#x7406;&#x3092;&#x884C;&#x3044;&#x3001;&#x6B8B;&#x308A;&#x306E;&#x300C;Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x306E;&#x66F4;&#x65B0;&#x300D;&#x3084;&#x300C;Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x306E;&#x524A;&#x9664;&#x300D;&#x306E;&#x6A5F;&#x80FD;&#x3092;&#x5B9F;&#x88C5;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<h2 id="section-checkbox"><a name="section-checkbox" class="plugin-anchor" href="#section-checkbox"><i class="fa fa-link" aria-hidden="true"></i></a>&#x3053;&#x306E;&#x30BB;&#x30AF;&#x30B7;&#x30E7;&#x30F3;&#x306E;&#x30C1;&#x30A7;&#x30C3;&#x30AF;&#x30DC;&#x30C3;&#x30AF;&#x30B9; </h2>
+<ul>
+<li style="list-style: none"><input type="checkbox" disabled="disabled" checked="checked"> &#x76F4;&#x63A5;DOM&#x3092;&#x66F4;&#x65B0;&#x3059;&#x308B;&#x554F;&#x984C;&#x306B;&#x3064;&#x3044;&#x3066;&#x7406;&#x89E3;&#x3057;&#x305F;</li>
+<li style="list-style: none"><input type="checkbox" disabled="disabled" checked="checked"> EventEmitter&#x30AF;&#x30E9;&#x30B9;&#x3067;&#x30A4;&#x30D9;&#x30F3;&#x30C8;&#x306E;&#x4ED5;&#x7D44;&#x307F;&#x3092;&#x5B9F;&#x88C5;&#x3057;&#x305F;</li>
+<li style="list-style: none"><input type="checkbox" disabled="disabled" checked="checked"> TodoListModel&#x3092;EventEmitter&#x30AF;&#x30E9;&#x30B9;&#x3092;&#x7D99;&#x627F;&#x3057;&#x3066;&#x5B9F;&#x88C5;&#x3057;&#x305F;</li>
+<li style="list-style: none"><input type="checkbox" disabled="disabled" checked="checked"> Todo&#x30A2;&#x30A4;&#x30C6;&#x30E0;&#x306E;&#x8FFD;&#x52A0;&#x306E;&#x6A5F;&#x80FD;&#x3092;&#x30E2;&#x30C7;&#x30EB;&#x3092;&#x4F7F;&#x3063;&#x3066;&#x30EA;&#x30D5;&#x30A1;&#x30AF;&#x30BF;&#x30EA;&#x30F3;&#x30B0;&#x3057;&#x305F;</li>
+</ul>
+<p>&#x3053;&#x3053;&#x307E;&#x3067;&#x306E;Todo&#x30A2;&#x30D7;&#x30EA;&#x306F;&#x6B21;&#x306E;URL&#x3067;&#x78BA;&#x8A8D;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<blockquote>
+<p><a href="event-emitter" target="_blank">https://jsprimer.net/use-case/todoapp/event-model/event-emitter/</a></p>
+</blockquote>
+
+                                
+                                </section>
+                            
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../form-event/" class="navigation navigation-prev " aria-label="Previous page: フォームとイベント">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../update-delete/" class="navigation navigation-next " aria-label="Next page: Todoの更新と削除を実装する">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"author":"azu","title":"イベントとモデル","level":"1.5.5.4","depth":3,"next":{"title":"Todoの更新と削除を実装する","level":"1.5.5.5","depth":3,"path":"use-case/todoapp/update-delete/README.md","ref":"./use-case/todoapp/update-delete/README.md","articles":[]},"previous":{"title":"フォームとイベント","level":"1.5.5.3","depth":3,"path":"use-case/todoapp/form-event/README.md","ref":"./use-case/todoapp/form-event/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-search","-lunr","page-toc-button","include-codeblock","anchors","canonical-link","ga","js-console","github-issue-feedback","todo"],"root":"./source/","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"docSearch":{"apiKey":"fd28ebaba94be0c39fb9fa1b2fed4f23","index":"asciidwango"},"github-issue-feedback":{"repo":"asciidwango/js-primer"},"todo":{},"fontsettings":{"theme":"white","family":"sans","size":2},"js-console":{},"canonical-link":{"baseURL":"https://jsprimer.net"},"highlight":{},"page-toc-button":{"maxTocDepth":2,"minTocSize":2},"ga":{"configuration":"auto","token":"UA-2184335-18"},"include-codeblock":{"check":false,"edit":false,"lang":"","fixlang":false,"template":"./resources/gitbook-plugin-include-codeblock.hbs","theme":"chrome","unindent":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"base":"https://github.com/asciidwango/js-primer/edit/master/source/","label":"Edit"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"index.md","glossary":"GLOSSARY.md","summary":"README.md"},"variables":{"esversion":"2018","console":"<a class=\"gitbook-plugin-js-console\" aria-hidden=\"true\"></a>"},"title":"JavaScriptの入門書 #jsprimer","gitbook":">=3.0.0","description":"この書籍はES2015以降をベースとしたJavaScript入門書となる予定"},"file":{"path":"use-case/todoapp/event-model/README.md","mtime":"2018-12-23T15:21:44.508Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-12-23T15:22:57.500Z"},"basePath":"../../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../../gitbook/gitbook.js"></script>
+    <script src="../../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../../gitbook/gitbook-plugin-page-toc-button/plugin.js"></script>
+        
+    
+        
+        <script src="../../../gitbook/gitbook-plugin-ga/plugin.js"></script>
+        
+    
+        
+        <script src="../../../gitbook/gitbook-plugin-js-console/console-ui.js"></script>
+        
+    
+        
+        <script src="../../../gitbook/gitbook-plugin-github-issue-feedback/plugin.js"></script>
+        
+    
+        
+        <script src="../../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

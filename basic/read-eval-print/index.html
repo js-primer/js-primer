@@ -1,0 +1,1638 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>値の評価と表示 · JavaScriptの入門書 #jsprimer</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-page-toc-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-anchors/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+         
+    
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../data-type/" />
+    
+    
+    <link rel="prev" href="../variables/" />
+    
+
+    <link rel="canonical" href="https://jsprimer.net/basic/read-eval-print/">
+
+<meta name="google-site-verification" content="bMotEbgYwkzA3k4PkuyK_NUdz0bKh-Phz0oUwNmRSVo" />
+<style>
+    /*
+    Disable antialias
+    */
+    * {
+        -webkit-font-smoothing: initial !important
+    }
+
+    body {
+        text-rendering: initial !important;
+        font-smoothing: initial !important;
+    }
+
+    /* deny access chapter */
+    .summary li.chapter>span {
+        cursor: not-allowed;
+        opacity: .3;
+    }
+
+    /* console ui */
+
+    .mirror-console-attach-button-wrapper {
+        margin-top: -1.275em;
+        margin-bottom: 1.275em
+    }
+
+    .mirror-console-wrapper {
+        margin-top: 1.275em;
+        margin-bottom: 1.275em
+    }
+
+    /* file name for codeblock */
+    .code-filename {
+        background-color: #eee;
+        display: inline-block;
+        padding: 2px 8px;
+        line-height: inherit;
+        margin-bottom: 0px !important;
+    }
+</style>
+<meta name="theme-color" content="#ffffff">
+<link rel="manifest" href="../../manifest.json">
+<script src="https://unpkg.com/service-worker-updatefound-refresh-dialog@1.1.0/dist/service-worker-updatefound-refresh-dialog.umd.js"></script>
+<script>
+    if ("serviceWorker" in navigator) {
+        const isLocalhost = Boolean(
+            // preview
+            /netlify.com/.test(window.location.hostname) ||
+            // local
+            window.location.hostname === "localhost" ||
+            // [::1] is the IPv6 localhost address.
+            window.location.hostname === "[::1]" ||
+            // 127.0.0.1/8 is considered localhost for IPv4.
+            window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/)
+        );
+        if (!isLocalhost) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker.register("../../sw.js")
+                    .then(function(registration) {
+                        serviceWorkerUpdatefoundRefreshDialog.register(registration);
+                    });
+            });
+        }
+    }
+</script>
+
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    この書籍について
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../../intro/goal/">
+            
+                <a href="../../intro/goal/">
+            
+                    
+                    本書の目的
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../../intro/feedback/">
+            
+                <a href="../../intro/feedback/">
+            
+                    
+                    文章の間違いに気づいたら
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    第1部: 基礎文法
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../introduction/">
+            
+                <a href="../introduction/">
+            
+                    
+                    JavaScriptとは
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../comments/">
+            
+                <a href="../comments/">
+            
+                    
+                    コメント
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../variables/">
+            
+                <a href="../variables/">
+            
+                    
+                    変数と宣言
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.4.4" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    値の評価と表示
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../data-type/">
+            
+                <a href="../data-type/">
+            
+                    
+                    データ型とリテラル
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="../operator/">
+            
+                <a href="../operator/">
+            
+                    
+                    演算子
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" data-path="../implicit-coercion/">
+            
+                <a href="../implicit-coercion/">
+            
+                    
+                    暗黙的な型変換
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.8" data-path="../function-declaration/">
+            
+                <a href="../function-declaration/">
+            
+                    
+                    関数と宣言
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.9" data-path="../statement-expression/">
+            
+                <a href="../statement-expression/">
+            
+                    
+                    文と式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.10" data-path="../condition/">
+            
+                <a href="../condition/">
+            
+                    
+                    条件分岐
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.11" data-path="../loop/">
+            
+                <a href="../loop/">
+            
+                    
+                    ループと反復処理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.12" data-path="../object/">
+            
+                <a href="../object/">
+            
+                    
+                    オブジェクト
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.13" data-path="../prototype-object/">
+            
+                <a href="../prototype-object/">
+            
+                    
+                    プロトタイプオブジェクト
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.14" data-path="../array/">
+            
+                <a href="../array/">
+            
+                    
+                    配列
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.15" data-path="../string/">
+            
+                <a href="../string/">
+            
+                    
+                    文字列
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.16" data-path="../wrapper-object/">
+            
+                <a href="../wrapper-object/">
+            
+                    
+                    ラッパーオブジェクト
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.17" data-path="../function-scope/">
+            
+                <a href="../function-scope/">
+            
+                    
+                    関数とスコープ
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.18" data-path="../function-this/">
+            
+                <a href="../function-this/">
+            
+                    
+                    関数とthis
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.19" data-path="../class/">
+            
+                <a href="../class/">
+            
+                    
+                    クラス
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.20" data-path="../error-try-catch/">
+            
+                <a href="../error-try-catch/">
+            
+                    
+                    例外処理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.21" data-path="../async/">
+            
+                <a href="../async/">
+            
+                    
+                    非同期処理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22" data-path="../map-and-set/">
+            
+                <a href="../map-and-set/">
+            
+                    
+                    Map/Set
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.23" data-path="../json/">
+            
+                <a href="../json/">
+            
+                    
+                    JSON
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.24" data-path="../date/">
+            
+                <a href="../date/">
+            
+                    
+                    Date
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.25" data-path="../math/">
+            
+                <a href="../math/">
+            
+                    
+                    Math
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.26" data-path="../ecmascript/">
+            
+                <a href="../ecmascript/">
+            
+                    
+                    ECMAScript
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.27" data-path="../other-parts/">
+            
+                <a href="../other-parts/">
+            
+                    
+                    第1部: おわりに
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../../use-case/">
+            
+                <a href="../../use-case/">
+            
+                    
+                    第2部: 応用編（ユースケース）
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../../use-case/setup-local-env/">
+            
+                <a href="../../use-case/setup-local-env/">
+            
+                    
+                    アプリケーション開発の準備
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../../use-case/module/">
+            
+                <a href="../../use-case/module/">
+            
+                    
+                    モジュール
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../../use-case/ajaxapp/">
+            
+                <a href="../../use-case/ajaxapp/">
+            
+                    
+                    Ajaxで通信
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.3.1" data-path="../../use-case/ajaxapp/entrypoint/">
+            
+                <a href="../../use-case/ajaxapp/entrypoint/">
+            
+                    
+                    エントリポイント
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3.2" data-path="../../use-case/ajaxapp/xhr/">
+            
+                <a href="../../use-case/ajaxapp/xhr/">
+            
+                    
+                    HTTP通信
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3.3" data-path="../../use-case/ajaxapp/display/">
+            
+                <a href="../../use-case/ajaxapp/display/">
+            
+                    
+                    データを表示する
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3.4" data-path="../../use-case/ajaxapp/promise/">
+            
+                <a href="../../use-case/ajaxapp/promise/">
+            
+                    
+                    Promiseを活用する
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../../use-case/nodecli/">
+            
+                <a href="../../use-case/nodecli/">
+            
+                    
+                    Node.jsでCLIアプリ
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.4.1" data-path="../../use-case/nodecli/helloworld/">
+            
+                <a href="../../use-case/nodecli/helloworld/">
+            
+                    
+                    Node.jsでHello World
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4.2" data-path="../../use-case/nodecli/argument-parse/">
+            
+                <a href="../../use-case/nodecli/argument-parse/">
+            
+                    
+                    コマンドライン引数を処理する
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4.3" data-path="../../use-case/nodecli/read-file/">
+            
+                <a href="../../use-case/nodecli/read-file/">
+            
+                    
+                    ファイルを読み込む
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4.4" data-path="../../use-case/nodecli/md-to-html/">
+            
+                <a href="../../use-case/nodecli/md-to-html/">
+            
+                    
+                    MarkdownをHTMLに変換する
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4.5" data-path="../../use-case/nodecli/refactor-and-unittest/">
+            
+                <a href="../../use-case/nodecli/refactor-and-unittest/">
+            
+                    
+                    ユニットテストを記述する
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="../../use-case/todoapp/">
+            
+                <a href="../../use-case/todoapp/">
+            
+                    
+                    Todoアプリ
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.5.1" data-path="../../use-case/todoapp/entrypoint/">
+            
+                <a href="../../use-case/todoapp/entrypoint/">
+            
+                    
+                    エントリポイント
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5.2" data-path="../../use-case/todoapp/app-structure/">
+            
+                <a href="../../use-case/todoapp/app-structure/">
+            
+                    
+                    アプリの構成要素
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5.3" data-path="../../use-case/todoapp/form-event/">
+            
+                <a href="../../use-case/todoapp/form-event/">
+            
+                    
+                    フォームとイベント
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5.4" data-path="../../use-case/todoapp/event-model/">
+            
+                <a href="../../use-case/todoapp/event-model/">
+            
+                    
+                    イベントとモデル
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5.5" data-path="../../use-case/todoapp/update-delete/">
+            
+                <a href="../../use-case/todoapp/update-delete/">
+            
+                    
+                    Todoの更新と削除を実装する
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5.6" data-path="../../use-case/todoapp/final/">
+            
+                <a href="../../use-case/todoapp/final/">
+            
+                    
+                    Todoアプリのリファクタリング
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<!-- Header -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css"/>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<style>
+    .book-header {
+        display: flex;
+        flex-direction: row;
+        background-color: #333;
+    }
+
+    /* link color */
+    .book-header a {
+        color: #fff;
+    }
+
+    /* hover color */
+    .book-header .btn:hover, .book-header .btn:focus, .book-header a:focus, .book-header a:hover {
+        color: hsla(0, 0%, 100%, 0.75) !important;
+    }
+
+    /* Mobile header fixed */
+    @media (max-width: 768px) {
+        /* Headerを固定する */
+        .book-header {
+            position: fixed;
+            width: 100%;
+        }
+
+        /* Icon only */
+        .book-header-title-img {
+            margin: auto 18px auto 0 !important;
+        }
+
+        .book-header-title-h {
+            display: none;
+        }
+
+        /* Header分のズレを入れる */
+        .page-wrapper {
+            padding-top: 60px;
+        }
+    }
+
+    /* Dynamic created by GitBook*/
+    .btn.pull-left.js-toolbar-action {
+        order: 1;
+    }
+
+    .book-header-title {
+        order: 2;
+        display: inline-flex;
+        flex-direction: row;
+        color: #fff;
+    }
+
+    .book-header-title:hover {
+        color: hsla(0, 0%, 100%, 0.75);
+    }
+
+    .book-header-title-img {
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        margin: auto 10px auto 0;
+    }
+
+    .book-header-title-h {
+        font-size: 20px;
+        margin: auto;
+        padding: 0;
+    }
+
+    .header-center {
+        order: 3;
+        display: inline-flex;
+        flex-direction: column;
+        justify-content: center;
+        /* self */
+        flex-grow: 1;
+        flex-shrink: 0;
+        flex-basis: auto;
+    }
+
+    .header-right {
+        order: 4;
+        display: inline-flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        /* icon size */
+        font-size: 24px;
+    }
+
+    .github-link {
+        color: #fff;
+    }
+
+    /* Desktop */
+    @media (min-width: 768px) {
+        .header-center {
+            align-items: center;
+        }
+
+        .header-right {
+            margin-right: 24px;
+        }
+    }
+
+    /* DocSearch */
+    @media (max-width: 768px) {
+        .algolia-autocomplete .ds-dropdown-menu {
+            max-width: calc(100vw - 32px) !important;
+            min-width: calc(100vw - 32px) !important;
+            width: calc(100vw - 32px) !important;
+            /* negative margin
+              This is absolute element
+              */
+            margin-left: -32px !important;
+        }
+
+        .algolia-autocomplete .algolia-docsearch-suggestion--content {
+            width: 100% !important;
+            padding-left: 0 !important;
+        }
+
+        .algolia-autocomplete .algolia-docsearch-suggestion--content:before {
+            display: none !important;
+        }
+
+        .algolia-autocomplete .algolia-docsearch-suggestion--subcategory-column {
+            display: none !important;
+        }
+    }
+
+    /* SearchBox */
+    .searchbarWrapper {
+        height: 50px;
+    }
+
+    @media (max-width: 768px) {
+        .sbx-custom {
+            width: 150px !important;
+            padding: initial !important;
+        }
+    }
+
+    .sbx-custom {
+        display: inline-block;
+        position: relative;
+        min-width: 150px;
+        width: 300px;
+        max-width: 300px;
+        height: 33px;
+        white-space: nowrap;
+        box-sizing: border-box;
+        font-size: 14px;
+    }
+
+    .sbx-custom__wrapper {
+        width: 100%;
+        height: 100%;
+    }
+
+    .sbx-custom__input {
+        display: inline-block;
+        -webkit-transition: box-shadow .4s ease, background .4s ease;
+        transition: box-shadow .4s ease, background .4s ease;
+        border: 0;
+        border-radius: 5px;
+        box-shadow: inset 0 0 0 2px #CCCCCC;
+        background: #FFFFFF;
+        padding: 0 27px 0 33px;
+        width: 100%;
+        height: 100%;
+        vertical-align: middle;
+        white-space: normal;
+        font-size: inherit;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+
+    .sbx-custom__input::-webkit-search-decoration, .sbx-custom__input::-webkit-search-cancel-button, .sbx-custom__input::-webkit-search-results-button, .sbx-custom__input::-webkit-search-results-decoration {
+        display: none;
+    }
+
+    .sbx-custom__input:hover {
+        box-shadow: inset 0 0 0 2px #b3b3b3;
+    }
+
+    .sbx-custom__input:focus, .sbx-custom__input:active {
+        outline: 0;
+        box-shadow: inset 0 0 0 2px #4B54DE;
+        background: #FFFFFF;
+    }
+
+    .sbx-custom__input::-webkit-input-placeholder {
+        color: #BBBBBB;
+    }
+
+    .sbx-custom__input::-moz-placeholder {
+        color: #BBBBBB;
+    }
+
+    .sbx-custom__input:-ms-input-placeholder {
+        color: #BBBBBB;
+    }
+
+    .sbx-custom__input::placeholder {
+        color: #BBBBBB;
+    }
+
+    .sbx-custom__submit {
+        position: absolute;
+        top: 0;
+        right: inherit;
+        left: 0;
+        margin: 0;
+        border: 0;
+        border-radius: 4px 0 0 4px;
+        background-color: rgba(255, 255, 255, 0);
+        padding: 0;
+        width: 33px;
+        height: 100%;
+        vertical-align: middle;
+        text-align: center;
+        font-size: inherit;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    .sbx-custom__submit::before {
+        display: inline-block;
+        margin-right: -4px;
+        height: 100%;
+        vertical-align: middle;
+        content: '';
+    }
+
+    .sbx-custom__submit:hover, .sbx-custom__submit:active {
+        cursor: pointer;
+    }
+
+    .sbx-custom__submit:focus {
+        outline: 0;
+    }
+
+    .sbx-custom__submit svg {
+        width: 17px;
+        height: 17px;
+        vertical-align: middle;
+        fill: #3A33D1;
+    }
+
+    .sbx-custom__reset {
+        display: none;
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        margin: 0;
+        border: 0;
+        background: none;
+        cursor: pointer;
+        padding: 0;
+        font-size: inherit;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        fill: rgba(0, 0, 0, 0.5);
+    }
+
+    .sbx-custom__reset:focus {
+        outline: 0;
+    }
+
+    .sbx-custom__reset svg {
+        display: block;
+        margin: 4px;
+        width: 17px;
+        height: 17px;
+    }
+
+    .sbx-custom__input:valid ~ .sbx-custom__reset {
+        display: block;
+        -webkit-animation-name: sbx-reset-in;
+        animation-name: sbx-reset-in;
+        -webkit-animation-duration: .15s;
+        animation-duration: .15s;
+    }
+
+    @-webkit-keyframes sbx-reset-in {
+        0% {
+            -webkit-transform: translate3d(-20%, 0, 0);
+            transform: translate3d(-20%, 0, 0);
+            opacity: 0;
+        }
+        100% {
+            -webkit-transform: none;
+            transform: none;
+            opacity: 1;
+        }
+    }
+
+    @keyframes sbx-reset-in {
+        0% {
+            -webkit-transform: translate3d(-20%, 0, 0);
+            transform: translate3d(-20%, 0, 0);
+            opacity: 0;
+        }
+        100% {
+            -webkit-transform: none;
+            transform: none;
+            opacity: 1;
+        }
+    }
+</style>
+<div class="book-header" role="navigation">
+    
+    <a class="book-header-title" href="../..">
+        <img class="book-header-title-img" alt="js-primer"
+             src="../../gitbook/icons/icon-128x128.png"/>
+        <h2 class="book-header-title-h" title="js-primer - JavaScriptの入門書">js-primer</h2>
+    </a>
+    <div class="searchbarWrapper header-center">
+        <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+            <symbol xmlns="http://www.w3.org/2000/svg" id="sbx-icon-search-8" viewBox="0 0 40 40">
+                <path d="M16 32c8.835 0 16-7.165 16-16 0-8.837-7.165-16-16-16C7.162 0 0 7.163 0 16c0 8.835 7.163 16 16 16zm0-5.76c5.654 0 10.24-4.586 10.24-10.24 0-5.656-4.586-10.24-10.24-10.24-5.656 0-10.24 4.584-10.24 10.24 0 5.654 4.584 10.24 10.24 10.24zM28.156 32.8c-1.282-1.282-1.278-3.363.002-4.643 1.282-1.284 3.365-1.28 4.642-.003l6.238 6.238c1.282 1.282 1.278 3.363-.002 4.643-1.283 1.283-3.366 1.28-4.643.002l-6.238-6.238z"
+                      fill-rule="evenodd"></path>
+            </symbol>
+            <symbol xmlns="http://www.w3.org/2000/svg" id="sbx-icon-clear-5" viewBox="0 0 20 20">
+                <path d="M10 20c5.523 0 10-4.477 10-10S15.523 0 10 0 0 4.477 0 10s4.477 10 10 10zm1.35-10.123l3.567 3.568-1.225 1.226-3.57-3.568-3.567 3.57-1.226-1.227 3.568-3.568-3.57-3.57 1.227-1.224 3.568 3.568 3.57-3.567 1.224 1.225-3.568 3.57zM10 18.272c4.568 0 8.272-3.704 8.272-8.272S14.568 1.728 10 1.728 1.728 5.432 1.728 10 5.432 18.272 10 18.272z"
+                      fill-rule="evenodd"></path>
+            </symbol>
+        </svg>
+
+        <form novalidate="novalidate" onsubmit="return false;" class="searchbox sbx-custom">
+            <div role="search" class="sbx-custom__wrapper">
+                <input name="search" placeholder="Search words" autocomplete="off" required="required"
+                       class="sbx-custom__input" type="search">
+                <button type="submit" title="Submit your search query." class="sbx-custom__submit">
+                    <svg role="img" aria-label="Search">
+                        <use xlink:href="#sbx-icon-search-8"></use>
+                    </svg>
+                </button>
+                <button type="reset" title="Clear the search query." class="sbx-custom__reset">
+                    <svg role="img" aria-label="Reset">
+                        <use xlink:href="#sbx-icon-clear-5"></use>
+                    </svg>
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="header-right">
+        <a class="github-link" title="GitHub: asciidwango/js-primer" href="https://github.com/asciidwango/js-primer"
+           target="_blank"><i
+                class="fa fa-github fa-fw"></i></a>
+    </div>
+</div>
+
+<script type="text/javascript">
+    document.querySelector('.searchbox [type="reset"]').addEventListener('click', function() {
+        this.parentNode.querySelector('input').focus();
+    });
+</script>
+<script>
+    var search = docsearch({
+        apiKey: 'fd28ebaba94be0c39fb9fa1b2fed4f23', // use a SEARCH-ONLY api key here
+        indexName: 'asciidwango',
+        inputSelector: '.sbx-custom__input',
+        debug: false // set to `true` if you want to inspect the dropdown menu's CSS
+    });
+</script>
+
+
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="read-eval-print"><a name="read-eval-print" class="plugin-anchor" href="#read-eval-print"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5024;&#x306E;&#x8A55;&#x4FA1;&#x3068;&#x8868;&#x793A; </h1>
+<p>&#x5909;&#x6570;&#x5BA3;&#x8A00;&#x3092;&#x4F7F;&#x3046;&#x3053;&#x3068;&#x3067;&#x5024;&#x306B;&#x540D;&#x524D;&#x3092;&#x3064;&#x3051;&#x308B;&#x65B9;&#x6CD5;&#x3092;&#x5B66;&#x3073;&#x307E;&#x3057;&#x305F;&#x3002;
+&#x6B21;&#x306F;&#x305D;&#x306E;&#x5024;&#x3092;&#x3069;&#x306E;&#x3088;&#x3046;&#x306B;&#x8A55;&#x4FA1;&#x3059;&#x308B;&#x304B;&#x306B;&#x3064;&#x3044;&#x3066;&#x3067;&#x3059;&#x3002;</p>
+<p>&#x5024;&#x306E;&#x8A55;&#x4FA1;&#x3068;&#x306F;&#x3001;&#x6B21;&#x306E;&#x3088;&#x3046;&#x306A;&#x5165;&#x529B;&#x3092;&#x8A55;&#x4FA1;&#x3057;&#x3066;&#x7D50;&#x679C;&#x3092;&#x8FD4;&#x3059;&#x3053;&#x3068;&#x3092;&#x793A;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<ul>
+<li><code>1 + 1</code> &#x3068;&#x3044;&#x3046;&#x5F0F;&#x3092;&#x8A55;&#x4FA1;&#x3057;&#x305F;&#x3089; <code>2</code> &#x3068;&#x3044;&#x3046;&#x7D50;&#x679C;&#x3092;&#x8FD4;&#x3059;</li>
+<li><code>bookTitle</code> &#x3068;&#x3044;&#x3046;&#x5909;&#x6570;&#x3092;&#x8A55;&#x4FA1;&#x3057;&#x305F;&#x3089;&#x3001;&#x5909;&#x6570;&#x306B;&#x4EE3;&#x5165;&#x3055;&#x308C;&#x3066;&#x3044;&#x308B;&#x5024;&#x3092;&#x8FD4;&#x3059;</li>
+</ul>
+<p>&#x3053;&#x306E;&#x5024;&#x306E;&#x8A55;&#x4FA1;&#x65B9;&#x6CD5;&#x3092;&#x898B;&#x3066;&#x3044;&#x304F;&#x305F;&#x3081;&#x3001;&#x5B9F;&#x884C;&#x74B0;&#x5883;&#x3067;JavaScript&#x3092;&#x5B9F;&#x884C;&#x3059;&#x308B;&#x65B9;&#x6CD5;&#x3092;&#x898B;&#x3066;&#x3044;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<h2 id="execute-js-on-browser"><a name="execute-js-on-browser" class="plugin-anchor" href="#execute-js-on-browser"><i class="fa fa-link" aria-hidden="true"></i></a>&#x30D6;&#x30E9;&#x30A6;&#x30B6;&#x3067;JavaScript&#x3092;&#x5B9F;&#x884C;&#x3059;&#x308B; </h2>
+<p>&#x307E;&#x305A;&#x306F;&#x30D6;&#x30E9;&#x30A6;&#x30B6;&#x4E0A;&#x3067;JavaScript&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3092;&#x5B9F;&#x884C;&#x3057;&#x3066;&#x307F;&#x307E;&#x3057;&#x3087;&#x3046;&#x3002;
+&#x3053;&#x306E;&#x66F8;&#x7C4D;&#x3067;&#x306F;&#x30D6;&#x30E9;&#x30A6;&#x30B6;&#x3068;&#x3057;&#x3066;<a href="https://www.mozilla.org/ja/firefox/" target="_blank">Firefox</a>&#x3092;&#x5229;&#x7528;&#x3057;&#x307E;&#x3059;&#x3002;
+&#x6B21;&#x306E;URL&#x304B;&#x3089;Firefox&#x3092;&#x30C0;&#x30A6;&#x30F3;&#x30ED;&#x30FC;&#x30C9;&#x3057;&#x3001;&#x30A4;&#x30F3;&#x30B9;&#x30C8;&#x30FC;&#x30EB;&#x3057;&#x3066;&#x304F;&#x3060;&#x3055;&#x3044;&#x3002;</p>
+<ul>
+<li>Firefox: <a href="https://www.mozilla.org/ja/firefox/" target="_blank">https://www.mozilla.org/ja/firefox/</a></li>
+</ul>
+<p>&#x30D6;&#x30E9;&#x30A6;&#x30B6;&#x3067;JavaScript&#x3092;&#x5B9F;&#x884C;&#x3059;&#x308B;&#x65B9;&#x6CD5;&#x3068;&#x3057;&#x3066;&#x306F;&#x5927;&#x304D;&#x304F;&#x5206;&#x3051;&#x3066;2&#x3064;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;
+1&#x3064;&#x76EE;&#x306F;&#x30D6;&#x30E9;&#x30A6;&#x30B6;&#x306E;&#x958B;&#x767A;&#x8005;&#x30C4;&#x30FC;&#x30EB;&#x306E;&#x30B3;&#x30F3;&#x30BD;&#x30FC;&#x30EB;&#x4E0A;&#x3067;JavaScript&#x30B3;&#x30FC;&#x30C9;&#x3092;&#x8A55;&#x4FA1;&#x3059;&#x308B;&#x65B9;&#x6CD5;&#x3067;&#x3059;&#x3002;
+2&#x3064;&#x76EE;&#x306F;HTML&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x3092;&#x4F5C;&#x6210;&#x3057;JavaScript&#x30B3;&#x30FC;&#x30C9;&#x3092;&#x8AAD;&#x307F;&#x8FBC;&#x3080;&#x65B9;&#x6CD5;&#x3067;&#x3059;&#x3002;</p>
+<h3 id="repl-on-browser"><a name="repl-on-browser" class="plugin-anchor" href="#repl-on-browser"><i class="fa fa-link" aria-hidden="true"></i></a>&#x30D6;&#x30E9;&#x30A6;&#x30B6;&#x306E;&#x958B;&#x767A;&#x8005;&#x30C4;&#x30FC;&#x30EB;&#x306E;&#x30B3;&#x30F3;&#x30BD;&#x30FC;&#x30EB;&#x4E0A;&#x3067;JavaScript&#x30B3;&#x30FC;&#x30C9;&#x3092;&#x8A55;&#x4FA1;&#x3059;&#x308B;&#x65B9;&#x6CD5; </h3>
+<p>&#x30D6;&#x30E9;&#x30A6;&#x30B6;&#x3084;Node.js&#x306A;&#x3069;&#x591A;&#x304F;&#x306E;&#x5B9F;&#x884C;&#x74B0;&#x5883;&#x306B;&#x306F;&#x3001;&#x30B3;&#x30FC;&#x30C9;&#x3092;&#x8A55;&#x4FA1;&#x3057;&#x3066;&#x305D;&#x306E;&#x7D50;&#x679C;&#x3092;&#x8868;&#x793A;&#x3059;&#x308B;REPL&#xFF08;read&#x2013;eval&#x2013;print loop&#xFF09;&#x3068;&#x547C;&#x3070;&#x308C;&#x308B;&#x958B;&#x767A;&#x8005;&#x5411;&#x3051;&#x306E;&#x6A5F;&#x80FD;&#x304C;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;
+Firefox&#x3067;&#x306F;&#x958B;&#x767A;&#x8005;&#x30C4;&#x30FC;&#x30EB;&#x306E;<strong>Web&#x30B3;&#x30F3;&#x30BD;&#x30FC;&#x30EB;</strong>&#x3068;&#x547C;&#x3070;&#x308C;&#x308B;&#x6A5F;&#x80FD;&#x306B;REPL&#x6A5F;&#x80FD;&#x304C;&#x542B;&#x307E;&#x308C;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<p>Firefox&#x306E;&#x958B;&#x767A;&#x8005;&#x30C4;&#x30FC;&#x30EB;&#x306F;&#x6B21;&#x306E;&#x3044;&#x305A;&#x308C;&#x304B;&#x306E;&#x65B9;&#x6CD5;&#x3067;&#x958B;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<ul>
+<li>Firefox &#x30E1;&#x30CB;&#x30E5;&#x30FC;&#xFF08;&#x30E1;&#x30CB;&#x30E5;&#x30FC;&#x30D0;&#x30FC;&#x304C;&#x3042;&#x308B;&#x5834;&#x5408;&#x3084; macOS &#x3067;&#x306F;&#x3001;&#x30C4;&#x30FC;&#x30EB;&#x30E1;&#x30CB;&#x30E5;&#x30FC;&#xFF09;&#x306E; Web &#x958B;&#x767A;&#x30B5;&#x30D6;&#x30E1;&#x30CB;&#x30E5;&#x30FC;&#x3067; &quot;Web &#x30B3;&#x30F3;&#x30BD;&#x30FC;&#x30EB;&quot; &#x3092;&#x9078;&#x629E;&#x3059;&#x308B;</li>
+<li>&#x30AD;&#x30FC;&#x30DC;&#x30FC;&#x30C9;&#x30B7;&#x30E7;&#x30FC;&#x30C8;&#x30AB;&#x30C3;&#x30C8; Ctrl+Shift+K&#xFF08;macOS &#x3067;&#x306F; Command+Option+K&#xFF09;&#x3092;&#x62BC;&#x4E0B;&#x3059;&#x308B;</li>
+</ul>
+<p>&#x8A73;&#x7D30;&#x306F;&quot;<a href="https://developer.mozilla.org/ja/docs/Tools/Web_Console/Opening_the_Web_Console" target="_blank">Web&#x30B3;&#x30F3;&#x30BD;&#x30FC;&#x30EB;&#x3092;&#x958B;&#x304F;</a>&quot;&#x3092;&#x53C2;&#x7167;&#x3057;&#x3066;&#x304F;&#x3060;&#x3055;&#x3044;&#x3002;</p>
+<ul>
+<li style="list-style: none"><input type="checkbox" disabled="disabled"> &#x30B9;&#x30AF;&#x30EA;&#x30FC;&#x30F3;&#x30B7;&#x30E7;&#x30C3;&#x30C8;</li>
+</ul>
+<p>&quot;&#x30B3;&#x30F3;&#x30BD;&#x30FC;&#x30EB;&quot;&#x3092;&#x9078;&#x629E;&#x3059;&#x308B;&#x3068;&#x3001;&#x30B3;&#x30DE;&#x30F3;&#x30C9;&#x30E9;&#x30A4;&#x30F3;&#xFF08;&#x4E8C;&#x91CD;&#x5C71;&#x304B;&#x3063;&#x3053;<code>&#xBB;</code>&#x304B;&#x3089;&#x59CB;&#x307E;&#x308B;&#x6B04;&#xFF09;&#x306B;&#x4EFB;&#x610F;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3092;&#x5165;&#x529B;&#x3057;&#x8A55;&#x4FA1;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;
+&#x3053;&#x306E;&#x30B3;&#x30DE;&#x30F3;&#x30C9;&#x30E9;&#x30A4;&#x30F3;&#x304C;&#x30D6;&#x30E9;&#x30A6;&#x30B6;&#x306B;&#x304A;&#x3051;&#x308B;REPL&#x6A5F;&#x80FD;&#x3067;&#x3059;&#x3002;</p>
+<p>REPL&#x306B;<code>1</code>&#x3068;&#x3044;&#x3046;&#x5024;&#x3092;&#x5165;&#x529B;&#x3059;&#x308B;&#x3068;&#x3001;&#x305D;&#x306E;&#x8A55;&#x4FA1;&#x7D50;&#x679C;&#x3067;&#x3042;&#x308B;<code>1</code>&#x304C;&#x6B21;&#x306E;&#x884C;&#x306B;&#x8868;&#x793A;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;</p>
+<pre><code>&#xBB; 1
+1
+</code></pre><p><code>1 + 1</code> &#x3068;&#x3044;&#x3046;&#x5F0F;&#x3092;&#x5165;&#x529B;&#x3059;&#x308B;&#x3068;&#x3001;&#x305D;&#x306E;&#x8A55;&#x4FA1;&#x7D50;&#x679C;&#x3067;&#x3042;&#x308B;<code>2</code>&#x304C;&#x6B21;&#x306E;&#x884C;&#x306B;&#x8868;&#x793A;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;</p>
+<pre><code>&#xBB; 1 + 1
+2
+</code></pre><p>&#x6B21;&#x306B;<code>const</code>&#x30AD;&#x30FC;&#x30EF;&#x30FC;&#x30C9;&#x3092;&#x4F7F;&#x3063;&#x3066;<code>bookTitle</code>&#x3068;&#x3044;&#x3046;&#x5909;&#x6570;&#x3092;&#x5BA3;&#x8A00;&#x3057;&#x3066;&#x307F;&#x308B;&#x3068;&#x3001;<code>undefined</code>&#x3068;&#x3044;&#x3046;&#x7D50;&#x679C;&#x304C;&#x6B21;&#x306E;&#x884C;&#x306B;&#x8868;&#x793A;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;
+&#x5909;&#x6570;&#x5BA3;&#x8A00;&#x306F;&#x5909;&#x6570;&#x540D;&#x3068;&#x5024;&#x3092;&#x95A2;&#x9023;&#x3065;&#x3051;&#x308B;&#x3060;&#x3051;&#x3067;&#x3042;&#x308B;&#x305F;&#x3081;&#x3001;&#x5909;&#x6570;&#x5BA3;&#x8A00;&#x81EA;&#x4F53;&#x306F;&#x4F55;&#x3082;&#x5024;&#x3092;&#x8FD4;&#x3055;&#x306A;&#x3044;&#x3068;&#x3044;&#x3046;&#x610F;&#x5473;&#x3067;<code>undefined</code>&#x304C;&#x7D50;&#x679C;&#x306B;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;
+REPL&#x3067;&#x306F;&#x305D;&#x306E;&#x307E;&#x307E;&#x6B21;&#x306E;&#x5165;&#x529B;&#x304C;&#x3067;&#x304D;&#x308B;&#x305F;&#x3081;&#x3001;<code>bookTitle</code>&#x3068;&#x3044;&#x3046;&#x5165;&#x529B;&#x3092;&#x3059;&#x308B;&#x3068;&#x3001;&#x5148;&#x307B;&#x3069;&#x5909;&#x6570;&#x306B;&#x5165;&#x308C;&#x305F;<code>&quot;JavaScript&#x306E;&#x672C;&quot;</code>&#x3068;&#x3044;&#x3046;&#x7D50;&#x679C;&#x304C;&#x6B21;&#x306E;&#x884C;&#x306B;&#x8868;&#x793A;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;</p>
+<pre><code>&#xBB; const bookTitle = &quot;JavaScript&#x306E;&#x672C;&quot;;
+undefined
+&#xBB; bookTitle
+&quot;JavaScript&#x306E;&#x672C;&quot;
+</code></pre><p>&#x3053;&#x306E;&#x3088;&#x3046;&#x306B;&#x30B3;&#x30DE;&#x30F3;&#x30C9;&#x30E9;&#x30A4;&#x30F3;&#x306E;REPL&#x6A5F;&#x80FD;&#x3067;&#x306F;&#x3001;JavaScript&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3092;1&#x884C;&#x3054;&#x3068;&#x306B;&#x5B9F;&#x884C;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;
+Shift + Enter&#x3067;&#x6539;&#x884C;&#x3057;&#x3066;&#x8907;&#x6570;&#x884C;&#x306E;&#x5165;&#x529B;&#x3082;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;
+&#x597D;&#x304D;&#x306A;&#x5358;&#x4F4D;&#x3067;JavaScript&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3092;&#x8A55;&#x4FA1;&#x3067;&#x304D;&#x308B;&#x305F;&#x3081;&#x3001;&#x30B3;&#x30FC;&#x30C9;&#x306E;&#x52D5;&#x304D;&#x3092;&#x7C21;&#x5358;&#x306B;&#x8A66;&#x3057;&#x305F;&#x3044;&#x5834;&#x5408;&#x306A;&#x3069;&#x306B;&#x5229;&#x7528;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x6CE8;&#x610F;&#x70B9;&#x3068;&#x3057;&#x3066;&#x306F;&#x3001;REPL&#x3067;&#x306F;&#x305D;&#x306E;REPL&#x3092;&#x7D42;&#x4E86;&#x3059;&#x308B;&#x307E;&#x3067;<code>const</code>&#x30AD;&#x30FC;&#x30EF;&#x30FC;&#x30C9;&#x306A;&#x3069;&#x3067;&#x5BA3;&#x8A00;&#x3057;&#x305F;&#x5909;&#x6570;&#x304C;&#x6B8B;&#x308A;&#x7D9A;&#x3051;&#x307E;&#x3059;&#x3002;
+&#x305F;&#x3068;&#x3048;&#x3070;&#x3001;<code>const</code>&#x3067;&#x306E;&#x5909;&#x6570;&#x5BA3;&#x8A00;&#x306F;&#x540C;&#x3058;&#x5909;&#x6570;&#x540D;&#x3092;&#x4E8C;&#x5EA6;&#x5B9A;&#x7FA9;&#x3067;&#x304D;&#x306A;&#x3044;&#x3068;&#x3044;&#x3046;&#x30EB;&#x30FC;&#x30EB;&#x3067;&#x3057;&#x305F;&#x3002;
+&#x305D;&#x306E;&#x305F;&#x3081;1&#x884C;&#x3065;&#x3064;&#x5B9F;&#x884C;&#x3057;&#x3066;&#x3082;&#x540C;&#x3058;&#x5909;&#x6570;&#x540D;&#x306E;&#x5B9A;&#x7FA9;&#x3092;&#x884C;&#x3046;&#x3068;&#x69CB;&#x6587;&#x30A8;&#x30E9;&#x30FC;&#xFF08;<code>SyntaxError</code>&#xFF09;&#x3068;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<pre><code>&#xBB; const bookTitle = &quot;JavaScript&#x306E;&#x672C;&quot;;
+undefined
+&#xBB; const bookTitle = &quot;JavaScript&#x306E;&#x672C;&quot;;
+SyntaxError: redeclaration of const bookTitle
+</code></pre><p>&#x30D6;&#x30E9;&#x30A6;&#x30B6;&#x3067;&#x306F;&#x3001;&#x30DA;&#x30FC;&#x30B8;&#x3092;&#x30EA;&#x30ED;&#x30FC;&#x30C9;&#x3059;&#x308B;&#x3068;REPL&#x306E;&#x5B9F;&#x884C;&#x72B6;&#x614B;&#x3082;&#x30EA;&#x30BB;&#x30C3;&#x30C8;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;
+<code>redeclaration</code>&#xFF08;&#x518D;&#x5B9A;&#x7FA9;&#xFF09;&#x306B;&#x95A2;&#x3059;&#x308B;&#x30A8;&#x30E9;&#x30FC;&#x30E1;&#x30C3;&#x30BB;&#x30FC;&#x30B8;&#x304C;&#x51FA;&#x305F;&#x969B;&#x306B;&#x306F;&#x30DA;&#x30FC;&#x30B8;&#x3092;&#x30EA;&#x30ED;&#x30FC;&#x30C9;&#x3057;&#x3066;&#x307F;&#x3066;&#x304F;&#x3060;&#x3055;&#x3044;&#x3002;</p>
+<h3 id="js-in-html"><a name="js-in-html" class="plugin-anchor" href="#js-in-html"><i class="fa fa-link" aria-hidden="true"></i></a>HTML&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x3092;&#x4F5C;&#x6210;&#x3057;JavaScript&#x30B3;&#x30FC;&#x30C9;&#x3092;&#x8AAD;&#x307F;&#x8FBC;&#x3080;&#x65B9;&#x6CD5; </h3>
+<p>REPL&#x306F;&#x3042;&#x304F;&#x307E;&#x3067;&#x958B;&#x767A;&#x8005;&#x5411;&#x3051;&#x306E;&#x6A5F;&#x80FD;&#x3067;&#x3042;&#x308B;&#x305F;&#x3081;&#x3001;&#x30A6;&#x30A7;&#x30D6;&#x30B5;&#x30A4;&#x30C8;&#x3067;&#x306F;JavaScript&#x306F;HTML&#x304B;&#x3089;&#x30B9;&#x30AF;&#x30EA;&#x30D7;&#x30C8;&#x3068;&#x3057;&#x3066;&#x8AAD;&#x307F;&#x8FBC;&#x307F;&#x5B9F;&#x884C;&#x3057;&#x307E;&#x3059;&#x3002;
+&#x3053;&#x3053;&#x3067;&#x306F;&#x3001;HTML&#x3068;JavaScript&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x3092;&#x4F7F;&#x3063;&#x305F;JavaScript&#x30B3;&#x30FC;&#x30C9;&#x306E;&#x5B9F;&#x884C;&#x65B9;&#x6CD5;&#x3092;&#x898B;&#x3066;&#x3044;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<p>HTML&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x3068;JavaScript&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x306E;2&#x7A2E;&#x985E;&#x3092;&#x4F7F;&#x3044;&#x3001;JavaScript&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3092;&#x5B9F;&#x884C;&#x3059;&#x308B;&#x6E96;&#x5099;&#x3092;&#x3057;&#x3066;&#x3044;&#x304D;&#x307E;&#x3059;&#x3002;
+&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x3092;&#x4F5C;&#x6210;&#x3059;&#x308B;&#x305F;&#x3081;<a href="https://atom.io/" target="_blank">Atom</a>&#x3084;<a href="https://code.visualstudio.com/" target="_blank">Visual Studio Code</a>&#x306A;&#x3069;&#x306E;JavaScript&#x306A;&#x3069;&#x306B;&#x5BFE;&#x5FDC;&#x3057;&#x305F;&#x30A8;&#x30C7;&#x30A3;&#x30BF;&#x3092;&#x7528;&#x610F;&#x3057;&#x3066;&#x304A;&#x304F;&#x3068;&#x30B9;&#x30E0;&#x30FC;&#x30BA;&#x3067;&#x3059;&#x3002;
+&#x30A8;&#x30C7;&#x30A3;&#x30BF;&#x306F;&#x3069;&#x3093;&#x306A;&#x3082;&#x306E;&#x3067;&#x3082;&#x554F;&#x984C;&#x3042;&#x308A;&#x307E;&#x305B;&#x3093;&#x304C;&#x3001;&#x5FC5;&#x305A;UTF-8&#x306E;&#x6587;&#x5B57;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x3092;&#x4FDD;&#x5B58;&#x3057;&#x3066;&#x304F;&#x3060;&#x3055;&#x3044;&#x3002;</p>
+<p>&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x3092;&#x4F5C;&#x6210;&#x3059;&#x308B;&#x30C7;&#x30A3;&#x30EC;&#x30AF;&#x30C8;&#x30EA;&#x306F;&#x3069;&#x3093;&#x306A;&#x5834;&#x6240;&#x3067;&#x3082;&#x554F;&#x984C;&#x3042;&#x308A;&#x307E;&#x305B;&#x3093;&#x304C;&#x3001;&#x3053;&#x3053;&#x3067;&#x306F;<code>example</code>&#x3068;&#x3044;&#x3046;&#x540D;&#x524D;&#x306E;&#x30C7;&#x30A3;&#x30EC;&#x30AF;&#x30C8;&#x30EA;&#x306B;&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x3092;&#x4F5C;&#x6210;&#x3057;&#x3066;&#x3044;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x307E;&#x305A;&#x306F;JavaScript&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x3068;&#x3057;&#x3066;<code>index.js</code>&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x3092;<code>example/index.js</code>&#x3068;&#x3044;&#x3046;&#x30D1;&#x30B9;&#x306B;&#x4F5C;&#x6210;&#x3057;&#x307E;&#x3059;&#x3002;
+<code>index.js</code>&#x306E;&#x4E2D;&#x306B;&#x306F;&#x6B21;&#x306E;&#x3088;&#x3046;&#x306A;&#x30B3;&#x30FC;&#x30C9;&#x3092;&#x66F8;&#x3044;&#x3066;&#x304A;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<pre><code class="lang-js"><span class="hljs-number">1</span>;
+</code></pre>
+<p>&#x6B21;&#x306B;HTML&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x3068;&#x3057;&#x3066;<code>index.html</code>&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x3092;<code>example/index.html</code>&#x3068;&#x3044;&#x3046;&#x30D1;&#x30B9;&#x306B;&#x4F5C;&#x6210;&#x3057;&#x307E;&#x3059;&#x3002;
+&#x3053;&#x306E;HTML&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x304B;&#x3089;&#x5148;&#x307B;&#x3069;&#x4F5C;&#x6210;&#x3057;&#x305F;<code>index.js</code>&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x3092;&#x8AAD;&#x307F;&#x8FBC;&#x307F;&#x5B9F;&#x884C;&#x3057;&#x307E;&#x3059;&#x3002;
+<code>index.html</code>&#x306E;&#x4E2D;&#x306B;&#x306F;&#x6B21;&#x306E;&#x3088;&#x3046;&#x306A;&#x30B3;&#x30FC;&#x30C9;&#x3092;&#x66F8;&#x3044;&#x3066;&#x304A;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<div class="code-filename-block">
+    <p class="code-filename">index.html</p>
+</div>
+
+<pre><code class="lang-html"><span class="hljs-tag">&lt;<span class="hljs-name">html</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">&quot;UTF-8&quot;</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>Example<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-name">script</span> <span class="hljs-attr">src</span>=<span class="hljs-string">&quot;./index.js&quot;</span>&gt;</span><span class="undefined"></span><span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span>
+<span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span>
+</code></pre>
+<p>&#x91CD;&#x8981;&#x306A;&#x306E;&#x306F;<code>&lt;script src=&quot;./index.js&quot;&gt;&lt;/script&gt;</code>&#x3068;&#x3044;&#x3046;&#x8A18;&#x8FF0;&#x3067;&#x3059;&#x3002;
+&#x3053;&#x308C;&#x306F;&#x540C;&#x3058;&#x30C7;&#x30A3;&#x30EC;&#x30AF;&#x30C8;&#x30EA;&#x306B;&#x3042;&#x308B;<code>index.js</code>&#x3068;&#x3044;&#x3046;&#x540D;&#x524D;&#x306E;JavaScript&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x3092;&#x30B9;&#x30AF;&#x30EA;&#x30D7;&#x30C8;&#x3068;&#x3057;&#x3066;&#x8AAD;&#x307F;&#x8FBC;&#x3080;&#x3068;&#x3044;&#x3046;&#x610F;&#x5473;&#x306B;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x6700;&#x5F8C;&#x306B;&#x30D6;&#x30E9;&#x30A6;&#x30B6;&#x3067;&#x4F5C;&#x6210;&#x3057;&#x305F;<code>index.html</code>&#x3092;&#x958B;&#x304D;&#x307E;&#x3059;&#x3002;
+HTML&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x3092;&#x958B;&#x304F;&#x306B;&#x306F;&#x3001;&#x30D6;&#x30E9;&#x30A6;&#x30B6;&#x306B;HTML&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x3092;&#x30C9;&#x30E9;&#x30C3;&#x30B0;&#x30A2;&#x30F3;&#x30C9;&#x30C9;&#x30ED;&#x30C3;&#x30D7;&#x307E;&#x305F;&#x306F;&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x30E1;&#x30CB;&#x30E5;&#x30FC;&#x304B;&#x3089;&quot;&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x3092;&#x958B;&#x304F;&quot;&#x3067;HTML&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x3092;&#x9078;&#x629E;&#x3057;&#x307E;&#x3059;&#x3002;
+HTML&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x3092;&#x958B;&#x3044;&#x305F;&#x969B;&#x306B;&#x3001;&#x30D6;&#x30E9;&#x30A6;&#x30B6;&#x306E;&#x30A2;&#x30C9;&#x30EC;&#x30B9;&#x30D0;&#x30FC;&#x306B;&#x306F;<code>file:///</code>&#x304B;&#x3089;&#x59CB;&#x307E;&#x308B;&#x30ED;&#x30FC;&#x30AB;&#x30EB;&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x306E;&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x30D1;&#x30B9;&#x304C;&#x8868;&#x793A;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x5148;&#x307B;&#x3069;&#x3068;&#x540C;&#x3058;&#x624B;&#x9806;&#x3067;&quot;Web &#x30B3;&#x30F3;&#x30BD;&#x30FC;&#x30EB;&quot;&#x3092;&#x958B;&#x3044;&#x3066;&#x307F;&#x308B;&#x3068;&#x3001;&#x30B3;&#x30F3;&#x30BD;&#x30FC;&#x30EB;&#x306B;&#x306F;&#x4F55;&#x3082;&#x8868;&#x793A;&#x3055;&#x308C;&#x3066;&#x3044;&#x306A;&#x3044;&#x306F;&#x305A;&#x3067;&#x3059;&#x3002;
+REPL&#x3067;&#x306F;&#x81EA;&#x52D5;&#x3067;&#x8A55;&#x4FA1;&#x7D50;&#x679C;&#x306E;&#x30B3;&#x30F3;&#x30BD;&#x30FC;&#x30EB;&#x8868;&#x793A;&#x307E;&#x3067;&#x884C;&#x3044;&#x307E;&#x3059;&#x304C;&#x3001;JavaScript&#x30B3;&#x30FC;&#x30C9;&#x3068;&#x3057;&#x3066;&#x8AAD;&#x307F;&#x8FBC;&#x3093;&#x3060;&#x5834;&#x5408;&#x306F;&#x52DD;&#x624B;&#x306B;&#x8A55;&#x4FA1;&#x7D50;&#x679C;&#x3092;&#x8868;&#x793A;&#x3055;&#x308C;&#x308B;&#x3053;&#x3068;&#x306F;&#x3042;&#x308A;&#x307E;&#x305B;&#x3093;&#x3002;
+&#x3042;&#x304F;&#x307E;&#x3067;&#x81EA;&#x52D5;&#x8868;&#x793A;&#x306F;REPL&#x306E;&#x6A5F;&#x80FD;&#x3067;&#x3059;&#x3002;&#x305D;&#x306E;&#x305F;&#x3081;&#x591A;&#x304F;&#x306E;&#x5B9F;&#x884C;&#x74B0;&#x5883;&#x3067;&#x306F;<strong>&#x30B3;&#x30F3;&#x30BD;&#x30FC;&#x30EB;&#x8868;&#x793A;</strong>&#x3059;&#x308B;&#x305F;&#x3081;&#x306E;API&#xFF08;&#x6A5F;&#x80FD;&#xFF09;&#x304C;&#x5B58;&#x5728;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<h2 id="console-api"><a name="console-api" class="plugin-anchor" href="#console-api"><i class="fa fa-link" aria-hidden="true"></i></a>Console API </h2>
+<p>JavaScript&#x306E;&#x591A;&#x304F;&#x306E;&#x5B9F;&#x884C;&#x74B0;&#x5883;&#x3067;&#x306F;&#x3001;Console API&#x304C;<strong>&#x30B3;&#x30F3;&#x30BD;&#x30FC;&#x30EB;&#x8868;&#x793A;</strong>&#x3092;&#x884C;&#x3046;API&#x3068;&#x306A;&#x3063;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;
+<code>console.log(&#x5F15;&#x6570;)</code>&#x306E;&#x5F15;&#x6570;&#x306B;&#x30B3;&#x30F3;&#x30BD;&#x30FC;&#x30EB;&#x8868;&#x793A;&#x3057;&#x305F;&#x3044;&#x5024;&#x3092;&#x5165;&#x308C;&#x308B;&#x3053;&#x3068;&#x3067;&#x3001;&#x8A55;&#x4FA1;&#x7D50;&#x679C;&#x304C;&#x30B3;&#x30F3;&#x30BD;&#x30FC;&#x30EB;&#x306B;&#x8868;&#x793A;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x5148;&#x307B;&#x3069;&#x306E;<code>index.js</code>&#x306E;&#x4E2D;&#x8EAB;&#x3092;&#x6B21;&#x306E;&#x3088;&#x3046;&#x306B;&#x66F8;&#x304D;&#x304B;&#x3048;&#x307E;&#x3059;&#x3002;
+&#x305D;&#x3057;&#x3066;&#x30DA;&#x30FC;&#x30B8;&#x3092;&#x30EA;&#x30ED;&#x30FC;&#x30C9;&#x3059;&#x308B; <code>1</code> &#x3068;&#x3044;&#x3046;&#x5024;&#x3092;&#x8A55;&#x4FA1;&#x3057;&#x305F;&#x7D50;&#x679C;&#x304C;Web&#x30B3;&#x30F3;&#x30BD;&#x30FC;&#x30EB;&#x306B;&#x8868;&#x793A;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-javascript"><span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span>); <span class="hljs-comment">// =&gt; 1</span>
+</code></pre>
+<p>&#x6B21;&#x306E;&#x3088;&#x3046;&#x306B;&#x5F15;&#x6570;&#x306B;&#x5F0F;&#x3092;&#x66F8;&#x3044;&#x305F;&#x5834;&#x5408;&#x306F;&#x5148;&#x306B;&#x5F15;&#x6570;&#xFF08;<code>(</code>&#x3068;<code>)</code>&#x306E;&#x9593;&#x306B;&#x66F8;&#x304B;&#x308C;&#x305F;&#x3082;&#x306E;&#xFF09;&#x306E;&#x5F0F;&#x3092;&#x8A55;&#x4FA1;&#x3057;&#x3066;&#x304B;&#x3089;&#x3001;&#x305D;&#x306E;&#x7D50;&#x679C;&#x3092;&#x30B3;&#x30F3;&#x30BD;&#x30FC;&#x30EB;&#x306B;&#x8868;&#x793A;&#x3057;&#x307E;&#x3059;&#x3002;
+&#x305D;&#x306E;&#x305F;&#x3081;&#x3001;<code>1 + 1</code> &#x306E;&#x8A55;&#x4FA1;&#x7D50;&#x679C;&#x3068;&#x3057;&#x3066; <code>2</code> &#x304C;&#x30B3;&#x30F3;&#x30BD;&#x30FC;&#x30EB;&#x306B;&#x8868;&#x793A;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-javascript"><span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span> + <span class="hljs-number">1</span>); <span class="hljs-comment">// =&gt; 2</span>
+</code></pre>
+<p>&#x540C;&#x3058;&#x3088;&#x3046;&#x306B;&#x5F15;&#x6570;&#x306B;&#x5909;&#x6570;&#x3092;&#x6E21;&#x3059;&#x3053;&#x3068;&#x3082;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;
+&#x3053;&#x306E;&#x5834;&#x5408;&#x3082;&#x307E;&#x305A;&#x5148;&#x306B;&#x5F15;&#x6570;&#x3067;&#x3042;&#x308B;&#x5909;&#x6570;&#x3092;&#x8A55;&#x4FA1;&#x3057;&#x3066;&#x304B;&#x3089;&#x3001;&#x305D;&#x306E;&#x7D50;&#x679C;&#x3092;&#x30B3;&#x30F3;&#x30BD;&#x30FC;&#x30EB;&#x306B;&#x8868;&#x793A;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> total = <span class="hljs-number">42</span> + <span class="hljs-number">42</span>;
+<span class="hljs-built_in">console</span>.log(total); <span class="hljs-comment">// =&gt; 84</span>
+</code></pre>
+<p>Console API&#x306F;&#x539F;&#x59CB;&#x7684;&#x306A;&#x30D7;&#x30EA;&#x30F3;&#x30C8;&#x30C7;&#x30D0;&#x30C3;&#x30B0;&#x3068;&#x3057;&#x3066;&#x5229;&#x7528;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;
+&#x300C;&#x3053;&#x306E;&#x5024;&#x306F;&#x4F55;&#x3060;&#x308D;&#x3046;&#x300D;&#x3068;&#x601D;&#x3063;&#x305F;&#x3089;&#x30B3;&#x30F3;&#x30BD;&#x30FC;&#x30EB;&#x306B;&#x8868;&#x793A;&#x3059;&#x308B;&#x3068;&#x89E3;&#x6C7A;&#x3059;&#x308B;&#x554F;&#x984C;&#x306F;&#x591A;&#x3044;&#x3067;&#x3059;&#x3002;
+&#x307E;&#x305F;JavaScript&#x306E;&#x958B;&#x767A;&#x74B0;&#x5883;&#x306F;&#x9AD8;&#x6A5F;&#x80FD;&#x5316;&#x304C;&#x9032;&#x3093;&#x3067;&#x3044;&#x308B;&#x305F;&#x3081;&#x3001;Console API&#x4EE5;&#x5916;&#x306B;&#x3082;&#x3055;&#x307E;&#x3056;&#x307E;&#x306A;&#x6A5F;&#x80FD;&#x304C;&#x3042;&#x308A;&#x307E;&#x3059;&#x304C;&#x3053;&#x3053;&#x3067;&#x306F;&#x8A73;&#x7D30;&#x306F;&#x7701;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x3053;&#x306E;&#x66F8;&#x7C4D;&#x3067;&#x306F;&#x3001;&#x30B3;&#x30FC;&#x30C9;&#x5185;&#x3067;&#x8A55;&#x4FA1;&#x7D50;&#x679C;&#x3092;&#x8868;&#x793A;&#x3059;&#x308B;&#x305F;&#x3081;&#x306B;Console API&#x3092;&#x5229;&#x7528;&#x3057;&#x3066;&#x3044;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x3059;&#x3067;&#x306B;&#x4F55;&#x5EA6;&#x3082;&#x767B;&#x5834;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x304C;&#x3001;&#x30B3;&#x30FC;&#x30C9;&#x5185;&#x306E;&#x30B3;&#x30E1;&#x30F3;&#x30C8;&#x3067;<code>// =&gt; &#x8A55;&#x4FA1;&#x7D50;&#x679C;</code>&#x3068;&#x66F8;&#x3044;&#x3066;&#x3044;&#x308B;&#x5834;&#x5408;&#x304C;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;
+&#x3053;&#x306E;&#x30B3;&#x30E1;&#x30F3;&#x30C8;&#x306F;&#x3001;&#x305D;&#x306E;&#x5DE6;&#x8FBA;&#x306B;&#x3042;&#x308B;&#x5024;&#x3092;&#x8A55;&#x4FA1;&#x3057;&#x305F;&#x7D50;&#x679C;&#x307E;&#x305F;&#x306F;Console API&#x3067;&#x8868;&#x793A;&#x3057;&#x305F;&#x7D50;&#x679C;&#x3092;&#x63B2;&#x8F09;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-comment">// &#x5F0F;&#x306E;&#x8A55;&#x4FA1;&#x7D50;&#x679C;&#x306E;&#x4F8B;&#xFF08;&#x30B3;&#x30F3;&#x30BD;&#x30FC;&#x30EB;&#x306B;&#x306F;&#x8868;&#x793A;&#x3055;&#x308C;&#x306A;&#x3044;&#xFF09;</span>
+<span class="hljs-number">1</span>; <span class="hljs-comment">// =&gt; 1</span>
+<span class="hljs-comment">// &#x5909;&#x6570;&#x306E;&#x8A55;&#x4FA1;&#x7D50;&#x679C;&#x306E;&#x4F8B;&#xFF08;&#x30B3;&#x30F3;&#x30BD;&#x30FC;&#x30EB;&#x306B;&#x306F;&#x8868;&#x793A;&#x3055;&#x308C;&#x306A;&#x3044;&#xFF09;</span>
+<span class="hljs-keyword">const</span> total = <span class="hljs-number">42</span> + <span class="hljs-number">42</span>;
+<span class="hljs-comment">// total&#x306E;&#x8A55;&#x4FA1;&#x7D50;&#x679C;&#x306F;84</span>
+total; <span class="hljs-comment">// =&gt; 84</span>
+<span class="hljs-comment">// Console API&#x3067;&#x30B3;&#x30F3;&#x30BD;&#x30FC;&#x30EB;&#x306B;&#x8868;&#x793A;&#x3059;&#x308B;&#x4F8B;</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;JavaScript&quot;</span>); <span class="hljs-comment">// =&gt; &quot;JavaScript&quot;</span>
+</code></pre>
+<h2 id="execute-on-web"><a name="execute-on-web" class="plugin-anchor" href="#execute-on-web"><i class="fa fa-link" aria-hidden="true"></i></a>&#x30A6;&#x30A7;&#x30D6;&#x7248;&#x306E;&#x66F8;&#x7C4D;&#x3067;&#x30B3;&#x30FC;&#x30C9;&#x3092;&#x5B9F;&#x884C;&#x3059;&#x308B; </h2>
+<!-- TODO: Web版のみ表示する -->
+<p>&#x30A6;&#x30A7;&#x30D6;&#x7248;&#x306E;&#x66F8;&#x7C4D;&#x3067;&#x306F;&#x5B9F;&#x884C;&#x3067;&#x304D;&#x308B;&#x30B5;&#x30F3;&#x30D7;&#x30EB;&#x30B3;&#x30FC;&#x30C9;&#x306B;&#x306F;<strong>&#x5B9F;&#x884C;</strong>&#x3068;&#x3044;&#x3046;&#x30DC;&#x30BF;&#x30F3;&#x304C;&#x914D;&#x7F6E;&#x3055;&#x308C;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;
+&#x3053;&#x306E;&#x30DC;&#x30BF;&#x30F3;&#x3067;&#x306F;&#x5B9F;&#x884C;&#x3059;&#x308B;&#x305F;&#x3073;&#x306B;&#x6BCE;&#x56DE;&#x65B0;&#x3057;&#x3044;&#x74B0;&#x5883;&#x3092;&#x4F5C;&#x6210;&#x3057;&#x3066;&#x5B9F;&#x884C;&#x3059;&#x308B;&#x305F;&#x3081;&#x3001;REPL&#x3067;&#x767A;&#x751F;&#x3059;&#x308B;&#x5909;&#x6570;&#x306E;&#x518D;&#x5B9A;&#x7FA9;&#x3068;&#x3044;&#x3063;&#x305F;&#x554F;&#x984C;&#x306F;&#x304A;&#x304D;&#x307E;&#x305B;&#x3093;&#x3002;</p>
+<p>&#x4E00;&#x65B9;&#x3067;&#x3001;REPL&#x3068;&#x540C;&#x3058;&#x3088;&#x3046;&#x306B;<code>1</code>&#x3068;&#x3044;&#x3046;&#x30B3;&#x30FC;&#x30C9;&#x3092;&#x5B9F;&#x884C;&#x3059;&#x308B;&#x3068;<code>1</code>&#x3068;&#x3044;&#x3046;&#x8A55;&#x4FA1;&#x7D50;&#x679C;&#x3092;&#x5F97;&#x3089;&#x308C;&#x307E;&#x3059;&#x3002;
+&#x307E;&#x305F;Console API&#x306B;&#x3082;&#x5BFE;&#x5FDC;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;&#x30B5;&#x30F3;&#x30D7;&#x30EB;&#x30B3;&#x30FC;&#x30C9;&#x3092;&#x6539;&#x5909;&#x3057;&#x3066;&#x5B9F;&#x884C;&#x3059;&#x308B;&#x306A;&#x3069;&#x3088;&#x308A;&#x30B3;&#x30FC;&#x30C9;&#x3078;&#x306E;&#x7406;&#x89E3;&#x3092;&#x6DF1;&#x3081;&#x308B;&#x305F;&#x3081;&#x306B;&#x5229;&#x7528;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;Console API&#x3067;&#x8868;&#x793A;&quot;</span>);
+<span class="hljs-comment">// &#x5024;&#x3092;&#x8A55;&#x4FA1;&#x3057;&#x305F;&#x5834;&#x5408;&#x306F;&#x6700;&#x5F8C;&#x306E;&#x7D50;&#x679C;&#x304C;&#x8868;&#x793A;&#x3055;&#x308C;&#x308B;</span>
+<span class="hljs-number">42</span>; <span class="hljs-comment">// =&gt; 42</span>
+</code></pre>
+<h2 id="eval-code-and-error"><a name="eval-code-and-error" class="plugin-anchor" href="#eval-code-and-error"><i class="fa fa-link" aria-hidden="true"></i></a>&#x30B3;&#x30FC;&#x30C9;&#x306E;&#x8A55;&#x4FA1;&#x3068;&#x30A8;&#x30E9;&#x30FC; </h2>
+<p>JavaScript&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3092;&#x5B9F;&#x884C;&#x3057;&#x305F;&#x3068;&#x304D;&#x306B;&#x30A8;&#x30E9;&#x30FC;&#x30E1;&#x30C3;&#x30BB;&#x30FC;&#x30B8;&#x304C;&#x8868;&#x793A;&#x3055;&#x308C;&#x3066;&#x610F;&#x56F3;&#x3057;&#x305F;&#x3088;&#x3046;&#x306B;&#x52D5;&#x304B;&#x306A;&#x304B;&#x3063;&#x305F;&#x5834;&#x5408;&#x3082;&#x3042;&#x308B;&#x306F;&#x305A;&#x3067;&#x3059;&#x3002;
+&#x30D7;&#x30ED;&#x30B0;&#x30E9;&#x30E0;&#x3092;&#x66F8;&#x304F;&#x3068;&#x304D;&#x306B;&#x4E00;&#x5EA6;&#x3082;&#x30A8;&#x30E9;&#x30FC;&#x3092;&#x51FA;&#x3055;&#x305A;&#x306B;&#x66F8;&#x304D;&#x7D42;&#x3048;&#x308B;&#x3053;&#x3068;&#x306F;&#x6B86;&#x3069;&#x3042;&#x308A;&#x307E;&#x305B;&#x3093;&#x3002;
+&#x7279;&#x306B;&#x65B0;&#x3057;&#x3044;&#x30D7;&#x30ED;&#x30B0;&#x30E9;&#x30DF;&#x30F3;&#x30B0;&#x8A00;&#x8A9E;&#x3092;&#x5B66;&#x3076;&#x969B;&#x306B;&#x306F;&#x30C8;&#x30E9;&#x30A4;&#x30A2;&#x30F3;&#x30C9;&#x30A8;&#x30E9;&#x30FC;&#xFF08;&#x8A66;&#x884C;&#x932F;&#x8AA4;&#xFF09;&#x3059;&#x308B;&#x3053;&#x3068;&#x306F;&#x3068;&#x3066;&#x3082;&#x91CD;&#x8981;&#x3067;&#x3059;&#x3002;</p>
+<p>&#x30A8;&#x30E9;&#x30FC;&#x30E1;&#x30C3;&#x30BB;&#x30FC;&#x30B8;&#x304C;Web&#x30B3;&#x30F3;&#x30BD;&#x30FC;&#x30EB;&#x306B;&#x8868;&#x793A;&#x3055;&#x308C;&#x305F;&#x969B;&#x306B;&#x306F;&#x3042;&#x308F;&#x3066;&#x305A;&#x306B;&#x305D;&#x306E;&#x30A8;&#x30E9;&#x30FC;&#x30E1;&#x30C3;&#x30BB;&#x30FC;&#x30B8;&#x3092;&#x8AAD;&#x3080;&#x3053;&#x3068;&#x3067;&#x591A;&#x304F;&#x306E;&#x554F;&#x984C;&#x306F;&#x89E3;&#x6C7A;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;
+&#x307E;&#x305F;&#x30A8;&#x30E9;&#x30FC;&#x306B;&#x306F;&#x591A;&#x304F;&#x5206;&#x3051;&#x3066;&#x69CB;&#x6587;&#x30A8;&#x30E9;&#x30FC;&#x3068;&#x5B9F;&#x884C;&#x6642;&#x30A8;&#x30E9;&#x30FC;&#x306E;2&#x7A2E;&#x985E;&#x304C;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;
+&#x3053;&#x3053;&#x3067;&#x306F;&#x30A8;&#x30E9;&#x30FC;&#x30E1;&#x30C3;&#x30BB;&#x30FC;&#x30B8;&#x306E;&#x7C21;&#x5358;&#x306A;&#x8AAD;&#x307F;&#x65B9;&#x3092;&#x77E5;&#x308A;&#x3001;&#x305D;&#x306E;&#x30A8;&#x30E9;&#x30FC;&#x3092;&#x4FEE;&#x6B63;&#x3059;&#x308B;&#x8DB3;&#x304C;&#x304B;&#x308A;&#x3092;&#x898B;&#x3066;&#x3044;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<h3 id="syntax-error"><a name="syntax-error" class="plugin-anchor" href="#syntax-error"><i class="fa fa-link" aria-hidden="true"></i></a>&#x69CB;&#x6587;&#x30A8;&#x30E9;&#x30FC; </h3>
+<p>&#x69CB;&#x6587;&#x30A8;&#x30E9;&#x30FC;&#x306F;&#x66F8;&#x304B;&#x308C;&#x305F;&#x30B3;&#x30FC;&#x30C9;&#x306E;&#x6587;&#x6CD5;&#x304C;&#x9593;&#x9055;&#x3063;&#x3066;&#x3044;&#x308B;&#x5834;&#x5408;&#x306B;&#x767A;&#x751F;&#x3059;&#x308B;&#x30A8;&#x30E9;&#x30FC;&#x3067;&#x3059;&#x3002;</p>
+<p>JavaScript&#x30A8;&#x30F3;&#x30B8;&#x30F3;&#x306F;&#x3001;&#x30B3;&#x30FC;&#x30C9;&#x3092;&#x30D1;&#x30FC;&#x30B9;&#xFF08;&#x89E3;&#x91C8;&#xFF09;&#x3057;&#x3066;&#x304B;&#x3089;&#x3001;&#x30D7;&#x30ED;&#x30B0;&#x30E9;&#x30E0;&#x3068;&#x3057;&#x3066;&#x5B9F;&#x884C;&#x3067;&#x304D;&#x308B;&#x5F62;&#x306B;&#x5909;&#x63DB;&#x3057;&#x3066;&#x5B9F;&#x884C;&#x3057;&#x307E;&#x3059;&#x3002;
+&#x30B3;&#x30FC;&#x30C9;&#x3092;&#x30D1;&#x30FC;&#x30B9;&#x3059;&#x308B;&#x969B;&#x306B;&#x6587;&#x6CD5;&#x306E;&#x554F;&#x984C;&#x304C;&#x898B;&#x3064;&#x304B;&#x308B;&#x3068;&#x3001;&#x305D;&#x306E;&#x6642;&#x70B9;&#x3067;&#x69CB;&#x6587;&#x30A8;&#x30E9;&#x30FC;&#x304C;&#x767A;&#x751F;&#x3059;&#x308B;&#x305F;&#x3081;&#x30D7;&#x30ED;&#x30B0;&#x30E9;&#x30E0;&#x3068;&#x3057;&#x3066;&#x5B9F;&#x884C;&#x3067;&#x304D;&#x307E;&#x305B;&#x3093;&#x3002;</p>
+<p>&#x6B21;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x306F;&#x3001;&#x95A2;&#x6570;&#x547C;&#x3073;&#x51FA;&#x3057;&#x306B;<code>)</code>&#x3092;&#x3064;&#x3051;&#x5FD8;&#x308C;&#x3066;&#x3044;&#x308B;&#x305F;&#x3081;&#x69CB;&#x6587;&#x30A8;&#x30E9;&#x30FC;&#x304C;&#x767A;&#x751F;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a>
+<!-- doctest:Error --></p>
+<div class="code-filename-block">
+    <p class="code-filename">index.js</p>
+</div>
+
+<pre><code class="lang-javascript"><span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span>; <span class="hljs-comment">// =&gt; SyntaxError: missing ) after argument list</span>
+</code></pre>
+<p><img src="img/syntax-error.png" alt="SyntaxError in Console"></p>
+<p>Firefox&#x3067;&#x3053;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3092;&#x5B9F;&#x884C;&#x3059;&#x308B;&#x3068;&#x6B21;&#x306E;&#x3088;&#x3046;&#x306A;&#x30A8;&#x30E9;&#x30FC;&#x30E1;&#x30C3;&#x30BB;&#x30FC;&#x30B8;&#x304C;&#x30B3;&#x30F3;&#x30BD;&#x30FC;&#x30EB;&#x3078;&#x8868;&#x793A;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;</p>
+<blockquote>
+<p>SyntaxError: missing ) after argument list[&#x8A73;&#x7D30;] index.js:1:13 </p>
+</blockquote>
+<p>&#x30A8;&#x30E9;&#x30FC;&#x30E1;&#x30C3;&#x30BB;&#x30FC;&#x30B8;&#x306F;&#x30D6;&#x30E9;&#x30A6;&#x30B6;&#x306B;&#x3088;&#x3063;&#x3066;&#x591A;&#x5C11;&#x306E;&#x9055;&#x3044;&#x306F;&#x3042;&#x308A;&#x307E;&#x3059;&#x304C;&#x3001;&#x57FA;&#x672C;&#x7684;&#x306B;&#x306F;&#x540C;&#x3058;&#x5F62;&#x5F0F;&#x306E;&#x30E1;&#x30C3;&#x30BB;&#x30FC;&#x30B8;&#x306B;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;
+&#x3053;&#x306E;&#x30A8;&#x30E9;&#x30FC;&#x30E1;&#x30C3;&#x30BB;&#x30FC;&#x30B8;&#x3092;&#x30D1;&#x30FC;&#x30C4;&#x3054;&#x3068;&#x306B;&#x898B;&#x3066;&#x307F;&#x308B;&#x3068;&#x6B21;&#x306E;&#x3088;&#x3046;&#x306B;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<pre><code>SyntaxError: missing ) after argument list[&#x8A73;&#x7D30;] index.js:1:13 
+^^^^^^^^^^^  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^      ^^^^^^^^&#x3000;^^^^
+&#x30A8;&#x30E9;&#x30FC;&#x306E;&#x7A2E;&#x985E;                |                        | &#x3000;&#x884C;&#x756A;&#x53F7;:&#x5217;&#x756A;&#x53F7;
+                  &#x30A8;&#x30E9;&#x30FC;&#x5185;&#x5BB9;&#x306E;&#x8AAC;&#x660E;                 &#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x540D;
+</code></pre><table>
+<thead>
+<tr>
+<th>&#x30E1;&#x30C3;&#x30BB;&#x30FC;&#x30B8;</th>
+<th>&#x610F;&#x5473;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SyntaxError: missing ) after argument list</code></td>
+<td>&#x30A8;&#x30E9;&#x30FC;&#x306E;&#x7A2E;&#x985E;&#x306F;<code>SyntaxError</code>&#x3067;&#x3001;&#x95A2;&#x6570;&#x547C;&#x3073;&#x51FA;&#x3057;&#x306E;<code>)</code>&#x304C;&#x8DB3;&#x308A;&#x306A;&#x3044;&#x3053;&#x3068;</td>
+</tr>
+<tr>
+<td><code>index.js:1:13</code></td>
+<td>&#x4F8B;&#x5916;&#x304C;<code>index.js</code>&#x306E;1&#x884C;&#x76EE;13&#x5217;&#x76EE;&#x3067;&#x767A;&#x751F;&#x3057;&#x305F;&#x3053;&#x3068;</td>
+</tr>
+</tbody>
+</table>
+<p>Firefox&#x306F;<strong>[&#x8A73;&#x7D30;]</strong>&#x3068;&#x3044;&#x3046;&#x30EA;&#x30F3;&#x30AF;&#x304C;&#x30A8;&#x30E9;&#x30FC;&#x30E1;&#x30C3;&#x30BB;&#x30FC;&#x30B8;&#x306B;&#x3088;&#x3063;&#x3066;&#x306F;&#x8868;&#x793A;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;
+&#x3053;&#x306E;<strong>[&#x8A73;&#x7D30;]</strong>&#x30EA;&#x30F3;&#x30AF;&#x306F;&#x30A8;&#x30E9;&#x30FC;&#x30E1;&#x30C3;&#x30BB;&#x30FC;&#x30B8;&#x306B;&#x95A2;&#x3059;&#x308B;MDN&#x306E;&#x89E3;&#x8AAC;&#x30DA;&#x30FC;&#x30B8;&#x3078;&#x306E;&#x30EA;&#x30F3;&#x30AF;&#x3068;&#x306A;&#x3063;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;
+&#x3053;&#x306E;&#x4F8B;&#x306E;&#x30A8;&#x30E9;&#x30FC;&#x30E1;&#x30C3;&#x30BB;&#x30FC;&#x30B8;&#x3067;&#x306F;&#x6B21;&#x306E;&#x89E3;&#x8AAC;&#x30DA;&#x30FC;&#x30B8;&#x3078;&#x30EA;&#x30F3;&#x30AF;&#x3055;&#x308C;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<ul>
+<li><a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Errors/Missing_parenthesis_after_argument_list" target="_blank">https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Errors/Missing_parenthesis_after_argument_list</a></li>
+</ul>
+<p>&#x3053;&#x306E;&#x30A8;&#x30E9;&#x30FC;&#x30E1;&#x30C3;&#x30BB;&#x30FC;&#x30B8;&#x3084;&#x89E3;&#x8AAC;&#x30DA;&#x30FC;&#x30B8;&#x304B;&#x3089;&#x3001;&#x95A2;&#x6570;&#x547C;&#x3073;&#x51FA;&#x3057;&#x306E;<code>)</code>&#x304C;&#x8DB3;&#x308A;&#x306A;&#x3044;&#x305F;&#x3081;&#x69CB;&#x6587;&#x30A8;&#x30E9;&#x30FC;&#x3068;&#x306A;&#x3063;&#x3066;&#x3044;&#x308B;&#x3053;&#x3068;&#x304C;&#x308F;&#x304B;&#x308A;&#x307E;&#x3059;&#x3002;
+&#x305D;&#x306E;&#x305F;&#x3081;&#x3001;&#x6B21;&#x306E;&#x3088;&#x3046;&#x306B;&#x8DB3;&#x308A;&#x306A;&#x3044;<code>)</code>&#x3092;&#x8FFD;&#x52A0;&#x3059;&#x308B;&#x3053;&#x3068;&#x3067;&#x30A8;&#x30E9;&#x30FC;&#x3092;&#x4FEE;&#x6B63;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-built_in">console</span>.log(<span class="hljs-number">1</span>);
+</code></pre>
+<p>&#x69CB;&#x6587;&#x30A8;&#x30E9;&#x30FC;&#x306B;&#x3088;&#x3063;&#x3066;&#x306F;&#x5C11;&#x3057;&#x30A8;&#x30E9;&#x30FC;&#x30E1;&#x30C3;&#x30BB;&#x30FC;&#x30B8;&#x304B;&#x3089;&#x610F;&#x5473;&#x304C;&#x8AAD;&#x307F;&#x53D6;&#x308A;&#x306B;&#x304F;&#x3044;&#x3082;&#x306E;&#x3082;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x6B21;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x306F;&#x3001;<code>const</code>&#x3092;<code>cosnt</code>&#x3068;&#x30BF;&#x30A4;&#x30D7;&#x30DF;&#x30B9;&#x3057;&#x3066;&#x3044;&#x308B;&#x305F;&#x3081;&#x69CB;&#x6587;&#x30A8;&#x30E9;&#x30FC;&#x304C;&#x767A;&#x751F;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a>
+<!-- doctest:Error --></p>
+<div class="code-filename-block">
+    <p class="code-filename">index.js</p>
+</div>
+
+<pre><code class="lang-javascript">cosnt a = <span class="hljs-number">1</span>;
+</code></pre>
+<blockquote>
+<p>SyntaxError: unexpected token: identifier[&#x8A73;&#x7D30;] index.js:1:6 </p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>&#x30E1;&#x30C3;&#x30BB;&#x30FC;&#x30B8;</th>
+<th>&#x610F;&#x5473;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SyntaxError: unexpected token: identifier</code></td>
+<td>&#x30A8;&#x30E9;&#x30FC;&#x306E;&#x7A2E;&#x985E;&#x306F;<code>SyntaxError</code>&#x3067;&#x3001;&#x4E88;&#x671F;&#x3057;&#x306A;&#x3044;&#x3082;&#x306E;&#x304C;&#x8B58;&#x5225;&#x5B50;&#xFF08;&#x5909;&#x6570;&#x540D;&#xFF09;&#x306B;&#x6307;&#x5B9A;&#x3055;&#x308C;&#x3066;&#x3044;&#x308B;</td>
+</tr>
+<tr>
+<td><code>index.js:1:6</code></td>
+<td>&#x4F8B;&#x5916;&#x304C;<code>index.js</code>&#x306E;1&#x884C;&#x76EE;6&#x5217;&#x76EE;&#x3067;&#x767A;&#x751F;&#x3057;&#x305F;&#x3053;&#x3068;</td>
+</tr>
+</tbody>
+</table>
+<p>&#x30D7;&#x30ED;&#x30B0;&#x30E9;&#x30E0;&#x3092;&#x30D1;&#x30FC;&#x30B9;&#x3059;&#x308B;&#x969B;&#x306B;<code>index.js:1:6</code>&#x3067;&#x4E88;&#x671F;&#x3057;&#x306A;&#x3044;&#xFF08;&#x69CB;&#x6587;&#x3068;&#x3057;&#x3066;&#x89E3;&#x91C8;&#x3067;&#x304D;&#x306A;&#x3044;&#xFF09;&#x8B58;&#x5225;&#x5B50;&#x304C;&#x898B;&#x3064;&#x304B;&#x3063;&#x305F;&#x305F;&#x3081;&#x3001;&#x69CB;&#x6587;&#x30A8;&#x30E9;&#x30FC;&#x304C;&#x767A;&#x751F;&#x3057;&#x305F;&#x3068;&#x3044;&#x3046;&#x610F;&#x5473;&#x306B;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;
+1&#x884C;&#x76EE;6&#x5217;&#x76EE;&#xFF08;&#x884C;&#x306F;1&#x304B;&#x3089;&#x3001;&#x5217;&#x306F;0&#x304B;&#x3089;&#x30AB;&#x30A6;&#x30F3;&#x30C8;&#x3059;&#x308B;&#xFF09;&#x3067;&#x3042;&#x308B;<code>a</code>&#x3068;&#x3044;&#x3046;&#x6587;&#x5B57;&#x5217;&#x304C;&#x304A;&#x304B;&#x3057;&#x3044;&#x3068;&#x3044;&#x3046;&#x3053;&#x3068;&#x306B;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;
+&#x3057;&#x304B;&#x3057;&#x3001;&#x5B9F;&#x969B;&#x306B;&#x306F;<code>cosnt</code>&#x3068;&#x3044;&#x3046;&#x30BF;&#x30A4;&#x30D7;&#x30DF;&#x30B9;&#x304C;&#x3053;&#x306E;&#x69CB;&#x6587;&#x30A8;&#x30E9;&#x30FC;&#x306E;&#x539F;&#x56E0;&#x3067;&#x3059;&#x3002;</p>
+<p>&#x306A;&#x305C;&#x3053;&#x306E;&#x3088;&#x3046;&#x306A;&#x30A8;&#x30E9;&#x30FC;&#x30E1;&#x30C3;&#x30BB;&#x30FC;&#x30B8;&#x306B;&#x306A;&#x308B;&#x304B;&#x3068;&#x3044;&#x3046;&#x3068;&#x3001;<code>cosnt</code>&#xFF08;<code>const</code>&#x306E;&#x30BF;&#x30A4;&#x30D7;&#x30DF;&#x30B9;&#xFF09;&#x306F;&#x30AD;&#x30FC;&#x30EF;&#x30FC;&#x30C9;&#x3067;&#x306F;&#x306A;&#x3044;&#x305F;&#x3081;&#x3001;&#x305F;&#x3060;&#x306E;&#x5909;&#x6570;&#x540D;&#x3068;&#x3057;&#x3066;&#x89E3;&#x91C8;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;
+&#x305D;&#x306E;&#x305F;&#x3081;&#x3001;&#x3053;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x306F;&#x6B21;&#x306E;&#x3088;&#x3046;&#x306B;&#x89E3;&#x91C8;&#x3055;&#x308C;&#x305D;&#x306E;&#x3088;&#x3046;&#x306A;&#x6587;&#x6CD5;&#x306F;&#x8A8D;&#x3081;&#x3089;&#x308C;&#x306A;&#x3044;&#x3068;&#x3044;&#x3046;&#x3053;&#x3068;&#x3067;&#x69CB;&#x6587;&#x30A8;&#x30E9;&#x30FC;&#x3068;&#x306A;&#x3063;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<!-- doctest:Error -->
+<pre><code class="lang-javascript">&#x5909;&#x6570;&#x540D; &#x5909;&#x6570;&#x540D;
+</code></pre>
+<p>&#x3053;&#x306E;&#x3088;&#x3046;&#x306B;&#x30A8;&#x30E9;&#x30FC;&#x30E1;&#x30C3;&#x30BB;&#x30FC;&#x30B8;&#x3068;&#x30A8;&#x30E9;&#x30FC;&#x306E;&#x539F;&#x56E0;&#x306F;&#x5FC5;&#x305A;&#x3057;&#x3082;&#x4E00;&#x81F4;&#x3057;&#x307E;&#x305B;&#x3093;&#x3002;
+&#x3057;&#x304B;&#x3057;&#x3001;&#x69CB;&#x6587;&#x30A8;&#x30E9;&#x30FC;&#x306E;&#x539F;&#x56E0;&#x306F;&#x30B3;&#x30FC;&#x30C9;&#x306E;&#x66F8;&#x304D;&#x9593;&#x9055;&#x3044;&#x3067;&#x3042;&#x308B;&#x3053;&#x3068;&#x304C;&#x6B86;&#x3069;&#x3067;&#x3059;&#x3002;
+&#x305D;&#x306E;&#x305F;&#x3081;&#x3001;&#x30A8;&#x30E9;&#x30FC;&#x304C;&#x767A;&#x751F;&#x3057;&#x305F;&#x4F4D;&#x7F6E;&#x3084;&#x305D;&#x306E;&#x5468;&#x8FBA;&#x3092;&#x6CE8;&#x610F;&#x6DF1;&#x304F;&#x898B;&#x308B;&#x3053;&#x3068;&#x3067;&#x3001;&#x30A8;&#x30E9;&#x30FC;&#x306E;&#x539F;&#x56E0;&#x3092;&#x7279;&#x5B9A;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<h3 id="runtime-error"><a name="runtime-error" class="plugin-anchor" href="#runtime-error"><i class="fa fa-link" aria-hidden="true"></i></a>&#x5B9F;&#x884C;&#x6642;&#x30A8;&#x30E9;&#x30FC; </h3>
+<p>&#x5B9F;&#x884C;&#x6642;&#x30A8;&#x30E9;&#x30FC;&#x306F;&#x30D7;&#x30ED;&#x30B0;&#x30E9;&#x30E0;&#x3092;&#x5B9F;&#x884C;&#x3057;&#x3066;&#x3044;&#x308B;&#x6700;&#x4E2D;&#x306B;&#x767A;&#x751F;&#x3059;&#x308B;&#x30A8;&#x30E9;&#x30FC;&#x3067;&#x3059;&#x3002;
+&#x5B9F;&#x884C;&#x6642;&#xFF08;&#x30E9;&#x30F3;&#x30BF;&#x30A4;&#x30E0;&#xFF09;&#x306B;&#x304A;&#x304D;&#x308B;&#x30A8;&#x30E9;&#x30FC;&#x3067;&#x3042;&#x308B;&#x305F;&#x3081;&#x30E9;&#x30F3;&#x30BF;&#x30A4;&#x30E0;&#x30A8;&#x30E9;&#x30FC;&#x3068;&#x547C;&#x3070;&#x308C;&#x308B;&#x3053;&#x3068;&#x3082;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;
+API&#x306B;&#x6E21;&#x3059;&#x5024;&#x306E;&#x554F;&#x984C;&#x304B;&#x3089;&#x8D77;&#x304D;&#x308B;<code>TypeError</code>&#x3084;&#x5B58;&#x5728;&#x3057;&#x306A;&#x3044;&#x5909;&#x6570;&#x3092;&#x53C2;&#x7167;&#x3057;&#x3088;&#x3046;&#x3068;&#x3057;&#x3066;&#x8D77;&#x304D;&#x308B;<code>ReferenceError</code>&#x306A;&#x3069;&#x3055;&#x307E;&#x3056;&#x307E;&#x306A;&#x7A2E;&#x985E;&#x304C;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x5B9F;&#x884C;&#x6642;&#x30A8;&#x30E9;&#x30FC;&#x304C;&#x767A;&#x751F;&#x3057;&#x305F;&#x5834;&#x5408;&#x306F;&#x3001;&#x305D;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x306F;&#x69CB;&#x6587;&#x3068;&#x3057;&#x3066;&#x306F;&#x6B63;&#x3057;&#x3044;&#xFF08;&#x69CB;&#x6587;&#x30A8;&#x30E9;&#x30FC;&#x3067;&#x306F;&#x306A;&#x3044;&#xFF09;&#x3067;&#x3059;&#x304C;&#x3001;&#x5225;&#x306E;&#x3053;&#x3068;&#x304C;&#x539F;&#x56E0;&#x3067;&#x30A8;&#x30E9;&#x30FC;&#x304C;&#x767A;&#x751F;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x6B21;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x306F;<code>a</code>&#x3068;&#x3044;&#x3046;&#x5B58;&#x5728;&#x3057;&#x306A;&#x3044;&#x5909;&#x6570;&#x3092;&#x53C2;&#x7167;&#x3057;&#x305F;&#x305F;&#x3081;<code>ReferenceError</code>&#x306B;&#x306A;&#x3063;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a>
+<!-- doctest:Error --></p>
+<div class="code-filename-block">
+    <p class="code-filename">index.js</p>
+</div>
+
+<pre><code class="lang-javascript"><span class="hljs-built_in">console</span>.log(a); <span class="hljs-comment">// =&gt; ReferenceError: a is not defined</span>
+</code></pre>
+<blockquote>
+<p>ReferenceError: a is not defined[&#x8A73;&#x7D30;]  index.js:1:1</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>&#x30E1;&#x30C3;&#x30BB;&#x30FC;&#x30B8;</th>
+<th>&#x610F;&#x5473;</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ReferenceError: a is not defined</code></td>
+<td>&#x30A8;&#x30E9;&#x30FC;&#x306E;&#x7A2E;&#x985E;&#x306F;<code>ReferenceError</code>&#x3067;&#x3001;<code>a</code>&#x3068;&#x3044;&#x3046;&#x672A;&#x5B9A;&#x7FA9;&#x306E;&#x8B58;&#x5225;&#x5B50;&#x3092;&#x53C2;&#x7167;&#x3057;&#x305F;</td>
+</tr>
+<tr>
+<td><code>index.js:1:1</code></td>
+<td>&#x4F8B;&#x5916;&#x304C;<code>index.js</code>&#x306E;1&#x884C;&#x76EE;1&#x5217;&#x76EE;&#x3067;&#x767A;&#x751F;&#x3057;&#x305F;&#x3053;&#x3068;</td>
+</tr>
+</tbody>
+</table>
+<p><code>a</code>&#x3068;&#x3044;&#x3046;&#x5909;&#x6570;&#x3084;&#x95A2;&#x6570;&#x304C;&#x5B58;&#x5728;&#x3059;&#x308B;&#x304B;&#x306F;&#x5B9F;&#x884C;&#x3057;&#x3066;&#x307F;&#x306A;&#x3044;&#x3068;&#x308F;&#x304B;&#x308A;&#x307E;&#x305B;&#x3093;&#x3002;
+&#x591A;&#x304F;&#x306E;&#x5B9F;&#x884C;&#x74B0;&#x5883;&#x304C;Console API&#x306E;&#x3088;&#x3046;&#x306A;&#x30D3;&#x30EB;&#x30C8;&#x30A4;&#x30F3;&#x306E;&#x6A5F;&#x80FD;&#x3092;&#x63D0;&#x4F9B;&#x3057;&#x3066;&#x3044;&#x308B;&#x3088;&#x3046;&#x306B;&#x3001;<code>a</code>&#x3068;&#x3044;&#x3046;&#x540D;&#x524D;&#x306E;&#x6A5F;&#x80FD;&#x3092;&#x63D0;&#x4F9B;&#x3059;&#x308B;&#x5B9F;&#x884C;&#x74B0;&#x5883;&#x3082;&#x8003;&#x3048;&#x3089;&#x308C;&#x307E;&#x3059;&#x3002;
+&#x305D;&#x306E;&#x305F;&#x3081;&#x3001;&#x5B9F;&#x884C;&#x3057;&#x3066;<code>a</code>&#x3068;&#x3044;&#x3046;&#x8B58;&#x5225;&#x5B50;&#x3092;&#x53C2;&#x7167;&#x3057;&#x305F;&#x3068;&#x304D;&#x306B;&#x521D;&#x3081;&#x3066;&#x5B58;&#x5728;&#x3059;&#x308B;&#x304B;&#x5426;&#x304B;&#x304C;&#x5224;&#x660E;&#x3057;&#x3066;&#x3001;&#x5B58;&#x5728;&#x3057;&#x306A;&#x3044;&#x5834;&#x5408;&#x306F;<code>ReferenceError</code>&#x3068;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x3053;&#x306E;&#x3088;&#x3046;&#x306B;&#x3001;&#x5B9F;&#x884C;&#x6642;&#x30A8;&#x30E9;&#x30FC;&#x306F;&#x8A72;&#x5F53;&#x3059;&#x308B;&#x7B87;&#x6240;&#x3092;&#x5B9F;&#x884C;&#x3059;&#x308B;&#x307E;&#x3067;&#x30A8;&#x30E9;&#x30FC;&#x306B;&#x306A;&#x308B;&#x304B;&#x304C;&#x308F;&#x304B;&#x3089;&#x306A;&#x3044;&#x5834;&#x5408;&#x3082;&#x591A;&#x3044;&#x306E;&#x3067;&#x3059;&#x3002;
+&#x305D;&#x306E;&#x305F;&#x3081;&#x3001;&#x3069;&#x3053;&#x307E;&#x3067;&#x306F;&#x3061;&#x3083;&#x3093;&#x3068;&#x5B9F;&#x884C;&#x3067;&#x304D;&#x305F;&#x304B;&#x9806;&#x756A;&#x306B;&#x8FFD;&#x3063;&#x3066;&#x3044;&#x304F;&#x3088;&#x3046;&#x306A;&#x3001;&#x30A8;&#x30E9;&#x30FC;&#x306E;&#x539F;&#x56E0;&#x3092;&#x7279;&#x5B9A;&#x3059;&#x308B;&#x4F5C;&#x696D;&#x304C;&#x5FC5;&#x8981;&#x306B;&#x306A;&#x3063;&#x3066;&#x3044;&#x308B;&#x5834;&#x5408;&#x304C;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;
+&#x3053;&#x306E;&#x3088;&#x3046;&#x306A;&#x30A8;&#x30E9;&#x30FC;&#x306E;&#x539F;&#x56E0;&#x3092;&#x7279;&#x5B9A;&#x3057;&#x3001;&#x4FEE;&#x6B63;&#x3059;&#x308B;&#x4F5C;&#x696D;&#x306E;&#x3053;&#x3068;&#x3092;<strong>&#x30C7;&#x30D0;&#x30C3;&#x30B0;</strong>&#x3068;&#x547C;&#x3073;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x5B9F;&#x884C;&#x6642;&#x30A8;&#x30E9;&#x30FC;&#x306F;&#x69CB;&#x6587;&#x30A8;&#x30E9;&#x30FC;&#x306B;&#x6BD4;&#x3079;&#x3066;&#x30A8;&#x30E9;&#x30FC;&#x306E;&#x7A2E;&#x985E;&#x3082;&#x591A;&#x304F;&#x3001;&#x305D;&#x306E;&#x539F;&#x56E0;&#x3082;&#x30D7;&#x30ED;&#x30B0;&#x30E9;&#x30E0;&#x306E;&#x6570;&#x3060;&#x3051;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;
+&#x30A8;&#x30E9;&#x30FC;&#x306E;&#x539F;&#x56E0;&#x3092;&#x898B;&#x3064;&#x3051;&#x308B;&#x3053;&#x3068;&#x304C;&#x5927;&#x5909;&#x306A;&#x5834;&#x5408;&#x3082;&#x591A;&#x3044;&#x3067;&#x3059;&#x304C;&#x3001;JavaScript&#x306F;&#x3068;&#x3066;&#x3082;&#x826F;&#x304F;&#x4F7F;&#x308F;&#x308C;&#x3066;&#x3044;&#x308B;&#x8A00;&#x8A9E;&#x306A;&#x306E;&#x3067;&#x3001;&#x30A6;&#x30A7;&#x30D6;&#x4E0A;&#x306B;&#x306F;&#x985E;&#x4F3C;&#x3059;&#x308B;&#x30A8;&#x30E9;&#x30FC;&#x3092;&#x5831;&#x544A;&#x3057;&#x3066;&#x3044;&#x308B;&#x4EBA;&#x3082;&#x591A;&#x3044;&#x3067;&#x3059;&#x3002;
+&#x305D;&#x306E;&#x305F;&#x3081;&#x3001;&#x30A8;&#x30E9;&#x30FC;&#x30E1;&#x30C3;&#x30BB;&#x30FC;&#x30B8;&#x3067;&#x691C;&#x7D22;&#x3092;&#x3057;&#x3066;&#x307F;&#x308B;&#x3068;&#x3001;&#x985E;&#x4F3C;&#x3059;&#x308B;&#x30A8;&#x30E9;&#x30FC;&#x306E;&#x539F;&#x56E0;&#x3068;&#x89E3;&#x6D88;&#x65B9;&#x6CD5;&#x304C;&#x898B;&#x3064;&#x304B;&#x308B;&#x30B1;&#x30FC;&#x30B9;&#x3082;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<h2 id="conclusion"><a name="conclusion" class="plugin-anchor" href="#conclusion"><i class="fa fa-link" aria-hidden="true"></i></a>&#x307E;&#x3068;&#x3081; </h2>
+<p>&#x30D6;&#x30E9;&#x30A6;&#x30B6;&#x4E0A;&#x3067;JavaScript&#x3092;&#x5B9F;&#x884C;&#x3059;&#x308B;&#x65B9;&#x6CD5;&#x3068;&#x3057;&#x3066;&#x958B;&#x767A;&#x8005;&#x30C4;&#x30FC;&#x30EB;&#x3092;&#x4F7F;&#x3046;&#x65B9;&#x6CD5;&#x3068;HTML&#x304B;&#x3089;JavaScript&#x30D5;&#x30A1;&#x30A4;&#x30EB;&#x3092;&#x8AAD;&#x307F;&#x8FBC;&#x3080;&#x65B9;&#x6CD5;&#x3092;&#x7D39;&#x4ECB;&#x3057;&#x307E;&#x3057;&#x305F;&#x3002;
+&#x300C;&#x7B2C;1&#x90E8; &#x57FA;&#x672C;&#x6587;&#x6CD5;&#x300D;&#x3067;&#x7D39;&#x4ECB;&#x3059;&#x308B;&#x30B5;&#x30F3;&#x30D7;&#x30EB;&#x30B3;&#x30FC;&#x30C9;&#x306F;&#x57FA;&#x672C;&#x7684;&#x306B;&#x3053;&#x308C;&#x3089;&#x306E;&#x65B9;&#x6CD5;&#x3067;&#x5B9F;&#x884C;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;
+&#x30B5;&#x30F3;&#x30D7;&#x30EB;&#x30B3;&#x30FC;&#x30C9;&#x3092;&#x81EA;&#x5206;&#x306A;&#x308A;&#x306B;&#x6539;&#x5909;&#x3057;&#x3066;&#x5B9F;&#x884C;&#x3059;&#x308B;&#x306A;&#x3069;&#x3059;&#x308B;&#x3068;&#x3088;&#x308A;&#x7406;&#x89E3;&#x304C;&#x6DF1;&#x304F;&#x306A;&#x308B;&#x305F;&#x3081;&#x3001;&#x30B5;&#x30F3;&#x30D7;&#x30EB;&#x30B3;&#x30FC;&#x30C9;&#x306E;&#x52D5;&#x4F5C;&#x3092;&#x81EA;&#x5206;&#x81EA;&#x8EAB;&#x3067;&#x78BA;&#x8A8D;&#x3057;&#x3066;&#x307F;&#x3066;&#x304F;&#x3060;&#x3055;&#x3044;&#x3002;</p>
+<p>&#x30B3;&#x30FC;&#x30C9;&#x3092;&#x5B9F;&#x884C;&#x3057;&#x3066;&#x30A8;&#x30E9;&#x30FC;&#x304C;&#x767A;&#x751F;&#x3057;&#x305F;&#x5834;&#x5408;&#x306B;&#x306F;&#x30A8;&#x30E9;&#x30FC;&#x30E1;&#x30C3;&#x30BB;&#x30FC;&#x30B8;&#x3084;&#x4F4D;&#x7F6E;&#x60C5;&#x5831;&#x306A;&#x3069;&#x304C;&#x8868;&#x793A;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;
+&#x3053;&#x308C;&#x3089;&#x306E;&#x30A8;&#x30E9;&#x30FC;&#x60C5;&#x5831;&#x3092;&#x4F7F;&#x3063;&#x3066;&#x30C7;&#x30D0;&#x30C3;&#x30B0;&#x3059;&#x308B;&#x3053;&#x3068;&#x3067;&#x30A8;&#x30E9;&#x30FC;&#x306E;&#x539F;&#x56E0;&#x3092;&#x53D6;&#x308A;&#x9664;&#x3051;&#x308B;&#x306F;&#x305A;&#x3067;&#x3059;&#x3002;</p>
+<p>JavaScript&#x306B;&#x304A;&#x3044;&#x3066;&#x306F;&#x591A;&#x304F;&#x306E;&#x30A8;&#x30E9;&#x30FC;&#x306F;&#x3059;&#x3067;&#x306B;&#x985E;&#x4F3C;&#x3059;&#x308B;&#x30B1;&#x30FC;&#x30B9;&#x304C;&#x30A6;&#x30A7;&#x30D6;&#x4E0A;&#x306B;&#x5831;&#x544A;&#x3055;&#x308C;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;
+&#x69CB;&#x6587;&#x30A8;&#x30E9;&#x30FC;&#x3084;&#x5B9F;&#x884C;&#x6642;&#x30A8;&#x30E9;&#x30FC;&#x306E;&#x5178;&#x578B;&#x7684;&#x306A;&#x3082;&#x306E;&#x306F;MDN&#x306E;<a href="https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Errors" target="_blank">JavaScript &#x30A8;&#x30E9;&#x30FC;&#x30EA;&#x30D5;&#x30A1;&#x30EC;&#x30F3;&#x30B9;</a>&#x306B;&#x307E;&#x3068;&#x3081;&#x3089;&#x308C;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;
+&#x307E;&#x305F;<a href="https://www.google.com/" target="_blank">Google</a>&#x3001;<a href="https://github.com/" target="_blank">GitHub</a>&#x3001;<a href="https://stackoverflow.com/" target="_blank">Stack Overflow</a>&#x306A;&#x3069;&#x3067;&#x30A8;&#x30E9;&#x30FC;&#x30E1;&#x30C3;&#x30BB;&#x30FC;&#x30B8;&#x3092;&#x691C;&#x7D22;&#x3059;&#x308B;&#x3053;&#x3068;&#x3067;&#x3001;&#x30A8;&#x30E9;&#x30FC;&#x306E;&#x539F;&#x56E0;&#x3092;&#x898B;&#x3064;&#x3051;&#x3089;&#x308C;&#x308B;&#x3053;&#x3068;&#x3082;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x30A8;&#x30E9;&#x30FC;&#x304C;Web&#x30B3;&#x30F3;&#x30BD;&#x30FC;&#x30EB;&#x306B;&#x8868;&#x793A;&#x3055;&#x308C;&#x3066;&#x3044;&#x308B;&#x306A;&#x3089;&#x3070;&#x3001;&#x305D;&#x306E;&#x30A8;&#x30E9;&#x30FC;&#x306F;&#x4FEE;&#x6B63;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;
+&#x30A8;&#x30E9;&#x30FC;&#x3092;&#x904E;&#x5EA6;&#x306B;&#x6016;&#x304C;&#x308B;&#x5FC5;&#x8981;&#x306F;&#x3042;&#x308A;&#x307E;&#x305B;&#x3093;&#x3002;&#x30A8;&#x30E9;&#x30FC;&#x30E1;&#x30C3;&#x30BB;&#x30FC;&#x30B8;&#x306A;&#x3069;&#x306E;&#x30D2;&#x30F3;&#x30C8;&#x3092;&#x4F7F;&#x3063;&#x3066;&#x30A8;&#x30E9;&#x30FC;&#x3092;&#x4FEE;&#x6B63;&#x3057;&#x3066;&#x3044;&#x3051;&#x308B;&#x3088;&#x3046;&#x306B;&#x3057;&#x307E;&#x3057;&#x3087;&#x3046;&#x3002;</p>
+
+                                
+                                </section>
+                            
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../variables/" class="navigation navigation-prev " aria-label="Previous page: 変数と宣言">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../data-type/" class="navigation navigation-next " aria-label="Next page: データ型とリテラル">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"author":"azu","title":"値の評価と表示","level":"1.4.4","depth":2,"next":{"title":"データ型とリテラル","level":"1.4.5","depth":2,"path":"basic/data-type/README.md","ref":"./basic/data-type/README.md","articles":[]},"previous":{"title":"変数と宣言","level":"1.4.3","depth":2,"path":"basic/variables/README.md","ref":"./basic/variables/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-search","-lunr","page-toc-button","include-codeblock","anchors","canonical-link","ga","js-console","github-issue-feedback","todo"],"root":"./source/","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"docSearch":{"apiKey":"fd28ebaba94be0c39fb9fa1b2fed4f23","index":"asciidwango"},"github-issue-feedback":{"repo":"asciidwango/js-primer"},"todo":{},"fontsettings":{"theme":"white","family":"sans","size":2},"js-console":{},"canonical-link":{"baseURL":"https://jsprimer.net"},"highlight":{},"page-toc-button":{"maxTocDepth":2,"minTocSize":2},"ga":{"configuration":"auto","token":"UA-2184335-18"},"include-codeblock":{"check":false,"edit":false,"lang":"","fixlang":false,"template":"./resources/gitbook-plugin-include-codeblock.hbs","theme":"chrome","unindent":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"base":"https://github.com/asciidwango/js-primer/edit/master/source/","label":"Edit"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"index.md","glossary":"GLOSSARY.md","summary":"README.md"},"variables":{"esversion":"2018","console":"<a class=\"gitbook-plugin-js-console\" aria-hidden=\"true\"></a>"},"title":"JavaScriptの入門書 #jsprimer","gitbook":">=3.0.0","description":"この書籍はES2015以降をベースとしたJavaScript入門書となる予定"},"file":{"path":"basic/read-eval-print/README.md","mtime":"2018-12-23T15:21:44.496Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-12-23T15:22:57.500Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-page-toc-button/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-ga/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-js-console/console-ui.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github-issue-feedback/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+

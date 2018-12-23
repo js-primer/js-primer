@@ -1,0 +1,2305 @@
+
+<!DOCTYPE HTML>
+<html lang="" >
+    <head>
+        <meta charset="UTF-8">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>クラス · JavaScriptの入門書 #jsprimer</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="description" content="">
+        <meta name="generator" content="GitBook 3.2.3">
+        
+        
+        
+    
+    <link rel="stylesheet" href="../../gitbook/style.css">
+
+    
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-page-toc-button/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-anchors/plugin.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-highlight/website.css">
+                
+            
+                
+                <link rel="stylesheet" href="../../gitbook/gitbook-plugin-fontsettings/website.css">
+                
+            
+        
+
+    
+
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+
+         
+    
+    
+    
+    <meta name="HandheldFriendly" content="true"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <link rel="apple-touch-icon-precomposed" sizes="152x152" href="../../gitbook/images/apple-touch-icon-precomposed-152.png">
+    <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
+
+    
+    <link rel="next" href="../error-try-catch/" />
+    
+    
+    <link rel="prev" href="../function-this/" />
+    
+
+    <link rel="canonical" href="https://jsprimer.net/basic/class/">
+
+<meta name="google-site-verification" content="bMotEbgYwkzA3k4PkuyK_NUdz0bKh-Phz0oUwNmRSVo" />
+<style>
+    /*
+    Disable antialias
+    */
+    * {
+        -webkit-font-smoothing: initial !important
+    }
+
+    body {
+        text-rendering: initial !important;
+        font-smoothing: initial !important;
+    }
+
+    /* deny access chapter */
+    .summary li.chapter>span {
+        cursor: not-allowed;
+        opacity: .3;
+    }
+
+    /* console ui */
+
+    .mirror-console-attach-button-wrapper {
+        margin-top: -1.275em;
+        margin-bottom: 1.275em
+    }
+
+    .mirror-console-wrapper {
+        margin-top: 1.275em;
+        margin-bottom: 1.275em
+    }
+
+    /* file name for codeblock */
+    .code-filename {
+        background-color: #eee;
+        display: inline-block;
+        padding: 2px 8px;
+        line-height: inherit;
+        margin-bottom: 0px !important;
+    }
+</style>
+<meta name="theme-color" content="#ffffff">
+<link rel="manifest" href="../../manifest.json">
+<script src="https://unpkg.com/service-worker-updatefound-refresh-dialog@1.1.0/dist/service-worker-updatefound-refresh-dialog.umd.js"></script>
+<script>
+    if ("serviceWorker" in navigator) {
+        const isLocalhost = Boolean(
+            // preview
+            /netlify.com/.test(window.location.hostname) ||
+            // local
+            window.location.hostname === "localhost" ||
+            // [::1] is the IPv6 localhost address.
+            window.location.hostname === "[::1]" ||
+            // 127.0.0.1/8 is considered localhost for IPv4.
+            window.location.hostname.match(/^127(?:\.(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)){3}$/)
+        );
+        if (!isLocalhost) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker.register("../../sw.js")
+                    .then(function(registration) {
+                        serviceWorkerUpdatefoundRefreshDialog.register(registration);
+                    });
+            });
+        }
+    }
+</script>
+
+
+    </head>
+    <body>
+        
+<div class="book">
+    <div class="book-summary">
+        
+            
+            
+                <nav role="navigation">
+                
+
+
+<ul class="summary">
+    
+    
+
+    
+
+    
+        
+        
+    
+        <li class="chapter " data-level="1.1" data-path="../../">
+            
+                <a href="../../">
+            
+                    
+                    この書籍について
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.2" data-path="../../intro/goal/">
+            
+                <a href="../../intro/goal/">
+            
+                    
+                    本書の目的
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.3" data-path="../../intro/feedback/">
+            
+                <a href="../../intro/feedback/">
+            
+                    
+                    文章の間違いに気づいたら
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4" data-path="../">
+            
+                <a href="../">
+            
+                    
+                    第1部: 基礎文法
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.4.1" data-path="../introduction/">
+            
+                <a href="../introduction/">
+            
+                    
+                    JavaScriptとは
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.2" data-path="../comments/">
+            
+                <a href="../comments/">
+            
+                    
+                    コメント
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.3" data-path="../variables/">
+            
+                <a href="../variables/">
+            
+                    
+                    変数と宣言
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.4" data-path="../read-eval-print/">
+            
+                <a href="../read-eval-print/">
+            
+                    
+                    値の評価と表示
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.5" data-path="../data-type/">
+            
+                <a href="../data-type/">
+            
+                    
+                    データ型とリテラル
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.6" data-path="../operator/">
+            
+                <a href="../operator/">
+            
+                    
+                    演算子
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.7" data-path="../implicit-coercion/">
+            
+                <a href="../implicit-coercion/">
+            
+                    
+                    暗黙的な型変換
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.8" data-path="../function-declaration/">
+            
+                <a href="../function-declaration/">
+            
+                    
+                    関数と宣言
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.9" data-path="../statement-expression/">
+            
+                <a href="../statement-expression/">
+            
+                    
+                    文と式
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.10" data-path="../condition/">
+            
+                <a href="../condition/">
+            
+                    
+                    条件分岐
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.11" data-path="../loop/">
+            
+                <a href="../loop/">
+            
+                    
+                    ループと反復処理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.12" data-path="../object/">
+            
+                <a href="../object/">
+            
+                    
+                    オブジェクト
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.13" data-path="../prototype-object/">
+            
+                <a href="../prototype-object/">
+            
+                    
+                    プロトタイプオブジェクト
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.14" data-path="../array/">
+            
+                <a href="../array/">
+            
+                    
+                    配列
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.15" data-path="../string/">
+            
+                <a href="../string/">
+            
+                    
+                    文字列
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.16" data-path="../wrapper-object/">
+            
+                <a href="../wrapper-object/">
+            
+                    
+                    ラッパーオブジェクト
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.17" data-path="../function-scope/">
+            
+                <a href="../function-scope/">
+            
+                    
+                    関数とスコープ
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.18" data-path="../function-this/">
+            
+                <a href="../function-this/">
+            
+                    
+                    関数とthis
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter active" data-level="1.4.19" data-path="./">
+            
+                <a href="./">
+            
+                    
+                    クラス
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.20" data-path="../error-try-catch/">
+            
+                <a href="../error-try-catch/">
+            
+                    
+                    例外処理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.21" data-path="../async/">
+            
+                <a href="../async/">
+            
+                    
+                    非同期処理
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.22" data-path="../map-and-set/">
+            
+                <a href="../map-and-set/">
+            
+                    
+                    Map/Set
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.23" data-path="../json/">
+            
+                <a href="../json/">
+            
+                    
+                    JSON
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.24" data-path="../date/">
+            
+                <a href="../date/">
+            
+                    
+                    Date
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.25" data-path="../math/">
+            
+                <a href="../math/">
+            
+                    
+                    Math
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.26" data-path="../ecmascript/">
+            
+                <a href="../ecmascript/">
+            
+                    
+                    ECMAScript
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.4.27" data-path="../other-parts/">
+            
+                <a href="../other-parts/">
+            
+                    
+                    第1部: おわりに
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5" data-path="../../use-case/">
+            
+                <a href="../../use-case/">
+            
+                    
+                    第2部: 応用編（ユースケース）
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.1" data-path="../../use-case/setup-local-env/">
+            
+                <a href="../../use-case/setup-local-env/">
+            
+                    
+                    アプリケーション開発の準備
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.2" data-path="../../use-case/module/">
+            
+                <a href="../../use-case/module/">
+            
+                    
+                    モジュール
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3" data-path="../../use-case/ajaxapp/">
+            
+                <a href="../../use-case/ajaxapp/">
+            
+                    
+                    Ajaxで通信
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.3.1" data-path="../../use-case/ajaxapp/entrypoint/">
+            
+                <a href="../../use-case/ajaxapp/entrypoint/">
+            
+                    
+                    エントリポイント
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3.2" data-path="../../use-case/ajaxapp/xhr/">
+            
+                <a href="../../use-case/ajaxapp/xhr/">
+            
+                    
+                    HTTP通信
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3.3" data-path="../../use-case/ajaxapp/display/">
+            
+                <a href="../../use-case/ajaxapp/display/">
+            
+                    
+                    データを表示する
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.3.4" data-path="../../use-case/ajaxapp/promise/">
+            
+                <a href="../../use-case/ajaxapp/promise/">
+            
+                    
+                    Promiseを活用する
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4" data-path="../../use-case/nodecli/">
+            
+                <a href="../../use-case/nodecli/">
+            
+                    
+                    Node.jsでCLIアプリ
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.4.1" data-path="../../use-case/nodecli/helloworld/">
+            
+                <a href="../../use-case/nodecli/helloworld/">
+            
+                    
+                    Node.jsでHello World
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4.2" data-path="../../use-case/nodecli/argument-parse/">
+            
+                <a href="../../use-case/nodecli/argument-parse/">
+            
+                    
+                    コマンドライン引数を処理する
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4.3" data-path="../../use-case/nodecli/read-file/">
+            
+                <a href="../../use-case/nodecli/read-file/">
+            
+                    
+                    ファイルを読み込む
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4.4" data-path="../../use-case/nodecli/md-to-html/">
+            
+                <a href="../../use-case/nodecli/md-to-html/">
+            
+                    
+                    MarkdownをHTMLに変換する
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.4.5" data-path="../../use-case/nodecli/refactor-and-unittest/">
+            
+                <a href="../../use-case/nodecli/refactor-and-unittest/">
+            
+                    
+                    ユニットテストを記述する
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5" data-path="../../use-case/todoapp/">
+            
+                <a href="../../use-case/todoapp/">
+            
+                    
+                    Todoアプリ
+            
+                </a>
+            
+
+            
+            <ul class="articles">
+                
+    
+        <li class="chapter " data-level="1.5.5.1" data-path="../../use-case/todoapp/entrypoint/">
+            
+                <a href="../../use-case/todoapp/entrypoint/">
+            
+                    
+                    エントリポイント
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5.2" data-path="../../use-case/todoapp/app-structure/">
+            
+                <a href="../../use-case/todoapp/app-structure/">
+            
+                    
+                    アプリの構成要素
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5.3" data-path="../../use-case/todoapp/form-event/">
+            
+                <a href="../../use-case/todoapp/form-event/">
+            
+                    
+                    フォームとイベント
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5.4" data-path="../../use-case/todoapp/event-model/">
+            
+                <a href="../../use-case/todoapp/event-model/">
+            
+                    
+                    イベントとモデル
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5.5" data-path="../../use-case/todoapp/update-delete/">
+            
+                <a href="../../use-case/todoapp/update-delete/">
+            
+                    
+                    Todoの更新と削除を実装する
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.5.5.6" data-path="../../use-case/todoapp/final/">
+            
+                <a href="../../use-case/todoapp/final/">
+            
+                    
+                    Todoアプリのリファクタリング
+            
+                </a>
+            
+
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+            </ul>
+            
+        </li>
+    
+
+    
+
+    <li class="divider"></li>
+
+    <li>
+        <a href="https://www.gitbook.com" target="blank" class="gitbook-link">
+            Published with GitBook
+        </a>
+    </li>
+</ul>
+
+
+                </nav>
+            
+        
+    </div>
+
+    <div class="book-body">
+        
+            <div class="body-inner">
+                
+                    
+
+<!-- Header -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.css"/>
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/docsearch.js@2/dist/cdn/docsearch.min.js"></script>
+<style>
+    .book-header {
+        display: flex;
+        flex-direction: row;
+        background-color: #333;
+    }
+
+    /* link color */
+    .book-header a {
+        color: #fff;
+    }
+
+    /* hover color */
+    .book-header .btn:hover, .book-header .btn:focus, .book-header a:focus, .book-header a:hover {
+        color: hsla(0, 0%, 100%, 0.75) !important;
+    }
+
+    /* Mobile header fixed */
+    @media (max-width: 768px) {
+        /* Headerを固定する */
+        .book-header {
+            position: fixed;
+            width: 100%;
+        }
+
+        /* Icon only */
+        .book-header-title-img {
+            margin: auto 18px auto 0 !important;
+        }
+
+        .book-header-title-h {
+            display: none;
+        }
+
+        /* Header分のズレを入れる */
+        .page-wrapper {
+            padding-top: 60px;
+        }
+    }
+
+    /* Dynamic created by GitBook*/
+    .btn.pull-left.js-toolbar-action {
+        order: 1;
+    }
+
+    .book-header-title {
+        order: 2;
+        display: inline-flex;
+        flex-direction: row;
+        color: #fff;
+    }
+
+    .book-header-title:hover {
+        color: hsla(0, 0%, 100%, 0.75);
+    }
+
+    .book-header-title-img {
+        width: 32px;
+        height: 32px;
+        padding: 0;
+        margin: auto 10px auto 0;
+    }
+
+    .book-header-title-h {
+        font-size: 20px;
+        margin: auto;
+        padding: 0;
+    }
+
+    .header-center {
+        order: 3;
+        display: inline-flex;
+        flex-direction: column;
+        justify-content: center;
+        /* self */
+        flex-grow: 1;
+        flex-shrink: 0;
+        flex-basis: auto;
+    }
+
+    .header-right {
+        order: 4;
+        display: inline-flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        /* icon size */
+        font-size: 24px;
+    }
+
+    .github-link {
+        color: #fff;
+    }
+
+    /* Desktop */
+    @media (min-width: 768px) {
+        .header-center {
+            align-items: center;
+        }
+
+        .header-right {
+            margin-right: 24px;
+        }
+    }
+
+    /* DocSearch */
+    @media (max-width: 768px) {
+        .algolia-autocomplete .ds-dropdown-menu {
+            max-width: calc(100vw - 32px) !important;
+            min-width: calc(100vw - 32px) !important;
+            width: calc(100vw - 32px) !important;
+            /* negative margin
+              This is absolute element
+              */
+            margin-left: -32px !important;
+        }
+
+        .algolia-autocomplete .algolia-docsearch-suggestion--content {
+            width: 100% !important;
+            padding-left: 0 !important;
+        }
+
+        .algolia-autocomplete .algolia-docsearch-suggestion--content:before {
+            display: none !important;
+        }
+
+        .algolia-autocomplete .algolia-docsearch-suggestion--subcategory-column {
+            display: none !important;
+        }
+    }
+
+    /* SearchBox */
+    .searchbarWrapper {
+        height: 50px;
+    }
+
+    @media (max-width: 768px) {
+        .sbx-custom {
+            width: 150px !important;
+            padding: initial !important;
+        }
+    }
+
+    .sbx-custom {
+        display: inline-block;
+        position: relative;
+        min-width: 150px;
+        width: 300px;
+        max-width: 300px;
+        height: 33px;
+        white-space: nowrap;
+        box-sizing: border-box;
+        font-size: 14px;
+    }
+
+    .sbx-custom__wrapper {
+        width: 100%;
+        height: 100%;
+    }
+
+    .sbx-custom__input {
+        display: inline-block;
+        -webkit-transition: box-shadow .4s ease, background .4s ease;
+        transition: box-shadow .4s ease, background .4s ease;
+        border: 0;
+        border-radius: 5px;
+        box-shadow: inset 0 0 0 2px #CCCCCC;
+        background: #FFFFFF;
+        padding: 0 27px 0 33px;
+        width: 100%;
+        height: 100%;
+        vertical-align: middle;
+        white-space: normal;
+        font-size: inherit;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+
+    .sbx-custom__input::-webkit-search-decoration, .sbx-custom__input::-webkit-search-cancel-button, .sbx-custom__input::-webkit-search-results-button, .sbx-custom__input::-webkit-search-results-decoration {
+        display: none;
+    }
+
+    .sbx-custom__input:hover {
+        box-shadow: inset 0 0 0 2px #b3b3b3;
+    }
+
+    .sbx-custom__input:focus, .sbx-custom__input:active {
+        outline: 0;
+        box-shadow: inset 0 0 0 2px #4B54DE;
+        background: #FFFFFF;
+    }
+
+    .sbx-custom__input::-webkit-input-placeholder {
+        color: #BBBBBB;
+    }
+
+    .sbx-custom__input::-moz-placeholder {
+        color: #BBBBBB;
+    }
+
+    .sbx-custom__input:-ms-input-placeholder {
+        color: #BBBBBB;
+    }
+
+    .sbx-custom__input::placeholder {
+        color: #BBBBBB;
+    }
+
+    .sbx-custom__submit {
+        position: absolute;
+        top: 0;
+        right: inherit;
+        left: 0;
+        margin: 0;
+        border: 0;
+        border-radius: 4px 0 0 4px;
+        background-color: rgba(255, 255, 255, 0);
+        padding: 0;
+        width: 33px;
+        height: 100%;
+        vertical-align: middle;
+        text-align: center;
+        font-size: inherit;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+    }
+
+    .sbx-custom__submit::before {
+        display: inline-block;
+        margin-right: -4px;
+        height: 100%;
+        vertical-align: middle;
+        content: '';
+    }
+
+    .sbx-custom__submit:hover, .sbx-custom__submit:active {
+        cursor: pointer;
+    }
+
+    .sbx-custom__submit:focus {
+        outline: 0;
+    }
+
+    .sbx-custom__submit svg {
+        width: 17px;
+        height: 17px;
+        vertical-align: middle;
+        fill: #3A33D1;
+    }
+
+    .sbx-custom__reset {
+        display: none;
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        margin: 0;
+        border: 0;
+        background: none;
+        cursor: pointer;
+        padding: 0;
+        font-size: inherit;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        fill: rgba(0, 0, 0, 0.5);
+    }
+
+    .sbx-custom__reset:focus {
+        outline: 0;
+    }
+
+    .sbx-custom__reset svg {
+        display: block;
+        margin: 4px;
+        width: 17px;
+        height: 17px;
+    }
+
+    .sbx-custom__input:valid ~ .sbx-custom__reset {
+        display: block;
+        -webkit-animation-name: sbx-reset-in;
+        animation-name: sbx-reset-in;
+        -webkit-animation-duration: .15s;
+        animation-duration: .15s;
+    }
+
+    @-webkit-keyframes sbx-reset-in {
+        0% {
+            -webkit-transform: translate3d(-20%, 0, 0);
+            transform: translate3d(-20%, 0, 0);
+            opacity: 0;
+        }
+        100% {
+            -webkit-transform: none;
+            transform: none;
+            opacity: 1;
+        }
+    }
+
+    @keyframes sbx-reset-in {
+        0% {
+            -webkit-transform: translate3d(-20%, 0, 0);
+            transform: translate3d(-20%, 0, 0);
+            opacity: 0;
+        }
+        100% {
+            -webkit-transform: none;
+            transform: none;
+            opacity: 1;
+        }
+    }
+</style>
+<div class="book-header" role="navigation">
+    
+    <a class="book-header-title" href="../..">
+        <img class="book-header-title-img" alt="js-primer"
+             src="../../gitbook/icons/icon-128x128.png"/>
+        <h2 class="book-header-title-h" title="js-primer - JavaScriptの入門書">js-primer</h2>
+    </a>
+    <div class="searchbarWrapper header-center">
+        <svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+            <symbol xmlns="http://www.w3.org/2000/svg" id="sbx-icon-search-8" viewBox="0 0 40 40">
+                <path d="M16 32c8.835 0 16-7.165 16-16 0-8.837-7.165-16-16-16C7.162 0 0 7.163 0 16c0 8.835 7.163 16 16 16zm0-5.76c5.654 0 10.24-4.586 10.24-10.24 0-5.656-4.586-10.24-10.24-10.24-5.656 0-10.24 4.584-10.24 10.24 0 5.654 4.584 10.24 10.24 10.24zM28.156 32.8c-1.282-1.282-1.278-3.363.002-4.643 1.282-1.284 3.365-1.28 4.642-.003l6.238 6.238c1.282 1.282 1.278 3.363-.002 4.643-1.283 1.283-3.366 1.28-4.643.002l-6.238-6.238z"
+                      fill-rule="evenodd"></path>
+            </symbol>
+            <symbol xmlns="http://www.w3.org/2000/svg" id="sbx-icon-clear-5" viewBox="0 0 20 20">
+                <path d="M10 20c5.523 0 10-4.477 10-10S15.523 0 10 0 0 4.477 0 10s4.477 10 10 10zm1.35-10.123l3.567 3.568-1.225 1.226-3.57-3.568-3.567 3.57-1.226-1.227 3.568-3.568-3.57-3.57 1.227-1.224 3.568 3.568 3.57-3.567 1.224 1.225-3.568 3.57zM10 18.272c4.568 0 8.272-3.704 8.272-8.272S14.568 1.728 10 1.728 1.728 5.432 1.728 10 5.432 18.272 10 18.272z"
+                      fill-rule="evenodd"></path>
+            </symbol>
+        </svg>
+
+        <form novalidate="novalidate" onsubmit="return false;" class="searchbox sbx-custom">
+            <div role="search" class="sbx-custom__wrapper">
+                <input name="search" placeholder="Search words" autocomplete="off" required="required"
+                       class="sbx-custom__input" type="search">
+                <button type="submit" title="Submit your search query." class="sbx-custom__submit">
+                    <svg role="img" aria-label="Search">
+                        <use xlink:href="#sbx-icon-search-8"></use>
+                    </svg>
+                </button>
+                <button type="reset" title="Clear the search query." class="sbx-custom__reset">
+                    <svg role="img" aria-label="Reset">
+                        <use xlink:href="#sbx-icon-clear-5"></use>
+                    </svg>
+                </button>
+            </div>
+        </form>
+    </div>
+    <div class="header-right">
+        <a class="github-link" title="GitHub: asciidwango/js-primer" href="https://github.com/asciidwango/js-primer"
+           target="_blank"><i
+                class="fa fa-github fa-fw"></i></a>
+    </div>
+</div>
+
+<script type="text/javascript">
+    document.querySelector('.searchbox [type="reset"]').addEventListener('click', function() {
+        this.parentNode.querySelector('input').focus();
+    });
+</script>
+<script>
+    var search = docsearch({
+        apiKey: 'fd28ebaba94be0c39fb9fa1b2fed4f23', // use a SEARCH-ONLY api key here
+        indexName: 'asciidwango',
+        inputSelector: '.sbx-custom__input',
+        debug: false // set to `true` if you want to inspect the dropdown menu's CSS
+    });
+</script>
+
+
+
+
+
+
+                    <div class="page-wrapper" tabindex="-1" role="main">
+                        <div class="page-inner">
+                            
+                                <section class="normal markdown-section">
+                                
+                                <h1 id="class"><a name="class" class="plugin-anchor" href="#class"><i class="fa fa-link" aria-hidden="true"></i></a>&#x30AF;&#x30E9;&#x30B9; </h1>
+<p>&#x300C;&#x30AF;&#x30E9;&#x30B9;&#x300D;&#x3068;&#x4E00;&#x8A00;&#x306B;&#x3044;&#x3063;&#x3066;&#x3082;&#x3055;&#x307E;&#x3056;&#x307E;&#x3067;&#x3042;&#x308B;&#x305F;&#x3081;&#x3001;&#x3053;&#x3053;&#x3067;&#x306F;<strong>&#x69CB;&#x9020;</strong>&#x3001;<strong>&#x52D5;&#x4F5C;</strong>&#x3001;<strong>&#x72B6;&#x614B;</strong>&#x3092;&#x5B9A;&#x7FA9;&#x3067;&#x304D;&#x308B;&#x3082;&#x306E;&#x3092;&#x793A;&#x3059;&#x3053;&#x3068;&#x306B;&#x3057;&#x307E;&#x3059;&#x3002;
+&#x307E;&#x305F;&#x3001;&#x3053;&#x306E;&#x7AE0;&#x3067;&#x306F;&#x6982;&#x5FF5;&#x3092;&#x793A;&#x3059;&#x5834;&#x5408;&#x306F;<strong>&#x30AF;&#x30E9;&#x30B9;</strong>&#x3068;&#x547C;&#x3073;&#x3001;&#x30AF;&#x30E9;&#x30B9;&#x306B;&#x95A2;&#x3059;&#x308B;&#x69CB;&#x6587;&#xFF08;&#x8A18;&#x8FF0;&#x3059;&#x308B;&#x30B3;&#x30FC;&#x30C9;&#xFF09;&#x306E;&#x3053;&#x3068;&#x3092;<code>class</code>&#x69CB;&#x6587;&#x3068;&#x547C;&#x3073;&#x307E;&#x3059;&#x3002;</p>
+<p><strong>&#x30AF;&#x30E9;&#x30B9;</strong>&#x3068;&#x306F;<strong>&#x52D5;&#x4F5C;</strong>&#x3084;<strong>&#x72B6;&#x614B;</strong>&#x306E;&#x521D;&#x671F;&#x5024;&#x3092;&#x5B9A;&#x7FA9;&#x3057;&#x305F;<strong>&#x69CB;&#x9020;</strong>&#x3092;&#x3053;&#x3068;&#x3092;&#x8A00;&#x3044;&#x307E;&#x3059;&#x3002;
+&#x30AF;&#x30E9;&#x30B9;&#x304B;&#x3089;&#x306F;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x3068;&#x547C;&#x3070;&#x308C;&#x308B;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x3092;&#x4F5C;&#x6210;&#x3067;&#x304D;&#x3001;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x306F;&#x30AF;&#x30E9;&#x30B9;&#x306B;&#x5B9A;&#x7FA9;&#x3057;&#x305F;<strong>&#x52D5;&#x4F5C;</strong>&#x3092;&#x7D99;&#x627F;&#x3057;&#x3001;<strong>&#x72B6;&#x614B;</strong>&#x306F;&#x52D5;&#x4F5C;&#x306B;&#x3088;&#x3063;&#x3066;&#x5909;&#x5316;&#x3057;&#x307E;&#x3059;&#x3002;
+&#x3068;&#x3066;&#x3082;&#x62BD;&#x8C61;&#x7684;&#x306A;&#x3053;&#x3068;&#x306B;&#x898B;&#x3048;&#x307E;&#x3059;&#x304C;&#x3001;&#x3053;&#x308C;&#x306F;&#x4ECA;&#x307E;&#x3067;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x3084;&#x95A2;&#x6570;&#x3092;&#x4F7F;&#x3063;&#x3066;&#x8868;&#x73FE;&#x3057;&#x3066;&#x304D;&#x305F;&#x3082;&#x306E;&#x306B;&#x3082;&#x898B;&#x3048;&#x307E;&#x3059;&#x3002;
+&#x5B9F;&#x969B;&#x306B;JavaScript&#x3067;&#x306F;ES2015&#x3088;&#x308A;&#x524D;&#x307E;&#x3067;&#x306F;<code>class</code>&#x69CB;&#x6587;&#x306F;&#x306A;&#x304F;&#x3001;&#x95A2;&#x6570;&#x3092;&#x4F7F;&#x3044;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x3088;&#x3046;&#x306A;&#x3082;&#x306E;&#x3092;&#x8868;&#x73FE;&#x3057;&#x3066;&#x6271;&#x3063;&#x3066;&#x3044;&#x307E;&#x3057;&#x305F;&#x3002;</p>
+<p>ES2015&#x3067;<code>class</code>&#x69CB;&#x6587;&#x304C;&#x5C0E;&#x5165;&#x3055;&#x308C;&#x307E;&#x3057;&#x305F;&#x304C;&#x3001;&#x3053;&#x306E;<code>class</code>&#x69CB;&#x6587;&#x3067;&#x5B9A;&#x7FA9;&#x3057;&#x305F;&#x30AF;&#x30E9;&#x30B9;&#x306F;&#x4E00;&#x7A2E;&#x306E;&#x95A2;&#x6570;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x3067;&#x3059;&#x3002;
+<code>class</code>&#x69CB;&#x6587;&#x3067;&#x306F;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30D9;&#x30FC;&#x30B9;&#x306E;&#x7D99;&#x627F;&#x306E;&#x4ED5;&#x7D44;&#x307F;&#x306E;&#x4E0A;&#x306B;&#x95A2;&#x6570;&#x3067;&#x30AF;&#x30E9;&#x30B9;&#x3092;&#x8868;&#x73FE;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;
+&#x305D;&#x306E;&#x305F;&#x3081;&#x3001;<code>class</code>&#x69CB;&#x6587;&#x306F;&#x30AF;&#x30E9;&#x30B9;&#x3092;&#x4F5C;&#x308B;&#x305F;&#x3081;&#x306E;&#x95A2;&#x6570;&#x5B9A;&#x7FA9;&#x3084;&#x7D99;&#x627F;&#x3092;&#x30D1;&#x30BF;&#x30FC;&#x30F3;&#x5316;&#x3057;&#x305F;&#x66F8;&#x304D;&#x65B9;&#x3068;&#x3044;&#x3048;&#x307E;&#x3059;&#x3002;<sup><a href="#fn_&#x7CD6;&#x8863;&#x69CB;&#x6587;" id="reffn_&#x7CD6;&#x8863;&#x69CB;&#x6587;">&#x7CD6;&#x8863;&#x69CB;&#x6587;</a></sup></p>
+<p>JavaScript&#x3067;&#x306F;&#x95A2;&#x6570;&#x3067;&#x5B66;&#x3093;&#x3060;&#x3053;&#x3068;&#x306E;&#x591A;&#x304F;&#x306F;&#x30AF;&#x30E9;&#x30B9;&#x3067;&#x3082;&#x305D;&#x306E;&#x307E;&#x307E;&#x9069;&#x5FDC;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;
+&#x307E;&#x305F;&#x3001;&#x95A2;&#x6570;&#x306E;&#x5B9A;&#x7FA9;&#x65B9;&#x6CD5;&#x3068;&#x3057;&#x3066;&#x95A2;&#x6570;&#x5BA3;&#x8A00;&#x6587;&#x3068;&#x95A2;&#x6570;&#x5F0F;&#x304C;&#x3042;&#x308B;&#x3088;&#x3046;&#x306B;&#x3001;&#x30AF;&#x30E9;&#x30B9;&#x306B;&#x3082;&#x30AF;&#x30E9;&#x30B9;&#x5BA3;&#x8A00;&#x6587;&#x3068;&#x30AF;&#x30E9;&#x30B9;&#x5F0F;&#x304C;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;
+&#x3053;&#x306E;&#x7AE0;&#x3067;&#x306F;&#x3001;<code>class</code>&#x69CB;&#x6587;&#x3067;&#x306E;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x5B9A;&#x7FA9;&#x3084;&#x7D99;&#x627F;&#x3001;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x6027;&#x8CEA;&#x306B;&#x3064;&#x3044;&#x3066;&#x5B66;&#x3093;&#x3067;&#x3044;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<h2 id="class-declaration"><a name="class-declaration" class="plugin-anchor" href="#class-declaration"><i class="fa fa-link" aria-hidden="true"></i></a>&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x5B9A;&#x7FA9; </h2>
+<p>&#x30AF;&#x30E9;&#x30B9;&#x3092;&#x5B9A;&#x7FA9;&#x3059;&#x308B;&#x306B;&#x306F;<code>class</code>&#x69CB;&#x6587;&#x3092;&#x4F7F;&#x3044;&#x307E;&#x3059;&#x304C;&#x3001;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x5B9A;&#x7FA9;&#x65B9;&#x6CD5;&#x306B;&#x306F;&#x30AF;&#x30E9;&#x30B9;&#x5BA3;&#x8A00;&#x6587;&#x3068;&#x30AF;&#x30E9;&#x30B9;&#x5F0F;&#x304C;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x307E;&#x305A;&#x306F;&#x3001;&#x30AF;&#x30E9;&#x30B9;&#x5BA3;&#x8A00;&#x6587;&#x306B;&#x3088;&#x308B;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x5B9A;&#x7FA9;&#x65B9;&#x6CD5;&#x3092;&#x898B;&#x3066;&#x3044;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x30AF;&#x30E9;&#x30B9;&#x5BA3;&#x8A00;&#x6587;&#x3067;&#x306F;<code>class</code>&#x30AD;&#x30FC;&#x30EF;&#x30FC;&#x30C9;&#x3092;&#x4F7F;&#x3044;&#x3001;<code>class &#x30AF;&#x30E9;&#x30B9;&#x540D;{ }</code>&#x306E;&#x3088;&#x3046;&#x306B;&#x30AF;&#x30E9;&#x30B9;&#x306E;<strong>&#x69CB;&#x9020;</strong>&#x3092;&#x5B9A;&#x7FA9;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;
+&#x30AF;&#x30E9;&#x30B9;&#x306F;&#x5FC5;&#x305A;&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x3092;&#x6301;&#x3061;&#x3001;<code>constructor</code>&#x3068;&#x3044;&#x3046;&#x540D;&#x524D;&#x306E;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3068;&#x3057;&#x3066;&#x5B9A;&#x7FA9;&#x3057;&#x307E;&#x3059;&#x3002;
+&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x3068;&#x306F;&#x3001;&#x305D;&#x306E;&#x30AF;&#x30E9;&#x30B9;&#x304B;&#x3089;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x3092;&#x4F5C;&#x6210;&#x3059;&#x308B;&#x969B;&#x306B;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x306B;&#x95A2;&#x3059;&#x308B;<strong>&#x72B6;&#x614B;</strong>&#x306E;&#x521D;&#x671F;&#x5316;&#x3092;&#x884C;&#x3046;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3067;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{
+    <span class="hljs-keyword">constructor</span>() {
+        <span class="hljs-comment">// &#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x95A2;&#x6570;&#x306E;&#x51E6;&#x7406;</span>
+    }
+}
+</code></pre>
+<p>&#x3082;&#x3046;&#x3072;&#x3068;&#x3064;&#x306E;&#x5B9A;&#x7FA9;&#x65B9;&#x6CD5;&#x3067;&#x3042;&#x308B;&#x30AF;&#x30E9;&#x30B9;&#x5F0F;&#x306F;&#x3001;&#x30AF;&#x30E9;&#x30B9;&#x3092;&#x5024;&#x3068;&#x3057;&#x3066;&#x5B9A;&#x7FA9;&#x3059;&#x308B;&#x65B9;&#x6CD5;&#x3067;&#x3059;&#x3002;
+&#x30AF;&#x30E9;&#x30B9;&#x5F0F;&#x3067;&#x306F;&#x30AF;&#x30E9;&#x30B9;&#x540D;&#x3092;&#x7701;&#x7565;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;&#x3053;&#x308C;&#x306F;&#x95A2;&#x6570;&#x5F0F;&#x306B;&#x304A;&#x3051;&#x308B;&#x533F;&#x540D;&#x95A2;&#x6570;&#x3068;&#x540C;&#x3058;&#x3067;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> MyClass = <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{
+    <span class="hljs-keyword">constructor</span>() {}
+};
+
+<span class="hljs-keyword">const</span> AnnonymousClass = <span class="hljs-class"><span class="hljs-keyword">class</span> </span>{
+    <span class="hljs-keyword">constructor</span>() {}
+};
+</code></pre>
+<p>&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x95A2;&#x6570;&#x5185;&#x3067;&#x4F55;&#x3082;&#x51E6;&#x7406;&#x304C;&#x306A;&#x3044;&#x5834;&#x5408;&#x306F;&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x306E;&#x8A18;&#x8FF0;&#x3092;&#x7701;&#x7565;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;
+&#x7701;&#x7565;&#x3057;&#x305F;&#x5834;&#x5408;&#x306B;&#x306F;&#x81EA;&#x52D5;&#x7684;&#x306B;&#x7A7A;&#x306E;&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x304C;&#x5B9A;&#x7FA9;&#x3055;&#x308C;&#x308B;&#x305F;&#x3081;&#x3001;&#x30AF;&#x30E9;&#x30B9;&#x306B;&#x306F;&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x304C;&#x5FC5;&#x305A;&#x5B58;&#x5728;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClassA</span> </span>{
+    <span class="hljs-keyword">constructor</span>() {
+        <span class="hljs-comment">// &#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x306E;&#x51E6;&#x7406;&#x304C;&#x5FC5;&#x8981;&#x306A;&#x3089;&#x66F8;&#x304F;</span>
+    }
+}
+<span class="hljs-comment">// &#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x306E;&#x51E6;&#x7406;&#x304C;&#x4E0D;&#x8981;&#x306A;&#x5834;&#x5408;&#x306F;&#x7701;&#x7565;&#x3067;&#x304D;&#x308B;</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClassB</span> </span>{
+
+}
+</code></pre>
+<h2 id="class-instance"><a name="class-instance" class="plugin-anchor" href="#class-instance"><i class="fa fa-link" aria-hidden="true"></i></a>&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x5316; </h2>
+<p>&#x30AF;&#x30E9;&#x30B9;&#x306F;<code>new</code>&#x6F14;&#x7B97;&#x5B50;&#x3067;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x3067;&#x3042;&#x308B;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x3092;&#x4F5C;&#x6210;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;
+<code>class</code>&#x69CB;&#x6587;&#x3067;&#x5B9A;&#x7FA9;&#x3057;&#x305F;&#x30AF;&#x30E9;&#x30B9;&#x304B;&#x3089;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x3092;&#x4F5C;&#x6210;&#x3059;&#x308B;&#x3053;&#x3068;&#x3092;<strong>&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x5316;</strong>&#x3068;&#x547C;&#x3073;&#x307E;&#x3059;&#x3002;
+&#x3042;&#x308B;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x304C;&#x6307;&#x5B9A;&#x3057;&#x305F;&#x30AF;&#x30E9;&#x30B9;&#x304B;&#x3089;&#x4F5C;&#x6210;&#x3055;&#x308C;&#x305F;&#x3082;&#x306E;&#x304B;&#x3092;&#x5224;&#x5B9A;&#x3059;&#x308B;&#x306B;&#x306F;<code>instanceof</code>&#x6F14;&#x7B97;&#x5B50;&#x304C;&#x5229;&#x7528;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{
+}
+<span class="hljs-comment">// `MyClass`&#x3092;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x5316;&#x3059;&#x308B;</span>
+<span class="hljs-keyword">const</span> myClass = <span class="hljs-keyword">new</span> MyClass();
+<span class="hljs-comment">// &#x6BCE;&#x56DE;&#x65B0;&#x3057;&#x3044;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;(&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;)&#x3092;&#x4F5C;&#x6210;&#x3059;&#x308B;</span>
+<span class="hljs-keyword">const</span> myClassAnother = <span class="hljs-keyword">new</span> MyClass();
+<span class="hljs-comment">// &#x305D;&#x308C;&#x305E;&#x308C;&#x306E;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x306F;&#x7570;&#x306A;&#x308B;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;</span>
+<span class="hljs-built_in">console</span>.log(myClass === myClassAnother); <span class="hljs-comment">// =&gt; false</span>
+<span class="hljs-comment">// &#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x304B;&#x3069;&#x3046;&#x304B;&#x306F;`instanceof`&#x6F14;&#x7B97;&#x5B50;&#x3067;&#x5224;&#x5B9A;&#x3067;&#x304D;&#x308B;</span>
+<span class="hljs-built_in">console</span>.log(myClass <span class="hljs-keyword">instanceof</span> MyClass); <span class="hljs-comment">// =&gt; true</span>
+<span class="hljs-built_in">console</span>.log(myClassAnother <span class="hljs-keyword">instanceof</span> MyClass); <span class="hljs-comment">// =&gt; true</span>
+</code></pre>
+<p>&#x3053;&#x306E;&#x307E;&#x307E;&#x3067;&#x306F;&#x4F55;&#x3082;&#x3067;&#x304D;&#x306A;&#x3044;&#x7A7A;&#x306E;&#x30AF;&#x30E9;&#x30B9;&#x306A;&#x306E;&#x3067;&#x3001;&#x5024;&#x3092;&#x6301;&#x3063;&#x305F;&#x30AF;&#x30E9;&#x30B9;&#x3092;&#x5B9A;&#x7FA9;&#x3057;&#x3066;&#x307F;&#x307E;&#x3057;&#x3087;&#x3046;&#x3002;</p>
+<p>&#x30AF;&#x30E9;&#x30B9;&#x3067;&#x306F;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x306E;&#x521D;&#x671F;&#x5316;&#x51E6;&#x7406;&#x3092;&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x95A2;&#x6570;&#x3067;&#x884C;&#x3044;&#x307E;&#x3059;&#x3002;
+&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x95A2;&#x6570;&#x306F;<code>new</code>&#x6F14;&#x7B97;&#x5B50;&#x3067;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x5316;&#x3055;&#x308C;&#x308B;&#x3068;&#x304D;&#x306B;&#x6697;&#x9ED9;&#x7684;&#x306B;&#x3088;&#x3070;&#x308C;&#x3001;
+&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x306E;&#x306A;&#x304B;&#x3067;&#x306E;<code>this</code>&#x306F;&#x3053;&#x308C;&#x304B;&#x3089;&#x65B0;&#x3057;&#x304F;&#x4F5C;&#x308B;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x3068;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x6B21;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x306F;<code>x</code>&#x5EA7;&#x6A19;&#x3068;<code>y</code>&#x5EA7;&#x6A19;&#x306E;&#x5024;&#x3092;&#x3082;&#x3064;<code>Point</code>&#x3068;&#x3044;&#x3046;&#x30AF;&#x30E9;&#x30B9;&#x3092;&#x5B9A;&#x7FA9;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;
+&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x95A2;&#x6570;(<code>constructor</code>)&#x306E;&#x4E2D;&#x3067;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#xFF08;<code>this</code>&#xFF09;&#x306E;<code>x</code>&#x3068;<code>y</code>&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x306B;&#x5024;&#x3092;&#x4EE3;&#x5165;&#x3057;&#x3066;&#x521D;&#x671F;&#x5316;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span> </span>{
+    <span class="hljs-comment">// &#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x95A2;&#x6570;&#x306E;&#x4EEE;&#x5F15;&#x6570;&#x3068;&#x3057;&#x3066;`x`&#x3068;`y`&#x3092;&#x5B9A;&#x7FA9;</span>
+    <span class="hljs-keyword">constructor</span>(x, y) {
+        <span class="hljs-comment">// &#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x95A2;&#x6570;&#x306B;&#x304A;&#x3051;&#x308B;`this`&#x306F;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x3092;&#x793A;&#x3059;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;</span>
+        <span class="hljs-comment">// &#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x306E;`x`&#x3068;`y`&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x306B;&#x305D;&#x308C;&#x305E;&#x308C;&#x5024;&#x3092;&#x8A2D;&#x5B9A;&#x3059;&#x308B;</span>
+        <span class="hljs-keyword">this</span>.x = x;
+        <span class="hljs-keyword">this</span>.y = y;
+    }
+}
+</code></pre>
+<p>&#x3053;&#x306E;<code>Point</code>&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x3092;&#x4F5C;&#x6210;&#x3059;&#x308B;&#x306B;&#x306F;<code>new</code>&#x6F14;&#x7B97;&#x5B50;&#x3092;&#x4F7F;&#x3044;&#x307E;&#x3059;&#x3002;
+<code>new</code>&#x6F14;&#x7B97;&#x5B50;&#x306B;&#x306F;&#x95A2;&#x6570;&#x547C;&#x3073;&#x51FA;&#x3057;&#x3068;&#x540C;&#x3058;&#x3088;&#x3046;&#x306B;&#x5F15;&#x6570;&#x3092;&#x6E21;&#x3059;&#x3053;&#x3068;&#x304C;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;
+<code>new</code>&#x6F14;&#x7B97;&#x5B50;&#x306E;&#x5F15;&#x6570;&#x306F;&#x30AF;&#x30E9;&#x30B9;&#x306E;<code>constructor</code>&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#xFF08;&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x95A2;&#x6570;&#xFF09;&#x306E;&#x4EEE;&#x5F15;&#x6570;&#x306B;&#x6E21;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;
+&#x305D;&#x3057;&#x3066;&#x3001;&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x306E;&#x306A;&#x304B;&#x3067;&#x306F;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#xFF08;<code>this</code>&#xFF09;&#x306E;&#x521D;&#x671F;&#x5316;&#x51E6;&#x7406;&#x3092;&#x884C;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span> </span>{
+    <span class="hljs-comment">// 2. &#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x95A2;&#x6570;&#x306E;&#x4EEE;&#x5F15;&#x6570;&#x3068;&#x3057;&#x3066;`x`&#x306B;&#x306F;`3`&#x3001;`y`&#x306B;&#x306F;`4`&#x304C;&#x6E21;&#x308B;</span>
+    <span class="hljs-keyword">constructor</span>(x, y) {
+        <span class="hljs-comment">// 3. &#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;(`this`)&#x306E;`x`&#x3068;`y`&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x306B;&#x305D;&#x308C;&#x305E;&#x308C;&#x5024;&#x3092;&#x8A2D;&#x5B9A;&#x3059;&#x308B;</span>
+        <span class="hljs-keyword">this</span>.x = x;
+        <span class="hljs-keyword">this</span>.y = y;
+        <span class="hljs-comment">// &#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x3067;&#x306F;return&#x6587;&#x306F;&#x66F8;&#x304B;&#x306A;&#x3044;</span>
+    }
+}
+
+<span class="hljs-comment">// 1. &#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x3092;`new`&#x6F14;&#x7B97;&#x5B50;&#x3067;&#x5F15;&#x6570;&#x3068;&#x3068;&#x3082;&#x306B;&#x547C;&#x3073;&#x51FA;&#x3059;</span>
+<span class="hljs-keyword">const</span> point = <span class="hljs-keyword">new</span> Point(<span class="hljs-number">3</span>, <span class="hljs-number">4</span>);
+<span class="hljs-comment">// 4. `Point`&#x306E;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x3067;&#x3042;&#x308B;`point`&#x306E;`x`&#x3068;`y`&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x306B;&#x306F;&#x521D;&#x671F;&#x5316;&#x3055;&#x308C;&#x305F;&#x5024;&#x304C;&#x5165;&#x308B;</span>
+<span class="hljs-built_in">console</span>.log(point.x); <span class="hljs-comment">// =&gt; 3</span>
+<span class="hljs-built_in">console</span>.log(point.y); <span class="hljs-comment">// =&gt; 4</span>
+</code></pre>
+<p>&#x3053;&#x306E;&#x3088;&#x3046;&#x306B;&#x30AF;&#x30E9;&#x30B9;&#x304B;&#x3089;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x3092;&#x4F5C;&#x6210;&#x3059;&#x308B;&#x306B;&#x306F;&#x5FC5;&#x305A;<code>new</code>&#x6F14;&#x7B97;&#x5B50;&#x3092;&#x4F7F;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x4E00;&#x65B9;&#x3001;&#x30AF;&#x30E9;&#x30B9;&#x306F;&#x901A;&#x5E38;&#x306E;&#x95A2;&#x6570;&#x3068;&#x3057;&#x3066;&#x547C;&#x3076;&#x3053;&#x3068;&#x304C;&#x3067;&#x304D;&#x307E;&#x305B;&#x3093;&#x3002;
+&#x3053;&#x308C;&#x306F;&#x3001;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x306F;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#xFF08;<code>this</code>&#xFF09;&#x306E;&#x521D;&#x671F;&#x5316;&#x3059;&#x308B;&#x5834;&#x6240;&#x3067;&#x3042;&#x308A;&#x3001;&#x901A;&#x5E38;&#x306E;&#x95A2;&#x6570;&#x3068;&#x306F;&#x5F79;&#x5272;&#x304C;&#x7570;&#x306A;&#x308B;&#x305F;&#x3081;&#x3067;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{
+    <span class="hljs-keyword">constructor</span>() { }
+}
+<span class="hljs-comment">// &#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x95A2;&#x6570;&#x3068;&#x3057;&#x3066;&#x547C;&#x3073;&#x51FA;&#x3059;&#x3053;&#x3068;&#x306F;&#x3067;&#x304D;&#x306A;&#x3044;</span>
+MyClass(); <span class="hljs-comment">// =&gt; TypeError: class constructors must be invoked with |new|</span>
+</code></pre>
+<p>&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x306F;&#x521D;&#x671F;&#x5316;&#x51E6;&#x7406;&#x3092;&#x66F8;&#x304F;&#x5834;&#x6240;&#x3067;&#x3042;&#x308B;&#x305F;&#x3081;&#x3001;<code>return</code>&#x6587;&#x3067;&#x5024;&#x3092;&#x8FD4;&#x3059;&#x3079;&#x304D;&#x3067;&#x306F;&#x3042;&#x308A;&#x307E;&#x305B;&#x3093;&#x3002;
+JavaScript&#x3067;&#x306F;&#x3001;&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x3067;&#x4EFB;&#x610F;&#x306E;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x3092;&#x8FD4;&#x3059;&#x3053;&#x3068;&#x304C;&#x53EF;&#x80FD;&#x3067;&#x3059;&#x304C;&#x884C;&#x3046;&#x3079;&#x304D;&#x3067;&#x306F;&#x3042;&#x308A;&#x307E;&#x305B;&#x3093;&#x3002;
+&#x306A;&#x305C;&#x306A;&#x3089;&#x3001;&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x306F;<code>new</code>&#x6F14;&#x7B97;&#x5B50;&#x3067;&#x547C;&#x3073;&#x51FA;&#x3057;&#x3001;&#x305D;&#x306E;&#x8A55;&#x4FA1;&#x7D50;&#x679C;&#x306F;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x3092;&#x671F;&#x5F85;&#x3059;&#x308B;&#x306E;&#x304C;&#x4E00;&#x822C;&#x7684;&#x3067;&#x3042;&#x308B;&#x305F;&#x3081;&#x3067;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-comment">// &#x975E;&#x63A8;&#x5968;&#x306E;&#x4F8B;: &#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x3067;&#x5024;&#x3092;&#x8FD4;&#x3059;&#x3079;&#x304D;&#x3067;&#x306F;&#x306A;&#x3044;</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Point</span> </span>{
+    <span class="hljs-keyword">constructor</span>(x, y) {
+        <span class="hljs-comment">// `this`&#x306E;&#x4EE3;&#x308F;&#x308A;&#x306B;&#x305F;&#x3060;&#x306E;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x3092;&#x8FD4;&#x305B;&#x308B;</span>
+        <span class="hljs-keyword">return</span> { x, y };
+    }
+}
+
+<span class="hljs-comment">// `new`&#x6F14;&#x7B97;&#x5B50;&#x306E;&#x7D50;&#x679C;&#x306F;&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x95A2;&#x6570;&#x304C;&#x8FD4;&#x3057;&#x305F;&#x305F;&#x3060;&#x306E;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;</span>
+<span class="hljs-keyword">const</span> point = <span class="hljs-keyword">new</span> Point(<span class="hljs-number">3</span>, <span class="hljs-number">4</span>);
+<span class="hljs-built_in">console</span>.log(point); <span class="hljs-comment">// =&gt; { x: 3, y: 4 }</span>
+<span class="hljs-comment">// Point&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x3067;&#x306F;&#x306A;&#x3044;</span>
+<span class="hljs-built_in">console</span>.log(point <span class="hljs-keyword">instanceof</span> Point); <span class="hljs-comment">// =&gt; false</span>
+</code></pre>
+<h3 id="class-name-start-upper-case"><a name="class-name-start-upper-case" class="plugin-anchor" href="#class-name-start-upper-case"><i class="fa fa-link" aria-hidden="true"></i></a>[Note] &#x30AF;&#x30E9;&#x30B9;&#x540D;&#x306F;&#x5927;&#x6587;&#x5B57;&#x3067;&#x59CB;&#x3081;&#x308B; </h3>
+<p>JavaScript&#x3067;&#x306F;&#x6163;&#x7FD2;&#x3068;&#x3057;&#x3066;&#x30AF;&#x30E9;&#x30B9;&#x540D;&#x306F;&#x5927;&#x6587;&#x5B57;&#x3067;&#x59CB;&#x307E;&#x308B;&#x540D;&#x524D;&#x3092;&#x4ED8;&#x3051;&#x307E;&#x3059;&#x3002;
+&#x3053;&#x308C;&#x306F;&#x3001;&#x5909;&#x6570;&#x540D;&#x306B;&#x30AD;&#x30E3;&#x30E1;&#x30EB;&#x30B1;&#x30FC;&#x30B9;&#x3092;&#x4F7F;&#x3046;&#x6163;&#x7FD2;&#x304C;&#x3042;&#x308B;&#x306E;&#x3068;&#x540C;&#x3058;&#x3067;&#x3001;&#x540D;&#x524D;&#x81EA;&#x4F53;&#x306B;&#x306F;&#x7279;&#x5225;&#x306A;&#x30EB;&#x30FC;&#x30EB;&#x304C;&#x3042;&#x308B;&#x308F;&#x3051;&#x3067;&#x306F;&#x3042;&#x308A;&#x307E;&#x305B;&#x3093;&#x3002;
+&#x30AF;&#x30E9;&#x30B9;&#x540D;&#x3092;&#x5927;&#x6587;&#x5B57;&#x306B;&#x3057;&#x3066;&#x304A;&#x304D;&#x3001;&#x305D;&#x306E;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x306F;&#x5C0F;&#x6587;&#x5B57;&#x3067;&#x958B;&#x59CB;&#x3059;&#x308C;&#x3070;&#x3001;&#x540D;&#x524D;&#x304C;&#x88AB;&#x3089;&#x306A;&#x3044;&#x305F;&#x3081;&#x5408;&#x7406;&#x7684;&#x306A;&#x7406;&#x7531;&#x3067;&#x597D;&#x307E;&#x308C;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Thing</span> </span>{}
+<span class="hljs-keyword">const</span> thing = <span class="hljs-keyword">new</span> Thing();
+</code></pre>
+<h3 id="class-vs-function"><a name="class-vs-function" class="plugin-anchor" href="#class-vs-function"><i class="fa fa-link" aria-hidden="true"></i></a>[&#x30B3;&#x30E9;&#x30E0;] <code>class</code>&#x69CB;&#x6587;&#x3068;&#x95A2;&#x6570;&#x3067;&#x306E;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x9055;&#x3044; </h3>
+<p>ES2015&#x3088;&#x308A;&#x524D;&#x306F;&#x3053;&#x308C;&#x3089;&#x306E;&#x30AF;&#x30E9;&#x30B9;&#x3092;<code>class</code>&#x69CB;&#x6587;&#x3067;&#x306F;&#x306A;&#x304F;&#x3001;&#x95A2;&#x6570;&#x3067;&#x8868;&#x73FE;&#x3057;&#x3066;&#x3044;&#x307E;&#x3057;&#x305F;&#x3002;
+&#x305D;&#x306E;&#x8868;&#x73FE;&#x65B9;&#x6CD5;&#x306F;&#x4EBA;&#x306B;&#x3088;&#x3063;&#x3066;&#x3055;&#x307E;&#x3056;&#x307E;&#x3067;&#x3001;&#x3053;&#x308C;&#x3082;<code>class</code>&#x69CB;&#x6587;&#x3068;&#x3044;&#x3046;&#x7D71;&#x4E00;&#x3057;&#x305F;&#x8868;&#x73FE;&#x304C;&#x5C0E;&#x5165;&#x3055;&#x308C;&#x305F;&#x7406;&#x7531;&#x306E;1&#x3064;&#x3067;&#x3059;&#x3002;</p>
+<p>&#x6B21;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x306F;&#x5148;&#x307B;&#x3069;&#x306E;<code>class</code>&#x69CB;&#x6587;&#x3067;&#x306E;&#x30AF;&#x30E9;&#x30B9;&#x3092;&#x7C21;&#x7565;&#x5316;&#x3057;&#x305F;&#x95A2;&#x6570;&#x3067;&#x306E;1&#x3064;&#x306E;&#x5B9F;&#x88C5;&#x4F8B;&#x3067;&#x3059;&#x3002;
+&#x3053;&#x306E;&#x95A2;&#x6570;&#x3067;&#x306E;&#x30AF;&#x30E9;&#x30B9;&#x8868;&#x73FE;&#x306F;&#x3001;&#x7D99;&#x627F;&#x306E;&#x4ED5;&#x7D44;&#x307F;&#x306A;&#x3069;&#x306F;&#x7701;&#x304B;&#x308C;&#x3066;&#x3044;&#x307E;&#x3059;&#x304C;&#x3001;<code>class</code>&#x69CB;&#x6587;&#x3068;&#x3088;&#x304F;&#x4F3C;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-comment">// &#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x95A2;&#x6570;</span>
+<span class="hljs-keyword">const</span> Point = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">PointConstructor</span>(<span class="hljs-params">x, y</span>) </span>{
+    <span class="hljs-comment">// &#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x306E;&#x521D;&#x671F;&#x5316;&#x51E6;&#x7406;</span>
+    <span class="hljs-keyword">this</span>.x = x;
+    <span class="hljs-keyword">this</span>.y = y;
+};
+
+<span class="hljs-comment">// `new`&#x6F14;&#x7B97;&#x5B50;&#x3067;&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x95A2;&#x6570;&#x304B;&#x3089;&#x65B0;&#x3057;&#x3044;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x3092;&#x4F5C;&#x6210;</span>
+<span class="hljs-keyword">const</span> point = <span class="hljs-keyword">new</span> Point(<span class="hljs-number">3</span>, <span class="hljs-number">4</span>);
+</code></pre>
+<p>&#x5927;&#x304D;&#x306A;&#x9055;&#x3044;&#x3068;&#x3057;&#x3066;&#x3001;<code>class</code>&#x69CB;&#x6587;&#x3067;&#x5B9A;&#x7FA9;&#x3057;&#x305F;&#x30AF;&#x30E9;&#x30B9;&#x306F;&#x95A2;&#x6570;&#x3068;&#x3057;&#x3066;&#x547C;&#x3073;&#x51FA;&#x3059;&#x3053;&#x3068;&#x304C;&#x3067;&#x304D;&#x307E;&#x305B;&#x3093;&#x3002;
+&#x30AF;&#x30E9;&#x30B9;&#x306F;<code>new</code>&#x6F14;&#x7B97;&#x5B50;&#x3067;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x5316;&#x3057;&#x3066;&#x4F7F;&#x3046;&#x3082;&#x306E;&#x306A;&#x306E;&#x3067;&#x3001;&#x3053;&#x308C;&#x306F;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x8AA4;&#x7528;&#x3092;&#x9632;&#x3050;&#x4ED5;&#x69D8;&#x3067;&#x3059;&#x3002;
+&#x4E00;&#x65B9;&#x3001;&#x95A2;&#x6570;&#x3067;&#x306E;&#x30AF;&#x30E9;&#x30B9;&#x8868;&#x73FE;&#x306F;&#x305F;&#x3060;&#x306E;&#x95A2;&#x6570;&#x306A;&#x306E;&#x3067;&#x3001;&#x5F53;&#x7136;&#x95A2;&#x6570;&#x3068;&#x3057;&#x3066;&#x547C;&#x3073;&#x51FA;&#x305B;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-comment">// `class`&#x69CB;&#x6587;&#x3067;&#x306E;&#x30AF;&#x30E9;&#x30B9;</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{
+}
+<span class="hljs-comment">// &#x95A2;&#x6570;&#x3067;&#x306E;&#x30AF;&#x30E9;&#x30B9;&#x8868;&#x73FE;</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">MyClassLike</span>(<span class="hljs-params"></span>) </span>{
+}
+<span class="hljs-comment">// &#x95A2;&#x6570;&#x306A;&#x306E;&#x3067;&#x95A2;&#x6570;&#x3068;&#x3057;&#x3066;&#x547C;&#x3073;&#x51FA;&#x305B;&#x308B;</span>
+MyClassLike(); 
+<span class="hljs-comment">// &#x30AF;&#x30E9;&#x30B9;&#x306F;&#x95A2;&#x6570;&#x3068;&#x3057;&#x3066;&#x547C;&#x3073;&#x51FA;&#x3059;&#x3068;&#x4F8B;&#x5916;&#x304C;&#x767A;&#x751F;&#x3059;&#x308B;</span>
+MyClass(); <span class="hljs-comment">// =&gt; TypeError: class constructors must be invoked with |new|</span>
+</code></pre>
+<p>&#x3053;&#x306E;&#x3088;&#x3046;&#x306B;&#x3001;<code>class</code>&#x69CB;&#x6587;&#x3067;&#x5B9A;&#x7FA9;&#x3057;&#x305F;&#x30AF;&#x30E9;&#x30B9;&#x306F;&#x4E00;&#x7A2E;&#x306E;&#x95A2;&#x6570;&#x3067;&#x3059;&#x304C;&#x3001;&#x305D;&#x306E;&#x30AF;&#x30E9;&#x30B9;&#x306F;&#x30AF;&#x30E9;&#x30B9;&#x4EE5;&#x5916;&#x306B;&#x306F;&#x5229;&#x7528;&#x3067;&#x304D;&#x306A;&#x3044;&#x3088;&#x3046;&#x306B;&#x306A;&#x3063;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<h2 id="class-prototype-method-definition"><a name="class-prototype-method-definition" class="plugin-anchor" href="#class-prototype-method-definition"><i class="fa fa-link" aria-hidden="true"></i></a>&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306E;&#x5B9A;&#x7FA9; </h2>
+<p>&#x30AF;&#x30E9;&#x30B9;&#x306E;<strong>&#x52D5;&#x4F5C;</strong>&#x306F;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306B;&#x3088;&#x3063;&#x3066;&#x5B9A;&#x7FA9;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;
+<code>constructor</code>&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306F;&#x521D;&#x671F;&#x5316;&#x6642;&#x306B;&#x547C;&#x3070;&#x308C;&#x308B;&#x7279;&#x6B8A;&#x306A;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3067;&#x3059;&#x304C;&#x3001;<code>class</code>&#x69CB;&#x6587;&#x3067;&#x306F;&#x30AF;&#x30E9;&#x30B9;&#x306B;&#x5BFE;&#x3057;&#x3066;&#x81EA;&#x7531;&#x306B;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3092;&#x5B9A;&#x7FA9;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;
+&#x3053;&#x306E;&#x30AF;&#x30E9;&#x30B9;&#x306B;&#x5B9A;&#x7FA9;&#x3057;&#x305F;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306F;&#x5404;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x304C;&#x3082;&#x3064;&#x52D5;&#x4F5C;&#x3068;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x6B21;&#x306E;&#x3088;&#x3046;&#x306B;<code>class</code>&#x69CB;&#x6587;&#x3067;&#x306F;&#x30AF;&#x30E9;&#x30B9;&#x306B;&#x5BFE;&#x3057;&#x3066;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3092;&#x5B9A;&#x7FA9;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;
+&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306E;&#x4E2D;&#x304B;&#x3089;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x3092;&#x53C2;&#x7167;&#x3059;&#x308B;&#x306B;&#x306F;&#x3001;<code>constructor</code>&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3068;&#x540C;&#x3058;&#x304F;<code>this</code>&#x3092;&#x4F7F;&#x3044;&#x307E;&#x3059;&#x3002;
+&#x3053;&#x306E;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306B;&#x304A;&#x3051;&#x308B;<code>this</code>&#x306F;&#x300C;<a href="../functiont-this/README.md">&#x95A2;&#x6570;&#x3068;this</a>&#x306E;&#x7AE0;&#x300D;&#x3067;&#x5B66;&#x3093;&#x3060;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3068;&#x540C;&#x3058;&#x304F;&#x30D9;&#x30FC;&#x30B9;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x3092;&#x53C2;&#x7167;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<!-- doctest:disable -->
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> &#x30AF;&#x30E9;&#x30B9; </span>{
+    &#x30E1;&#x30BD;&#x30C3;&#x30C9;() {
+        <span class="hljs-comment">// &#x3053;&#x3053;&#x3067;&#x306E;`this`&#x306F;&#x30D9;&#x30FC;&#x30B9;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x3092;&#x53C2;&#x7167;</span>
+    }
+}
+
+<span class="hljs-keyword">const</span> &#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9; = <span class="hljs-keyword">new</span> &#x30AF;&#x30E9;&#x30B9;();
+<span class="hljs-comment">// &#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x547C;&#x3073;&#x51FA;&#x3057;&#x306E;&#x30D9;&#x30FC;&#x30B9;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;(`this`)&#x306F;`&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;`&#x3068;&#x306A;&#x308B;</span>
+&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;.&#x30E1;&#x30BD;&#x30C3;&#x30C9;();
+</code></pre>
+<p>&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x5B9A;&#x7FA9;&#x3067;&#x306F;&#x3001;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306B;&#x304A;&#x3051;&#x308B;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3068;&#x306F;&#x7570;&#x306A;&#x308A;<code>key : value</code>&#x306E;&#x3088;&#x3046;&#x306B;<code>:</code>&#x533A;&#x5207;&#x308A;&#x3067;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3092;&#x5B9A;&#x7FA9;&#x3067;&#x304D;&#x306A;&#x3044;&#x3053;&#x3068;&#x306B;&#x6CE8;&#x610F;&#x3057;&#x3066;&#x304F;&#x3060;&#x3055;&#x3044;&#x3002;
+&#x3064;&#x307E;&#x308A;&#x3001;&#x6B21;&#x306E;&#x3088;&#x3046;&#x306A;&#x66F8;&#x304D;&#x65B9;&#x306F;&#x69CB;&#x6587;&#x30A8;&#x30E9;&#x30FC;&#xFF08;<code>SyntaxError</code>&#xFF09;&#x3068;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<!-- textlint-disable -->
+<!-- doctest:disable -->
+<pre><code class="lang-js"><span class="hljs-comment">// &#x30AF;&#x30E9;&#x30B9;&#x3067;&#x306F;&#x6B21;&#x306E;&#x3088;&#x3046;&#x306B;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3092;&#x5B9A;&#x7FA9;&#x3067;&#x304D;&#x306A;&#x3044;</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> &#x30AF;&#x30E9;&#x30B9; </span>{
+   <span class="hljs-comment">// SyntaxError</span>
+   &#x30E1;&#x30BD;&#x30C3;&#x30C9;: () =&gt; {}
+   <span class="hljs-comment">// SyntaxError</span>
+   &#x30E1;&#x30BD;&#x30C3;&#x30C9;: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>)</span>{}
+}
+</code></pre>
+<!-- textlint-enable -->
+<p>&#x3053;&#x306E;&#x3088;&#x3046;&#x306B;&#x30AF;&#x30E9;&#x30B9;&#x306B;&#x5BFE;&#x3057;&#x3066;&#x5B9A;&#x7FA9;&#x3057;&#x305F;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306F;&#x3001;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x5404;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x304B;&#x3089;<strong>&#x5171;&#x6709;&#x3055;&#x308C;&#x308B;&#x30E1;&#x30BD;&#x30C3;&#x30C9;</strong>&#x3068;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;
+&#x3053;&#x306E;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x9593;&#x3067;&#x5171;&#x6709;&#x3055;&#x308C;&#x308B;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306E;&#x3053;&#x3068;&#x3092;<strong>&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30E1;&#x30BD;&#x30C3;&#x30C9;</strong>&#x3068;&#x547C;&#x3073;&#x307E;&#x3059;&#x3002;
+&#x307E;&#x305F;&#x3001;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306F;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x304B;&#x3089;&#x547C;&#x3073;&#x51FA;&#x305B;&#x308B;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3067;&#x3042;&#x308B;&#x305F;&#x3081;<strong>&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x30E1;&#x30BD;&#x30C3;&#x30C9;</strong>&#x3068;&#x3082;&#x547C;&#x3070;&#x308C;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x3053;&#x306E;&#x66F8;&#x7C4D;&#x3067;&#x306F;&#x3001;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#xFF08;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#xFF09;&#x3092;<code>&#x30AF;&#x30E9;&#x30B9;#&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x540D;</code>&#x306E;&#x3088;&#x3046;&#x306B;&#x8868;&#x8A18;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x6B21;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x306F;&#x3001;<code>Counter</code>&#x30AF;&#x30E9;&#x30B9;&#x306B;<code>increment</code>&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#xFF08;<code>Counter#increment</code>&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#xFF09;&#x3092;&#x5B9A;&#x7FA9;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;
+<code>Counter</code>&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x306F;&#x305D;&#x308C;&#x305E;&#x308C;&#x5225;&#x3005;&#x306E;&#x72B6;&#x614B;&#xFF08;<code>count</code>&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#xFF09;&#x3092;&#x6301;&#x3061;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Counter</span> </span>{
+    <span class="hljs-keyword">constructor</span>() {
+        <span class="hljs-keyword">this</span>.count = <span class="hljs-number">0</span>;
+    }
+    <span class="hljs-comment">// `increment`&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3092;&#x30AF;&#x30E9;&#x30B9;&#x306B;&#x5B9A;&#x7FA9;&#x3059;&#x308B;</span>
+    increment() {
+        <span class="hljs-comment">// `this`&#x306F;`Counter`&#x306E;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x3092;&#x53C2;&#x7167;&#x3059;&#x308B;</span>
+        <span class="hljs-keyword">this</span>.count++;
+    }
+}
+<span class="hljs-keyword">const</span> counterA = <span class="hljs-keyword">new</span> Counter();
+<span class="hljs-keyword">const</span> counterB = <span class="hljs-keyword">new</span> Counter();
+<span class="hljs-comment">// `counterA.increment()`&#x306E;&#x30D9;&#x30FC;&#x30B9;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306F;`counterA`&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;</span>
+counterA.increment();
+<span class="hljs-comment">// &#x5404;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x306E;&#x3082;&#x3064;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;(&#x72B6;&#x614B;)&#x306F;&#x7570;&#x306A;&#x308B;</span>
+<span class="hljs-built_in">console</span>.log(counterA.count); <span class="hljs-comment">// =&gt; 1</span>
+<span class="hljs-built_in">console</span>.log(counterB.count); <span class="hljs-comment">// =&gt; 0</span>
+</code></pre>
+<p>&#x307E;&#x305F;<code>increment</code>&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306F;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3068;&#x3057;&#x3066;&#x5B9A;&#x7FA9;&#x3055;&#x308C;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;
+&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306F;&#x5404;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x9593;&#x3067;&#x5171;&#x6709;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;
+&#x305D;&#x306E;&#x305F;&#x3081;&#x3001;&#x6B21;&#x306E;&#x3088;&#x3046;&#x306B;&#x5404;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x306E;<code>increment</code>&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306E;&#x53C2;&#x7167;&#x5148;&#x306F;&#x540C;&#x3058;&#x3068;&#x306A;&#x3063;&#x3066;&#x3044;&#x308B;&#x3053;&#x3068;&#x304C;&#x5206;&#x304B;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Counter</span> </span>{
+    <span class="hljs-keyword">constructor</span>() {
+        <span class="hljs-keyword">this</span>.count = <span class="hljs-number">0</span>;
+    }
+    increment() {
+        <span class="hljs-keyword">this</span>.count++;
+    }
+}
+<span class="hljs-keyword">const</span> counterA = <span class="hljs-keyword">new</span> Counter();
+<span class="hljs-keyword">const</span> counterB = <span class="hljs-keyword">new</span> Counter();
+<span class="hljs-comment">// &#x5404;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306F;&#x5171;&#x6709;&#x3055;&#x308C;&#x3066;&#x3044;&#x308B;(&#x540C;&#x3058;&#x95A2;&#x6570;&#x3092;&#x53C2;&#x7167;&#x3057;&#x3066;&#x3044;&#x308B;)</span>
+<span class="hljs-built_in">console</span>.log(counterA.increment === counterB.increment); <span class="hljs-comment">// =&gt; true</span>
+</code></pre>
+<p>&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x304C;&#x306A;&#x305C;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x9593;&#x3067;&#x5171;&#x6709;&#x3055;&#x308C;&#x3066;&#x3044;&#x308B;&#x306E;&#x304B;&#x306F;&#x3001;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x7D99;&#x627F;&#x306E;&#x4ED5;&#x7D44;&#x307F;&#x3068;&#x95A2;&#x9023;&#x3059;&#x308B;&#x305F;&#x3081;&#x5F8C;&#x307B;&#x3069;&#x8A73;&#x7D30;&#x306B;&#x89E3;&#x8AAC;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<h3 id="class-instance-method"><a name="class-instance-method" class="plugin-anchor" href="#class-instance-method"><i class="fa fa-link" aria-hidden="true"></i></a>&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x306B;&#x5BFE;&#x3057;&#x3066;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3092;&#x5B9A;&#x7FA9;&#x3059;&#x308B; </h3>
+<p><code>class</code>&#x69CB;&#x6587;&#x3067;&#x306E;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x5B9A;&#x7FA9;&#x306F;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3068;&#x306A;&#x308A;&#x3001;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x9593;&#x3067;&#x5171;&#x6709;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x4E00;&#x65B9;&#x3001;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x306B;&#x5BFE;&#x3057;&#x3066;&#x76F4;&#x63A5;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3092;&#x5B9A;&#x7FA9;&#x3059;&#x308B;&#x3053;&#x3068;&#x3082;&#x53EF;&#x80FD;&#x3067;&#x3059;&#x3002;
+&#x3053;&#x308C;&#x306F;&#x3001;&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x95A2;&#x6570;&#x5185;&#x3067;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306B;&#x5BFE;&#x3057;&#x3066;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3092;&#x5B9A;&#x7FA9;&#x3059;&#x308B;&#x3060;&#x3051;&#x3067;&#x3059;&#x3002;</p>
+<p>&#x6B21;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x306F;&#x3001;<code>Counter</code>&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x95A2;&#x6570;&#x3067;&#x3001;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306B;<code>increment</code>&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3092;&#x5B9A;&#x7FA9;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;
+&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x95A2;&#x6570;&#x5185;&#x3067;<code>this</code>&#x306F;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x3092;&#x793A;&#x3059;&#x305F;&#x3081;&#x3001;<code>this</code>&#x306B;&#x5BFE;&#x3057;&#x3066;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3092;&#x5B9A;&#x7FA9;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Counter</span> </span>{
+    <span class="hljs-keyword">constructor</span>() {
+        <span class="hljs-keyword">this</span>.count = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">this</span>.increment = () =&gt; {
+            <span class="hljs-comment">// `this`&#x306F;`constructor`&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306B;&#x304A;&#x3051;&#x308B;`this`&#xFF08;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#xFF09;&#x3092;&#x53C2;&#x7167;&#x3059;&#x308B;</span>
+            <span class="hljs-keyword">this</span>.count++;
+        };
+    }
+}
+<span class="hljs-keyword">const</span> counterA = <span class="hljs-keyword">new</span> Counter();
+<span class="hljs-keyword">const</span> counterB = <span class="hljs-keyword">new</span> Counter();
+<span class="hljs-comment">// `counterA.increment()`&#x306E;&#x30D9;&#x30FC;&#x30B9;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306F;`counterA`&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;</span>
+counterA.increment();
+<span class="hljs-comment">// &#x5404;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x306E;&#x3082;&#x3064;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;(&#x72B6;&#x614B;)&#x306F;&#x7570;&#x306A;&#x308B;</span>
+<span class="hljs-built_in">console</span>.log(counterA.count); <span class="hljs-comment">// =&gt; 1;</span>
+<span class="hljs-built_in">console</span>.log(counterB.count); <span class="hljs-comment">// =&gt; 0</span>
+</code></pre>
+<p>&#x3053;&#x306E;&#x65B9;&#x6CD5;&#x3067;&#x5B9A;&#x7FA9;&#x3057;&#x305F;<code>increment</code>&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306F;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x304B;&#x3089;&#x547C;&#x3073;&#x51FA;&#x305B;&#x308B;&#x305F;&#x3081;&#x3001;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3067;&#x3059;&#x3002;
+&#x3057;&#x304B;&#x3057;&#x3001;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306B;&#x5B9A;&#x7FA9;&#x3057;&#x305F;<code>increment</code>&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306F;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3067;&#x306F;&#x3042;&#x308A;&#x307E;&#x305B;&#x3093;&#x3002;
+&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3068;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306B;&#x306F;&#x3001;&#x3044;&#x304F;&#x3064;&#x304B;&#x7570;&#x306A;&#x308B;&#x70B9;&#x304C;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306F;&#x5404;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x304B;&#x3089;&#x5171;&#x6709;&#x3055;&#x308C;&#x3066;&#x3044;&#x308B;&#x305F;&#x3081;&#x3001;&#x5404;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x304B;&#x3089;&#x306E;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306E;&#x53C2;&#x7167;&#x5148;&#x304C;&#x540C;&#x3058;&#x3067;&#x3057;&#x305F;&#x3002;
+&#x3057;&#x304B;&#x3057;&#x3001;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306F;&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x3067;&#x6BCE;&#x56DE;&#x540C;&#x3058;&#x6319;&#x52D5;&#x306E;&#x95A2;&#x6570;&#xFF08;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#xFF09;&#x3092;&#x65B0;&#x3057;&#x304F;&#x5B9A;&#x7FA9;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;
+&#x305D;&#x306E;&#x305F;&#x3081;&#x3001;&#x6B21;&#x306E;&#x3088;&#x3046;&#x306B;&#x5404;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x304B;&#x3089;&#x306E;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306E;&#x53C2;&#x7167;&#x5148;&#x3082;&#x7570;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Counter</span> </span>{
+    <span class="hljs-keyword">constructor</span>() {
+        <span class="hljs-keyword">this</span>.count = <span class="hljs-number">0</span>;
+        <span class="hljs-keyword">this</span>.increment = () =&gt; {
+            <span class="hljs-keyword">this</span>.count++;
+        };
+    }
+}
+<span class="hljs-keyword">const</span> counterA = <span class="hljs-keyword">new</span> Counter();
+<span class="hljs-keyword">const</span> counterB = <span class="hljs-keyword">new</span> Counter();
+<span class="hljs-comment">// &#x5404;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306E;&#x53C2;&#x7167;&#x5148;&#x306F;&#x7570;&#x306A;&#x308B;</span>
+<span class="hljs-built_in">console</span>.log(counterA.increment === counterB.increment); <span class="hljs-comment">// =&gt; false</span>
+</code></pre>
+<p>&#x307E;&#x305F;&#x3001;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3068;&#x306F;&#x3053;&#x3068;&#x306A;&#x308A;&#x3001;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x3078;&#x306E;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x5B9A;&#x7FA9;&#x306F;Arrow Function&#x304C;&#x5229;&#x7528;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;
+Arrow Function&#x306B;&#x306F;<code>this</code>&#x304C;&#x9759;&#x7684;&#x306B;&#x6C7A;&#x307E;&#x308B;&#x3068;&#x3044;&#x3046;&#x6027;&#x8CEA;&#x304C;&#x3042;&#x308B;&#x305F;&#x3081;&#x3001;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306B;&#x304A;&#x3051;&#x308B;
+<code>this</code>&#x306E;&#x53C2;&#x7167;&#x5148;&#x3092;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x306B;&#x56FA;&#x5B9A;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;
+&#x306A;&#x305C;&#x306A;&#x3089;Arrow Function&#x3067;&#x5B9A;&#x7FA9;&#x3057;&#x305F;<code>increment</code>&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306F;&#x3069;&#x306E;&#x3088;&#x3046;&#x306A;&#x547C;&#x3073;&#x51FA;&#x3057;&#x65B9;&#x3092;&#x3057;&#x3066;&#x3082;&#x3001;&#x5FC5;&#x305A;<code>constructor</code>&#x306B;&#x304A;&#x3051;&#x308B;<code>this</code>&#x3068;&#x306A;&#x308B;&#x305F;&#x3081;&#x3067;&#x3059;&#x3002;&#xFF08;&#x300C;<a href="../functiont-this/README.md#arrow-function-callback">Arrow Function&#x3067;&#x30B3;&#x30FC;&#x30EB;&#x30D0;&#x30C3;&#x30AF;&#x95A2;&#x6570;&#x3092;&#x6271;&#x3046;</a>&#x300D;&#x3092;&#x53C2;&#x7167;&#xFF09;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-meta">&quot;use strict&quot;</span>;
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ArrowClass</span> </span>{
+    <span class="hljs-keyword">constructor</span>() {
+        <span class="hljs-comment">// &#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x3067;&#x306E;`this`&#x306F;&#x5E38;&#x306B;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;</span>
+        <span class="hljs-keyword">this</span>.method = () =&gt; {
+            <span class="hljs-comment">// Arrow Function&#x306B;&#x304A;&#x3051;&#x308B;`this`&#x306F;&#x9759;&#x7684;&#x306B;&#x6C7A;&#x307E;&#x308B;</span>
+            <span class="hljs-comment">// &#x305D;&#x306E;&#x305F;&#x3081;`this`&#x306F;&#x5E38;&#x306B;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x3092;&#x53C2;&#x7167;&#x3059;&#x308B;</span>
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+        };
+    }
+}
+<span class="hljs-keyword">const</span> instance = <span class="hljs-keyword">new</span> ArrowClass();
+<span class="hljs-keyword">const</span> method = instance.method;
+<span class="hljs-comment">// &#x30D9;&#x30FC;&#x30B9;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306B;&#x4F9D;&#x5B58;&#x3057;&#x306A;&#x3044;</span>
+method(); <span class="hljs-comment">// =&gt; instance</span>
+</code></pre>
+<p>&#x4E00;&#x65B9;&#x3001;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306B;&#x304A;&#x3051;&#x308B;<code>this</code>&#x306F;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x547C;&#x3073;&#x51FA;&#x3057;&#x6642;&#x306E;&#x30D9;&#x30FC;&#x30B9;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x3092;&#x53C2;&#x7167;&#x3057;&#x307E;&#x3059;&#x3002;
+&#x305D;&#x306E;&#x305F;&#x3081;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306F;&#x547C;&#x3073;&#x51FA;&#x3057;&#x65B9;&#x306B;&#x3088;&#x3063;&#x3066;<code>this</code>&#x306E;&#x53C2;&#x7167;&#x5148;&#x304C;&#x7570;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;&#xFF08;<a href="../functiont-this/README.md#assign-this-function%7D"><code>this</code>&#x3092;&#x542B;&#x3080;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3092;&#x5909;&#x6570;&#x306B;&#x4EE3;&#x5165;&#x3057;&#x305F;&#x5834;&#x5408;&#x306E;&#x554F;&#x984C;</a>&#x3092;&#x53C2;&#x7167;&#xFF09;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-meta">&quot;use strict&quot;</span>;
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PrototypeClass</span> </span>{
+    method() {
+        <span class="hljs-comment">// `this`&#x306F;&#x30D9;&#x30FC;&#x30B9;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x3092;&#x53C2;&#x7167;&#x3059;&#x308B;</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>;
+    };
+}
+<span class="hljs-keyword">const</span> instance = <span class="hljs-keyword">new</span> PrototypeClass();
+<span class="hljs-keyword">const</span> method = instance.method;
+<span class="hljs-comment">// &#x30D9;&#x30FC;&#x30B9;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306F;undefined</span>
+method(); <span class="hljs-comment">// =&gt; undefined</span>
+</code></pre>
+<h2 id="class-accessor-property"><a name="class-accessor-property" class="plugin-anchor" href="#class-accessor-property"><i class="fa fa-link" aria-hidden="true"></i></a>&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30A2;&#x30AF;&#x30BB;&#x30C3;&#x30B5;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x306E;&#x5B9A;&#x7FA9; </h2>
+<!-- textlint-disable no-js-function-paren -->
+<p>&#x30AF;&#x30E9;&#x30B9;&#x306B;&#x5BFE;&#x3057;&#x3066;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3092;&#x5B9A;&#x7FA9;&#x3067;&#x304D;&#x307E;&#x3059;&#x304C;&#x3001;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306F;<code>&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x540D;()</code>&#x306E;&#x3088;&#x3046;&#x306B;&#x547C;&#x3073;&#x51FA;&#x3059;&#x5FC5;&#x8981;&#x304C;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;
+&#x30AF;&#x30E9;&#x30B9;&#x3067;&#x306F;&#x3001;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x306E;&#x53C2;&#x7167;&#xFF08;getter&#xFF09;&#x3001;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x3078;&#x306E;&#x4EE3;&#x5165;&#xFF08;setter&#xFF09;&#x6642;&#x306B;&#x547C;&#x3073;&#x51FA;&#x3055;&#x308C;&#x308B;&#x7279;&#x6B8A;&#x306A;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3092;&#x5B9A;&#x7FA9;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;
+&#x3053;&#x306E;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306F;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x306E;&#x3088;&#x3046;&#x306B;&#x632F;&#x308B;&#x821E;&#x3046;&#x305F;&#x3081;<strong>&#x30A2;&#x30AF;&#x30BB;&#x30C3;&#x30B5;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;</strong>&#x3068;&#x547C;&#x3070;&#x308C;&#x307E;&#x3059;&#x3002;</p>
+<!-- textlint-enable no-js-function-paren -->
+<p>&#x6B21;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x306F;&#x3001;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x306E;&#x53C2;&#x7167;&#xFF08;getter&#xFF09;&#x3001;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x3078;&#x306E;&#x4EE3;&#x5165;&#xFF08;setter&#xFF09;&#x306B;&#x5BFE;&#x3059;&#x308B;&#x30A2;&#x30AF;&#x30BB;&#x30C3;&#x30B5;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x3092;&#x5B9A;&#x7FA9;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;
+&#x30A2;&#x30AF;&#x30BB;&#x30C3;&#x30B5;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x306F;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x540D;&#xFF08;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x540D;&#xFF09;&#x306E;&#x524D;&#x306B;<code>get</code>&#x307E;&#x305F;&#x306F;<code>set</code>&#x3092;&#x3064;&#x3051;&#x308B;&#x3060;&#x3051;&#x3067;&#x3059;&#x3002;
+getter&#xFF08;<code>get</code>&#xFF09;&#x306B;&#x306F;&#x4EEE;&#x5F15;&#x6570;&#x306F;&#x3042;&#x308A;&#x307E;&#x305B;&#x3093;&#x304C;&#x3001;&#x5FC5;&#x305A;&#x5024;&#x3092;&#x8FD4;&#x3059;&#x5FC5;&#x8981;&#x304C;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;
+setter&#xFF08;<code>set</code>&#xFF09;&#x306E;&#x4EEE;&#x5F15;&#x6570;&#x306B;&#x306F;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x3078;&#x4EE3;&#x5165;&#x3055;&#x308C;&#x305F;&#x5024;&#x304C;&#x5165;&#x308A;&#x307E;&#x3059;&#x304C;&#x3001;&#x5024;&#x3092;&#x8FD4;&#x3059;&#x5FC5;&#x8981;&#x306F;&#x3042;&#x308A;&#x307E;&#x305B;&#x3093;&#x3002;</p>
+<!-- doctest:disable -->
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> &#x30AF;&#x30E9;&#x30B9; </span>{
+    <span class="hljs-comment">// getter</span>
+    get &#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x540D;() {
+        <span class="hljs-keyword">return</span> &#x5024;;
+    }
+    <span class="hljs-comment">// setter</span>
+    set &#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x540D;(&#x4EEE;&#x5F15;&#x6570;) {
+        <span class="hljs-comment">// setter&#x306E;&#x51E6;&#x7406;</span>
+    }
+}
+<span class="hljs-keyword">const</span> &#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9; = <span class="hljs-keyword">new</span> &#x30AF;&#x30E9;&#x30B9;();
+&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;.&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x540D;; <span class="hljs-comment">// getter&#x304C;&#x547C;&#x3073;&#x51FA;&#x3055;&#x308C;&#x308B;</span>
+&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;.&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x540D; = &#x5024;; <span class="hljs-comment">// setter&#x304C;&#x547C;&#x3073;&#x51FA;&#x3055;&#x308C;&#x308B;</span>
+</code></pre>
+<p>&#x6B21;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x306F;&#x3001;<code>NumberValue#value</code>&#x3092;&#x30A2;&#x30AF;&#x30BB;&#x30C3;&#x30B5;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x3068;&#x3057;&#x3066;&#x5B9A;&#x7FA9;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;
+<code>number.value</code>&#x3078;&#x30A2;&#x30AF;&#x30BB;&#x30B9;&#x3057;&#x305F;&#x969B;&#x306B;&#x305D;&#x308C;&#x305E;&#x308C;&#x5B9A;&#x7FA9;&#x3057;&#x305F;getter&#x3068;setter&#x304C;&#x547C;&#x3070;&#x308C;&#x3066;&#x3044;&#x308B;&#x3053;&#x3068;&#x304C;&#x5206;&#x304B;&#x308A;&#x307E;&#x3059;&#x3002;
+&#x3053;&#x306E;&#x30A2;&#x30AF;&#x30BB;&#x30C3;&#x30B5;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x3067;&#x5B9F;&#x969B;&#x306B;&#x8AAD;&#x307F;&#x66F8;&#x304D;&#x3055;&#x308C;&#x3066;&#x3044;&#x308B;&#x306E;&#x306F;&#x3001;<code>NumberValue</code>&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x306E;<code>_value</code>&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x3068;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">NumberValue</span> </span>{
+    <span class="hljs-keyword">constructor</span>(value) {
+        <span class="hljs-keyword">this</span>._value = value;
+    }
+    <span class="hljs-comment">// `_value`&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x306E;&#x5024;&#x3092;&#x8FD4;&#x3059;getter</span>
+    get value() {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;getter&quot;</span>);
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._value;
+    }
+    <span class="hljs-comment">// `_value`&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x306B;&#x5024;&#x3092;&#x4EE3;&#x5165;&#x3059;&#x308B;setter</span>
+    set value(newValue) {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;setter&quot;</span>);
+        <span class="hljs-keyword">this</span>._value = newValue;
+    }
+}
+
+<span class="hljs-keyword">const</span> number = <span class="hljs-keyword">new</span> NumberValue(<span class="hljs-number">1</span>);
+<span class="hljs-comment">// &quot;getter&quot;&#x3068;&#x30B3;&#x30F3;&#x30BD;&#x30FC;&#x30EB;&#x306B;&#x8868;&#x793A;&#x3055;&#x308C;&#x308B;</span>
+<span class="hljs-built_in">console</span>.log(number.value); <span class="hljs-comment">// =&gt; 1</span>
+<span class="hljs-comment">// &quot;setter&quot;&#x3068;&#x30B3;&#x30F3;&#x30BD;&#x30FC;&#x30EB;&#x306B;&#x8868;&#x793A;&#x3055;&#x308C;&#x308B;</span>
+number.value = <span class="hljs-number">42</span>;
+<span class="hljs-comment">// &quot;getter&quot;&#x3068;&#x30B3;&#x30F3;&#x30BD;&#x30FC;&#x30EB;&#x306B;&#x8868;&#x793A;&#x3055;&#x308C;&#x308B;</span>
+<span class="hljs-built_in">console</span>.log(number.value); <span class="hljs-comment">// =&gt; 42</span>
+</code></pre>
+<!-- Note: インスタンスオブジェクトのアクセッサプロパティ
+インスタンスオブジェクトへも定義できるが、メソッドとは異なり意味の違いがでることはないため省略。
+またフィールドとして定義することはできないため対比は意味がない。
+-->
+<h3 id="private-property"><a name="private-property" class="plugin-anchor" href="#private-property"><i class="fa fa-link" aria-hidden="true"></i></a>[&#x30B3;&#x30E9;&#x30E0;] &#x30D7;&#x30E9;&#x30A4;&#x30D9;&#x30FC;&#x30C8;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3; </h3>
+<p><code>NumberValue#value</code>&#x306E;&#x30A2;&#x30AF;&#x30BB;&#x30C3;&#x30B5;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x3067;&#x5B9F;&#x969B;&#x306B;&#x8AAD;&#x307F;&#x66F8;&#x304D;&#x3057;&#x3066;&#x3044;&#x308B;&#x306E;&#x306F;&#x3001;<code>_value</code>&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x3067;&#x3059;&#x3002;
+&#x3053;&#x306E;&#x3088;&#x3046;&#x306B;&#x3001;&#x5916;&#x304B;&#x3089;&#x76F4;&#x63A5;&#x8AAD;&#x307F;&#x66F8;&#x304D;&#x3057;&#x3066;&#x307B;&#x3057;&#x304F;&#x306A;&#x3044;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x3092;<code>_</code>&#xFF08;&#x30A2;&#x30F3;&#x30C0;&#x30FC;&#x30D0;&#x30FC;&#xFF09;&#x3067;&#x958B;&#x59CB;&#x3059;&#x308B;&#x306E;&#x306F;&#x305F;&#x3060;&#x306E;&#x7FD2;&#x6163;&#x3067;&#x3042;&#x308B;&#x305F;&#x3081;&#x3001;&#x69CB;&#x6587;&#x3068;&#x3057;&#x3066;&#x306E;&#x610F;&#x5473;&#x306F;&#x3042;&#x308A;&#x307E;&#x305B;&#x3093;&#x3002;</p>
+<p>&#x73FE;&#x6642;&#x70B9;&#xFF08;ECMAScript 2018&#xFF09;&#x5916;&#x304B;&#x3089;&#x539F;&#x7406;&#x7684;&#x306B;&#x898B;&#x308B;&#x3053;&#x3068;&#x304C;&#x3067;&#x304D;&#x306A;&#x3044;&#x30D7;&#x30E9;&#x30A4;&#x30D9;&#x30FC;&#x30C8;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#xFF08;hard private&#xFF09;&#x3092;&#x5B9A;&#x7FA9;&#x3059;&#x308B;&#x69CB;&#x6587;&#x306F;&#x3042;&#x308A;&#x307E;&#x305B;&#x3093;&#x3002;
+&#x307E;&#x305F;&#x3001;&#x73FE;&#x6642;&#x70B9;&#x3067;&#x3082;<code>WeakSet</code>&#x306A;&#x3069;&#x3092;&#x4F7F;&#x3046;&#x3053;&#x3068;&#x3067;&#x64EC;&#x4F3C;&#x7684;&#x306A;&#x30D7;&#x30E9;&#x30A4;&#x30D9;&#x30FC;&#x30C8;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#xFF08;soft private&#xFF09;&#x3092;&#x5B9F;&#x73FE;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;<code>WeakSet</code>&#x306B;&#x3064;&#x3044;&#x3066;&#x306F;&#x300C;<a href="../map-and-set/">Map/Set</a>&#x300D;&#x306E;&#x7AE0;&#x3067;&#x89E3;&#x8AAC;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<h3 id="array-like-length"><a name="array-like-length" class="plugin-anchor" href="#array-like-length"><i class="fa fa-link" aria-hidden="true"></i></a><code>Array#length</code>&#x3092;&#x30A2;&#x30AF;&#x30BB;&#x30C3;&#x30B5;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x3067;&#x518D;&#x73FE;&#x3059;&#x308B; </h3>
+<p>getter&#x3084;setter&#x3092;&#x5229;&#x7528;&#x3057;&#x306A;&#x3044;&#x3068;&#x5B9F;&#x73FE;&#x304C;&#x96E3;&#x3057;&#x3044;&#x3082;&#x306E;&#x3068;&#x3057;&#x3066;<code>Array#length</code>&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x304C;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;
+<code>Array#length</code>&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x3078;&#x5024;&#x3092;&#x4EE3;&#x5165;&#x3059;&#x308B;&#x3068;&#x3001;&#x305D;&#x306E;&#x30A4;&#x30F3;&#x30C7;&#x30C3;&#x30AF;&#x30B9;&#x4EE5;&#x964D;&#x306E;&#x5024;&#x306F;&#x81EA;&#x52D5;&#x7684;&#x306B;&#x524A;&#x9664;&#x3055;&#x308C;&#x308B;&#x4ED5;&#x69D8;&#x304C;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x6B21;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x306F;&#x3001;&#x914D;&#x5217;&#x306E;&#x8981;&#x7D20;&#x6570;(<code>length</code>&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;)&#x3092;&#x5C0F;&#x3055;&#x304F;&#x3059;&#x308B;&#x3068;&#x914D;&#x5217;&#x306E;&#x8981;&#x7D20;&#x304C;&#x524A;&#x9664;&#x3055;&#x308C;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> array = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>];
+<span class="hljs-comment">// &#x8981;&#x7D20;&#x6570;&#x3092;&#x6E1B;&#x3089;&#x3059;&#x3068;&#x3001;&#x30A4;&#x30F3;&#x30C7;&#x30C3;&#x30AF;&#x30B9;&#x4EE5;&#x964D;&#x306E;&#x8981;&#x7D20;&#x304C;&#x524A;&#x9664;&#x3055;&#x308C;&#x308B;</span>
+array.length = <span class="hljs-number">2</span>;
+<span class="hljs-built_in">console</span>.log(array.join(<span class="hljs-string">&quot;, &quot;</span>)); <span class="hljs-comment">// =&gt; &quot;1, 2&quot;</span>
+<span class="hljs-comment">// &#x8981;&#x7D20;&#x6570;&#x3060;&#x3051;&#x3092;&#x5897;&#x3084;&#x3057;&#x3066;&#x3082;&#x3001;&#x914D;&#x5217;&#x306E;&#x4E2D;&#x8EAB;&#x306F;&#x7A7A;&#x8981;&#x7D20;&#x304C;&#x5897;&#x3048;&#x308B;&#x3060;&#x3051;</span>
+array.length = <span class="hljs-number">5</span>;
+<span class="hljs-built_in">console</span>.log(array.join(<span class="hljs-string">&quot;, &quot;</span>)); <span class="hljs-comment">// =&gt; &quot;1, 2, , , &quot;</span>
+</code></pre>
+<p>&#x3053;&#x306E;<code>length</code>&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x306E;&#x6319;&#x52D5;&#x3092;&#x518D;&#x73FE;&#x3059;&#x308B;<code>ArrayLike</code>&#x30AF;&#x30E9;&#x30B9;&#x3092;&#x5B9F;&#x88C5;&#x3057;&#x3066;&#x307F;&#x307E;&#x3059;&#x3002;
+<code>Array#length</code>&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x306F;&#x3001;<code>length</code>&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x3078;&#x5024;&#x3092;&#x4EE3;&#x5165;&#x3057;&#x305F;&#x969B;&#x306B;&#x6B21;&#x306E;&#x3088;&#x3046;&#x306A;&#x3053;&#x3068;&#x3092;&#x884C;&#x3063;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<ul>
+<li>&#x73FE;&#x5728;&#x8981;&#x7D20;&#x6570;&#x3088;&#x308A;&#x5C0F;&#x3055;&#x306A;<strong>&#x8981;&#x7D20;&#x6570;</strong>&#x304C;&#x6307;&#x5B9A;&#x3055;&#x308C;&#x305F;&#x5834;&#x5408;&#x3001;&#x305D;&#x306E;<strong>&#x8981;&#x7D20;&#x6570;</strong>&#x3092;&#x5909;&#x66F4;&#x3057;&#x3001;&#x914D;&#x5217;&#x306E;&#x672B;&#x5C3E;&#x306E;&#x8981;&#x7D20;&#x3092;&#x524A;&#x9664;&#x3059;&#x308B;</li>
+<li>&#x73FE;&#x5728;&#x8981;&#x7D20;&#x6570;&#x3088;&#x308A;&#x5927;&#x304D;&#x306A;<strong>&#x8981;&#x7D20;&#x6570;</strong>&#x304C;&#x6307;&#x5B9A;&#x3055;&#x308C;&#x305F;&#x5834;&#x5408;&#x3001;&#x305D;&#x306E;<strong>&#x8981;&#x7D20;&#x6570;</strong>&#x3060;&#x3051;&#x3092;&#x5909;&#x66F4;&#x3057;&#x3001;&#x914D;&#x5217;&#x306E;&#x5B9F;&#x969B;&#x306E;&#x8981;&#x7D20;&#x306F;&#x305D;&#x306E;&#x307E;&#x307E;&#x306B;&#x3059;&#x308B;</li>
+</ul>
+<!-- Note:
+
+- 仕様的にもIf newLen ≥ oldLenでは`length`だけを変更している
+- <https://tc39.github.io/ecma262/#sec-arraysetlength>
+
+-->
+<p>&#x3064;&#x307E;&#x308A;&#x3001;<code>ArrayLike#length</code>&#x306E;setter&#x3067;&#x8981;&#x7D20;&#x306E;&#x8FFD;&#x52A0;&#x3084;&#x524A;&#x9664;&#x3092;&#x5B9F;&#x88C5;&#x3059;&#x308B;&#x3053;&#x3068;&#x3067;&#x3001;&#x914D;&#x5217;&#x306E;&#x3088;&#x3046;&#x306A;<code>length</code>&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x3092;&#x5B9F;&#x88C5;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-comment">/**
+ * &#x914D;&#x5217;&#x306E;&#x3088;&#x3046;&#x306A;length&#x3092;&#x6301;&#x3064;&#x30AF;&#x30E9;&#x30B9;
+ */</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ArrayLike</span> </span>{
+    <span class="hljs-keyword">constructor</span>(items = []) {
+        <span class="hljs-keyword">this</span>._items = items;
+    }
+
+    get items() {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._items;
+    }
+
+    get length() {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>._items.length;
+    }
+
+    set length(newLength) {
+        <span class="hljs-keyword">const</span> currentItemLength = <span class="hljs-keyword">this</span>.items.length;
+        <span class="hljs-comment">// &#x73FE;&#x5728;&#x8981;&#x7D20;&#x6570;&#x3088;&#x308A;&#x5C0F;&#x3055;&#x306A;`newLength`&#x304C;&#x6307;&#x5B9A;&#x3055;&#x308C;&#x305F;&#x5834;&#x5408;&#x3001;&#x6307;&#x5B9A;&#x3057;&#x305F;&#x8981;&#x7D20;&#x6570;&#x3068;&#x306A;&#x308B;&#x3088;&#x3046;&#x306B;&#x672B;&#x5C3E;&#x3092;&#x524A;&#x9664;&#x3059;&#x308B;</span>
+        <span class="hljs-keyword">if</span> (newLength &lt; currentItemLength) {
+            <span class="hljs-keyword">this</span>._items = <span class="hljs-keyword">this</span>.items.slice(<span class="hljs-number">0</span>, newLength);
+        } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (newLength &gt; currentItemLength) {
+            <span class="hljs-comment">// &#x73FE;&#x5728;&#x8981;&#x7D20;&#x6570;&#x3088;&#x308A;&#x5927;&#x304D;&#x306A;`newLength`&#x304C;&#x6307;&#x5B9A;&#x3055;&#x308C;&#x305F;&#x5834;&#x5408;&#x3001;&#x6307;&#x5B9A;&#x3057;&#x305F;&#x8981;&#x7D20;&#x6570;&#x3068;&#x306A;&#x308B;&#x3088;&#x3046;&#x306B;&#x672B;&#x5C3E;&#x306B;&#x7A7A;&#x8981;&#x7D20;&#x3092;&#x8FFD;&#x52A0;&#x3059;&#x308B;</span>
+            <span class="hljs-keyword">this</span>._items = <span class="hljs-keyword">this</span>.items.concat(<span class="hljs-keyword">new</span> <span class="hljs-built_in">Array</span>(newLength - currentItemLength));
+        }
+    }
+}
+
+<span class="hljs-keyword">const</span> arrayLike = <span class="hljs-keyword">new</span> ArrayLike([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]);
+<span class="hljs-comment">// &#x8981;&#x7D20;&#x6570;&#x3092;&#x6E1B;&#x3089;&#x3059;&#x3068;&#x30A4;&#x30F3;&#x30C7;&#x30C3;&#x30AF;&#x30B9;&#x4EE5;&#x964D;&#x306E;&#x8981;&#x7D20;&#x304C;&#x524A;&#x9664;&#x3055;&#x308C;&#x308B;</span>
+arrayLike.length = <span class="hljs-number">2</span>;
+<span class="hljs-built_in">console</span>.log(arrayLike.items.join(<span class="hljs-string">&quot;, &quot;</span>)); <span class="hljs-comment">// =&gt; &quot;1, 2&quot;</span>
+<span class="hljs-comment">// &#x8981;&#x7D20;&#x6570;&#x3092;&#x5897;&#x3084;&#x3059;&#x3068;&#x672B;&#x5C3E;&#x306B;&#x7A7A;&#x8981;&#x7D20;&#x304C;&#x8FFD;&#x52A0;&#x3055;&#x308C;&#x308B;</span>
+arrayLike.length = <span class="hljs-number">5</span>;
+<span class="hljs-built_in">console</span>.log(arrayLike.items.join(<span class="hljs-string">&quot;, &quot;</span>)); <span class="hljs-comment">// =&gt; &quot;1, 2, , , &quot;</span>
+</code></pre>
+<p>&#x3053;&#x306E;&#x3088;&#x3046;&#x306B;&#x30A2;&#x30AF;&#x30BB;&#x30C3;&#x30B5;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x306F;&#x3001;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x306E;&#x3088;&#x3046;&#x3042;&#x308A;&#x306A;&#x304C;&#x3089;&#x5B9F;&#x969B;&#x306B;&#x30A2;&#x30AF;&#x30BB;&#x30B9;&#x3057;&#x305F;&#x969B;&#x306B;&#x306F;&#x4ED6;&#x306E;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x306A;&#x3069;&#x3068;&#x9023;&#x52D5;&#x3059;&#x308B;&#x52D5;&#x4F5C;&#x3092;&#x5B9F;&#x73FE;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<h2 id="static-method"><a name="static-method" class="plugin-anchor" href="#static-method"><i class="fa fa-link" aria-hidden="true"></i></a>&#x9759;&#x7684;&#x30E1;&#x30BD;&#x30C3;&#x30C9; </h2>
+<p>&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306F;&#x30AF;&#x30E9;&#x30B9;&#x3092;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x5316;&#x3057;&#x3066;&#x5229;&#x7528;&#x3057;&#x307E;&#x3059;&#x3002;
+&#x4E00;&#x65B9;&#x3001;&#x30AF;&#x30E9;&#x30B9;&#x3092;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x5316;&#x305B;&#x305A;&#x306B;&#x5229;&#x7528;&#x3067;&#x304D;&#x308B;&#x9759;&#x7684;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#xFF08;&#x30AF;&#x30E9;&#x30B9;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#xFF09;&#x3082;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x9759;&#x7684;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306E;&#x5B9A;&#x7FA9;&#x65B9;&#x6CD5;&#x306F;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x540D;&#x306E;&#x524D;&#x306B;&#x3001;<code>static</code>&#x3092;&#x3064;&#x3051;&#x308B;&#x3060;&#x3051;&#x3067;&#x3059;&#x3002;</p>
+<!-- doctest:disable -->
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> &#x30AF;&#x30E9;&#x30B9; </span>{
+    <span class="hljs-keyword">static</span> &#x30E1;&#x30BD;&#x30C3;&#x30C9;() {
+        <span class="hljs-comment">// &#x9759;&#x7684;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306E;&#x51E6;&#x7406;</span>
+    }
+}
+<span class="hljs-comment">// &#x9759;&#x7684;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306E;&#x547C;&#x3073;&#x51FA;&#x3057;</span>
+&#x30AF;&#x30E9;&#x30B9;.&#x30E1;&#x30BD;&#x30C3;&#x30C9;();
+</code></pre>
+<p>&#x6B21;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x306F;&#x3001;&#x914D;&#x5217;&#x3092;&#x30E9;&#x30C3;&#x30D7;&#x3059;&#x308B;<code>ArrayWrapper</code>&#x3068;&#x3044;&#x3046;&#x30AF;&#x30E9;&#x30B9;&#x3092;&#x5B9A;&#x7FA9;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;
+<code>ArrayWrapper</code>&#x306F;&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x306E;&#x5F15;&#x6570;&#x3068;&#x3057;&#x3066;&#x914D;&#x5217;&#x3092;&#x53D7;&#x3051;&#x53D6;&#x308A;&#x521D;&#x671F;&#x5316;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;
+&#x3053;&#x306E;&#x30AF;&#x30E9;&#x30B9;&#x306B;&#x914D;&#x5217;&#x3067;&#x306F;&#x306A;&#x304F;&#x8981;&#x7D20;&#x305D;&#x306E;&#x3082;&#x306E;&#x3092;&#x5F15;&#x6570;&#x306B;&#x53D7;&#x3051;&#x53D6;&#x308A;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x5316;&#x3067;&#x304D;&#x308B;<code>ArrayWrapper.of</code>&#x3068;&#x3044;&#x3046;&#x9759;&#x7684;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3092;&#x5B9A;&#x7FA9;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ArrayWrapper</span> </span>{
+    <span class="hljs-keyword">constructor</span>(array = []) {
+        <span class="hljs-keyword">this</span>.array = array;
+    }
+
+    <span class="hljs-comment">// rest parameters&#x3068;&#x3057;&#x3066;&#x8981;&#x7D20;&#x3092;&#x53D7;&#x3051;&#x4ED8;&#x3051;&#x308B;</span>
+    <span class="hljs-keyword">static</span> <span class="hljs-keyword">of</span>(...items) {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> ArrayWrapper(items);
+    }
+
+    get length() {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.array.length;
+    }
+}
+
+<span class="hljs-comment">// &#x914D;&#x5217;&#x3092;&#x5F15;&#x6570;&#x3068;&#x3057;&#x3066;&#x6E21;&#x3057;&#x3066;&#x3044;&#x308B;</span>
+<span class="hljs-keyword">const</span> arrayWrapperA = <span class="hljs-keyword">new</span> ArrayWrapper([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]);
+<span class="hljs-comment">// &#x8981;&#x7D20;&#x3092;&#x5F15;&#x6570;&#x3068;&#x3057;&#x3066;&#x6E21;&#x3057;&#x3066;&#x3044;&#x308B;</span>
+<span class="hljs-keyword">const</span> arrayWrapperB = ArrayWrapper.of(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>);
+<span class="hljs-built_in">console</span>.log(arrayWrapperA.length); <span class="hljs-comment">// =&gt; 3</span>
+<span class="hljs-built_in">console</span>.log(arrayWrapperA.length); <span class="hljs-comment">// =&gt; 3</span>
+</code></pre>
+<p>&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x9759;&#x7684;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306B;&#x304A;&#x3051;&#x308B;<code>this</code>&#x306F;&#x3001;&#x305D;&#x306E;&#x30AF;&#x30E9;&#x30B9;&#x81EA;&#x8EAB;&#x3092;&#x53C2;&#x7167;&#x3057;&#x307E;&#x3059;&#x3002;
+&#x305D;&#x306E;&#x305F;&#x3081;&#x3001;&#x5148;&#x307B;&#x3069;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x306F;<code>new ArrayWrapper</code>&#x306E;&#x4EE3;&#x308F;&#x308A;&#x306B;<code>new this</code>&#x3068;&#x66F8;&#x304F;&#x3053;&#x3068;&#x3082;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ArrayWrapper</span> </span>{
+    <span class="hljs-keyword">constructor</span>(array = []) {
+        <span class="hljs-keyword">this</span>.array = array;
+    }
+
+    <span class="hljs-keyword">static</span> <span class="hljs-keyword">of</span>(...items) {
+        <span class="hljs-comment">// `this`&#x306F;`ArrayWrapper`&#x3092;&#x53C2;&#x7167;&#x3059;&#x308B;</span>
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-keyword">this</span>(items);
+    }
+
+    get length() {
+        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.array.length;
+    }
+}
+
+<span class="hljs-keyword">const</span> arrayWrapper = ArrayWrapper.of(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>);
+<span class="hljs-built_in">console</span>.log(arrayWrapper.length); <span class="hljs-comment">// =&gt; 3</span>
+</code></pre>
+<p>&#x3053;&#x306E;&#x3088;&#x3046;&#x306B;&#x9759;&#x7684;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3067;&#x306E;<code>this</code>&#x306F;&#x30AF;&#x30E9;&#x30B9;&#x81EA;&#x8EAB;&#x3092;&#x53C2;&#x7167;&#x3059;&#x308B;&#x305F;&#x3081;&#x3001;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306E;&#x3088;&#x3046;&#x306B;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x3092;&#x53C2;&#x7167;&#x3059;&#x308B;&#x3053;&#x3068;&#x306F;&#x3067;&#x304D;&#x307E;&#x305B;&#x3093;&#x3002;
+&#x305D;&#x306E;&#x305F;&#x3081;&#x9759;&#x7684;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306F;&#x3001;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x3092;&#x4F5C;&#x6210;&#x3059;&#x308B;&#x51E6;&#x7406;&#x3084;&#x30AF;&#x30E9;&#x30B9;&#x306B;&#x95A2;&#x4FC2;&#x3059;&#x308B;&#x51E6;&#x7406;&#x3092;&#x66F8;&#x304F;&#x305F;&#x3081;&#x306B;&#x5229;&#x7528;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;</p>
+<h2 id="two-instance-method-definition"><a name="two-instance-method-definition" class="plugin-anchor" href="#two-instance-method-definition"><i class="fa fa-link" aria-hidden="true"></i></a>2&#x7A2E;&#x985E;&#x306E;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306E;&#x5B9A;&#x7FA9; </h2>
+<p>&#x30AF;&#x30E9;&#x30B9;&#x3067;&#x306F;&#x3001;2&#x7A2E;&#x985E;&#x306E;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306E;&#x5B9A;&#x7FA9;&#x65B9;&#x6CD5;&#x304C;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;
+<code>class</code>&#x69CB;&#x6587;&#x3092;&#x4F7F;&#x3063;&#x305F;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x9593;&#x3067;&#x5171;&#x6709;&#x3055;&#x308C;&#x308B;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306E;&#x5B9A;&#x7FA9;&#x3068;&#x3001;
+&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306B;&#x5BFE;&#x3059;&#x308B;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306E;&#x5B9A;&#x7FA9;&#x3067;&#x3059;&#x3002;</p>
+<p>&#x3053;&#x308C;&#x3089;&#x306E;2&#x3064;&#x306E;&#x65B9;&#x6CD5;&#x3092;&#x540C;&#x6642;&#x306B;&#x4F7F;&#x3044;&#x3001;1&#x3064;&#x306E;&#x30AF;&#x30E9;&#x30B9;&#x306B;&#x540C;&#x3058;&#x540D;&#x524D;&#x3067;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3092;&#x5B9A;&#x7FA9;&#x3057;&#x305F;&#x5834;&#x5408;&#x306F;&#x3069;&#x3046;&#x306A;&#x308B;&#x3067;&#x3057;&#x3087;&#x3046;&#x304B;&#xFF1F;
+&#x6B21;&#x306E;<code>ConflictClass</code>&#x3067;&#x306F;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3068;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x306B;&#x5BFE;&#x3057;&#x3066;&#x540C;&#x3058;<code>method</code>&#x3068;&#x3044;&#x3046;&#x540D;&#x524D;&#x306E;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3092;&#x5B9A;&#x7FA9;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ConflictClass</span> </span>{
+    <span class="hljs-keyword">constructor</span>() {
+        <span class="hljs-comment">// &#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306B;`method`&#x3092;&#x5B9A;&#x7FA9;</span>
+        <span class="hljs-keyword">this</span>.method = () =&gt; {
+            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&quot;</span>);
+        };
+    }
+
+    <span class="hljs-comment">// &#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3068;&#x3057;&#x3066;`method`&#x3092;&#x5B9A;&#x7FA9;</span>
+    method() {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x306E;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&quot;</span>);
+    }
+}
+
+<span class="hljs-keyword">const</span> conflict = <span class="hljs-keyword">new</span> ConflictClass();
+conflict.method(); <span class="hljs-comment">// &#x3069;&#x3061;&#x3089;&#x306E;`method`&#x304C;&#x547C;&#x3073;&#x51FA;&#x3055;&#x308C;&#x308B;&#xFF1F;</span>
+</code></pre>
+<p>&#x7D50;&#x8AD6;&#x304B;&#x3089;&#x8FF0;&#x3079;&#x308B;&#x3068;&#x3053;&#x306E;&#x5834;&#x5408;&#x306F;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306B;&#x5B9A;&#x7FA9;&#x3057;&#x305F;<code>method</code>&#x304C;&#x547C;&#x3073;&#x51FA;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;
+&#x3053;&#x306E;&#x3068;&#x304D;&#x3001;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x306E;<code>method</code>&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x3092;<code>delete</code>&#x6F14;&#x7B97;&#x5B50;&#x3067;&#x524A;&#x9664;&#x3059;&#x308B;&#x3068;&#x3001;&#x4ECA;&#x5EA6;&#x306F;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306E;<code>method</code>&#x304C;&#x547C;&#x3073;&#x51FA;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">ConflictClass</span> </span>{
+    <span class="hljs-keyword">constructor</span>() {
+        <span class="hljs-keyword">this</span>.method = () =&gt; {
+            <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&quot;</span>);
+        };
+    }
+
+    method() {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&quot;</span>);
+    }
+}
+
+<span class="hljs-keyword">const</span> conflict = <span class="hljs-keyword">new</span> ConflictClass();
+conflict.method(); <span class="hljs-comment">// &quot;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&quot;</span>
+<span class="hljs-comment">// &#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x306E;`method`&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x3092;&#x524A;&#x9664;</span>
+<span class="hljs-keyword">delete</span> conflict.method;
+conflict.method(); <span class="hljs-comment">// &quot;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x306E;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&quot;</span>
+</code></pre>
+<p>&#x3053;&#x306E;&#x5B9F;&#x884C;&#x7D50;&#x679C;&#x304B;&#x3089;&#x6B21;&#x306E;&#x3053;&#x3068;&#x304C;&#x5206;&#x304B;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<ul>
+<li>&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3068;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306F;&#x4E0A;&#x66F8;&#x304D;&#x3055;&#x308C;&#x305A;&#x306B;&#x3069;&#x3061;&#x3089;&#x3082;&#x5B9A;&#x7FA9;&#x3055;&#x308C;&#x3066;&#x3044;&#x308B;</li>
+<li>&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x304C;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x306E;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3088;&#x308A;&#x3082;&#x512A;&#x5148;&#x3057;&#x3066;&#x547C;&#x3070;&#x308C;&#x3066;&#x3044;&#x308B;</li>
+</ul>
+<p>&#x3069;&#x3061;&#x3089;&#x3082;&#x6CE8;&#x610F;&#x6DF1;&#x304F;&#x610F;&#x8B58;&#x3057;&#x306A;&#x3044;&#x3068;&#x6C17;&#x3065;&#x304D;&#x306B;&#x304F;&#x3044;&#x3067;&#x3059;&#x304C;&#x3001;&#x3053;&#x306E;&#x6319;&#x52D5;&#x306F;JavaScript&#x306E;&#x91CD;&#x8981;&#x306A;&#x4ED5;&#x7D44;&#x307F;&#x3067;&#x3042;&#x308B;&#x305F;&#x3081;&#x7406;&#x89E3;&#x3059;&#x308B;&#x3053;&#x3068;&#x306F;&#x91CD;&#x8981;&#x3067;&#x3059;&#x3002;</p>
+<p>&#x3053;&#x306E;&#x6319;&#x52D5;&#x306F;<strong>&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;</strong>&#x3068;&#x547C;&#x3070;&#x308C;&#x308B;&#x7279;&#x6B8A;&#x306A;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x3068;<strong>&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30C1;&#x30A7;&#x30FC;&#x30F3;</strong>&#x3068;&#x547C;&#x3070;&#x308C;&#x308B;&#x4ED5;&#x7D44;&#x307F;&#x3067;&#x6210;&#x308A;&#x7ACB;&#x3063;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;
+&#x3069;&#x3061;&#x3089;&#x3082;<strong>&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;</strong>&#x3068;&#x3064;&#x3044;&#x3066;&#x3044;&#x308B;&#x3053;&#x3068;&#x304B;&#x3089;&#x3082;&#x5206;&#x304B;&#x308B;&#x3088;&#x3046;&#x306B;&#x3001;2&#x3064;&#x3067;1&#x7D44;&#x306E;&#x3088;&#x3046;&#x306A;&#x4ED5;&#x7D44;&#x307F;&#x3067;&#x3059;&#x3002;</p>
+<p>&#x3053;&#x306E;&#x30BB;&#x30AF;&#x30B7;&#x30E7;&#x30F3;&#x3067;&#x306F;&#x3001;<strong>&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;</strong>&#x3068;<strong>&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30C1;&#x30A7;&#x30FC;&#x30F3;</strong>&#x3068;&#x306F;&#x3069;&#x306E;&#x3088;&#x3046;&#x306A;&#x4ED5;&#x7D44;&#x307F;&#x306A;&#x306E;&#x304B;&#x3092;&#x898B;&#x3066;&#x3044;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<h2 id="prototype"><a name="prototype" class="plugin-anchor" href="#prototype"><i class="fa fa-link" aria-hidden="true"></i></a>&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8; </h2>
+<p><strong>&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30E1;&#x30BD;&#x30C3;&#x30C9;</strong>&#x3068;<strong>&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;&#x30E1;&#x30BD;&#x30C3;&#x30C9;</strong>&#x3092;&#x540C;&#x6642;&#x306B;&#x5B9A;&#x7FA9;&#x3057;&#x3066;&#x3082;&#x3001;&#x4E92;&#x3044;&#x306E;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306F;&#x4E0A;&#x66F8;&#x304D;&#x3055;&#x308C;&#x308B;&#x308F;&#x3051;&#x3067;&#x3042;&#x308A;&#x307E;&#x305B;&#x3093;&#x3002;
+&#x3053;&#x308C;&#x306F;&#x3001;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306F;<strong>&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;</strong>&#x3078;&#x3001;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306F;<strong>&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;</strong>&#x3078;&#x305D;&#x308C;&#x305E;&#x308C;&#x5B9A;&#x7FA9;&#x3055;&#x308C;&#x308B;&#x305F;&#x3081;&#x3067;&#x3059;&#x3002;</p>
+<p><strong>&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;</strong>&#x3068;&#x306F;&#x3001;JavaScript&#x306E;&#x95A2;&#x6570;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;<code>prototype</code>&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x306B;&#x81EA;&#x52D5;&#x7684;&#x306B;&#x4F5C;&#x6210;&#x3055;&#x308C;&#x308B;&#x7279;&#x6B8A;&#x306A;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x3067;&#x3059;&#x3002;
+&#x30AF;&#x30E9;&#x30B9;&#x3082;&#x4E00;&#x7A2E;&#x306E;&#x95A2;&#x6570;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x3067;&#x3042;&#x308B;&#x305F;&#x3081;&#x3001;&#x81EA;&#x52D5;&#x7684;&#x306B;<code>prototype</code>&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x306B;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x304C;&#x4F5C;&#x6210;&#x3055;&#x308C;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x6B21;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x306F;&#x95A2;&#x6570;&#x3084;&#x30AF;&#x30E9;&#x30B9;&#x81EA;&#x8EAB;&#x306E;<code>prototype</code>&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x306B;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x304C;&#x81EA;&#x52D5;&#x7684;&#x306B;&#x4F5C;&#x6210;&#x3055;&#x308C;&#x3066;&#x3044;&#x308B;&#x3053;&#x3068;&#x304C;&#x5206;&#x304B;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">fn</span>(<span class="hljs-params"></span>) </span>{
+}
+<span class="hljs-comment">// `prototype`&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x306B;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x304C;&#x5B58;&#x5728;&#x3059;&#x308B;</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">typeof</span> fn.prototype === <span class="hljs-string">&quot;object&quot;</span>); <span class="hljs-comment">// =&gt; true</span>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{
+}
+<span class="hljs-comment">// `prototype`&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x306B;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x304C;&#x5B58;&#x5728;&#x3059;&#x308B;</span>
+<span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">typeof</span> MyClass.prototype === <span class="hljs-string">&quot;object&quot;</span>); <span class="hljs-comment">// =&gt; true</span>
+</code></pre>
+<p><code>class</code>&#x69CB;&#x6587;&#x306E;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x5B9A;&#x7FA9;&#x306F;&#x3001;&#x3053;&#x306E;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x3068;&#x3057;&#x3066;&#x5B9A;&#x7FA9;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;
+&#x6B21;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x306F;&#x3001;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x304C;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306B;&#x5B9A;&#x7FA9;&#x3055;&#x308C;&#x3066;&#x3044;&#x308B;&#x3053;&#x3068;&#x3092;&#x78BA;&#x8A8D;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;
+&#x307E;&#x305F;&#x3001;&#x30AF;&#x30E9;&#x30B9;&#x306B;&#x306F;<code>constructor</code>&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#xFF08;&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#xFF09;&#x304C;&#x5FC5;&#x305A;&#x5B9A;&#x7FA9;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;
+&#x3053;&#x306E;<code>constructor</code>&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x306F;&#x30AF;&#x30E9;&#x30B9;&#x81EA;&#x8EAB;&#x3092;&#x53C2;&#x7167;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{
+    method() { }
+}
+
+<span class="hljs-built_in">console</span>.log(<span class="hljs-keyword">typeof</span> MyClass.prototype.method === <span class="hljs-string">&quot;function&quot;</span>); <span class="hljs-comment">// =&gt; true</span>
+<span class="hljs-built_in">console</span>.log(MyClass.prototype.constructor === MyClass); <span class="hljs-comment">// =&gt; true</span>
+</code></pre>
+<p>&#x3053;&#x306E;&#x3088;&#x3046;&#x306B;&#x3001;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3068;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306F;&#x305D;&#x308C;&#x305E;&#x308C;&#x7570;&#x306A;&#x308B;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306B;&#x5B9A;&#x7FA9;&#x3055;&#x308C;&#x3066;&#x3044;&#x308B;&#x3053;&#x3068;&#x304C;&#x5206;&#x304B;&#x308A;&#x307E;&#x3059;&#x3002;
+&#x305D;&#x306E;&#x305F;&#x3081;&#x3001;&#xFF12;&#x3064;&#x306E;&#x65B9;&#x6CD5;&#x3067;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3092;&#x5B9A;&#x7FA9;&#x3057;&#x3066;&#x3082;&#x4E0A;&#x66F8;&#x304D;&#x3055;&#x308C;&#x305A;&#x306B;&#x305D;&#x308C;&#x305E;&#x308C;&#x5B9A;&#x7FA9;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;</p>
+<h2 id="prototype-chain"><a name="prototype-chain" class="plugin-anchor" href="#prototype-chain"><i class="fa fa-link" aria-hidden="true"></i></a>&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30C1;&#x30A7;&#x30FC;&#x30F3; </h2>
+<p><code>class</code>&#x69CB;&#x6587;&#x3067;&#x5B9A;&#x7FA9;&#x3057;&#x305F;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306F;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306B;&#x5B9A;&#x7FA9;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;
+&#x3057;&#x304B;&#x3057;&#x3001;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#xFF08;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#xFF09;&#x306B;&#x306F;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x304C;&#x5B9A;&#x7FA9;&#x3055;&#x308C;&#x3066;&#x3044;&#x306A;&#x3044;&#x306E;&#x306B;&#x3001;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x304B;&#x3089;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3092;&#x547C;&#x3073;&#x51FA;&#x3059;&#x3053;&#x3068;&#x304C;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{
+    method() {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x306E;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&quot;</span>);
+    }
+}
+<span class="hljs-keyword">const</span> instance = <span class="hljs-keyword">new</span> MyClass();
+instance.method(); <span class="hljs-comment">// &quot;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x306E;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&quot;</span>
+</code></pre>
+<p>&#x3053;&#x306E;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x304B;&#x3089;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3092;&#x547C;&#x3073;&#x51FA;&#x305B;&#x308B;&#x306E;&#x306F;<strong>&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30C1;&#x30A7;&#x30FC;&#x30F3;</strong>&#x3068;&#x547C;&#x3070;&#x308C;&#x308B;&#x4ED5;&#x7D44;&#x307F;&#x306B;&#x3088;&#x308B;&#x3082;&#x306E;&#x3067;&#x3059;&#x3002;
+&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30C1;&#x30A7;&#x30FC;&#x30F3;&#x306F;2&#x3064;&#x306E;&#x51E6;&#x7406;&#x304B;&#x3089;&#x6210;&#x308A;&#x7ACB;&#x3061;&#x307E;&#x3059;&#x3002;</p>
+<ul>
+<li>&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x3092;&#x4F5C;&#x6210;&#x6642;&#x306B;&#x3001;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x306E;<code>[[Prototype]]</code>&#x5185;&#x90E8;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x3078;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;&#x53C2;&#x7167;&#x3092;&#x4FDD;&#x5B58;&#x3059;&#x308B;&#x51E6;&#x7406;</li>
+<li>&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x304B;&#x3089;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#xFF08;&#x307E;&#x305F;&#x306F;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#xFF09;&#x3092;&#x53C2;&#x7167;&#x3059;&#x308B;&#x6642;&#x306B;&#x3001;<code>[[Prototype]]</code>&#x5185;&#x90E8;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x307E;&#x3067;&#x63A2;&#x7D22;&#x3059;&#x308B;&#x51E6;&#x7406;</li>
+</ul>
+<h3 id="write-prototype-chain"><a name="write-prototype-chain" class="plugin-anchor" href="#write-prototype-chain"><i class="fa fa-link" aria-hidden="true"></i></a>&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x4F5C;&#x6210;&#x3068;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30C1;&#x30A7;&#x30FC;&#x30F3; </h3>
+<p>&#x30AF;&#x30E9;&#x30B9;&#x304B;&#x3089;<code>new</code>&#x6F14;&#x7B97;&#x5B50;&#x306B;&#x3088;&#x3063;&#x3066;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x3092;&#x4F5C;&#x6210;&#x3059;&#x308B;&#x969B;&#x306B;&#x3001;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x306B;&#x306F;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;&#x53C2;&#x7167;&#x304C;&#x4FDD;&#x5B58;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;
+&#x3053;&#x306E;&#x3068;&#x304D;&#x3001;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x304B;&#x3089;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x3078;&#x306E;&#x53C2;&#x7167;&#x306F;&#x3001;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;<code>[[Prototype]]</code>&#x3068;&#x3044;&#x3046;&#x5185;&#x90E8;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x306B;&#x4FDD;&#x5B58;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;</p>
+<p><code>[[Prototype]]</code>&#x5185;&#x90E8;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x306F;&#x4ED5;&#x69D8;&#x4E0A;&#x5B9A;&#x3081;&#x3089;&#x308C;&#x305F;&#x5185;&#x90E8;&#x7684;&#x306A;&#x8868;&#x73FE;&#x3067;&#x3042;&#x308B;&#x305F;&#x3081;&#x3001;&#x901A;&#x5E38;&#x306E;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x306E;&#x3088;&#x3046;&#x306B;&#x306F;&#x30A2;&#x30AF;&#x30BB;&#x30B9;&#x3067;&#x304D;&#x307E;&#x305B;&#x3093;&#x3002;
+&#x3057;&#x304B;&#x3057;&#x3001;<code>Object.getPrototypeOf(object)</code>&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3067;<code>object</code>&#x306E;<code>[[Prototype]]</code>&#x5185;&#x90E8;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x3092;&#x8AAD;&#x307F;&#x53D6;&#x308C;&#x307E;&#x3059;&#x3002;
+&#x6B21;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x306F;&#x3001;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x306E;<code>[[Prototype]]</code>&#x5185;&#x90E8;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x304C;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x3092;&#x53C2;&#x7167;&#x3057;&#x3066;&#x3044;&#x308B;&#x3053;&#x3068;&#x3092;&#x78BA;&#x8A8D;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{
+    method() {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x306E;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&quot;</span>);
+    }
+}
+<span class="hljs-keyword">const</span> instance = <span class="hljs-keyword">new</span> MyClass();
+<span class="hljs-comment">// instance&#x306E;`[[Prototype]]`&#x5185;&#x90E8;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x306F;`MyClass.prototype`&#x3068;&#x4E00;&#x81F4;&#x3059;&#x308B;</span>
+<span class="hljs-keyword">const</span> Prototype = <span class="hljs-built_in">Object</span>.getPrototypeOf(instance);
+<span class="hljs-built_in">console</span>.log(Prototype === MyClass.prototype); <span class="hljs-comment">// =&gt; true</span>
+</code></pre>
+<p>&#x3053;&#x3053;&#x3067;&#x91CD;&#x8981;&#x306A;&#x306E;&#x306F;&#x3001;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x306F;&#x3069;&#x306E;&#x30AF;&#x30E9;&#x30B9;&#x304B;&#x3089;&#x4F5C;&#x3089;&#x308C;&#x305F;&#x304B;&#x3084;&#x305D;&#x306E;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x3092;&#x77E5;&#x3063;&#x3066;&#x3044;&#x308B;&#x3068;&#x3044;&#x3046;&#x3053;&#x3068;&#x3067;&#x3059;&#x3002;</p>
+<hr>
+<h4 id="inner-property"><a name="inner-property" class="plugin-anchor" href="#inner-property"><i class="fa fa-link" aria-hidden="true"></i></a>Note: <code>[[Prototype]]</code>&#x5185;&#x90E8;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x3092;&#x8AAD;&#x307F;&#x66F8;&#x304D;&#x3059;&#x308B; </h4>
+<p><code>Object.getPrototypeOf(object)</code>&#x3067;<code>object</code>&#x306E;<code>[[Prototype]]</code>&#x3092;&#x8AAD;&#x307F;&#x53D6;&#x308B;&#x3053;&#x3068;&#x304C;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;
+&#x4E00;&#x65B9;&#x3001;<code>Object.setPrototypeOf(object, prototype)</code>&#x3067;<code>object</code>&#x306E;<code>[[Prototype]]</code>&#x306B;<code>prototype</code>&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x3092;&#x66F8;&#x304D;&#x8FBC;&#x3081;&#x307E;&#x3059;&#x3002;
+&#x307E;&#x305F;&#x3001;<code>[[Prototype]]</code>&#x5185;&#x90E8;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x3092;&#x901A;&#x5E38;&#x306E;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x306E;&#x3088;&#x3046;&#x306B;&#x6271;&#x3048;&#x308B;<code>__proto__</code>&#x3068;&#x3044;&#x3046;&#x7279;&#x6B8A;&#x306A;&#x30A2;&#x30AF;&#x30BB;&#x30C3;&#x30B5;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x304C;&#x5B58;&#x5728;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x3057;&#x304B;&#x3057;&#x3001;&#x3053;&#x308C;&#x3089;&#x306E;<code>[[Prototype]]</code>&#x5185;&#x90E8;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x3092;&#x76F4;&#x63A5;&#x8AAD;&#x307F;&#x66F8;&#x304D;&#x3059;&#x308B;&#x3053;&#x3068;&#x306F;&#x901A;&#x5E38;&#x306E;&#x7528;&#x9014;&#x3067;&#x306F;&#x884C;&#x3044;&#x307E;&#x305B;&#x3093;&#x3002;
+&#x307E;&#x305F;&#x3001;&#x65E2;&#x5B58;&#x306E;&#x30D3;&#x30EB;&#x30C8;&#x30A4;&#x30F3;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;&#x52D5;&#x4F5C;&#x306A;&#x3069;&#x3082;&#x5909;&#x66F4;&#x3067;&#x304D;&#x308B;&#x305F;&#x3081;&#x3001;&#x4E0D;&#x7528;&#x610F;&#x306B;&#x6271;&#x3046;&#x3079;&#x304D;&#x3067;&#x306F;&#x306A;&#x3044;&#x3067;&#x3057;&#x3087;&#x3046;&#x3002;</p>
+<hr>
+<h3 id="read-prototype-chain"><a name="read-prototype-chain" class="plugin-anchor" href="#read-prototype-chain"><i class="fa fa-link" aria-hidden="true"></i></a>&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x3092;&#x53C2;&#x7167;&#x3068;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30C1;&#x30A7;&#x30FC;&#x30F3; </h3>
+<p>&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x3092;&#x53C2;&#x7167;&#x3059;&#x308B;&#x3068;&#x304D;&#x306B;&#x3001;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x81EA;&#x8EAB;&#x304C;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x3092;&#x6301;&#x3063;&#x3066;&#x3044;&#x306A;&#x3044;&#x5834;&#x5408;&#x3067;&#x3082;&#x305D;&#x3053;&#x3067;&#x63A2;&#x7D22;&#x304C;&#x7D42;&#x308F;&#x308B;&#x308F;&#x3051;&#x3067;&#x306F;&#x3042;&#x308A;&#x307E;&#x305B;&#x3093;&#x3002;
+&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;<code>[[Prototype]]</code>&#x5185;&#x90E8;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x306E;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306B;&#x5BFE;&#x3057;&#x3066;&#x3082;&#x63A2;&#x7D22;&#x3092;&#x7D9A;&#x3051;&#x307E;&#x3059;&#x3002;
+&#x3053;&#x308C;&#x306F;&#x3001;&#x30B9;&#x30B3;&#x30FC;&#x30D7;&#x306B;&#x6307;&#x5B9A;&#x3057;&#x305F;&#x8B58;&#x5225;&#x5B50;&#x306E;&#x5909;&#x6570;&#x304C;&#x306A;&#x304B;&#x3063;&#x305F;&#x5834;&#x5408;&#x306B;&#x5916;&#x5074;&#x306E;&#x30B9;&#x30B3;&#x30FC;&#x30D7;&#x3078;&#x3068;&#x63A2;&#x7D22;&#x3059;&#x308B;&#x30B9;&#x30B3;&#x30FC;&#x30D7;&#x30C1;&#x30A7;&#x30FC;&#x30F3;&#x3068;&#x826F;&#x304F;&#x4F3C;&#x305F;&#x4ED5;&#x7D44;&#x307F;&#x3067;&#x3059;&#x3002;</p>
+<p>&#x3064;&#x307E;&#x308A;&#x3001;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x304C;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x3092;&#x63A2;&#x7D22;&#x3059;&#x308B;&#x3068;&#x304D;&#x306F;&#x6B21;&#x306E;&#x3088;&#x3046;&#x306A;&#x9806;&#x756A;&#x3067;&#x3001;&#x305D;&#x308C;&#x305E;&#x308C;&#x306E;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x3092;&#x8ABF;&#x3079;&#x307E;&#x3059;&#x3002;
+&#x3059;&#x3079;&#x3066;&#x306E;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306B;&#x304A;&#x3044;&#x3066;&#x898B;&#x3064;&#x304B;&#x3089;&#x306A;&#x304B;&#x3063;&#x305F;&#x5834;&#x5408;&#x306E;&#x7D50;&#x679C;&#x306F;<code>undefined</code>&#x3092;&#x8FD4;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<ol>
+<li><code>instance</code>&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x81EA;&#x8EAB;</li>
+<li><code>instance</code>&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;<code>[[Prototype]]</code>&#x306E;&#x53C2;&#x7167;&#x5148;&#xFF08;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#xFF09;</li>
+</ol>
+<p>&#x6B21;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x306F;&#x3001;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x81EA;&#x8EAB;&#x306F;<code>method</code>&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x3092;&#x6301;&#x3063;&#x3066;&#x3044;&#x307E;&#x305B;&#x3093;&#x3002;
+&#x305D;&#x306E;&#x305F;&#x3081;&#x3001;&#x5B9F;&#x969B;&#x53C2;&#x7167;&#x3057;&#x3066;&#x308B;&#x306E;&#x306F;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;<code>method</code>&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x3067;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{
+    method() {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x306E;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&quot;</span>);
+    }
+}
+<span class="hljs-keyword">const</span> instance = <span class="hljs-keyword">new</span> MyClass();
+<span class="hljs-comment">// &#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x306B;&#x306F;`method`&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x304C;&#x306A;&#x3044;&#x305F;&#x3081;&#x3001;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;`method`&#x304C;&#x53C2;&#x7167;&#x3055;&#x308C;&#x308B;</span>
+instance.method(); <span class="hljs-comment">// &quot;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x306E;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&quot;</span>
+<span class="hljs-comment">// `instance.method`&#x306E;&#x53C2;&#x7167;&#x306F;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;`method`&#x3068;&#x4E00;&#x81F4;&#x3059;&#x308B;</span>
+<span class="hljs-keyword">const</span> Prototype = <span class="hljs-built_in">Object</span>.getPrototypeOf(instance);
+<span class="hljs-built_in">console</span>.log(instance.method === Prototype.method); <span class="hljs-comment">// =&gt; true</span>
+</code></pre>
+<p>&#x3053;&#x306E;&#x3088;&#x3046;&#x306B;&#x3001;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#xFF08;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#xFF09;&#x306B;<code>method</code>&#x304C;&#x5B9A;&#x7FA9;&#x3055;&#x308C;&#x3066;&#x3044;&#x306A;&#x304F;&#x3066;&#x3082;&#x3001;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;<code>method</code>&#x3092;&#x547C;&#x3073;&#x51FA;&#x3059;&#x3053;&#x3068;&#x304C;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;
+&#x3053;&#x306E;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x3092;&#x53C2;&#x7167;&#x3059;&#x308B;&#x969B;&#x306B;&#x3001;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x81EA;&#x8EAB;&#x304B;&#x3089;<code>[[Prototype]]</code>&#x5185;&#x90E8;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x3078;&#x3068;&#x9806;&#x756A;&#x306B;&#x63A2;&#x3059;&#x4ED5;&#x7D44;&#x307F;&#x306E;&#x3053;&#x3068;&#x3092;<strong>&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30C1;&#x30A7;&#x30FC;&#x30F3;</strong>&#x3068;&#x547C;&#x3073;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30C1;&#x30A7;&#x30FC;&#x30F3;&#x306E;&#x4ED5;&#x7D44;&#x307F;&#x3092;&#x64EC;&#x4F3C;&#x7684;&#x306A;&#x30B3;&#x30FC;&#x30C9;&#x3068;&#x3057;&#x3066;&#x8868;&#x73FE;&#x3059;&#x308B;&#x3068;&#x6B21;&#x306E;&#x3088;&#x3046;&#x306A;&#x52D5;&#x304D;&#x3092;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-comment">// &#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30C1;&#x30A7;&#x30FC;&#x30F3;&#x306E;&#x64EC;&#x4F3C;&#x7684;&#x306A;&#x52D5;&#x4F5C;&#x306E;&#x64EC;&#x4F3C;&#x7684;&#x306A;&#x30B3;&#x30FC;&#x30C9;</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyClass</span> </span>{
+    method() {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x306E;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&quot;</span>);
+    }
+}
+<span class="hljs-keyword">const</span> instance = <span class="hljs-keyword">new</span> MyClass();
+<span class="hljs-comment">// `instance.method()`&#x3092;&#x884C;&#x3046;&#x969B;&#x306B;&#x306F;&#x3001;&#x6B21;&#x306E;&#x3088;&#x3046;&#x306A;&#x547C;&#x3073;&#x51FA;&#x3057;&#x51E6;&#x7406;&#x304C;&#x884C;&#x308F;&#x308C;&#x3066;&#x3044;&#x308B;</span>
+<span class="hljs-comment">// &#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x81EA;&#x8EAB;&#x304C;`method`&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x3092;&#x6301;&#x3063;&#x3066;&#x3044;&#x308B;&#x5834;&#x5408;</span>
+<span class="hljs-keyword">if</span> (instance.hasOwnProperty(<span class="hljs-string">&quot;method&quot;</span>)) {
+    instance.method();
+} <span class="hljs-keyword">else</span> {
+    <span class="hljs-comment">// &#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x306E;`[[Prototype]]`&#x306E;&#x53C2;&#x7167;&#x5148;&#xFF08;`MyClass`&#x306E;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#xFF09;&#x3092;&#x53D6;&#x308A;&#x51FA;&#x3059;</span>
+    <span class="hljs-keyword">const</span> prototypeObject = <span class="hljs-built_in">Object</span>.getPrototypeOf(instance);
+    <span class="hljs-comment">// &#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x304C;`method`&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x3092;&#x6301;&#x3063;&#x3066;&#x3044;&#x308B;&#x5834;&#x5408;</span>
+    <span class="hljs-keyword">if</span> (prototypeObject.hasOwnProperty(<span class="hljs-string">&quot;method&quot;</span>)) {
+        <span class="hljs-comment">// `this`&#x306F;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x81EA;&#x8EAB;&#x3092;&#x6307;&#x5B9A;&#x3057;&#x3066;&#x547C;&#x3073;&#x51FA;&#x3059;</span>
+        prototypeObject.method.call(instance);
+    }
+}
+</code></pre>
+<p>&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30C1;&#x30A7;&#x30FC;&#x30F3;&#x306E;&#x4ED5;&#x7D44;&#x307F;&#x306B;&#x3088;&#x3063;&#x3066;&#x3001;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306B;&#x5B9A;&#x7FA9;&#x3057;&#x305F;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x304C;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x304B;&#x3089;&#x547C;&#x3073;&#x51FA;&#x3059;&#x3053;&#x3068;&#x304C;&#x3067;&#x304D;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x666E;&#x6BB5;&#x306F;&#x3001;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x3084;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30C1;&#x30A7;&#x30FC;&#x30F3;&#x3068;&#x3044;&#x3063;&#x305F;&#x4ED5;&#x7D44;&#x307F;&#x3092;&#x610F;&#x8B58;&#x3059;&#x308B;&#x5FC5;&#x8981;&#x306F;&#x3042;&#x308A;&#x307E;&#x305B;&#x3093;&#x3002;
+<code>class</code>&#x69CB;&#x6587;&#x306F;&#x3053;&#x306E;&#x3088;&#x3046;&#x306A;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x3092;&#x610F;&#x8B58;&#x305B;&#x305A;&#x306B;&#x30AF;&#x30E9;&#x30B9;&#x3092;&#x5229;&#x7528;&#x3067;&#x304D;&#x308B;&#x3088;&#x3046;&#x306B;&#x5C0E;&#x5165;&#x3055;&#x308C;&#x305F;&#x69CB;&#x6587;&#x3067;&#x3059;&#x3002;
+&#x3057;&#x304B;&#x3057;&#x3001;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30D9;&#x30FC;&#x30B9;&#x3067;&#x3042;&#x308B;&#x8A00;&#x8A9E;&#x306E;JavaScript&#x3067;&#x306F;&#x30AF;&#x30E9;&#x30B9;&#x3092;&#x3053;&#x306E;&#x3088;&#x3046;&#x306A;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x3092;&#x4F7F;&#x3044;&#x8868;&#x73FE;&#x3057;&#x3066;&#x3044;&#x308B;&#x3053;&#x3068;&#x306F;&#x77E5;&#x3063;&#x3066;&#x304A;&#x304F;&#x3068;&#x3088;&#x3044;&#x3067;&#x3057;&#x3087;&#x3046;&#x3002;</p>
+<!-- Note
+
+インスタンスオブジェクトのメソッドがプロトタイプのメソッドの呼び出しの仕組みについてを見ていきます。
+
+- プロトタイプチェーンという仕組み
+- インスタンス化されるときに自動的にインスタンスはプロトタイプオブジェクトを参照する（継承）
+- これは`[[Prototype]]`という内部プロパティに保存されますが、`__proto__`というアクセッサプロパティで参照できます
+- しかし、`class`構文を利用する場合にはこれを意識して触ることはありません
+
+-->
+<h2 id="extends"><a name="extends" class="plugin-anchor" href="#extends"><i class="fa fa-link" aria-hidden="true"></i></a>&#x7D99;&#x627F; </h2>
+<p><code>extends</code>&#x30AD;&#x30FC;&#x30EF;&#x30FC;&#x30C9;&#x3092;&#x4F7F;&#x3046;&#x3053;&#x3068;&#x3067;&#x65E2;&#x5B58;&#x306E;&#x30AF;&#x30E9;&#x30B9;&#x3092;&#x7D99;&#x627F;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;
+&#x3053;&#x3053;&#x3067;&#x306E;&#x7D99;&#x627F;&#x3068;&#x306F;&#x30AF;&#x30E9;&#x30B9;&#x306E;<strong>&#x69CB;&#x9020;</strong>&#x3084;<strong>&#x6A5F;&#x80FD;</strong>&#x3092;&#x5F15;&#x304D;&#x7D99;&#x3044;&#x3060;&#x65B0;&#x3057;&#x3044;&#x30AF;&#x30E9;&#x30B9;&#x3092;&#x5B9A;&#x7FA9;&#x3059;&#x308B;&#x3053;&#x3068;&#x3092;&#x8A00;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<h3 id="class-extends"><a name="class-extends" class="plugin-anchor" href="#class-extends"><i class="fa fa-link" aria-hidden="true"></i></a>&#x7D99;&#x627F;&#x3057;&#x305F;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x5B9A;&#x7FA9; </h3>
+<p><code>extends</code>&#x30AD;&#x30FC;&#x30EF;&#x30FC;&#x30C9;&#x3092;&#x4F7F;&#x3063;&#x3066;&#x65E2;&#x5B58;&#x306E;&#x30AF;&#x30E9;&#x30B9;&#x3092;&#x7D99;&#x627F;&#x3057;&#x305F;&#x65B0;&#x3057;&#x3044;&#x30AF;&#x30E9;&#x30B9;&#x3092;&#x5B9A;&#x7FA9;&#x3057;&#x3066;&#x307F;&#x307E;&#x3059;&#x3002;
+<code>class</code>&#x69CB;&#x6587;&#x306E;&#x53F3;&#x8FBA;&#x306B;<code>extends</code>&#x30AD;&#x30FC;&#x30EF;&#x30FC;&#x30C9;&#x3067;&#x7D99;&#x627F;&#x5143;&#x3068;&#x306A;&#x308B;<strong>&#x89AA;&#x30AF;&#x30E9;&#x30B9;</strong>&#xFF08;&#x57FA;&#x5E95;&#x30AF;&#x30E9;&#x30B9;&#xFF09;&#x3092;&#x6307;&#x5B9A;&#x3059;&#x308B;&#x3053;&#x3068;&#x3067;&#x3001;
+&#x89AA;&#x30AF;&#x30E9;&#x30B9;&#x3092;&#x7D99;&#x627F;&#x3057;&#x305F;<strong>&#x5B50;&#x30AF;&#x30E9;&#x30B9;</strong>&#xFF08;&#x6D3E;&#x751F;&#x30AF;&#x30E9;&#x30B9;&#xFF09;&#x3092;&#x5B9A;&#x7FA9;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<!-- doctest:disable -->
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> &#x5B50;&#x30AF;&#x30E9;&#x30B9; <span class="hljs-keyword">extends</span> &#x89AA;&#x30AF;&#x30E9;&#x30B9; </span>{
+
+}
+</code></pre>
+<p>&#x6B21;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x306F;&#x3001;<code>Parent</code>&#x30AF;&#x30E9;&#x30B9;&#x3092;&#x7D99;&#x627F;&#x3057;&#x305F;<code>Child</code>&#x30AF;&#x30E9;&#x30B9;&#x3092;&#x5B9A;&#x7FA9;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;
+&#x5B50;&#x30AF;&#x30E9;&#x30B9;&#x3067;&#x3042;&#x308B;<code>Child</code>&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x5316;&#x306F;&#x901A;&#x5E38;&#x306E;&#x30AF;&#x30E9;&#x30B9;&#x3068;&#x540C;&#x3058;&#x304F;<code>new</code>&#x6F14;&#x7B97;&#x5B50;&#x3092;&#x4F7F;&#x3063;&#x3066;&#x884C;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Parent</span> </span>{
+
+}
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Child</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Parent</span> </span>{
+
+}
+<span class="hljs-keyword">const</span> instance = <span class="hljs-keyword">new</span> Child();
+</code></pre>
+<h3 id="class-super"><a name="class-super" class="plugin-anchor" href="#class-super"><i class="fa fa-link" aria-hidden="true"></i></a><code>super</code> </h3>
+<p><code>extends</code>&#x3092;&#x4F7F;&#x3063;&#x3066;&#x5B9A;&#x7FA9;&#x3057;&#x305F;&#x5B50;&#x30AF;&#x30E9;&#x30B9;&#x304B;&#x3089;&#x89AA;&#x30AF;&#x30E9;&#x30B9;&#x3092;&#x53C2;&#x7167;&#x3059;&#x308B;&#x306B;&#x306F;<code>super</code>&#x3068;&#x3044;&#x3046;&#x30AD;&#x30FC;&#x30EF;&#x30FC;&#x30C9;&#x3092;&#x5229;&#x7528;&#x3057;&#x307E;&#x3059;&#x3002;
+&#x3082;&#x3063;&#x3068;&#x3082;&#x30B7;&#x30F3;&#x30D7;&#x30EB;&#x306A;<code>super</code>&#x3092;&#x4F7F;&#x3046;&#x4F8B;&#x3068;&#x3057;&#x3066;&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x306E;&#x51E6;&#x7406;&#x3092;&#x898B;&#x3066;&#x3044;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<p><code>class</code>&#x69CB;&#x6587;&#x3067;&#x3082;&#x7D39;&#x4ECB;&#x3057;&#x307E;&#x3057;&#x305F;&#x304C;&#x3001;&#x30AF;&#x30E9;&#x30B9;&#x306F;&#x5FC5;&#x305A;<code>constructor</code>&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#xFF08;&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#xFF09;&#x3092;&#x3082;&#x3061;&#x307E;&#x3059;&#x3002;
+&#x3053;&#x308C;&#x306F;&#x3001;&#x7D99;&#x627F;&#x3057;&#x305F;&#x5B50;&#x30AF;&#x30E9;&#x30B9;&#x3067;&#x3082;&#x540C;&#x3058;&#x3067;&#x3059;&#x3002;</p>
+<!-- textlint-disable no-js-function-paren -->
+<p>&#x6B21;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x306F;&#x3001;<code>Parent</code>&#x30AF;&#x30E9;&#x30B9;&#x3092;&#x7D99;&#x627F;&#x3057;&#x305F;<code>Child</code>&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x3067;&#x3001;<code>super()</code>&#x3092;&#x547C;&#x3073;&#x51FA;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;
+<code>super()</code>&#x306F;&#x5B50;&#x30AF;&#x30E9;&#x30B9;&#x304B;&#x3089;&#x89AA;&#x30AF;&#x30E9;&#x30B9;&#x306E;<code>constructor</code>&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3092;&#x547C;&#x3073;&#x51FA;&#x3057;&#x307E;&#x3059;&#x3002;&#xFF08;<code>super()</code>&#x306F;&#x5B50;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x4EE5;&#x5916;&#x3067;&#x306F;&#x66F8;&#x304F;&#x3053;&#x3068;&#x304C;&#x3067;&#x304D;&#x307E;&#x305B;&#x3093;&#xFF09;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-comment">// &#x89AA;&#x30AF;&#x30E9;&#x30B9;</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Parent</span> </span>{
+    <span class="hljs-keyword">constructor</span>(...args) {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;Parent&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x306E;&#x51E6;&#x7406;&quot;</span>, ...args);
+    }
+}
+<span class="hljs-comment">// Parent&#x3092;&#x7D99;&#x627F;&#x3057;&#x305F;Child&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x5B9A;&#x7FA9;</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Child</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Parent</span> </span>{
+    <span class="hljs-keyword">constructor</span>(...args) {
+        <span class="hljs-comment">// Parent&#x306E;&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x51E6;&#x7406;&#x3092;&#x547C;&#x3073;&#x3060;&#x3059;</span>
+        <span class="hljs-keyword">super</span>(...args);
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;Child&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x306E;&#x51E6;&#x7406;&quot;</span>, ...args);
+    }
+}
+<span class="hljs-keyword">const</span> child = <span class="hljs-keyword">new</span> Child(<span class="hljs-string">&quot;&#x5F15;&#x6570;1&quot;</span>, <span class="hljs-string">&quot;&#x5F15;&#x6570;2&quot;</span>);
+<span class="hljs-comment">// &quot;Parent&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x306E;&#x51E6;&#x7406;&quot;, &quot;&#x5F15;&#x6570;1&quot;, &quot;&#x5F15;&#x6570;2&quot;</span>
+<span class="hljs-comment">// &quot;Child&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x306E;&#x51E6;&#x7406;&quot;, &quot;&#x5F15;&#x6570;1&quot;, &quot;&#x5F15;&#x6570;2&quot;</span>
+</code></pre>
+<p><code>class</code>&#x69CB;&#x6587;&#x3067;&#x306E;&#x30AF;&#x30E9;&#x30B9;&#x5B9A;&#x7FA9;&#x3067;&#x306F;&#x3001;<code>constructor</code>&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#xFF08;&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#xFF09;&#x3067;&#x4F55;&#x3082;&#x51E6;&#x7406;&#x3092;&#x884C;&#x308F;&#x306A;&#x3044;&#x5834;&#x5408;&#x306F;&#x7701;&#x7565;&#x3067;&#x304D;&#x308B;&#x3053;&#x3068;&#x3092;&#x7D39;&#x4ECB;&#x3057;&#x307E;&#x3057;&#x305F;&#x3002;
+&#x3053;&#x308C;&#x306F;&#x3001;&#x7D99;&#x627F;&#x3057;&#x305F;&#x5B50;&#x30AF;&#x30E9;&#x30B9;&#x3067;&#x3082;&#x540C;&#x3058;&#x3067;&#x3059;&#x3002;</p>
+<p>&#x6B21;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x306F;&#x3001;<code>Child</code>&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x3067;&#x306F;&#x4F55;&#x3082;&#x51E6;&#x7406;&#x3092;&#x884C;&#x3063;&#x3066;&#x3044;&#x307E;&#x305B;&#x3093;&#x3002;
+&#x305D;&#x306E;&#x305F;&#x3081;&#x3001;<code>Child</code>&#x30AF;&#x30E9;&#x30B9;&#x306E;<code>constructor</code>&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306E;&#x5B9A;&#x7FA9;&#x3092;&#x7701;&#x7565;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Parent</span> </span>{}
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Child</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Parent</span> </span>{}
+</code></pre>
+<p>&#x3053;&#x306E;&#x3088;&#x3046;&#x306B;&#x5B50;&#x30AF;&#x30E9;&#x30B9;&#x3067;<code>constructor</code>&#x3092;&#x7701;&#x7565;&#x3057;&#x305F;&#x5834;&#x5408;&#x306F;&#x6B21;&#x306E;&#x3088;&#x3046;&#x306B;&#x66F8;&#x3044;&#x305F;&#x5834;&#x5408;&#x3068;&#x540C;&#x3058;&#x610F;&#x5473;&#x306B;&#x306A;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Parent</span> </span>{}
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Child</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Parent</span> </span>{
+    <span class="hljs-keyword">constructor</span>(...args) {
+        <span class="hljs-keyword">super</span>(...args); <span class="hljs-comment">// &#x89AA;&#x30AF;&#x30E9;&#x30B9;&#x306B;&#x5F15;&#x6570;&#x3092;&#x305D;&#x306E;&#x307E;&#x307E;&#x6E21;&#x3059;</span>
+    }
+}
+</code></pre>
+<h3 id="constructor-order"><a name="constructor-order" class="plugin-anchor" href="#constructor-order"><i class="fa fa-link" aria-hidden="true"></i></a>&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x306E;&#x51E6;&#x7406;&#x9806;&#x306F;&#x89AA;&#x30AF;&#x30E9;&#x30B9;&#x304B;&#x3089;&#x5B50;&#x30AF;&#x30E9;&#x30B9;&#x3078; </h3>
+<p>&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x306E;&#x51E6;&#x7406;&#x9806;&#x306F;&#x89AA;&#x30AF;&#x30E9;&#x30B9;&#x304B;&#x3089;&#x5B50;&#x30AF;&#x30E9;&#x30B9;&#x3078;&#x3068;&#x9806;&#x756A;&#x304C;&#x6C7A;&#x307E;&#x3063;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<p><code>class</code>&#x69CB;&#x6587;&#x3067;&#x306F;&#x304B;&#x306A;&#x3089;&#x305A;&#x89AA;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x51E6;&#x7406;&#xFF08;<code>super()</code>&#x3092;&#x547C;&#x3073;&#xFF09;&#x3092;&#x5148;&#x306B;&#x884C;&#x3044;&#x3001;&#x305D;&#x306E;&#x6B21;&#x306B;&#x5B50;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x51E6;&#x7406;&#x3092;&#x884C;&#x3044;&#x307E;&#x3059;&#x3002;
+&#x5B50;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x3067;&#x306F;&#x3001;<code>this</code>&#x3092;&#x89E6;&#x308B;&#x524D;&#x306B;<code>super()</code>&#x3067;&#x89AA;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x51E6;&#x7406;&#x3092;&#x547C;&#x3073;&#x51FA;&#x3055;&#x306A;&#x3044;&#x3068;<code>SyntaxError</code>&#x3068;&#x306A;&#x308B;&#x305F;&#x3081;&#x3067;&#x3059;&#x3002;</p>
+<p>&#x6B21;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x306F;&#x3001;<code>Parent</code>&#x3068;<code>Child</code>&#x3067;&#x305D;&#x308C;&#x305E;&#x308C;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#xFF08;<code>this</code>&#xFF09;&#x306E;<code>name</code>&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x306B;&#x5024;&#x3092;&#x66F8;&#x304D;&#x8FBC;&#x3093;&#x3067;&#x3044;&#x307E;&#x3059;&#x3002;
+&#x5B50;&#x30AF;&#x30E9;&#x30B9;&#x3067;&#x306F;&#x5148;&#x306B;<code>super()</code>&#x3092;&#x547C;&#x3073;&#x51FA;&#x3057;&#x3066;&#x304B;&#x3089;&#x3067;&#x306A;&#x3044;&#x3068;<code>this</code>&#x3092;&#x53C2;&#x7167;&#x3059;&#x308B;&#x3053;&#x3068;&#x306F;&#x3067;&#x304D;&#x307E;&#x305B;&#x3093;&#x3002;
+&#x305D;&#x306E;&#x305F;&#x3081;&#x3001;&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x306E;&#x51E6;&#x7406;&#x9806;&#x306F;<code>Parent</code>&#x304B;&#x3089;<code>Child</code>&#x3068;&#x3044;&#x3046;&#x9806;&#x756A;&#x306B;&#x9650;&#x5B9A;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;</p>
+<!-- textlint-enable no-js-function-paren -->
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Parent</span> </span>{
+    <span class="hljs-keyword">constructor</span>() {
+        <span class="hljs-keyword">this</span>.name = <span class="hljs-string">&quot;Parent&quot;</span>;
+    }
+}
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Child</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Parent</span> </span>{
+    <span class="hljs-keyword">constructor</span>() {
+        <span class="hljs-comment">// &#x5B50;&#x30AF;&#x30E9;&#x30B9;&#x3067;&#x306F;`super()`&#x3092;`this`&#x306B;&#x89E6;&#x308B;&#x524D;&#x306B;&#x547C;&#x3073;&#x51FA;&#x3055;&#x306A;&#x3051;&#x308C;&#x3070;&#x306A;&#x3089;&#x306A;&#x3044;</span>
+        <span class="hljs-keyword">super</span>();
+        <span class="hljs-comment">// &#x5B50;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x51E6;&#x7406;</span>
+        <span class="hljs-comment">// &#x89AA;&#x30AF;&#x30E9;&#x30B9;&#x3067;&#x66F8;&#x304D;&#x8FBC;&#x307E;&#x308C;&#x305F;`name`&#x306F;&#x4E0A;&#x66F8;&#x304D;&#x3055;&#x308C;&#x308B;</span>
+        <span class="hljs-keyword">this</span>.name = <span class="hljs-string">&quot;Child&quot;</span>;
+    }
+}
+<span class="hljs-keyword">const</span> parent = <span class="hljs-keyword">new</span> Parent();
+<span class="hljs-built_in">console</span>.log(parent.name); <span class="hljs-comment">// =&gt; &quot;Parent&quot;;</span>
+<span class="hljs-keyword">const</span> child = <span class="hljs-keyword">new</span> Child();
+<span class="hljs-built_in">console</span>.log(child.name); <span class="hljs-comment">// =&gt; &quot;Child&quot;;</span>
+</code></pre>
+<h3 id="prototype-inheritance"><a name="prototype-inheritance" class="plugin-anchor" href="#prototype-inheritance"><i class="fa fa-link" aria-hidden="true"></i></a>&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x7D99;&#x627F; </h3>
+<p>&#x6B21;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x306F;<code>extends</code>&#x30AD;&#x30FC;&#x30EF;&#x30FC;&#x30C9;&#x3092;&#x4F7F;&#x3044;<code>Parent</code>&#x30AF;&#x30E9;&#x30B9;&#x3092;&#x7D99;&#x627F;&#x3057;&#x305F;<code>Child</code>&#x30AF;&#x30E9;&#x30B9;&#x3092;&#x5B9A;&#x7FA9;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;
+<code>Parent</code>&#x30AF;&#x30E9;&#x30B9;&#x3067;&#x306F;<code>method</code>&#x3092;&#x5B9A;&#x7FA9;&#x3057;&#x3066;&#x3044;&#x308B;&#x305F;&#x3081;&#x3001;&#x3053;&#x308C;&#x3092;&#x7D99;&#x627F;&#x3057;&#x3066;&#x3044;&#x308B;<code>Child</code>&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x304B;&#x3089;&#x3082;&#x547C;&#x3073;&#x51FA;&#x305B;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Parent</span> </span>{
+    method() {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;Parent#method&quot;</span>);
+    }
+}
+<span class="hljs-comment">// `Parent`&#x3092;&#x7D99;&#x627F;&#x3057;&#x305F;`Child`&#x3092;&#x5B9A;&#x7FA9;</span>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Child</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Parent</span> </span>{
+    <span class="hljs-comment">// method&#x306E;&#x5B9A;&#x7FA9;&#x306F;&#x306A;&#x3044;</span>
+}
+<span class="hljs-comment">// `Child`&#x306E;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x306F;`Parent`&#x306E;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3092;&#x7D99;&#x627F;&#x3057;&#x3066;&#x3044;&#x308B;</span>
+<span class="hljs-keyword">const</span> instance = <span class="hljs-keyword">new</span> Child();
+instance.method(); <span class="hljs-comment">// &quot;Parent#method&quot;</span>
+</code></pre>
+<p>&#x3053;&#x306E;&#x3088;&#x3046;&#x306B;&#x3001;&#x5B50;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x304B;&#x3089;&#x89AA;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3082;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30C1;&#x30A7;&#x30FC;&#x30F3;&#x306E;&#x4ED5;&#x7D44;&#x307F;&#x306B;&#x3088;&#x3063;&#x3066;&#x547C;&#x3073;&#x3060;&#x305B;&#x307E;&#x3059;&#x3002;</p>
+<p><code>extends</code>&#x306B;&#x3088;&#x3063;&#x3066;&#x7D99;&#x627F;&#x3057;&#x305F;&#x5834;&#x5408;&#x3001;&#x5B50;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;<code>[[Prototype]]</code>&#x5185;&#x90E8;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x306B;&#x306F;&#x89AA;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x304C;&#x8A2D;&#x5B9A;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;
+&#x3053;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x306F;&#x3001;<code>Child.prototype</code>&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;<code>[[Prototype]]</code>&#x5185;&#x90E8;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x306B;&#x306F;<code>Parent.prototype</code>&#x304C;&#x8A2D;&#x5B9A;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x3053;&#x308C;&#x306B;&#x3088;&#x308A;&#x3001;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x3092;&#x53C2;&#x7167;&#x3059;&#x308B;&#x5834;&#x5408;&#x306B;&#x306F;&#x6B21;&#x306E;&#x3088;&#x3046;&#x306A;&#x9806;&#x756A;&#x3067;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x3092;&#x63A2;&#x7D22;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<ol>
+<li><code>instance</code>&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x81EA;&#x8EAB;</li>
+<li><code>Child.prototype</code>&#xFF08;<code>instance</code>&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;<code>[[Prototype]]</code>&#x306E;&#x53C2;&#x7167;&#x5148;&#xFF09;</li>
+<li><code>Parent.prototype</code>&#xFF08;<code>Child.prototype</code>&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;<code>[[Prototype]]</code>&#x306E;&#x53C2;&#x7167;&#x5148;&#xFF09;</li>
+</ol>
+<p>&#x3053;&#x306E;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30C1;&#x30A7;&#x30FC;&#x30F3;&#x306E;&#x4ED5;&#x7D44;&#x307F;&#x3088;&#x308A;&#x3001;<code>method</code>&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x306F;<code>Parent.prototype</code>&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306B;&#x5B9A;&#x7FA9;&#x3055;&#x308C;&#x305F;&#x3082;&#x306E;&#x3092;&#x53C2;&#x7167;&#x3057;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x3053;&#x306E;&#x3088;&#x3046;&#x306B;JavaScript&#x3067;&#x306F;<code>class</code>&#x69CB;&#x6587;&#x3068;<code>extends</code>&#x30AD;&#x30FC;&#x30EF;&#x30FC;&#x30C9;&#x3092;&#x4F7F;&#x3046;&#x3053;&#x3068;&#x3067;&#x30AF;&#x30E9;&#x30B9;&#x306E;<strong>&#x6A5F;&#x80FD;</strong>&#x3092;&#x7D99;&#x627F;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;
+<code>class</code>&#x69CB;&#x6587;&#x3067;&#x306F;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x3068;&#x53C2;&#x7167;&#x3059;&#x308B;&#x4ED5;&#x7D44;&#x307F;&#x306B;&#x3088;&#x3063;&#x3066;&#x7D99;&#x627F;&#x304C;&#x884C;&#x308F;&#x308C;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;
+&#x305D;&#x306E;&#x305F;&#x3081;&#x3001;&#x3053;&#x306E;&#x7D99;&#x627F;&#x306E;&#x4ED5;&#x7D44;&#x307F;&#x3092;<strong>&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x7D99;&#x627F;</strong>&#x3068;&#x547C;&#x3073;&#x307E;&#x3059;&#x3002;</p>
+<h3 id="static-inheritance"><a name="static-inheritance" class="plugin-anchor" href="#static-inheritance"><i class="fa fa-link" aria-hidden="true"></i></a>&#x9759;&#x7684;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306E;&#x7D99;&#x627F; </h3>
+<p>&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x306F;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x3068;&#x306E;&#x9593;&#x306B;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30C1;&#x30A7;&#x30FC;&#x30F3;&#x304C;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;
+&#x30AF;&#x30E9;&#x30B9;&#x81EA;&#x8EAB;&#xFF08;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#xFF09;&#x3082;&#x89AA;&#x30AF;&#x30E9;&#x30B9;&#x81EA;&#x8EAB;&#xFF08;&#x89AA;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#xFF09;&#x3068;&#x306E;&#x9593;&#x306B;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30C1;&#x30A7;&#x30FC;&#x30F3;&#x304C;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x3053;&#x308C;&#x306F;&#x7C21;&#x5358;&#x306B;&#x3044;&#x3048;&#x3070;&#x3001;&#x9759;&#x7684;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3082;&#x7D99;&#x627F;&#x3055;&#x308C;&#x308B;&#x3068;&#x3044;&#x3046;&#x3053;&#x3068;&#x3067;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Parent</span> </span>{
+    <span class="hljs-keyword">static</span> hello() {
+        <span class="hljs-keyword">return</span> <span class="hljs-string">&quot;Hello&quot;</span>;
+    }
+}
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Child</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Parent</span> </span>{}
+<span class="hljs-built_in">console</span>.log(Child.hello()); <span class="hljs-comment">// =&gt; &quot;Hello&quot;</span>
+</code></pre>
+<p><code>extends</code>&#x306B;&#x3088;&#x3063;&#x3066;&#x7D99;&#x627F;&#x3057;&#x305F;&#x5834;&#x5408;&#x3001;&#x5B50;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x306E;<code>[[Prototype]]</code>&#x5185;&#x90E8;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x306B;&#x306F;&#x89AA;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x304C;&#x8A2D;&#x5B9A;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;
+&#x3053;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x306F;&#x3001;<code>Child</code>&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x306E;<code>[[Prototype]]</code>&#x5185;&#x90E8;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x306B;<code>Parent</code>&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x304C;&#x8A2D;&#x5B9A;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x3064;&#x307E;&#x308A;&#x3001;&#x5148;&#x307B;&#x3069;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x306F;<code>Child.hello</code>&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x3092;&#x53C2;&#x7167;&#x3057;&#x305F;&#x5834;&#x5408;&#x306B;&#x306F;&#x6B21;&#x306E;&#x3088;&#x3046;&#x306A;&#x9806;&#x756A;&#x3067;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x3092;&#x63A2;&#x7D22;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<ol>
+<li><code>Child</code>&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;</li>
+<li><code>Parent</code>&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#xFF08;<code>Child</code>&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x306E;<code>[[Prototype]]</code>&#x306E;&#x53C2;&#x7167;&#x5148;&#xFF09;</li>
+</ol>
+<p>&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x540C;&#x58EB;&#x306B;&#x3082;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30C1;&#x30A7;&#x30FC;&#x30F3;&#x306E;&#x4ED5;&#x7D44;&#x307F;&#x304C;&#x3042;&#x308B;&#x305F;&#x3081;&#x3001;&#x5B50;&#x30AF;&#x30E9;&#x30B9;&#x306F;&#x89AA;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x9759;&#x7684;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3092;&#x547C;&#x3073;&#x51FA;&#x305B;&#x307E;&#x3059;&#x3002;</p>
+<h3 id="super-property"><a name="super-property" class="plugin-anchor" href="#super-property"><i class="fa fa-link" aria-hidden="true"></i></a><code>super</code>&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3; </h3>
+<!-- textlint-disable no-js-function-paren -->
+<p>&#x5B50;&#x30AF;&#x30E9;&#x30B9;&#x304B;&#x3089;&#x89AA;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x51E6;&#x7406;&#x3092;&#x547C;&#x3073;&#x51FA;&#x3059;&#x306B;&#x306F;<code>super()</code>&#x3092;&#x4F7F;&#x3044;&#x307E;&#x3059;&#x3002;
+&#x540C;&#x3058;&#x3088;&#x3046;&#x306B;&#x3001;&#x5B50;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x304B;&#x3089;&#x306F;&#x3001;<code>super.&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x540D;</code>&#x3067;&#x89AA;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3092;&#x53C2;&#x7167;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x6B21;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x306F;&#x3001;<code>Child#method</code>&#x306E;&#x4E2D;&#x3067;<code>super.method()</code>&#x3068;&#x66F8;&#x304F;&#x3053;&#x3068;&#x3067;<code>Parent#method</code>&#x3092;&#x547C;&#x3073;&#x51FA;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;
+&#x3053;&#x306E;&#x3088;&#x3046;&#x306B;&#x3001;&#x5B50;&#x30AF;&#x30E9;&#x30B9;&#x304B;&#x3089;&#x7D99;&#x627F;&#x5143;&#x306E;&#x89AA;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306F;<code>super.&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x540D;</code>&#x3067;&#x53C2;&#x7167;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Parent</span> </span>{
+    method() {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;Parent#method&quot;</span>);
+    }
+}
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Child</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Parent</span> </span>{
+    method() {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;Child#method&quot;</span>);
+        <span class="hljs-comment">// `this.method()`&#x3060;&#x3068;&#x81EA;&#x5206;(`this`)&#x306E;method&#x3092;&#x547C;&#x3073;&#x51FA;&#x3057;&#x3066;&#x7121;&#x9650;&#x30EB;&#x30FC;&#x30D7;&#x3059;&#x308B;</span>
+        <span class="hljs-comment">// &#x305D;&#x306E;&#x305F;&#x3081;&#x660E;&#x793A;&#x7684;&#x306B;`super.method()`&#x3068;Parent#method&#x3092;&#x547C;&#x3073;&#x3060;&#x3059;</span>
+        <span class="hljs-keyword">super</span>.method();
+    }
+}
+<span class="hljs-keyword">const</span> child = <span class="hljs-keyword">new</span> Child();
+child.method(); 
+<span class="hljs-comment">// &#x30B3;&#x30F3;&#x30BD;&#x30FC;&#x30EB;&#x306B;&#x306F;&#x6B21;&#x306E;&#x3088;&#x3046;&#x306B;&#x51FA;&#x529B;&#x3055;&#x308C;&#x308B;</span>
+<span class="hljs-comment">// &quot;Child#method&quot;</span>
+<span class="hljs-comment">// &quot;Parent#method&quot;</span>
+</code></pre>
+<p>&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x30C1;&#x30A7;&#x30FC;&#x30F3;&#x3067;&#x306F;&#x3001;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x304B;&#x3089;&#x30AF;&#x30E9;&#x30B9;&#x3001;&#x3055;&#x3089;&#x306B;&#x89AA;&#x306E;&#x30AF;&#x30E9;&#x30B9;&#x3068;&#x7D99;&#x627F;&#x95A2;&#x4FC2;&#x3092;&#x3055;&#x304B;&#x306E;&#x307C;&#x308B;&#x3088;&#x3046;&#x306B;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3092;&#x63A2;&#x7D22;&#x3059;&#x308B;&#x3068;&#x7D39;&#x4ECB;&#x3057;&#x307E;&#x3057;&#x305F;&#x3002;
+&#x3053;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x306F;<code>Child#method</code>&#x304C;&#x5B9A;&#x7FA9;&#x3055;&#x308C;&#x3066;&#x3044;&#x308B;&#x305F;&#x3081;&#x3001;<code>child.method</code>&#x306F;<code>Child#method</code>&#x3092;&#x547C;&#x3073;&#x51FA;&#x3057;&#x307E;&#x3059;&#x3002;
+&#x305D;&#x3057;&#x3066;<code>Child#method</code>&#x306F;<code>super.method</code>&#x3092;&#x547C;&#x3073;&#x51FA;&#x3057;&#x3066;&#x3044;&#x308B;&#x305F;&#x3081;&#x3001;<code>Parent#method</code>&#x304C;&#x547C;&#x3073;&#x51FA;&#x3055;&#x308C;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x9759;&#x7684;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x540C;&#x58EB;&#x3082;&#x540C;&#x3058;&#x3088;&#x3046;&#x306B;<code>super.method()</code>&#x3068;&#x66F8;&#x304F;&#x3053;&#x3068;&#x3067;&#x547C;&#x3073;&#x51FA;&#x305B;&#x307E;&#x3059;&#x3002;
+&#x6B21;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x306F;&#x3001;<code>Parent</code>&#x3092;&#x7D99;&#x627F;&#x3057;&#x305F;<code>Child</code>&#x304B;&#x3089;&#x89AA;&#x30AF;&#x30E9;&#x30B9;&#x306E;&#x9759;&#x7684;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3092;&#x547C;&#x3073;&#x51FA;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<!-- textlint-enable no-js-function-paren -->
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Parent</span> </span>{
+    <span class="hljs-keyword">static</span> method() {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;Parent.method&quot;</span>);
+    }
+}
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Child</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Parent</span> </span>{
+    <span class="hljs-keyword">static</span> method() {
+        <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;Child.method&quot;</span>);
+        <span class="hljs-comment">// `super.method()`&#x3067;`Parent.method`&#x3092;&#x547C;&#x3073;&#x3060;&#x3059;</span>
+        <span class="hljs-keyword">super</span>.method();
+    }
+}
+Child.method(); 
+<span class="hljs-comment">// &#x30B3;&#x30F3;&#x30BD;&#x30FC;&#x30EB;&#x306B;&#x306F;&#x6B21;&#x306E;&#x3088;&#x3046;&#x306B;&#x51FA;&#x529B;&#x3055;&#x308C;&#x308B;</span>
+<span class="hljs-comment">// &quot;Child.method&quot;</span>
+<span class="hljs-comment">// &quot;Parent.method&quot;</span>
+</code></pre>
+<h3 id="instanceof"><a name="instanceof" class="plugin-anchor" href="#instanceof"><i class="fa fa-link" aria-hidden="true"></i></a>&#x7D99;&#x627F;&#x306E;&#x5224;&#x5B9A; </h3>
+<p>&#x3042;&#x308B;&#x30AF;&#x30E9;&#x30B9;&#x304C;&#x6307;&#x5B9A;&#x3057;&#x305F;&#x30AF;&#x30E9;&#x30B9;&#x3092;&#x30D7;&#x30ED;&#x30C8;&#x30BF;&#x30A4;&#x30D7;&#x7D99;&#x627F;&#x3057;&#x3066;&#x3044;&#x308B;&#x304B;&#x306F;<code>instanceof</code>&#x6F14;&#x7B97;&#x5B50;&#x3092;&#x4F7F;&#x3063;&#x3066;&#x5224;&#x5B9A;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x6B21;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x306F;&#x3001;<code>Child</code>&#x306E;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x306F;<code>Child</code>&#x30AF;&#x30E9;&#x30B9;&#x3068;<code>Parent</code>&#x30AF;&#x30E9;&#x30B9;&#x3092;&#x7D99;&#x627F;&#x3057;&#x305F;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x3067;&#x3042;&#x308B;&#x3053;&#x3068;&#x3092;&#x78BA;&#x8A8D;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Parent</span> </span>{}
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Child</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Parent</span> </span>{}
+
+<span class="hljs-keyword">const</span> parent = <span class="hljs-keyword">new</span> Parent();
+<span class="hljs-keyword">const</span> child = <span class="hljs-keyword">new</span> Child();
+<span class="hljs-comment">// `Parent`&#x306E;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x306F;`Parent`&#x306E;&#x307F;&#x3092;&#x7D99;&#x627F;&#x3057;&#x305F;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;</span>
+<span class="hljs-built_in">console</span>.log(parent <span class="hljs-keyword">instanceof</span> Parent); <span class="hljs-comment">// =&gt; true</span>
+<span class="hljs-built_in">console</span>.log(parent <span class="hljs-keyword">instanceof</span> Child); <span class="hljs-comment">// =&gt; false</span>
+<span class="hljs-comment">// `Child`&#x306E;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x306F;`Child`&#x3068;`Parent`&#x3092;&#x7D99;&#x627F;&#x3057;&#x305F;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;</span>
+<span class="hljs-built_in">console</span>.log(child <span class="hljs-keyword">instanceof</span> Parent); <span class="hljs-comment">// =&gt; true</span>
+<span class="hljs-built_in">console</span>.log(child <span class="hljs-keyword">instanceof</span> Child); <span class="hljs-comment">// =&gt; true</span>
+</code></pre>
+<!-- Note: instanceof演算子とは`[[Prototype]]`プロパティ
+
+- `instanceof`演算子は`[[Prototype]]`プロパティを見ている
+- <https://tc39.github.io/ecma262/#sec-ordinaryhasinstance>
+- `Symbol.hasInstance`によって詳細は変わるため絶対とは言い切れない
+- <https://tc39.github.io/ecma262/#sec-symbol.hasinstance>
+
+-->
+<p>&#x3088;&#x308A;&#x5177;&#x4F53;&#x7684;&#x306A;&#x7D99;&#x627F;&#x306E;&#x4F7F;&#x3044;&#x65B9;&#x306B;&#x3064;&#x3044;&#x3066;&#x306F;&#x300C;<a href="../use-case/todoapp/README.md">&#x30E6;&#x30FC;&#x30B9;&#x30B1;&#x30FC;&#x30B9;:Todo&#x30A2;&#x30D7;&#x30EA;</a>&#x306E;&#x7AE0;&#x300D;&#x898B;&#x3066;&#x3044;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<h2 id="extends-built-in"><a name="extends-built-in" class="plugin-anchor" href="#extends-built-in"><i class="fa fa-link" aria-hidden="true"></i></a>&#x30D3;&#x30EB;&#x30C8;&#x30A4;&#x30F3;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;&#x7D99;&#x627F; </h2>
+<p>&#x3053;&#x3053;&#x307E;&#x3067;&#x81EA;&#x8EAB;&#x304C;&#x5B9A;&#x7FA9;&#x3057;&#x305F;&#x30AF;&#x30E9;&#x30B9;&#x3092;&#x7D99;&#x627F;&#x3057;&#x3066;&#x304D;&#x307E;&#x3057;&#x305F;&#x304C;&#x3001;&#x30D3;&#x30EB;&#x30C8;&#x30A4;&#x30F3;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x3082;&#x7D99;&#x627F;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;
+&#x30D3;&#x30EB;&#x30C8;&#x30A4;&#x30F3;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306B;&#x306F;<code>Array</code>&#x3001;<code>String</code>&#x3001;<code>Object</code>&#x3001;<code>Number</code>&#x3001;<code>Error</code>&#x3001;<code>Date</code>&#x306A;&#x3069;&#x306E;&#x30B3;&#x30F3;&#x30B9;&#x30C8;&#x30E9;&#x30AF;&#x30BF;&#x304C;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;
+<code>class</code>&#x69CB;&#x6587;&#x3067;&#x306F;&#x3053;&#x308C;&#x3089;&#x306E;&#x30D3;&#x30EB;&#x30C8;&#x30A4;&#x30F3;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x3092;&#x7D99;&#x627F;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<p>&#x6B21;&#x306E;&#x30B3;&#x30FC;&#x30C9;&#x3067;&#x306F;&#x3001;&#x30D3;&#x30EB;&#x30C8;&#x30A4;&#x30F3;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x3067;&#x3042;&#x308B;<code>Array</code>&#x3092;&#x7D99;&#x627F;&#x3057;&#x3066;&#x72EC;&#x81EA;&#x306E;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3092;&#x52A0;&#x3048;&#x305F;<code>MyArray</code>&#x30AF;&#x30E9;&#x30B9;&#x3092;&#x5B9A;&#x7FA9;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;
+&#x7D99;&#x627F;&#x3057;&#x305F;<code>MyArray</code>&#x306F;<code>Array</code>&#x306E;&#x6027;&#x8CEA; &#x2013; &#x3064;&#x307E;&#x308A;&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x3084;&#x72B6;&#x614B;&#x7BA1;&#x7406;&#x306B;&#x3064;&#x3044;&#x3066;&#x306E;&#x4ED5;&#x7D44;&#x307F;&#x3092;&#x7D99;&#x627F;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;
+&#x7D99;&#x627F;&#x3057;&#x305F;&#x6027;&#x8CEA;&#x306B;&#x52A0;&#x3048;&#x3066;&#x3001;<code>MyArray#first</code>&#x3084;<code>MyArray#last</code>&#x3068;&#x3044;&#x3063;&#x305F;&#x30A2;&#x30AF;&#x30BB;&#x30C3;&#x30B5;&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x3092;&#x8FFD;&#x52A0;&#x3057;&#x3066;&#x3044;&#x307E;&#x3059;&#x3002;</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a></p>
+<pre><code class="lang-js"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">MyArray</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">Array</span> </span>{
+    get first() {
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.length === <span class="hljs-number">0</span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span>;
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>[<span class="hljs-number">0</span>];
+        }
+    }
+
+    get last() {
+        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">this</span>.length === <span class="hljs-number">0</span>) {
+            <span class="hljs-keyword">return</span> <span class="hljs-literal">undefined</span>;
+        } <span class="hljs-keyword">else</span> {
+            <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>[<span class="hljs-keyword">this</span>.length - <span class="hljs-number">1</span>];
+        }
+    }
+}
+
+<span class="hljs-comment">// Array&#x3092;&#x7D99;&#x627F;&#x3057;&#x3066;&#x3044;&#x308B;&#x306E;&#x3067;Array.from&#x3082;&#x7D99;&#x627F;&#x3057;&#x3066;&#x3044;&#x308B;</span>
+<span class="hljs-comment">// Array.from&#x306F;Iterable&#x306A;&#x30AA;&#x30D6;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x304B;&#x3089;&#x914D;&#x5217;&#x30A4;&#x30F3;&#x30B9;&#x30BF;&#x30F3;&#x30B9;&#x3092;&#x4F5C;&#x6210;&#x3059;&#x308B;</span>
+<span class="hljs-keyword">const</span> array = MyArray.from([<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>, <span class="hljs-number">5</span>]);
+<span class="hljs-built_in">console</span>.log(array.length); <span class="hljs-comment">// =&gt; 5</span>
+<span class="hljs-built_in">console</span>.log(array.first); <span class="hljs-comment">// =&gt; 1</span>
+<span class="hljs-built_in">console</span>.log(array.last); <span class="hljs-comment">// =&gt; 5</span>
+</code></pre>
+<p><code>Array</code>&#x3092;&#x7D99;&#x627F;&#x3057;&#x305F;<code>MyArray</code>&#x306F;&#x3001;<code>Array</code>&#x304C;&#x5143;&#x3005;&#x3082;&#x3064;<code>length</code>&#x30D7;&#x30ED;&#x30D1;&#x30C6;&#x30A3;&#x3084;<code>Array.from</code>&#x30E1;&#x30BD;&#x30C3;&#x30C9;&#x306A;&#x3069;&#x3092;&#x7D99;&#x627F;&#x3057;&#x5229;&#x7528;&#x3067;&#x304D;&#x307E;&#x3059;&#x3002;</p>
+<blockquote id="fn_&#x7CD6;&#x8863;&#x69CB;&#x6587;">
+<sup>&#x7CD6;&#x8863;&#x69CB;&#x6587;</sup>. <code>class</code>&#x69CB;&#x6587;&#x3067;&#x306E;&#x307F;&#x3057;&#x304B;&#x5B9F;&#x73FE;&#x3067;&#x304D;&#x306A;&#x3044;&#x6A5F;&#x80FD;&#x306F;&#x306A;&#x304F;&#x3001;&#x8AAD;&#x307F;&#x3084;&#x3059;&#x3055;&#x3084;&#x5206;&#x304B;&#x308A;&#x3084;&#x3055;&#x306E;&#x305F;&#x3081;&#x306B;&#x5C0E;&#x5165;&#x3055;&#x308C;&#x305F;&#x69CB;&#x6587;&#x3068;&#x3044;&#x3046;&#x5074;&#x9762;&#x3082;&#x3042;&#x308B;&#x305F;&#x3081;JavaScript&#x306E;<code>class</code>&#x69CB;&#x6587;&#x306F;&#x7CD6;&#x8863;&#x69CB;&#x6587;&#x3068;&#x547C;&#x3070;&#x308C;&#x308B;&#x3053;&#x3068;&#x304C;&#x3042;&#x308A;&#x307E;&#x3059;&#x3002;<a href="#reffn_&#x7CD6;&#x8863;&#x69CB;&#x6587;" title="Jump back to footnote [&#x7CD6;&#x8863;&#x69CB;&#x6587;] in the text."> &#x21A9;</a>
+</blockquote>
+
+                                
+                                </section>
+                            
+                        </div>
+                    </div>
+                
+            </div>
+
+            
+                
+                <a href="../function-this/" class="navigation navigation-prev " aria-label="Previous page: 関数とthis">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="../error-try-catch/" class="navigation navigation-next " aria-label="Next page: 例外処理">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
+            
+        
+    </div>
+
+    <script>
+        var gitbook = gitbook || [];
+        gitbook.push(function() {
+            gitbook.page.hasChanged({"page":{"author":"azu","title":"クラス","level":"1.4.19","depth":2,"next":{"title":"例外処理","level":"1.4.20","depth":2,"path":"basic/error-try-catch/README.md","ref":"./basic/error-try-catch/README.md","articles":[]},"previous":{"title":"関数とthis","level":"1.4.18","depth":2,"path":"basic/function-this/README.md","ref":"./basic/function-this/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-search","-lunr","page-toc-button","include-codeblock","anchors","canonical-link","ga","js-console","github-issue-feedback","todo"],"root":"./source/","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"docSearch":{"apiKey":"fd28ebaba94be0c39fb9fa1b2fed4f23","index":"asciidwango"},"github-issue-feedback":{"repo":"asciidwango/js-primer"},"todo":{},"fontsettings":{"theme":"white","family":"sans","size":2},"js-console":{},"canonical-link":{"baseURL":"https://jsprimer.net"},"highlight":{},"page-toc-button":{"maxTocDepth":2,"minTocSize":2},"ga":{"configuration":"auto","token":"UA-2184335-18"},"include-codeblock":{"check":false,"edit":false,"lang":"","fixlang":false,"template":"./resources/gitbook-plugin-include-codeblock.hbs","theme":"chrome","unindent":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"edit-link":{"base":"https://github.com/asciidwango/js-primer/edit/master/source/","label":"Edit"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"structure":{"langs":"LANGS.md","readme":"index.md","glossary":"GLOSSARY.md","summary":"README.md"},"variables":{"esversion":"2018","console":"<a class=\"gitbook-plugin-js-console\" aria-hidden=\"true\"></a>"},"title":"JavaScriptの入門書 #jsprimer","gitbook":">=3.0.0","description":"この書籍はES2015以降をベースとしたJavaScript入門書となる予定"},"file":{"path":"basic/class/README.md","mtime":"2018-12-23T15:21:44.488Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-12-23T15:22:57.500Z"},"basePath":"../..","book":{"language":""}});
+        });
+    </script>
+</div>
+
+        
+    <script src="../../gitbook/gitbook.js"></script>
+    <script src="../../gitbook/theme.js"></script>
+    
+        
+        <script src="../../gitbook/gitbook-plugin-page-toc-button/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-ga/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-js-console/console-ui.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-github-issue-feedback/plugin.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-sharing/buttons.js"></script>
+        
+    
+        
+        <script src="../../gitbook/gitbook-plugin-fontsettings/fontsettings.js"></script>
+        
+    
+
+    </body>
+</html>
+
