@@ -55,6 +55,9 @@ jobs:
         with:
           node-version: 24
       - run: npm ci
+      - name: Install todoapp dependencies
+        run: npm install
+        working-directory: ./source/use-case/todoapp
       - name: Install Playwright Browsers
         run: npx playwright install --with-deps chromium
         working-directory: ./source/use-case/todoapp
