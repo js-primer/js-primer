@@ -59,6 +59,6 @@ jobs:
         run: npm install
         working-directory: ./source/use-case/todoapp
       - name: Install Playwright Browsers
-        run: npx playwright install --with-deps chromium
+        run: npx playwright install chromium
         working-directory: ./source/use-case/todoapp
       - run: npm run e2e
