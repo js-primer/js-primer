@@ -1,8 +1,10 @@
 import { test as base } from "@playwright/test";
 import * as path from "node:path";
 import * as fs from "node:fs";
+import { fileURLToPath } from "node:url";
 
-const TODOAPP_DIR = path.resolve(import.meta.dirname, "..");
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const TODOAPP_DIR = path.resolve(__dirname, "..");
 
 /**
  * jsprimer.netへの外部リクエストをローカルファイルから応答するカスタムテスト
