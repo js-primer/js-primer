@@ -43,9 +43,26 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm ci
       - run: npm test
+  e2e-prepare:
+    runs-on: ubuntu-latest
+    name: "E2E prepare"
+    outputs:
+      playwright-version: ${{ steps.playwright-version.outputs.version }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+          sparse-checkout: source/use-case/todoapp/package-lock.json
+      - name: Get Playwright version from lockfile
+        id: playwright-version
+        run: echo "version=$(node -e "console.log(JSON.parse(require('fs').readFileSync('source/use-case/todoapp/package-lock.json','utf8')).packages['node_modules/@playwright/test'].version)")" >> "$GITHUB_OUTPUT"
   e2e:
+    needs: e2e-prepare
     runs-on: ubuntu-latest
     name: E2E
+    container:
+      image: mcr.microsoft.com/playwright:v${{ needs.e2e-prepare.outputs.playwright-version }}-noble
+      options: --init --ipc=host --user=1001
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
@@ -55,10 +72,4 @@ jobs:
         with:
           node-version: 24
       - run: npm ci
-      - name: Install todoapp dependencies
-        run: npm install
-        working-directory: ./source/use-case/todoapp
-      - name: Install Playwright Browsers
-        run: npx playwright install chromium
-        working-directory: ./source/use-case/todoapp
       - run: npm run e2e
