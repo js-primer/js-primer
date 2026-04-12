@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+import { test, expect } from "../../fixtures";
 import { visitWithConsole } from "../../helper/console-helper";
 import { addNewTodo } from "../../helper/todo-helper";
 
