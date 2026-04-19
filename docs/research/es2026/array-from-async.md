@@ -123,9 +123,18 @@ Array.fromAsyncは2024年頃に既にブラウザ実装が進んでいたが、*
   - ES2025 Iterator Helpers対応(#1782)でも議論があった
 - 一方で現状はasync iterable自体が未解説なので、`Array.fromAsync` 単独の追加だと前提が足りない
 
-## 対応方針(仮)
+## 対応方針
 
-**B (軽く紹介)** が妥当。ただし、async iterable 自体の解説をどこまで入れるか、他のasync iterator関連機能(Iterator Helpers の async 版はまだ Stage 2)との兼ね合いも考慮する。
+**A (対応しない)**。リリースノートでの言及のみ。
+
+### 根拠
+
+- `for await...of` / `async iterator` / `async generator` が js-primer の章で一切登場しない(`source/basic/async/README.md` に grep で 0 件)
+- `Array.fromAsync` の価値は「async iterableを配列化する」ことで、**async iterable自体が未解説のため単独で紹介する足場がない**
+- 本Proposal単体のためにasync iterable関連の解説を入れるのはコスト過大(Point 2-3以上)
+- AsyncIteratorHelpersはStage 2で未対応。async iterable関連機能が揃ったタイミング(AsyncIteratorHelpersのStage 4到達など)で章立てて再検討するのが自然
+
+Math.sumPreciseと同じく「足場不在で単独紹介が収まらない」パターン。
 
 ## 論点・メモ
 
