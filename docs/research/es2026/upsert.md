@@ -103,7 +103,7 @@ function getHeight(element) {
 }
 ```
 
-#### Map章 WeakMap節の EventEmitter 例 (L326-L337)
+#### Map章 WeakMap節の EventEmitter 例 (L326-L337) → `getOrInsert` に置き換え可能
 
 ```js
 // 現在
@@ -112,9 +112,16 @@ addListener(listener) {
     const newListeners = listeners.concat(listener);
     listenersMap.set(this, newListeners);
 }
+
+// 書き換え後 (非破壊スタイルは維持)
+addListener(listener) {
+    const listeners = listenersMap.getOrInsert(this, []);
+    const newListeners = listeners.concat(listener);
+    listenersMap.set(this, newListeners);
+}
 ```
 
-この例は非破壊更新(`concat`)なので、`getOrInsert` で置き換えるとpushで破壊的にしてしまう。書き換えるなら例コード全体の方針を変える必要がある。
+`concat` による非破壊更新スタイルは維持したまま、`get(this) ?? []` の部分だけを `getOrInsert(this, [])` に置き換える。`getOrInsert` が空配列をWeakMapにセットした直後に `set` で上書きするため一瞬だけ中間状態が生じる冗長性は残るが、動作は同じで読みやすさを損なわない。
 
 #### todoapp の EventEmitter (`source/use-case/todoapp/**/src/EventEmitter.js`) → `getOrInsert` に置き換え可能
 
