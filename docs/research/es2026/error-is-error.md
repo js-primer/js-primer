@@ -66,23 +66,41 @@ Error.isError(fake);                  // => false （内部スロットで判定
 - `console.error`とスタックトレース (`#console.error`)
 - [ES2022] Error Cause (`#error-cause`)
 
+## `Error.isError` は種類判定には使えない
+
+[仕様](https://tc39.es/proposal-is-error/) 上、`Error.isError` は内部スロット `[[ErrorData]]` の有無だけで判定する。
+
+```js
+Error.isError(new Error());       // => true
+Error.isError(new TypeError());   // => true  （TypeErrorでもtrueになる）
+Error.isError(new RangeError());  // => true
+```
+
+したがって `TypeError`/`ReferenceError`/`SyntaxError` の**種類判定はProposalのスコープ外**で、第二引数でクラスを指定するAPIも提案されていない。種類判定は引き続き `instanceof TypeError` など `instanceof` を使うことになる。
+
+### 既存コードの `instanceof` 利用状況
+
+エラー処理章(`source/basic/error-try-catch/README.md`)で `instanceof` が例コードに登場するのは6箇所で、置き換え可能なのはL106の1箇所のみ:
+
+| L | コード | 用途 | 置き換え |
+|---|---|---|---|
+| L31 | `error instanceof ReferenceError` | 種類判定 | `instanceof`のまま |
+| L106 | `error instanceof Error` | Error判定 | `Error.isError`に置換可能 |
+| L148 | `error instanceof ReferenceError` | 種類判定 | `instanceof`のまま |
+| L176 | `error instanceof SyntaxError` | 種類判定 | `instanceof`のまま |
+| L194 | `error instanceof TypeError` | 種類判定 | `instanceof`のまま |
+| L222 | `error instanceof TypeError` | 種類判定 | `instanceof`のまま |
+
 ## 対応方針
 
-エラー処理章に `Error.isError` を追加する。
+**コラムレベルの軽い紹介に留める。**
 
-- `Array.isArray` が専用節として解説されている先例と整合する
-- 基本方針として `instanceof Error` を使う理由はなくなる(`Error.isError` の方が安全)
-- ただし `instanceof` との違い(クロスレルム、`Symbol.toStringTag`)は**深く説明しない**。「こちらの方が安全」という軽い説明に留める
-- 既存の `error instanceof Error` の例コードも `Error.isError(error)` に差し替える方向で統一する
-
-### 追加位置
-
-[エラーオブジェクト > Error](https://jsprimer.net/basic/error-try-catch/#error) のセクション内、もしくは直後に追加。
-粒度感は [ES2022] Error Cause の節と同等。
+- 独立した節として大きく扱うと、章のほとんどで `instanceof` が主役のまま残るのとちぐはぐになる
+- [エラーオブジェクト > Error](https://jsprimer.net/basic/error-try-catch/#error) の `error instanceof Error` の近くで「ただエラーかどうかを判定したい時は `Error.isError` を使う」という一言を添える、あるいは短いコラム扱い
+- `instanceof` との違い(クロスレルム、`Symbol.toStringTag`)は深く説明しない
+- 種類判定のコード例は `instanceof` のまま変更しない
 
 ## 論点・メモ
 
-- `instanceof` との違いを説明しないで「安全」とだけ伝える書き方は要工夫
-  - `Array.isArray` の節に倣って「エラーオブジェクトかどうかを判定する」というAPI紹介として自然に置けると良い
-- 既存の `instanceof Error` / `instanceof TypeError` の例コードをどこまで差し替えるかは要検討
-  - `TypeError` などサブクラスの判定は `Error.isError` ではできないため、ビルトインエラー判定では `instanceof` が残る
+- `Array.isArray` が専用節として扱われているのに `Error.isError` をコラム格下げするのは対称性が崩れるが、実際の使い分け(「エラーか」だけを判定する場面は限定的、種類判定の方が多い)を踏まえるとコラム扱いの方が素直
+- 「判定したい時は使う」と伝えるだけなら `instanceof Error` との差異を深堀りする必要もない
