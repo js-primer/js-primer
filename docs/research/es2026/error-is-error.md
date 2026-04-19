@@ -100,7 +100,16 @@ Error.isError(new RangeError());  // => true
 - `instanceof` との違い(クロスレルム、`Symbol.toStringTag`)は深く説明しない
 - 種類判定のコード例は `instanceof` のまま変更しない
 
+## `Array.isArray` との対称性の違い
+
+| | `Array.isArray` | `Error.isError` |
+|---|---|---|
+| 判定対象 | 配列かどうか | Errorオブジェクトかどうか |
+| サブクラス判定 | 配列のサブクラスを作る場面は少なく、必要になることがあまりない | ビルトインErrorの種類(`TypeError`等)やカスタムエラー(`class MyError extends Error`)の判定が日常的に必要で、そこは `instanceof` が残る |
+| 使いどころの広さ | 「配列か」の判定単独で完結する場面が多い | 「何らかのErrorか」だけで判定を終えたい場面は限定的。多くは種類・カスタムエラーまで踏み込む |
+
+`Error.isError` は**カスタムエラー(`class MyError extends Error`)の判定はスコープ外**(Error全般でtrueになるだけで `MyError` かは分からない)なので、結局 `instanceof MyError` が必要になる。`Array.isArray` のように単独で判定が完結する場面が少ないため、独立節で扱う整合性は弱く、コラム扱いが素直。
+
 ## 論点・メモ
 
-- `Array.isArray` が専用節として扱われているのに `Error.isError` をコラム格下げするのは対称性が崩れるが、実際の使い分け(「エラーか」だけを判定する場面は限定的、種類判定の方が多い)を踏まえるとコラム扱いの方が素直
 - 「判定したい時は使う」と伝えるだけなら `instanceof Error` との差異を深堀りする必要もない
