@@ -93,12 +93,32 @@ Error.isError(new RangeError());  // => true
 
 ## 対応方針
 
-**コラムレベルの軽い紹介に留める。**
+**エラー処理章の末尾に `[ES2026] Error.isError` の小さなセクションを追加する。**
 
-- 独立した節として大きく扱うと、章のほとんどで `instanceof` が主役のまま残るのとちぐはぐになる
-- [エラーオブジェクト > Error](https://jsprimer.net/basic/error-try-catch/#error) の `error instanceof Error` の近くで「ただエラーかどうかを判定したい時は `Error.isError` を使う」という一言を添える、あるいは短いコラム扱い
-- `instanceof` との違い(クロスレルム、`Symbol.toStringTag`)は深く説明しない
-- 種類判定のコード例は `instanceof` のまま変更しない
+### 流れ
+
+章のなかでは先にエラーの種類別判定(`instanceof ReferenceError` など)を学んだ上で、**章の末尾で**「これまで種類別に判定する方法を見てきたが、エラーかどうかだけを判定したい場合は `Error.isError` を使える」という流れで導入する。
+
+### 追加位置
+
+[エラー処理章](https://jsprimer.net/basic/error-try-catch/) の末尾。[ES2022] Error Cause の節 (`#error-cause`) の後ろに `[ES2026] Error.isError` 節を置く。
+
+### 粒度
+
+1〜2行で終わる小さなセクション。Error Cause の節より軽い。
+
+### 内容イメージ
+
+```js
+// エラーかどうかだけを判定したい場合はError.isErrorを使える
+Error.isError(new Error());      // => true
+Error.isError(new TypeError());  // => true
+Error.isError({ message: "..." }); // => false
+```
+
+- `instanceof Error` も使えるが、ES2026からは `Error.isError` でも判定できるようになった、という紹介に留める
+- 種類判定のコード例(`instanceof TypeError` など)は変更しない
+- クロスレルム、`Symbol.toStringTag` の話には深入りしない(必要に応じて1行メモ程度)
 
 ## `Array.isArray` との対称性の違い
 
