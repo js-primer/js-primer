@@ -34,6 +34,16 @@ Error.isError(fake);                  // => false （内部スロットで判定
 
 ## js-primerでの関連箇所
 
+### `Array.isArray` の先例
+
+`Error.isError` と類似のAPIである `Array.isArray` は、js-primerで**専用節**として解説されている。
+
+- [配列 > オブジェクトが配列かどうかを判定する](https://jsprimer.net/basic/array/#detect-array) (`source/basic/array/README.md` L144-L178) — 「あるオブジェクトが配列かどうかを判定するには`Array.isArray`静的メソッドを利用します」
+- [配列 > Array-likeオブジェクト](https://jsprimer.net/basic/array/#array-like) 付近 (L1096-L1115) — Array-likeと配列の判別手段としても再登場
+- `source/OUTLINE.md` L249-L251 に「`Array.isArray`は特殊なものでArrayかどうかを判定できる / Realmが異なるとArrayはinstanceofでも一致しなくなるため」というメモがあり、クロスレルム観点での位置づけが意識されている
+
+`Array.isArray` が専用節で扱われている以上、対になるAPIである `Error.isError` も同様に節として扱う整合性はある。
+
 ### `instanceof` の解説
 
 [クラス > 継承の判定](https://jsprimer.net/basic/class/#instanceof) (`source/basic/class/README.md` L1556-L1575) で `instanceof` 演算子の仕組みを解説している。
@@ -73,4 +83,5 @@ Error.isError(fake);                  // => false （内部スロットで判定
 ## 論点
 
 - `instanceof` は入門者向けには十分機能しているので、`Error.isError` をあえて紹介するモチベーションは弱い
-- 追加するとしても「より堅牢な判定手段」という立ち位置で、ユースケースがイメージしにくいとコラム止まりになりそう
+- 一方で `Array.isArray` は専用節で解説されており、対になる `Error.isError` も同じ粒度で扱う方が整合する
+- エラー処理章ではすでに `error instanceof Error` を例コードで使っているので、「より堅牢な判定手段」として差し替え or 併記する余地はある
