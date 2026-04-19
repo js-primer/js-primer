@@ -103,7 +103,7 @@ function getHeight(element) {
 }
 ```
 
-#### EventEmitter のリスナー管理 (L326-L337)
+#### Map章 WeakMap節の EventEmitter 例 (L326-L337)
 
 ```js
 // 現在
@@ -115,6 +115,29 @@ addListener(listener) {
 ```
 
 この例は非破壊更新(`concat`)なので、`getOrInsert` で置き換えるとpushで破壊的にしてしまう。書き換えるなら例コード全体の方針を変える必要がある。
+
+#### todoapp の EventEmitter (`source/use-case/todoapp/**/src/EventEmitter.js`) → `getOrInsert` に置き換え可能
+
+ユースケース章のtodoappでは、同じ `EventEmitter` クラスが複数フォルダに重複して存在しており(update-feature, delete-feature, add-checkbox, final/more, final/final, final/create-view, event-model/event-emitter の7ファイル)、いずれも以下のパターンを含む:
+
+```js
+// 現在
+addEventListener(type, listener) {
+    if (!this.#listeners.has(type)) {
+        this.#listeners.set(type, new Set());
+    }
+    const listenerSet = this.#listeners.get(type);
+    listenerSet.add(listener);
+}
+
+// getOrInsertComputed で書き換え (new Set()の遅延評価)
+addEventListener(type, listener) {
+    const listenerSet = this.#listeners.getOrInsertComputed(type, () => new Set());
+    listenerSet.add(listener);
+}
+```
+
+これは `has → set → get` の典型パターンで、**`getOrInsert` / `getOrInsertComputed` の紹介にそのまま使える**。ただし章本体はMap/Set章なので、todoappのコード更新はES2026対応の波及作業になる。
 
 ## 追加位置の候補
 
