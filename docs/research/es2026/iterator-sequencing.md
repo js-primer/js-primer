@@ -77,7 +77,24 @@ Iterator.concat(iter1, iter2, iter3);
   - メソッドチェーンによる宣言的な処理
 - まとめ
 
-Iterator.concatは**静的メソッド**なので、`Iterator.from` と並ぶ位置が自然。
+Iterator.concatは**静的メソッド**なので、`Iterator.from` と並ぶ位置が自然。章内に「複数iteratorを手動で結合」している既存パターンは**存在しない**ため、書き換え対象はなく、新規解説のみ。
+
+### `Array.prototype.concat` との対称性
+
+[配列章](https://jsprimer.net/basic/array/) には `concat` メソッドが専用節として詳しく解説されている:
+
+- [配列同士を結合](https://jsprimer.net/basic/array/#concat) (L522-L540): `array.concat(array, value, ...)` の基本動作
+- [ES2015 配列の展開](https://jsprimer.net/basic/array/#spread) (L542-L560): Spread構文との比較
+- [破壊的/非破壊的メソッド](https://jsprimer.net/basic/array/#mutable-immutable) (L667-L678): 非破壊メソッドの代表例として `concat` が登場
+
+既に `Array.prototype.concat` は章内で繰り返し登場しており、**`Iterator.concat` を対称のAPIとして紹介する筋は通っている**。
+
+## API設計の経緯
+
+本Proposalは当初「`Iterator.from(...items)` の可変長引数版」として提案されたが、[Issue #1](https://github.com/tc39/proposal-iterator-sequencing/issues/1) で以下の問題点が指摘され、独立した`Iterator.concat` に変更された:
+
+- `Iterator.from(null)` は即座にエラーを投げるのに、`Iterator.from(null, it)` だと使用時にエラーになる不整合
+- `Array.from(x, y)` (第2引数は mapFn) と意味が大きく異なり、既存APIとの乖離が大きい
 
 ## 対応方針
 

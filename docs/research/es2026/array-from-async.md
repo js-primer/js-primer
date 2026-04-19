@@ -80,11 +80,13 @@ const results = await Array.fromAsync(asyncIter);
 
 ### async iterator / for await...of の扱い
 
-現状、**`for await...of` や `async iterator` / `async generator` は js-primer の章で明示的に扱われていない**(メインのAsync Function章は Promise / await 中心)。
+現状、**`for await...of` / `async iterator` / `async generator` は js-primer の章で一切登場しない**(`source/basic/async/README.md` に対する grep で0件)。
+
+メインの非同期処理章は Promise / Async Function / await式 / Promise.all 中心で、async iterable関連はスコープ外になっている。
 
 ### 配列章のArray.from
 
-[配列章](https://jsprimer.net/basic/array/) には **`Array.from` も明示的な節としては登場していない**(`Array.isArray`はある)。ES2015の `Array.from` はArray-likeコラムの文脈で触れられる程度。
+[配列章](https://jsprimer.net/basic/array/) には **`Array.from` も専用節としては登場しない**(`Array.isArray`は[専用節](https://jsprimer.net/basic/array/#detect-array)がある)。ES2015の `Array.from` は[Array-likeコラム](https://jsprimer.net/basic/array/#array-like) (L1108, L1114) の文脈で触れられる程度。
 
 ### Array.fromAsyncの紹介はどこに置くか
 
@@ -93,7 +95,14 @@ const results = await Array.fromAsync(asyncIter);
 - 非同期処理章の末尾
 - 独立した小節として非同期処理章内のどこかに
 
-どこに置くにしても、**前提となる `async iterable` の概念をどこかで紹介する必要がある**。
+どこに置くにしても、**前提となる `async iterable` / `for await...of` の概念をどこかで紹介する必要がある**(現状js-primerに存在しない)。
+
+## ES2026に含まれるまでの経緯
+
+Array.fromAsyncは2024年頃に既にブラウザ実装が進んでいたが、**ビルトインasync関数(built-in async functions)の仕様編集作業に依存**していたため、ES2025ではなくES2026まで仕様への取り込みが延びた。
+
+> A variadic PR, which is adding `Array.fromAsync` was blocked on editorial work for built-in async functions, now resolved enabling its specification.
+> — [2026-01-20 TC39 meeting notes](https://github.com/tc39/notes/blob/main/meetings/2026-01/january-20.md)
 
 ## 対応方針の検討
 

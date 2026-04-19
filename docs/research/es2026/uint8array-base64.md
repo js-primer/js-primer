@@ -60,39 +60,39 @@ Uint8Array.fromBase64("SGVsbG8="); // => Uint8Array(5) [72, 101, 108, 108, 111]
 
 ### Base64関連の章
 
-- `atob` / `btoa` / `TextEncoder` / `TextDecoder` も **js-primer全体で登場しない**
+- `atob` / `btoa` / `TextEncoder` / `TextDecoder` も **js-primer全体で登場しない**(`source` 全体にgrepして一切ヒットなし)
 - バイナリ処理、エンコーディング処理は入門書のスコープ外
 
 ## 対応方針の検討
 
-本ProposalはJavaScript入門書のスコープに対してかなりニッチ:
+本ProposalはJavaScript入門書のスコープに対して非常にニッチ:
 
-- TypedArray自体が入門書のスコープ外で、コラム扱い
-- バイナリ変換・base64エンコーディングは入門者の典型課題ではない
-- 紹介するにはTypedArray/Uint8Arrayの本格解説が必要になる
+- `TypedArray` 自体がコラム扱いで本格的に扱われていない
+- `Uint8Array` のメソッドや使い方は **js-primer本文に一切登場しない**(サンプル以外で)
+- `atob` / `btoa` / `TextEncoder` / `TextDecoder` / `Buffer` なども本文に登場しない
+- base64 という話題自体が本文に登場しない
+- **紹介するための足場がない**
 
 ### 選択肢
 
 - **A: 対応しない**
   - リリースノートのみ
-  - TypedArrayコラムに一言「base64/hex変換メソッドが追加された」と追記するのもあり
-- **B: TypedArrayコラムに数行追記**
-  - 「ES2026からbase64/hex文字列との相互変換メソッドが追加された」程度の言及
-- **C: 本格的にTypedArray/base64の節を追加**
-  - TypedArrayを扱う範囲が広がる
-  - 入門書のスコープを超える
+  - 足場がない中で紹介するのは収まりが悪い
+- **B: TypedArrayコラムに一言追記**
+  - 「ES2026からbase64/hex文字列との相互変換メソッドが追加された」程度
+  - コラム止まりなので詳細には立ち入らない
 
 ## 対応方針(仮)
 
-**A (対応しない) または B (コラムに一言)** が妥当。
+**A (対応しない) が妥当**。リリースノートで「Uint8ArrayのBase64/Hex変換メソッドが追加された」と言及するだけで十分。
 
-TypedArrayが入門書でコラム扱いなので、そのレベルに留めるのが整合的。Cは過剰。
+入門書で紹介するには、そもそもTypedArray/Uint8Arrayの本格解説が必要になるが、それは本Proposalとは独立した課題。
 
 ## 論点・メモ
 
-- Node.jsでは`Buffer`が類似機能を持っていたが、これが**Web標準として**提供されるのが意義
-- 入門者の学習動機が弱い(具体的なユースケースを示しにくい)
-- TypedArrayの扱いを拡充する議論は別途の話
+- Node.jsでは`Buffer`が類似機能を持っていたが、これがWeb標準として提供されるのが本Proposalの意義
+- 入門者の学習動機が弱く、具体的なユースケースを示しにくい
+- TypedArrayの扱いを拡充する議論は別途の話であり、本Proposal単体で扱うものではない
 
 ## 対応コスト
 
