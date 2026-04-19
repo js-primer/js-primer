@@ -66,22 +66,23 @@ Error.isError(fake);                  // => false （内部スロットで判定
 - `console.error`とスタックトレース (`#console.error`)
 - [ES2022] Error Cause (`#error-cause`)
 
-## 対応方針案
+## 対応方針
 
-### A. 対応しない
+エラー処理章に `Error.isError` を追加する。
 
-- 入門者には `instanceof Error` で実質的に十分
-- クロスレルム（iframe / Worker / vm）は入門書のスコープ外
-- `Symbol.toStringTag` による改ざんを前提にする場面も入門者には縁遠い
+- `Array.isArray` が専用節として解説されている先例と整合する
+- 基本方針として `instanceof Error` を使う理由はなくなる(`Error.isError` の方が安全)
+- ただし `instanceof` との違い(クロスレルム、`Symbol.toStringTag`)は**深く説明しない**。「こちらの方が安全」という軽い説明に留める
+- 既存の `error instanceof Error` の例コードも `Error.isError(error)` に差し替える方向で統一する
 
-### B. エラー処理章に `[ES2026] Error.isError` 節を追加
+### 追加位置
 
-- [ES2022] Error Cause と同じ粒度で末尾に短い節を追加
-- クロスレルムの深い説明には立ち入らず、`instanceof` の代替として紹介する
-- [エラーオブジェクト > Error](https://jsprimer.net/basic/error-try-catch/#error) で `error instanceof Error` を使っているので、そこへの参照/言及は自然
+[エラーオブジェクト > Error](https://jsprimer.net/basic/error-try-catch/#error) のセクション内、もしくは直後に追加。
+粒度感は [ES2022] Error Cause の節と同等。
 
-## 論点
+## 論点・メモ
 
-- `instanceof` は入門者向けには十分機能しているので、`Error.isError` をあえて紹介するモチベーションは弱い
-- 一方で `Array.isArray` は専用節で解説されており、対になる `Error.isError` も同じ粒度で扱う方が整合する
-- エラー処理章ではすでに `error instanceof Error` を例コードで使っているので、「より堅牢な判定手段」として差し替え or 併記する余地はある
+- `instanceof` との違いを説明しないで「安全」とだけ伝える書き方は要工夫
+  - `Array.isArray` の節に倣って「エラーオブジェクトかどうかを判定する」というAPI紹介として自然に置けると良い
+- 既存の `instanceof Error` / `instanceof TypeError` の例コードをどこまで差し替えるかは要検討
+  - `TypeError` などサブクラスの判定は `Error.isError` ではできないため、ビルトインエラー判定では `instanceof` が残る
