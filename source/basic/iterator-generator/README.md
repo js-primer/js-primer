@@ -421,24 +421,10 @@ Iterableプロトコルを実装しているオブジェクトであれば、`It
 あわせて、ビルトインオブジェクトにはイテレータを直接返すメソッドを持つものもあります。
 Array/Map/Setでは`keys`/`values`/`entries`メソッドが、新しいイテレータを返します。
 
-次のコードでは、各ビルトインオブジェクトの`values`メソッドを使って、それぞれの値を返すイテレータを取得し、`map`メソッドを使って各値を2倍にした配列を作成しています。
+次のコードでは、`Iterator.from`メソッドで配列からイテレータを作成し、`for...of`文で値を順に取り出しています。
 
 {{book.console}}
-<!-- doctest:meta:{ "ECMAScript": "2025" } -->
-```js
-// Iterator.from を使って配列からイテレータを作成
-const iterator = Iterator.from([1, 2, 3]);
-console.log(iterator.map((x) => x * 2).toArray()); // => [2, 4, 6]
-// Array.prototype.values メソッドはイテレータを返す
-const array = [1, 2, 3];
-console.log(array.values().map((x) => x * 2).toArray()); // => [2, 4, 6]
-// Map.prototype.values メソッドはイテレータを返す
-const map = new Map([["a", 1], ["b", 2], ["c", 3]]);
-console.log(map.values().map((x) => x * 2).toArray()); // => [2, 4, 6]
-// Set.prototype.values メソッドはvalueのイテレータを返す
-const set = new Set([1, 2, 3]);
-console.log(set.values().map((x) => x * 2).toArray()); // => [2, 4, 6]
-```
+[import, title="Iterator.fromで作成したイテレータをfor...ofで反復する"](./examples/basic/iterator-from.example.js)
 
 ### `Iterator.prototype.toArray`メソッド {#iterator-toarray}
 
