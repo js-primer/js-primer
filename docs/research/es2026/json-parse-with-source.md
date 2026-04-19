@@ -132,28 +132,57 @@ JSON.stringify({ value: JSON.rawJSON("12345678901234567890") });
   - `reviver` から解説を始めて章構成を見直す
   - 入門書的には過剰
 
-## 対応方針(要検討)
+## 対応方針
 
-**方向性: B (`#not-serialization-object` 節にBigInt補足として追加)** が妥当だが、**実際に対応するかは要検討**。
+**対応する**。`#not-serialization-object` 節の後に、`[ES2026] JSON.rawJSON` のような節見出しで**簡潔な独立節**を追加する。
 
-BigIntが既に章内で扱われているので、「ES2026からBigIntもシリアライズ/デシリアライズできる」という切り口で繋げられる。入門者も「さっきの表で出てきたBigIntがこうなった」と読みやすい。
+### 追加位置と見出し
 
-一方、BigInt自体がjs-primer入門書のスコープに対してニッチであり、無理に補足を追加せず表の注記程度に留める or 対応しない判断もあり得る。
+JSON章の `#not-serialization-object` 節(BigIntが「例外が発生する」と表に登場している)の直後、`#serialization-by-toJSON` の前に次の節を追加:
 
-### 追加位置の案
+```markdown
+## [ES2026] JSON.rawJSON {#json-raw-json}
+```
 
-`#not-serialization-object` 節末尾(L205の後、`#serialization-by-toJSON`節の前)に:
+### 節の導入(イメージ)
 
-- `[ES2026] BigIntをシリアライズする (JSON.rawJSON)` — stringify側
-- `[ES2026] BigIntをデシリアライズする (reviver + context.source)` — parse側
+> ES2026では今まで扱えなかったBigIntなどを扱うために `JSON.rawJSON` が追加されました...
 
-あるいは、両方を1つのサブ節にまとめて `[ES2026] BigIntをJSONで扱う` とするのも手。
+「さっきの表で BigInt は例外になると書いたが、ES2026からはこれで扱える」という流れで、読者が前節の表から自然にこの節に遷移できる。
 
-## 対応コスト(仮)
+### 含める内容
 
-- A (対応しない): **Point 0**
-- B (`#not-serialization-object` にBigInt補足追加): **Point 2** (1つの補足節相当、reviver新規導入を含む)
-- C (本格対応): **Point 3-5**
+- **stringify側**: `JSON.rawJSON` + replacerでBigIntをシリアライズする例
+- **parse側**: `JSON.parse` の `reviver` + `context.source` でBigIntにデシリアライズする例(`reviver` は新規登場だが BigInt の例1つに絞って簡潔に)
 
-B を採用する場合、類似先例:
+### 含めない内容(簡潔さを優先)
+
+- `JSON.isRawJSON` (入門者には使う場面なし)
+- Twitter IDなどの事例(BigInt1本に絞る)
+- クロスレルムなど細かい議論
+
+## 変更箇所のアウトライン
+
+### JSON章 (`source/basic/json/README.md`)
+
+```
+# JSON
+├── JSONとは
+├── JSONオブジェクト
+│   ├── JSON文字列をオブジェクトに変換する
+│   └── オブジェクトをJSON文字列に変換する  (replacer解説済)
+├── JSONにシリアライズできないオブジェクト   (表に BigInt|例外が発生する あり)
+├── [ES2026] JSON.rawJSON                ← 追加
+│   ├── JSON.rawJSON + replacerでBigIntをシリアライズ
+│   └── reviver + context.sourceでBigIntにデシリアライズ
+├── toJSONメソッドを使ったシリアライズ
+└── まとめ
+```
+
+## 対応コスト
+
+**見積: Point 2** (1つの節追加、reviverの新規導入を含むが簡潔に抑える)
+
+類似先例:
 - [ES2022] Error Cause ([PR #1732](https://github.com/js-primer/js-primer/pull/1732)): Point 2 (1セクション追加)
+- [ES2024] Map.groupBy ([PR #1751](https://github.com/js-primer/js-primer/pull/1751)): Point 2 (1セクション追加)
