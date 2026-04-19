@@ -188,22 +188,65 @@ RustやPythonにも同様の使い分けがある:
 - Rust: `Entry::or_insert(value)` / `Entry::or_insert_with(|| ...)`
 - Python: `dict.setdefault(key, value)` / `collections.defaultdict(factory)`
 
-## 対応方針(仮)
+## 対応方針
 
-- 対応する方向で問題なし
-- 位置はB案(`[ES2026] Map.prototype.getOrInsert / getOrInsertComputed` の独立小節)が既存の並びと整合
-- **紹介する対象の粒度**は判断が必要
-  - A) `getOrInsert` だけを紹介し、`getOrInsertComputed` は「遅延評価版も別途ある」程度に留める
-  - B) 両方を並べて紹介し、使い分け(事前評価 vs 遅延評価)を1-2行で説明
-  - C) 両方を別々に解説
-  - 入門書的にはAまたはBが妥当
-- WeakMap版をどう扱うか
-  - WeakMap節のキャッシュ例を `getOrInsertComputed` に書き換える余地あり
-  - 「WeakMapにも同じメソッドがある」程度に留めるのも手
+- Map章に `[ES2026] Map.prototype.getOrInsert / getOrInsertComputed` の独立小節を追加する
+- `getOrInsert` と `getOrInsertComputed` を**並べて紹介し、使い分け(事前評価 vs 遅延評価)を1-2行で説明する**
+- WeakMap節の既存コード例(EventEmitter例 / キャッシュ例)をそれぞれ `getOrInsert` / `getOrInsertComputed` で書き換え、実例として機能させる
+- todoappの EventEmitter も `getOrInsertComputed` で書き換える
+
+新設小節の紹介例は、WeakMap節と todoapp で両メソッドの使用例が自然に登場するため、小節自体は軽めの例(カウンタや配列pushなど)でよい。
+
+## 変更箇所のアウトライン
+
+### Map章 (`source/basic/map-and-set/README.md`)
+
+- **[追加] `[ES2026] Map.prototype.getOrInsert / getOrInsertComputed` 小節**
+  - 位置: `[ES2024] Map.groupBy` の後、`マップとしてのObjectとMap` の前
+  - 内容: 両メソッドを並べて紹介。事前評価(`getOrInsert`) vs 遅延評価(`getOrInsertComputed`) の使い分けを1-2行で説明
+  - サンプル: Setはまだ未登場なので Array を値にした例(push / カウンタなど)
+
+- **[書き換え] WeakMap節 EventEmitter例 (L326-L337)**
+  - `get(this) ?? []` → `getOrInsert(this, [])` (非破壊の `concat` スタイルは維持)
+  - `getOrInsert` の実例として機能する
+
+- **[書き換え] WeakMap節 キャッシュ例 (L353-L365)**
+  - `has / get / set` → `getOrInsertComputed(element, (el) => el.getBoundingClientRect().height)`
+  - `getOrInsertComputed` の実例として機能する(毎回計算を避ける典型)
+
+### todoapp (`source/use-case/todoapp/`)
+
+- **[書き換え] `event-model/README.md` の `#event-emitter` 節(解説本文のコード)**
+- **[書き換え] 以下7ファイルの `src/EventEmitter.js`**:
+  - `event-model/event-emitter/src/EventEmitter.js`
+  - `update-delete/add-checkbox/src/EventEmitter.js`
+  - `update-delete/update-feature/src/EventEmitter.js`
+  - `update-delete/delete-feature/src/EventEmitter.js`
+  - `final/create-view/src/EventEmitter.js`
+  - `final/more/src/EventEmitter.js`
+  - `final/final/src/EventEmitter.js`
+- 書き換え内容: `has / set / get` の3行パターン → `getOrInsertComputed(type, () => new Set())`
+
+### 全体の読者体験
+
+```
+Map章
+├── 要素の追加と取り出し (set/get/has)
+├── マップの反復処理
+├── [ES2024] Map.groupBy
+├── [ES2026] getOrInsert / getOrInsertComputed          ← 追加 (解説)
+├── マップとしてのObjectとMap
+├── WeakMap
+│   ├── EventEmitter例    (getOrInsert 実例)            ← 書き換え
+│   └── キャッシュ例       (getOrInsertComputed 実例)   ← 書き換え
+└── [コラム] キーの等価性とNaN
+    ↓
+todoapp
+└── EventEmitter (getOrInsertComputed 実例)             ← 書き換え(7ファイル + 解説)
+```
 
 ## 論点・メモ
 
 - `Map.groupBy` が独立小節で扱われている前例があるので、独立小節方針は妥当
-- `getOrInsertComputed` は入門書的には複雑に寄るので、基本は `getOrInsert` 中心で書く方が読者に優しい
-- 既存のWeakMapキャッシュ例(L353-L365)は `getOrInsertComputed` の典型例なので、章内で再利用できる
+- 新設小節のサンプルコードを決める余地はある(カウンタ / Array push など)
 - Array/Object には同種APIがなくMap/WeakMap限定なので、他章への波及はない
