@@ -13,7 +13,7 @@ ES2026対応 Meta Issue: https://github.com/js-primer/js-primer/issues/1869
 | [JSON.parse source text access](https://github.com/tc39/proposal-json-parse-with-source) | [json-parse-with-source.md](./json-parse-with-source.md) | 対応する(B0 or B) | 1 or 2 |
 | [Iterator Sequencing](https://github.com/tc39/proposal-iterator-sequencing) | [iterator-sequencing.md](./iterator-sequencing.md) | 調査中 | 2 |
 | [Uint8Array to/from Base64](https://github.com/tc39/proposal-arraybuffer-base64) | [uint8array-base64.md](./uint8array-base64.md) | 対応しない(A) | 0 |
-| [Math.sumPrecise](https://github.com/tc39/proposal-math-sum) | [math-sum-precise.md](./math-sum-precise.md) | 要検討 | 0 or 1-2 |
+| [Math.sumPrecise](https://github.com/tc39/proposal-math-sum) | [math-sum-precise.md](./math-sum-precise.md) | 対応しない(A) | 0 |
 | [Array.fromAsync](https://github.com/tc39/proposal-array-from-async) | [array-from-async.md](./array-from-async.md) | 要検討 | 0 / 2-3 / 5 |
 
 コストのPointは [CONTRIBUTING_EXPENSE.md](../../../CONTRIBUTING_EXPENSE.md) の基準に基づく見積。
