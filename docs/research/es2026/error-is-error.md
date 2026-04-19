@@ -38,19 +38,19 @@ Error.isError(fake);                  // => false （内部スロットで判定
 
 `Error.isError` と類似のAPIである `Array.isArray` は、js-primerで**専用節**として解説されている。
 
-- [配列 > オブジェクトが配列かどうかを判定する](https://jsprimer.net/basic/array/#detect-array) (`source/basic/array/README.md` L144-L178) — 「あるオブジェクトが配列かどうかを判定するには`Array.isArray`静的メソッドを利用します」
-- [配列 > Array-likeオブジェクト](https://jsprimer.net/basic/array/#array-like) 付近 (L1096-L1115) — Array-likeと配列の判別手段としても再登場
-- `source/OUTLINE.md` L249-L251 に「`Array.isArray`は特殊なものでArrayかどうかを判定できる / Realmが異なるとArrayはinstanceofでも一致しなくなるため」というメモがあり、クロスレルム観点での位置づけが意識されている
+- [配列 > オブジェクトが配列かどうかを判定する](https://jsprimer.net/basic/array/#detect-array) ([`source/basic/array/README.md#L144-L178`](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/array/README.md#L144-L178)) — 「あるオブジェクトが配列かどうかを判定するには`Array.isArray`静的メソッドを利用します」
+- [配列 > Array-likeオブジェクト](https://jsprimer.net/basic/array/#array-like) 付近 ([`source/basic/array/README.md#L1096-L1115`](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/array/README.md#L1096-L1115)) — Array-likeと配列の判別手段としても再登場
+- [`source/OUTLINE.md#L249-L251`](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/OUTLINE.md#L249-L251) に「`Array.isArray`は特殊なものでArrayかどうかを判定できる / Realmが異なるとArrayはinstanceofでも一致しなくなるため」というメモがあり、クロスレルム観点での位置づけが意識されている
 
 `Array.isArray` が専用節で扱われている以上、対になるAPIである `Error.isError` も同様に節として扱う整合性はある。
 
 ### `instanceof` の解説
 
-[クラス > 継承の判定](https://jsprimer.net/basic/class/#instanceof) (`source/basic/class/README.md` L1556-L1575) で `instanceof` 演算子の仕組みを解説している。
+[クラス > 継承の判定](https://jsprimer.net/basic/class/#instanceof) ([`source/basic/class/README.md#L1556-L1575`](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/class/README.md#L1556-L1575)) で `instanceof` 演算子の仕組みを解説している。
 
 ### エラー判定の例
 
-[エラー処理 > Error](https://jsprimer.net/basic/error-try-catch/#error) (`source/basic/error-try-catch/README.md`) で、`error instanceof Error` / `error instanceof TypeError` / `error instanceof ReferenceError` を**例コード**で使用している（L31, L106, L148, L176, L194, L222）。`instanceof` そのものの解説はなく、エラー種別判定の推奨手段として登場する。
+[エラー処理 > Error](https://jsprimer.net/basic/error-try-catch/#error) ([`source/basic/error-try-catch/README.md`](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/error-try-catch/README.md)) で、`error instanceof Error` / `error instanceof TypeError` / `error instanceof ReferenceError` を**例コード**で使用している([L31](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/error-try-catch/README.md#L31), [L106](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/error-try-catch/README.md#L106), [L148](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/error-try-catch/README.md#L148), [L176](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/error-try-catch/README.md#L176), [L194](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/error-try-catch/README.md#L194), [L222](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/error-try-catch/README.md#L222))。`instanceof` そのものの解説はなく、エラー種別判定の推奨手段として登場する。
 
 ### 節構成
 
@@ -80,16 +80,16 @@ Error.isError(new RangeError());  // => true
 
 ### 既存コードの `instanceof` 利用状況
 
-エラー処理章(`source/basic/error-try-catch/README.md`)で `instanceof` が例コードに登場するのは6箇所で、置き換え可能なのはL106の1箇所のみ:
+エラー処理章([`source/basic/error-try-catch/README.md`](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/error-try-catch/README.md))で `instanceof` が例コードに登場するのは6箇所で、置き換え可能なのは[L106](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/error-try-catch/README.md#L106)の1箇所のみ:
 
 | L | コード | 用途 | 置き換え |
 |---|---|---|---|
-| L31 | `error instanceof ReferenceError` | 種類判定 | `instanceof`のまま |
-| L106 | `error instanceof Error` | Error判定 | `Error.isError`に置換可能 |
-| L148 | `error instanceof ReferenceError` | 種類判定 | `instanceof`のまま |
-| L176 | `error instanceof SyntaxError` | 種類判定 | `instanceof`のまま |
-| L194 | `error instanceof TypeError` | 種類判定 | `instanceof`のまま |
-| L222 | `error instanceof TypeError` | 種類判定 | `instanceof`のまま |
+| [L31](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/error-try-catch/README.md#L31) | `error instanceof ReferenceError` | 種類判定 | `instanceof`のまま |
+| [L106](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/error-try-catch/README.md#L106) | `error instanceof Error` | Error判定 | `Error.isError`に置換可能 |
+| [L148](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/error-try-catch/README.md#L148) | `error instanceof ReferenceError` | 種類判定 | `instanceof`のまま |
+| [L176](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/error-try-catch/README.md#L176) | `error instanceof SyntaxError` | 種類判定 | `instanceof`のまま |
+| [L194](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/error-try-catch/README.md#L194) | `error instanceof TypeError` | 種類判定 | `instanceof`のまま |
+| [L222](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/error-try-catch/README.md#L222) | `error instanceof TypeError` | 種類判定 | `instanceof`のまま |
 
 ## 対応方針
 

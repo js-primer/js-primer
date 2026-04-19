@@ -63,8 +63,8 @@ Math.sumPrecise(values);
 
 [データ型とリテラル章](https://jsprimer.net/basic/data-type-and-literal/) では、倍精度浮動小数(IEEE 754)について以下のように触れられている:
 
-- L118-119: 「これらのリテラルで表現できる数値は[IEEE 754][]の倍精度浮動小数として扱われます。倍精度浮動小数では64ビットで数値を表現します」
-- L230-231: 「数値リテラルは[IEEE 754][]で定義された倍精度浮動小数となります。倍精度浮動小数で正確に扱える数値の最大値は`2^53-1`」
+- [L118-L119](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/data-type-and-literal/README.md#L118-L119): 「これらのリテラルで表現できる数値は[IEEE 754][]の倍精度浮動小数として扱われます。倍精度浮動小数では64ビットで数値を表現します」
+- [L230-L231](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/data-type-and-literal/README.md#L230-L231): 「数値リテラルは[IEEE 754][]で定義された倍精度浮動小数となります。倍精度浮動小数で正確に扱える数値の最大値は`2^53-1`」
 
 つまり「倍精度浮動小数」「扱える最大値」までは言及されているが、**浮動小数点演算の精度ロス(`0.1 + 0.2 !== 0.3` や加算順序による誤差)は扱われていない**。
 

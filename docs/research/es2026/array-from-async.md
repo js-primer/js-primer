@@ -86,7 +86,7 @@ const results = await Array.fromAsync(asyncIter);
 
 ### 配列章のArray.from
 
-[配列章](https://jsprimer.net/basic/array/) には **`Array.from` も専用節としては登場しない**(`Array.isArray`は[専用節](https://jsprimer.net/basic/array/#detect-array)がある)。ES2015の `Array.from` は[Array-likeコラム](https://jsprimer.net/basic/array/#array-like) (L1108, L1114) の文脈で触れられる程度。
+[配列章](https://jsprimer.net/basic/array/) には **`Array.from` も専用節としては登場しない**(`Array.isArray`は[専用節](https://jsprimer.net/basic/array/#detect-array)がある)。ES2015の `Array.from` は[Array-likeコラム](https://jsprimer.net/basic/array/#array-like) ([L1108](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/array/README.md#L1108), [L1114](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/array/README.md#L1114)) の文脈で触れられる程度。
 
 ### Array.fromAsyncの紹介はどこに置くか
 

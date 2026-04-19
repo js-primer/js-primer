@@ -45,7 +45,7 @@ Uint8Array.fromBase64("SGVsbG8="); // => Uint8Array(5) [72, 101, 108, 108, 111]
 
 ### TypedArrayの扱い
 
-[配列章](https://jsprimer.net/basic/array/) (`source/basic/array/README.md`) の [ES2015 TypedArray コラム](https://jsprimer.net/basic/array/#typed-array) (L166-) で軽く触れられているのみ。
+[配列章](https://jsprimer.net/basic/array/) ([`source/basic/array/README.md`](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/array/README.md)) の [ES2015 TypedArray コラム](https://jsprimer.net/basic/array/#typed-array) ([L166-](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/array/README.md#L166)) で軽く触れられているのみ。
 
 コラムの位置づけは「配列と似ているが別物」という紹介レベルで、**TypedArrayを本格的に扱う章はない**。
 

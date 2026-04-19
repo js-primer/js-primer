@@ -89,19 +89,19 @@ JSON.stringify({ value: JSON.rawJSON("12345678901234567890") });
 
 ### JSON章の構成
 
-[JSON章](https://jsprimer.net/basic/json/) (`source/basic/json/README.md`) の現在の構成:
+[JSON章](https://jsprimer.net/basic/json/) ([`source/basic/json/README.md`](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/json/README.md)) の現在の構成:
 
 - JSONとは (`#what-is-json`)
 - JSONオブジェクト (`#json-object`)
-  - **JSON文字列をオブジェクトに変換する (`#json-parse`)** — `JSON.parse` の基本形のみ(L43-L82)
-  - **オブジェクトをJSON文字列に変換する (`#json-format`)** — `JSON.stringify`、replacerも解説 (L84-L154)
-- **JSONにシリアライズできないオブジェクト (`#not-serialization-object`)** — シリアライズ不可な値を表で解説 (L156-L205)
+  - **JSON文字列をオブジェクトに変換する (`#json-parse`)** — `JSON.parse` の基本形のみ([L43-L82](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/json/README.md#L43-L82))
+  - **オブジェクトをJSON文字列に変換する (`#json-format`)** — `JSON.stringify`、replacerも解説 ([L84-L154](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/json/README.md#L84-L154))
+- **JSONにシリアライズできないオブジェクト (`#not-serialization-object`)** — シリアライズ不可な値を表で解説 ([L156-L205](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/json/README.md#L156-L205))
 - `toJSON`メソッドを使ったシリアライズ (`#serialization-by-toJSON`)
 - まとめ
 
 ### `#not-serialization-object` 節にBigIntが既に登場
 
-`#not-serialization-object` 節の表 (L164-L175) に:
+`#not-serialization-object` 節の表 ([L164-L175](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/json/README.md#L164-L175)) に:
 
 ```
 | BigInt          |  例外が発生する    |
@@ -111,7 +111,7 @@ JSON.stringify({ value: JSON.rawJSON("12345678901234567890") });
 
 ### replacerは解説済、reviverは未解説
 
-- `replacer` ([`#json-format`](https://jsprimer.net/basic/json/#json-format)): L97-L123 で解説済み
+- `replacer` ([`#json-format`](https://jsprimer.net/basic/json/#json-format)): [L97-L123](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/json/README.md#L97-L123) で解説済み
 - `reviver`: **JSON章には未登場**
 - BigInt自体はjs-primer全体で本章の表以外はほぼ未登場
 

@@ -63,12 +63,12 @@ cache.getOrInsertComputed(element, (el) => el.getBoundingClientRect().height);
 
 ### Map章の構成
 
-[Map/Set · JavaScript Primer #jsprimer](https://jsprimer.net/basic/map-and-set/) (`source/basic/map-and-set/README.md`)
+[Map/Set · JavaScript Primer #jsprimer](https://jsprimer.net/basic/map-and-set/) ([`source/basic/map-and-set/README.md`](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/map-and-set/README.md))
 
 - [ES2015] Map/Set (`#map-and-set`)
 - Map (`#map`)
   - マップの作成と初期化 (`#map-new`)
-  - **要素の追加と取り出し (`#map-read-and-write`)** — `set`/`get`/`has` を説明 (L43-L82)
+  - **要素の追加と取り出し (`#map-read-and-write`)** — `set`/`get`/`has` を説明 ([L43-L82](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/map-and-set/README.md#L43-L82))
   - マップの反復処理 (`#map-iteration`)
   - [ES2024] Map.groupBy (`#map-group-by`) — 小節
   - マップとしてのObjectとMap (`#object-and-map`)
@@ -83,7 +83,7 @@ cache.getOrInsertComputed(element, (el) => el.getBoundingClientRect().height);
 
 既存の章に、`getOrInsert` / `getOrInsertComputed` で置き換えられる典型的なコードがすでに書かれている。
 
-#### WeakMap のキャッシュ例 (L353-L365) → `getOrInsertComputed` に置き換え可能
+#### WeakMap のキャッシュ例 ([L353-L365](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/map-and-set/README.md#L353-L365)) → `getOrInsertComputed` に置き換え可能
 
 ```js
 // 現在
@@ -103,7 +103,7 @@ function getHeight(element) {
 }
 ```
 
-#### Map章 WeakMap節の EventEmitter 例 (L326-L337) → `getOrInsert` に置き換え可能
+#### Map章 WeakMap節の EventEmitter 例 ([L326-L337](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/map-and-set/README.md#L326-L337)) → `getOrInsert` に置き換え可能
 
 ```js
 // 現在
@@ -206,11 +206,11 @@ RustやPythonにも同様の使い分けがある:
   - 内容: 両メソッドを並べて紹介。事前評価(`getOrInsert`) vs 遅延評価(`getOrInsertComputed`) の使い分けを1-2行で説明
   - サンプル: Setはまだ未登場なので Array を値にした例(push / カウンタなど)
 
-- **[書き換え] WeakMap節 EventEmitter例 (L326-L337)**
+- **[書き換え] WeakMap節 EventEmitter例 ([L326-L337](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/map-and-set/README.md#L326-L337))**
   - `get(this) ?? []` → `getOrInsert(this, [])` (非破壊の `concat` スタイルは維持)
   - `getOrInsert` の実例として機能する
 
-- **[書き換え] WeakMap節 キャッシュ例 (L353-L365)**
+- **[書き換え] WeakMap節 キャッシュ例 ([L353-L365](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/map-and-set/README.md#L353-L365))**
   - `has / get / set` → `getOrInsertComputed(element, (el) => el.getBoundingClientRect().height)`
   - `getOrInsertComputed` の実例として機能する(毎回計算を避ける典型)
 

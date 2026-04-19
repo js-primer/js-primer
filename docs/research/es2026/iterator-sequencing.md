@@ -58,15 +58,15 @@ Iterator.concat(iter1, iter2, iter3);
 
 ### iterator-generator章
 
-[イテレータとジェネレータ](https://jsprimer.net/basic/iterator-generator/) (`source/basic/iterator-generator/README.md`) はES2025のIterator Helpers対応で追加された章([#1782](https://github.com/js-primer/js-primer/issues/1782))。
+[イテレータとジェネレータ](https://jsprimer.net/basic/iterator-generator/) ([`source/basic/iterator-generator/README.md`](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/iterator-generator/README.md)) はES2025のIterator Helpers対応で追加された章([#1782](https://github.com/js-primer/js-primer/issues/1782))。
 
 節構成:
 - はじめに
 - IterableプロトコルとIteratorプロトコル
 - Iterableなビルトインオブジェクト
 - ジェネレータ関数
-- **[ES2025] イテレータのメソッド** (`#iterator-methods`) L391-
-  - `Iterator.from`静的メソッド (`#iterator-from`) L399-
+- **[ES2025] イテレータのメソッド** (`#iterator-methods`) [L391-](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/iterator-generator/README.md#L391)
+  - `Iterator.from`静的メソッド (`#iterator-from`) [L399-](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/iterator-generator/README.md#L399)
   - `Iterator.prototype.toArray`メソッド
   - `Iterator.prototype.take`メソッド
   - `Iterator.prototype.map`メソッド
@@ -83,9 +83,9 @@ Iterator.concatは**静的メソッド**なので、`Iterator.from` と並ぶ位
 
 [配列章](https://jsprimer.net/basic/array/) には `concat` メソッドが専用節として詳しく解説されている:
 
-- [配列同士を結合](https://jsprimer.net/basic/array/#concat) (L522-L540): `array.concat(array, value, ...)` の基本動作
-- [ES2015 配列の展開](https://jsprimer.net/basic/array/#spread) (L542-L560): Spread構文との比較
-- [破壊的/非破壊的メソッド](https://jsprimer.net/basic/array/#mutable-immutable) (L667-L678): 非破壊メソッドの代表例として `concat` が登場
+- [配列同士を結合](https://jsprimer.net/basic/array/#concat) ([L522-L540](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/array/README.md#L522-L540)): `array.concat(array, value, ...)` の基本動作
+- [ES2015 配列の展開](https://jsprimer.net/basic/array/#spread) ([L542-L560](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/array/README.md#L542-L560)): Spread構文との比較
+- [破壊的/非破壊的メソッド](https://jsprimer.net/basic/array/#mutable-immutable) ([L667-L678](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/array/README.md#L667-L678)): 非破壊メソッドの代表例として `concat` が登場
 
 既に `Array.prototype.concat` は章内で繰り返し登場しており、**`Iterator.concat` を対称のAPIとして紹介する筋は通っている**。
 
@@ -119,7 +119,7 @@ Iterator.concatは**静的メソッド**なので、`Iterator.from` と並ぶ位
 
 ### 前提: #1870
 
-現状の `Iterator.from` 節の例 (L429-441) は、まだ紹介されていない `toArray` を先取り使用している。`from → concat → toArray` の流れを自然にするために、`Iterator.from` 節の例を `for...of` ベースに書き換える [#1870](https://github.com/js-primer/js-primer/issues/1870) を先行または並行で実施する。
+現状の `Iterator.from` 節の例 ([L429-L441](https://github.com/js-primer/js-primer/blob/f51b078770d648f227a1b471d2f4fcc5a7223049/source/basic/iterator-generator/README.md#L429-L441)) は、まだ紹介されていない `toArray` を先取り使用している。`from → concat → toArray` の流れを自然にするために、`Iterator.from` 節の例を `for...of` ベースに書き換える [#1870](https://github.com/js-primer/js-primer/issues/1870) を先行または並行で実施する。
 
 ### 内容(イメージ)
 
