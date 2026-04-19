@@ -2,5 +2,5 @@
 const iterator = Iterator.from([1, 2, 3]);
 // for...of でイテレータから値を取り出す
 for (const value of iterator) {
-    console.log(value);
+    console.log(value); // 1, 2, 3
 }
