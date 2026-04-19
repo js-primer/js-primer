@@ -127,16 +127,45 @@ addListener(listener) {
 
 Map/Set章では既に `[ES2024] Map.groupBy` / `[ES2025] 集合演算メソッド` が独立小節として並んでいるので、**Bが既存方針と整合**する。
 
+## 経緯 (API設計の変遷)
+
+このProposalは名前・API設計が何度か変わっている:
+
+1. **最初は `Map.prototype.emplace(key, { insert, update })`** — 2つのコールバックを持つAPI(C++のemplaceから命名)
+2. **名前の問題**: C++の`emplace`は low-level 機能なのに対し本提案は high-level で混乱。`update` コールバックの実用頻度も低かった
+3. **2024-10 TC39**: Daniel Minor(Mozilla)がchampionを引き継ぎ、API を `getOrInsert` / `getOrInsertComputed` に簡略化。[PR #58](https://github.com/tc39/proposal-upsert/pull/58)
+4. **2025-04**: Stage 2.7
+5. **2026-01**: Stage 4 到達
+
+## なぜ `getOrInsertComputed` も追加されたか
+
+- `getOrInsert(key, defaultValue)` は `defaultValue` が**事前評価される**
+  - `map.getOrInsert(key, [])` は毎回配列リテラルが作られる(キーが既に存在していても)
+  - 重い計算や副作用のあるデフォルト生成では無駄
+- `getOrInsertComputed(key, callback)` は **キーが無い時だけcallbackが呼ばれる**(遅延評価)
+  - メモ化/キャッシュ、重いオブジェクト生成、副作用のある生成で活きる
+
+RustやPythonにも同様の使い分けがある:
+
+- Rust: `Entry::or_insert(value)` / `Entry::or_insert_with(|| ...)`
+- Python: `dict.setdefault(key, value)` / `collections.defaultdict(factory)`
+
 ## 対応方針(仮)
 
 - 対応する方向で問題なし
-- 位置はB案(`[ES2026] Map.prototype.getOrInsert / getOrInsertComputed` の独立小節を追加)が既存の並びと整合
-- WeakMap の既存キャッシュ例は `getOrInsertComputed` に書き換えるのが自然
-- WeakMap版の存在も触れる(小節でMapと並べて言及)
+- 位置はB案(`[ES2026] Map.prototype.getOrInsert / getOrInsertComputed` の独立小節)が既存の並びと整合
+- **紹介する対象の粒度**は判断が必要
+  - A) `getOrInsert` だけを紹介し、`getOrInsertComputed` は「遅延評価版も別途ある」程度に留める
+  - B) 両方を並べて紹介し、使い分け(事前評価 vs 遅延評価)を1-2行で説明
+  - C) 両方を別々に解説
+  - 入門書的にはAまたはBが妥当
+- WeakMap版をどう扱うか
+  - WeakMap節のキャッシュ例を `getOrInsertComputed` に書き換える余地あり
+  - 「WeakMapにも同じメソッドがある」程度に留めるのも手
 
 ## 論点・メモ
 
-- `Map.groupBy` が独立小節で扱われている前例があるので、独立小節方針が妥当
-- `getOrInsertComputed` は「計算コストが高い場合」の説明を入れるかどうか。入門書的には単純な例(`getOrInsert` だけ)でも意図は伝わる
-- WeakMap側のメソッドも紹介するか。章内に既にキャッシュ例があるのでついでに扱う方が自然
-- Array/Object のような「similar upsert」ではなく Map/WeakMap に限定された追加なので扱いやすい
+- `Map.groupBy` が独立小節で扱われている前例があるので、独立小節方針は妥当
+- `getOrInsertComputed` は入門書的には複雑に寄るので、基本は `getOrInsert` 中心で書く方が読者に優しい
+- 既存のWeakMapキャッシュ例(L353-L365)は `getOrInsertComputed` の典型例なので、章内で再利用できる
+- Array/Object には同種APIがなくMap/WeakMap限定なので、他章への波及はない
