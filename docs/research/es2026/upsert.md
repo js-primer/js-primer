@@ -250,3 +250,19 @@ todoapp
 - `Map.groupBy` が独立小節で扱われている前例があるので、独立小節方針は妥当
 - 新設小節のサンプルコードを決める余地はある(カウンタ / Array push など)
 - Array/Object には同種APIがなくMap/WeakMap限定なので、他章への波及はない
+
+## 対応コスト
+
+**見積: Point 3**
+
+[CONTRIBUTING_EXPENSE.md](../../../CONTRIBUTING_EXPENSE.md) の基準に照らすと:
+
+- 追加量: Map章に `[ES2026]` 小節を新規追加(1セクション相当)
+- 書き換え: Map章 WeakMap節の2箇所(EventEmitter例、キャッシュ例)
+- 波及: todoapp 章の解説本文 + 7ファイルの `EventEmitter.js` を全て書き換え
+- 複数セクション・複数章にまたがる変更であり、単一セクション追加より重い
+
+類似先例:
+- Map.groupBy ([PR #1751](https://github.com/js-primer/js-primer/pull/1751)): Point 2 (1セクション追加のみ)
+- Change Array by copy ([PR #1679](https://github.com/js-primer/js-primer/pull/1679)): Point 3 (複数セクションにまたがる)
+- 本件はMap.groupByより範囲が広くtodoappへの波及もあるため、Point 3が適正

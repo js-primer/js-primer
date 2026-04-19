@@ -133,3 +133,18 @@ Error.isError({ message: "..." }); // => false
 ## 論点・メモ
 
 - 「判定したい時は使う」と伝えるだけなら `instanceof Error` との差異を深堀りする必要もない
+
+## 対応コスト
+
+**見積: Point 1-2**
+
+[CONTRIBUTING_EXPENSE.md](../../../CONTRIBUTING_EXPENSE.md) の基準に照らすと:
+
+- 追加量: エラー処理章末尾に小さな節を1つ追加する程度
+- [ES2022] Error Cause ([PR #1732](https://github.com/js-primer/js-primer/pull/1732)) がPoint 2(1セクション追加)で、本件はそれと同等〜やや軽い
+- 既存コードの書き換えは最小(種類判定は `instanceof` のまま)
+- `instanceof` との違いの説明を深堀りしない分、書く量は抑えられる
+
+類似先例:
+- Error Cause ([PR #1732](https://github.com/js-primer/js-primer/pull/1732)): Point 2
+- Map.groupBy ([PR #1751](https://github.com/js-primer/js-primer/pull/1751)): Point 2 (1セクション追加)
