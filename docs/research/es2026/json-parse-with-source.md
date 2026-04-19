@@ -95,54 +95,63 @@ JSON.stringify({ value: JSON.rawJSON("12345678901234567890") });
 - JSONオブジェクト (`#json-object`)
   - **JSON文字列をオブジェクトに変換する (`#json-parse`)** — `JSON.parse` の基本形のみ(L43-L82)
   - **オブジェクトをJSON文字列に変換する (`#json-format`)** — `JSON.stringify`、replacerも解説 (L84-L154)
-- JSONにシリアライズできないオブジェクト (`#not-serialization-object`)
+- **JSONにシリアライズできないオブジェクト (`#not-serialization-object`)** — シリアライズ不可な値を表で解説 (L156-L205)
 - `toJSON`メソッドを使ったシリアライズ (`#serialization-by-toJSON`)
 - まとめ
 
-### 重要ポイント
+### `#not-serialization-object` 節にBigIntが既に登場
 
-- **`reviver` 引数自体が現状の章で解説されていない**
-  - `JSON.parse(text)` の形でしか使われていない
-  - `context.source` を紹介するには、まず `reviver` から解説する必要がある
-- `replacer` は解説されている (`stringify` の第2引数)
-- BigIntはjs-primer全体で**ほとんど触れられていない**
-  - 入門書的にBigInt自体がスコープ外
+`#not-serialization-object` 節の表 (L164-L175) に:
+
+```
+| BigInt          |  例外が発生する    |
+```
+
+つまりjs-primerは既に「BigIntはJSON.stringifyで例外が発生する」と触れている。ES2026ではこれが `JSON.rawJSON` で扱えるようになるため、**この節の延長として自然に繋げられる**。
+
+### replacerは解説済、reviverは未解説
+
+- `replacer` ([`#json-format`](https://jsprimer.net/basic/json/#json-format)): L97-L123 で解説済み
+- `reviver`: **JSON章には未登場**
+- BigInt自体はjs-primer全体で本章の表以外はほぼ未登場
 
 ## 対応方針の検討
 
-本ProposalはJavaScript入門書のスコープに対してかなりニッチ:
-
-- 主要ユースケースが **BigInt対応 / 精度保持**で、入門者の典型的な課題ではない
-- `reviver` すら紹介していない章に `context.source` を紹介するのは飛躍が大きい
-- `JSON.rawJSON` / `JSON.isRawJSON` も精度保持のための上級的API
+本ProposalはJavaScript入門書のスコープに対してかなりニッチだが、**既に章内でBigIntが「シリアライズ不可」と書かれている**ため、その補足として自然に紹介できる。
 
 ### 選択肢
 
 - **A: 対応しない**
-  - 入門書のスコープ外と判断
-  - ES2026の対応としてリリースノートに言及するだけ
-- **B: コラムで軽く言及**
-  - 「JSONには精度ロスの問題があり、ES2026からこれらのAPIで対処できる」程度の紹介
-  - `JSON.parse` 節の末尾にコラムで1段落
+  - リリースノートのみ
+- **B: `#not-serialization-object` 節にBigIntの扱いとして補足を入れる**
+  - 既存表の「BigInt | 例外が発生する」に注記、または節末尾に短い補足節を追加
+  - stringify側: `JSON.rawJSON` + replacerでBigIntをシリアライズ可能
+  - parse側: `reviver` + `context.source` でBigIntに戻せる
+  - 「reviver」の紹介が新規に必要だが、BigIntを扱う文脈に絞れば説明量は抑えられる
 - **C: 本格的に節を追加**
-  - `reviver` から解説を始める必要があるため、JSON章の構成を大きく変える
+  - `reviver` から解説を始めて章構成を見直す
   - 入門書的には過剰
 
 ## 対応方針(仮)
 
-**A (対応しない) または B (短いコラム) が妥当**。
+**B (`#not-serialization-object` 節に補足)** が最も自然。
 
-C は入門書のスコープを超える。ES2025/ES2024の扱い(`Set集合演算`、`Map.groupBy` など、実用性が高く入門者に親しみやすいAPI)と比べてユースケースがニッチすぎる。
+BigIntが既に章内で扱われているので、「ES2026からBigIntもシリアライズ/デシリアライズできる」という切り口で繋げられる。入門者も「さっきの表で出てきたBigIntがこうなった」と読みやすい。
 
-## 論点・メモ
+### 追加位置の案
 
-- BigIntの扱い方針は js-primer 全体で未着手(数値章でもほぼ言及なし)
-- Twitter APIの例など具体的なユースケースはあるが、入門者の学習動機として弱い
-- 精度ロスの話題はそれ自体で1つのテーマになるため、ついでに軽く書くのは難しい
-- 対応しない場合もリリースノートでは言及する(ES2026対応の一部として列挙)
+`#not-serialization-object` 節末尾(L205の後、`#serialization-by-toJSON`節の前)に:
+
+- `[ES2026] BigIntをシリアライズする (JSON.rawJSON)` — stringify側
+- `[ES2026] BigIntをデシリアライズする (reviver + context.source)` — parse側
+
+あるいは、両方を1つのサブ節にまとめて `[ES2026] BigIntをJSONで扱う` とするのも手。
 
 ## 対応コスト(仮)
 
-- A (対応しない): **Point 0** (変更なし、リリースノートのみ)
-- B (コラムで言及): **Point 1-2** (JSON章のparse節に短いコラム1つ追加)
-- C (本格対応): **Point 3-5** (reviverの説明から始まる広範な書き直し、JSON章の章構成見直し)
+- A (対応しない): **Point 0**
+- B (`#not-serialization-object` にBigInt補足追加): **Point 2** (1つの補足節相当、reviver新規導入を含む)
+- C (本格対応): **Point 3-5**
+
+B を採用する場合、類似先例:
+- [ES2022] Error Cause ([PR #1732](https://github.com/js-primer/js-primer/pull/1732)): Point 2 (1セクション追加)
