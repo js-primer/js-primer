@@ -416,7 +416,7 @@ console.log(iterator.next()); // => { value: 1, done: false }
 console.log(iterator.next()); // => { value: 2, done: false }
 ```
 
-Iterableプロトコルを実装しているオブジェクトであれば、`Iterator.from`メソッドを使ってイテレータを作成できます。
+配列や文字列などのIterableプロトコルを実装しているオブジェクトであれば、`Iterator.from`メソッドを使ってイテレータを作成できます。
 
 また、ビルトインオブジェクトにはイテレータを直接返すメソッドを持つものもあります。
 Array/Map/Setでは`keys`/`values`/`entries`メソッドが、新しいイテレータを返します。
