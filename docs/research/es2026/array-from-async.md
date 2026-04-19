@@ -136,6 +136,19 @@ Array.fromAsyncは2024年頃に既にブラウザ実装が進んでいたが、*
 
 Math.sumPreciseと同じく「足場不在で単独紹介が収まらない」パターン。
 
+### 将来再検討時の想定
+
+async iterator関連を導入する場合の配置先は [イテレータとジェネレータ章](https://jsprimer.net/basic/iterator-generator/) が自然:
+
+- Iterable/Iteratorプロトコルの延長として Async Iterable/Async Iterator を導入できる
+- ジェネレータ関数節の後ろに async generator を追加できる
+- `[ES2025] イテレータのメソッド` 節と対称に AsyncIteratorHelpers を配置できる
+- `Array.fromAsync` は `[ES2026]` タグでこの章内に追加(`Iterator.concat` と同じパターン)
+
+非同期処理章は Promise/async function が主題なので、async iterator関連をまとめて置くと章の目的がぶれる。
+
+**引き金**: AsyncIteratorHelpersがStage 4到達したタイミングで、iterator-generator章にasync iterator関連(Async Iterable/Async Iterator、async generator、`for await...of`、AsyncIteratorHelpers、`Array.fromAsync`)をまとめて導入する流れを想定。
+
 ## 論点・メモ
 
 - `Promise.all` との使い分けは実用上重要(並列 vs 直列、遅延 vs 即時)
