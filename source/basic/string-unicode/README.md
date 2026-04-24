@@ -338,5 +338,5 @@ UnicodeはECMAScriptとは独立した仕様であるため、文字列を扱う
 [ループと反復処理]: ../loop/README.md
 [ループと反復処理のfor...of文]: ../loop/README.md#for-of-statement
 
-[文字コード「超」研究]: https://www.rutles.net/products/detail.php?product_id=298
+[文字コード「超」研究]: https://www.amazon.co.jp/dp/4899772939
 [プログラマのための文字コード技術入門]: https://gihyo.jp/book/2019/978-4-297-10291-3
