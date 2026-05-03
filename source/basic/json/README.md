@@ -156,58 +156,101 @@ console.log(JSON.stringify(obj, null, "\t"));
 ## JSONにシリアライズできないオブジェクト {#not-serialization-object}
 
 `JSON.stringify`静的メソッドはJSONで表現可能な値だけをシリアライズします。
-そのため、値が関数や`Symbol`、あるいは`undefined`であるプロパティなどは変換されません。
-ただし、配列の値としてそれらが見つかったときには例外的に`null`に置き換えられます。
-またキーが`Symbol`である場合にもシリアライズの対象外になります。
-代表的な変換の例を次の表とサンプルコードに示します。
+シリアライズできない一部の値は別の値に変換されたりJSONから取り除かれることに注意してください。
 
-| シリアライズ前の値 | シリアライズ後の値 |
-| ---             |  ---            |
-| 文字列・数値・真偽値 |  対応する値       |
-| null            |  null           |
-| 配列             |  配列           |
-| オブジェクト      |  オブジェクト     |
-| 関数             |  変換されない（配列のときはnull）     |
-| undefined       |  変換されない（配列のときはnull）     |
-| Symbol          |  変換されない（配列のときはnull）     |
-| RegExp          |  {}             |
-| Map, Set        |  {}             |
-| BigInt          |  例外が発生する    |
+以下に、JSON変換後に値がどのように扱われるかを表に示します。
+
+| # | 元の値 | JSON変換後の値 |
+| :---: | --- | --- |
+| 1 | string（文字列） | その値そのもの |
+| 2 | number（有限の数値） | その値そのもの |
+| 3 | boolean（真偽値） | その値そのもの |
+| 4 | null | nullそのもの |
+| 5 | undefined（オブジェクトの値） | プロパティごと削除される |
+| 6 | undefined（配列の値） | nullに変換される |
+| 7 | undefined（引数自体） | undefined |
+| 8 | function（関数） | 上記undefinedと同じ |
+| 9 | symbol（シンボル） | 上記undefinedと同じ |
+| 10 | bigint（長整数） | 例外が発生する |
+| 11 | Infinity（無限）やNaN（非数） | nullに変換される |
+| 12 | Array（配列） | 配列として扱われる |
+| 13 | Object（オブジェクト） | オブジェクトとして扱われる |
+| 14 | 循環参照オブジェクト | 例外が発生する |
+| 15 | Date | toISOStringメソッドの結果の文字列 |
+| 16 | RegExp（正規表現リテラル） | 空オブジェクト {} に変換される |
+| 17 | Map, Set | 空オブジェクト {} に変換される |
+
+実際に実行できるサンプルコードは以下です。
 
 {{book.console}}
 ```js
-// 値が関数のプロパティ
-console.log(JSON.stringify({ x: function() {} })); // => '{}'
-// 値がSymbolのプロパティ
-console.log(JSON.stringify({ x: Symbol("") })); // => '{}'
-// 値がundefinedのプロパティ
-console.log(JSON.stringify({ x: undefined })); // => '{}'
-// 配列の場合
-console.log(JSON.stringify({ x: [10, function() {}] })); // => '{"x":[10,null]}'
-// キーがSymbolのプロパティ
-JSON.stringify({ [Symbol("foo")]: "foo" }); // => '{}'
-// 値がRegExpのプロパティ
-console.log(JSON.stringify({ x: /foo/ })); // => '{"x":{}}'
-// 値がMapのプロパティ
-const map = new Map();
-map.set("foo", "foo");
-console.log(JSON.stringify({ x: map })); // => '{"x":{}}'
+function test(arg) {
+    try {
+        console.log(JSON.stringify(arg));
+    } catch (e) {
+        console.error(e.message);
+    }
+}
+
+test({ v1: "foo" });
+test({ v2: { a: -1, b: 10, c: 123.45, d: 1e+30 } });
+test({ v3: { a: true, b: false } });
+test({ v4: null });
+test({ v5: { a: 1, b: undefined, c: 3 } });
+test({ v6: [1, undefined, 3] });
+test(undefined);
+test({ v8a: { a: 1, b: function(){}, c: ()=>0, d: 4 } });
+test({ v8b: [1, function(){}, ()=>0, 4] });
+test(function(){});
+test({ v9a: { a: 1, b: Symbol("foo"), c: Symbol.for("bar"), d: 4 } });
+test({ v9b: [1, Symbol("foo"), Symbol.for("bar"), 4] });
+test(Symbol("foo"));
+test({ v10: 112233445566778899n });
+test({ v11: { a: 1/0, b: -1/0, c: 0/0 } });
+test({ v12: [1, 2, 3, 4] });
+test({ v13: { a: 1, b: 2, [Symbol.for("foo")]: 3, d: 4} });
+const obj = { a: 1 }; obj.b = obj; test({ v14: obj });
+test({ v15: new Date("2000-01-01T10:20:30Z") });
+test({ v16: { a: /\d+/, b: new RegExp('/.+/') } });
+test({ v17a: { map: new Map([["foo", 1], ["bar", 2]]) } });
+test({ v17b: { set: new Set(["foo", "bar"]) } });
+
+/*
+{"v1":"foo"}
+{"v2":{"a":-1,"b":10,"c":123.45,"d":1e+30}}
+{"v3":{"a":true,"b":false}}
+{"v4":null}
+{"v5":{"a":1,"c":3}}
+{"v6":[1,null,3]}
+undefined
+{"v8a":{"a":1,"d":4}}
+{"v8b":[1,null,null,4]}
+undefined
+{"v9a":{"a":1,"d":4}}
+{"v9b":[1,null,null,4]}
+undefined
+❌️ BigInt value can't be serialized in JSON
+{"v11":{"a":null,"b":null,"c":null}}
+{"v12":[1,2,3,4]}
+{"v13":{"a":1,"b":2,"d":4}}
+❌️ cyclic object value
+{"v15":"2000-01-01T10:20:30.000Z"}
+{"v16":{"a":{},"b":{}}}
+{"v17a":{"map":{}}}
+{"v17b":{"set":{}}}
+*/
 ```
 
-オブジェクトがシリアライズされる際は、そのオブジェクトの列挙可能なプロパティだけが再帰的にシリアライズされます。
-`RegExp`や`Map`、`Set`などのインスタンスは列挙可能なプロパティを持たないため、空のオブジェクトに変換されます。
+オブジェクトがシリアライズされる際は、そのオブジェクト自身の列挙可能な文字列キーのプロパティだけが再帰的にシリアライズされます。
+キーが文字列ではなくシンボルであったり、列挙可能ではないプロパティは無視されます。
+`RegExp`や`Map`、`Set`などのインスタンスは列挙可能なプロパティを持たないため、結果的に空のオブジェクトに変換されます。
 
-また、`JSON.stringify`静的メソッドがシリアライズに失敗することもあります。
-よくあるのは、参照が循環しているオブジェクトをシリアライズしようとしたときに例外が投げられるケースです。
-たとえば次の例のように、あるオブジェクトのプロパティを再帰的にたどって自分自身が見つかるような場合はシリアライズが不可能となります。
+また、`JSON.stringify`静的メソッドが実行時に例外を投げてシリアライズに失敗することもあります。
 `JSON.parse`静的メソッドだけでなく、`JSON.stringify`静的メソッドも例外処理を行って安全に使いましょう。
-
-[import circular-reference.js](src/circular-reference.js)
 
 ## `toJSON`メソッドを使ったシリアライズ {#serialization-by-toJSON}
 
-オブジェクトが`toJSON`メソッドを持っている場合、`JSON.stringify`静的メソッドは既定の文字列変換ではなく`toJSON`メソッドの返り値を使います。
-次の例のように、引数に直接渡されたときだけでなく引数のプロパティとして登場したときにも再帰的に処理されます。
+オブジェクトが`toJSON`メソッドを持っている場合、`JSON.stringify`静的メソッドはオブジェクトそのものの代わりに`toJSON`メソッドの返り値を使ってシリアライズを試みます。
 
 {{book.console}}
 ```js
@@ -221,7 +264,15 @@ console.log(JSON.stringify(obj)); // => '"bar"'
 console.log(JSON.stringify({ x: obj })); // => '{"x":"bar"}'
 ```
 
-`toJSON`メソッドは自作のクラスを特殊な形式でシリアライズする目的などに使われます。
+`toJSON`メソッドは特定のクラスのインスタンスなどのオブジェクトをJSONとして使いやすい形式でシリアライズするために使われます。
+
+{{book.console}}
+```js
+const date = new Date("2000-01-01T10:20:30Z");
+console.log(JSON.stringify(date)); // => '"2000-01-01T10:20:30.000Z"'
+```
+
+`Date`クラスのインスタンスをシリアライズするとき、`RegExp`クラスのインスタンスのように空オブジェクト`{}`にならずに`toISOString`メソッドの結果に変換されるのは、`Date.prototype.toJSON`メソッドが定義されているためです。
 
 ## まとめ {#conclusion}
 
