@@ -189,7 +189,7 @@ console.log(groupedVotes.get("no")); // => [{ id: 2, vote: "no" }, { id: 5, vote
 キーが存在しない場合は、第二引数のデフォルト値をそのキーに追加したうえで、その値を返却します。
 
 {{book.console}}
-<!-- doctest:meta:{ "ECMAScript": 2026 } -->
+<!-- doctest:meta:{ "ECMAScript": "2026" } -->
 ```js
 const map = new Map();
 
@@ -209,7 +209,7 @@ console.log(map.get("js")); // => ["Map", "Set"]
 これによりデフォルト値を遅延評価でき、不要な計算を避けられます。
 
 {{book.console}}
-<!-- doctest:meta:{ "ECMAScript": 2026 } -->
+<!-- doctest:meta:{ "ECMAScript": "2026" } -->
 ```js
 const map = new Map();
 
@@ -363,7 +363,7 @@ obj = null;
 このマップを`Map`で実装してしまうと、明示的に削除されるまでイベントリスナーはメモリ上に残り続けます。
 ここで`WeakMap`を使うと、`addListener` メソッドに渡された`listener`は `EventEmitter` インスタンスが参照されなくなった際、自動的に解放されます。
 
-<!-- doctest:meta:{ "ECMAScript": 2026 } -->
+<!-- doctest:meta:{ "ECMAScript": "2026" } -->
 ```js
 // イベントリスナーを管理するマップ
 const listenersMap = new WeakMap();
@@ -393,7 +393,7 @@ event = null;
 また、あるオブジェクトから計算した結果を一時的に保存する用途でもよく使われます。
 次の例ではHTML要素の高さを計算した結果を保存して、2回目以降に同じ計算をしないようにしています。
 
-<!-- doctest:meta:{ "ECMAScript": 2026 } -->
+<!-- doctest:meta:{ "ECMAScript": "2026" } -->
 ```js
 const cache = new WeakMap();
 
