@@ -183,6 +183,49 @@ console.log(groupedVotes.get("yes")); // => [{ id: 1, vote: "yes" }, { id: 3, vo
 console.log(groupedVotes.get("no")); // => [{ id: 2, vote: "no" }, { id: 5, vote: "no" }]
 ```
 
+### [ES2026] `Map.getOrInsert` / `getOrInsertComputed`メソッド {#map-get-or-insert}
+
+`getOrInsert`メソッドは、指定したキーに対応する値を取得します。
+キーが存在しない場合は、第二引数のデフォルト値をそのキーに追加したうえで、その値を返却します。
+
+{{book.console}}
+<!-- doctest:meta:{ "ECMAScript": 2026 } -->
+```js
+const map = new Map();
+
+// キーが存在しない場合は、デフォルト値を追加して返す
+map.getOrInsert("js", []).push("Map");
+console.log(map.get("js")); // => ["Map"]
+
+// キーが存在する場合は、対応する値を取得する
+map.getOrInsert("js", []).push("Set");
+console.log(map.get("js")); // => ["Map", "Set"]
+```
+
+ただし、`getOrInsert`メソッドではキーの有無にかかわらず、第二引数のデフォルト値が事前に評価されます。
+そのため、デフォルト値の計算コストが高い場合や副作用を伴う場合には、`getOrInsertComputed`メソッドが有用です。
+
+`getOrInsertComputed`メソッドは、指定したキーが存在しない場合にのみコールバック関数を実行し、その返り値を値として追加して返します。
+これによりデフォルト値を遅延評価でき、不要な計算を避けられます。
+
+{{book.console}}
+<!-- doctest:meta:{ "ECMAScript": 2026 } -->
+```js
+const map = new Map();
+
+const computeExpensiveValue = (key) => {
+    console.log(`Compute expensive value for ${key}`);
+    return [];
+};
+
+// キーが存在しない場合だけ、コールバックでデフォルト値を作成する
+map.getOrInsertComputed("js", computeExpensiveValue).push("Map"); // => "Compute expensive value for js"
+console.log(map.get("js")); // => ["Map"]
+// 既にキーが存在するためコールバック関数は評価されず、ログも出ない
+map.getOrInsertComputed("js", computeExpensiveValue).push("Set");
+console.log(map.get("js")); // => ["Map", "Set"]
+```
+
 ### マップとしてのObjectとMap {#object-and-map}
 
 ES2015で`Map`が導入されるまで、JavaScriptにおいてマップ型を実現するために`Object`が利用されてきました。
@@ -320,15 +363,15 @@ obj = null;
 このマップを`Map`で実装してしまうと、明示的に削除されるまでイベントリスナーはメモリ上に残り続けます。
 ここで`WeakMap`を使うと、`addListener` メソッドに渡された`listener`は `EventEmitter` インスタンスが参照されなくなった際、自動的に解放されます。
 
-<!-- doctest:meta:{ "ECMAScript": 2020 } -->
+<!-- doctest:meta:{ "ECMAScript": 2026 } -->
 ```js
 // イベントリスナーを管理するマップ
 const listenersMap = new WeakMap();
 
 class EventEmitter {
     addListener(listener) {
-        // this(インスタンス)にひもづいたリスナーの配列を取得する
-        const listeners = listenersMap.get(this) ?? [];
+        // this(インスタンス)にひもづいたリスナーの配列を取得する（なければ空配列を追加して返す）
+        const listeners = listenersMap.getOrInsert(this, []);
         const newListeners = listeners.concat(listener);
         // this をキーにして、新しいリスナーの配列をセットする
         listenersMap.set(this, newListeners);
@@ -350,17 +393,13 @@ event = null;
 また、あるオブジェクトから計算した結果を一時的に保存する用途でもよく使われます。
 次の例ではHTML要素の高さを計算した結果を保存して、2回目以降に同じ計算をしないようにしています。
 
+<!-- doctest:meta:{ "ECMAScript": 2026 } -->
 ```js
 const cache = new WeakMap();
 
 function getHeight(element) {
-    if (cache.has(element)) {
-        return cache.get(element);
-    }
-    const height = element.getBoundingClientRect().height;
     // elementオブジェクトに対して高さをひもづけて保存している
-    cache.set(element, height);
-    return height;
+    return cache.getOrInsertComputed(element, (el) => el.getBoundingClientRect().height);
 }
 ```
 
