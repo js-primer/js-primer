@@ -46,7 +46,6 @@ JavaScriptでJSONを扱うには、ビルトインオブジェクトである[JS
 次のコードは簡単なJSON形式の文字列をJavaScriptのオブジェクトに変換する例です。
 
 <!-- textlint-disable eslint -->
-
 {{book.console}}
 ```js
 // JSONはダブルクォートのみを許容するため、シングルクォートでJSON文字列を記述
@@ -55,7 +54,6 @@ const obj = JSON.parse(json);
 console.log(obj.id); // => 1
 console.log(obj.name); // => "js-primer"
 ```
-
 <!-- textlint-enable eslint -->
 
 文字列がJSONの配列を表す場合は、`JSON.parse`静的メソッドの返り値も配列になります。
@@ -158,20 +156,20 @@ console.log(JSON.stringify(obj, null, "\t"));
 `JSON.stringify`静的メソッドはJSONで表現可能な値だけをシリアライズします。
 シリアライズできない一部の値は別の値に変換されたりJSONから取り除かれることに注意してください。
 
-以下に、JSON変換後に値がどのように扱われるかを表に示します。
+次に、JSON変換後に値がどのように扱われるかを表に示します。
 
 | # | 元の値 | JSON変換後の値 |
 | :---: | --- | --- |
-| 1 | string（文字列） | その値そのもの |
-| 2 | number（有限の数値） | その値そのもの |
-| 3 | boolean（真偽値） | その値そのもの |
+| 1 | String（文字列） | その値そのもの |
+| 2 | Number（有限の数値） | その値そのもの |
+| 3 | Boolean（真偽値） | その値そのもの |
 | 4 | null | nullそのもの |
 | 5 | undefined（オブジェクトの値） | プロパティごと削除される |
 | 6 | undefined（配列の値） | nullに変換される |
 | 7 | undefined（引数自体） | undefined |
-| 8 | function（関数） | 上記undefinedと同じ |
-| 9 | symbol（シンボル） | 上記undefinedと同じ |
-| 10 | bigint（長整数） | 例外が発生する |
+| 8 | Function（関数） | 上記undefinedと同じ |
+| 9 | Symbol（シンボル） | 上記undefinedと同じ |
+| 10 | BigInt（長整数） | 例外が発生する |
 | 11 | Infinity（無限）やNaN（非数） | nullに変換される |
 | 12 | Array（配列） | 配列として扱われる |
 | 13 | Object（オブジェクト） | オブジェクトとして扱われる |
@@ -199,19 +197,19 @@ test({ v4: null });
 test({ v5: { a: 1, b: undefined, c: 3 } });
 test({ v6: [1, undefined, 3] });
 test(undefined);
-test({ v8a: { a: 1, b: function(){}, c: ()=>0, d: 4 } });
-test({ v8b: [1, function(){}, ()=>0, 4] });
-test(function(){});
+test({ v8a: { a: 1, b: function() {}, c: () => 0, d: 4 } });
+test({ v8b: [1, function() {}, () => 0, 4] });
+test(function() {});
 test({ v9a: { a: 1, b: Symbol("foo"), c: Symbol.for("bar"), d: 4 } });
 test({ v9b: [1, Symbol("foo"), Symbol.for("bar"), 4] });
 test(Symbol("foo"));
 test({ v10: 112233445566778899n });
-test({ v11: { a: 1/0, b: -1/0, c: 0/0 } });
+test({ v11: { a: 1 / 0, b: -1 / 0, c: 0 / 0 } });
 test({ v12: [1, 2, 3, 4] });
-test({ v13: { a: 1, b: 2, [Symbol.for("foo")]: 3, d: 4} });
+test({ v13: { a: 1, b: 2, [Symbol.for("foo")]: 3, d: 4 } });
 const obj = { a: 1 }; obj.b = obj; test({ v14: obj });
 test({ v15: new Date("2000-01-01T10:20:30Z") });
-test({ v16: { a: /\d+/, b: new RegExp('/.+/') } });
+test({ v16: { a: /\d+/, b: new RegExp("/.+/") } });
 test({ v17a: { map: new Map([["foo", 1], ["bar", 2]]) } });
 test({ v17b: { set: new Set(["foo", "bar"]) } });
 
@@ -229,11 +227,11 @@ undefined
 {"v9a":{"a":1,"d":4}}
 {"v9b":[1,null,null,4]}
 undefined
-❌️ BigInt value can't be serialized in JSON
+// v10: 例外エラー（BigInt値はJSONにシリアライズできません）
 {"v11":{"a":null,"b":null,"c":null}}
 {"v12":[1,2,3,4]}
 {"v13":{"a":1,"b":2,"d":4}}
-❌️ cyclic object value
+// v14: 例外エラー（オブジェクトが循環参照しています）
 {"v15":"2000-01-01T10:20:30.000Z"}
 {"v16":{"a":{},"b":{}}}
 {"v17a":{"map":{}}}
@@ -242,11 +240,11 @@ undefined
 ```
 
 オブジェクトがシリアライズされる際は、そのオブジェクト自身の列挙可能な文字列キーのプロパティだけが再帰的にシリアライズされます。
-キーが文字列ではなくシンボルであったり、列挙可能ではないプロパティは無視されます。
+キーが文字列ではなくシンボルであったり、列挙可能でないプロパティは無視されます。
 `RegExp`や`Map`、`Set`などのインスタンスは列挙可能なプロパティを持たないため、結果的に空のオブジェクトに変換されます。
 
-また、`JSON.stringify`静的メソッドが実行時に例外を投げてシリアライズに失敗することもあります。
-`JSON.parse`静的メソッドだけでなく、`JSON.stringify`静的メソッドも例外処理を行って安全に使いましょう。
+また、`JSON.stringify`静的メソッドは実行時に例外を投げてシリアライズに失敗することもあります。
+`JSON.parse`静的メソッドだけでなく、`JSON.stringify`静的メソッドも必要に応じて例外処理を行って安全に使いましょう。
 
 ## `toJSON`メソッドを使ったシリアライズ {#serialization-by-toJSON}
 
@@ -272,7 +270,108 @@ const date = new Date("2000-01-01T10:20:30Z");
 console.log(JSON.stringify(date)); // => '"2000-01-01T10:20:30.000Z"'
 ```
 
-`Date`クラスのインスタンスをシリアライズするとき、`RegExp`クラスのインスタンスのように空オブジェクト`{}`にならずに`toISOString`メソッドの結果に変換されるのは、`Date.prototype.toJSON`メソッドが定義されているためです。
+`Date`クラスのインスタンスをシリアライズするとき`toISOString`メソッドの結果に変換されるのは、`Date.prototype.toJSON`メソッドが定義されているためです。
+
+## JSONで扱えない値を扱う方法 {#json-extended-serialization}
+
+`JSON.parse`静的メソッドや`JSON.stringify`静的メソッドを使うにあたって、値の変換前に特殊な処理を施したい場合は、それを行うための仕組みが用意されています。
+
+### `JSON.parse`の`reviver`引数 {#json-parse-reviver}
+
+`JSON.parse`静的メソッドにはオプショナルな引数が1つあります。
+第二引数はreviver引数とも呼ばれ、関数を渡せます。
+関数を渡した場合は引数にプロパティのキーと値が渡され、その返り値によってJSONの値をデシリアライズする際の挙動をコントロールできます。
+
+<!-- textlint-disable eslint -->
+{{book.console}}
+```js
+const json = '{ "valueof(2**64)_int_as_str": "18446744073709551616" }';
+
+console.log(JSON.parse(json));
+// => { "valueof(2**64)_int_as_str": "18446744073709551616" };
+
+const reviver = (key, value) => {
+    if (key.endsWith("_int_as_str")) {
+        return Number.isSafeInteger(Number(value)) ? Number(value) : BigInt(value);
+    }
+    return value;
+};
+console.log(JSON.parse(json, reviver));
+// => { "valueof(2**64)_int_as_str": 18446744073709551616n }
+```
+<!-- textlint-enable eslint -->
+
+上記のコードは、JSONの値が整数を表す文字列の値の場合に`Number`または`BigInt`のリテラルに変換する例です。
+
+### `JSON.stringify`の`replacer`引数 {#json-stringify-replacer}
+
+`JSON.stringify`静的メソッドの第二引数はreplacer引数とも呼ばれ、関数を渡せます。
+関数を渡した場合は引数にプロパティのキーと値が渡され、その返り値によって値をJSONにシリアライズする際の挙動をコントロールできます。
+
+{{book.console}}
+```js
+const data = [-(2n ** 64n), -(2 ** 32), 0, 2 ** 32, 2n ** 64n];
+
+const replacer = (key, value) => {
+    if (typeof value === "bigint") {
+        return String(value);
+    }
+    return value;
+};
+console.log(JSON.stringify(data, replacer));
+// => '["-18446744073709551616",-4294967296,0,4294967296,"18446744073709551616"]'
+```
+
+上記のコードは、変換前の値としてBigInt型の値があれば文字列に変換してJSONを構築する例です。
+
+### [ES2026] `JSON.parse`における`reviver`関数の`context`引数 {#json-parse-reviver-context}
+
+実際のJSONには、JavaScriptで安全に扱える範囲を超えた整数値が（文字列リテラルではなく）数値リテラルとして与えられる場合があります。
+従来はこのような数値を精度を落とさずにJavaScriptで受け取る手段がありませんでしたが、それを可能にする仕組みが`context`引数です。
+
+<!-- textlint-disable eslint -->
+{{book.console}}
+```js
+const json = '{ "valueof(2**64)": 18446744073709551616 }';
+console.log(JSON.parse(json)); // => { "valueof(2**64)": 18446744073709552000 }
+// number（IEEE 754の倍精度浮動小数点数）では精度不足のため、絶対値が2**53以上の整数を正確に扱えない
+
+const reviver = (key, value, context) => {
+    if (typeof value === "number") {
+        const INTEGER_TOKEN = /^-?(0|[1-9]\d*)$/;
+        if (INTEGER_TOKEN.test(context.source) && !Number.isSafeInteger(value)) {
+            return BigInt(context.source);
+        }
+    }
+    return value;
+};
+console.log(JSON.parse(json, reviver)); // => { "valueof(2**64)": 18446744073709551616n }
+```
+<!-- textlint-enable eslint -->
+
+`reviver`関数の引数では第二引数として`value`がありますが、第三引数として`context`が渡ってくるようになりました。
+`context.source`を参照することで、JSONに書かれている元の値を文字列として扱えるようになります。
+なお、JSONの値がオブジェクトまたは配列の場合は`context.source`がセットされません。
+
+### [ES2026] `JSON.stringify`で使う`JSON.rawJSON`静的メソッド {#json-rawjson}
+
+`JSON.parse`の例とは逆に、JavaScriptで安全に扱える範囲を超えた整数値を数値リテラルとしてシリアライズする目的にも使える仕組みが[JSON.rawJSONメソッド][]です。
+
+{{book.console}}
+```js
+const data = [-(2n ** 64n), -(2 ** 32), 0, 2 ** 32, 2n ** 64n];
+
+const replacer = (key, value) => {
+    if (typeof value === "bigint") {
+        return JSON.rawJSON(String(value));
+    }
+    return value;
+};
+console.log(JSON.stringify(data, replacer));
+// => '[-18446744073709551616,-4294967296,0,4294967296,18446744073709551616]'
+```
+
+`JSON.rawJSON`静的メソッドを用いることで、JSONのシリアライズ結果として値を直接埋め込むことができるようになります。
 
 ## まとめ {#conclusion}
 
@@ -282,9 +381,11 @@ console.log(JSON.stringify(date)); // => '"2000-01-01T10:20:30.000Z"'
 - `JSON`オブジェクトを使ったシリアライズとデシリアライズ
 - JSON形式にシリアライズできないオブジェクトもある
 - `JSON.stringify`はシリアライズ対象の`toJSON`メソッドを利用する
+- JSONで扱えない値を扱いたい場合は`reviver`関数と`replacer`関数を利用する
 
 [ECMA-404]: https://www.ecma-international.org/publications-and-standards/standards/ecma-404/
 [json.orgの日本語ドキュメント]: https://www.json.org/json-ja.html
 [JSONオブジェクト]: https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/JSON
 [JSON.parseメソッド]: https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
 [JSON.stringifyメソッド]: https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
+[JSON.rawJSONメソッド]: https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/JSON/rawJSON
