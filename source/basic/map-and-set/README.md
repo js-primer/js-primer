@@ -185,8 +185,8 @@ console.log(groupedVotes.get("no")); // => [{ id: 2, vote: "no" }, { id: 5, vote
 
 ### [ES2026] `Map.getOrInsert` / `getOrInsertComputed`メソッド {#map-get-or-insert}
 
-`getOrInsert`メソッドは、指定したキーに対応する値を取得します。
-キーが存在しない場合は、第二引数のデフォルト値をそのキーに追加したうえで、その値を返却します。
+`getOrInsert`メソッドは、`get`メソッドと同じく指定したキーに対応する値を取得します。
+ただしキーが存在しない場合は、第二引数のデフォルト値をそのキーに追加したうえで、その値を返却します。
 
 {{book.console}}
 <!-- doctest:meta:{ "ECMAScript": "2026" } -->
