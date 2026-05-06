@@ -25,7 +25,6 @@ const IgnoredECMAScriptVersions = (() => {
     if (semver.cmp(process.version, ">=", "26.0.0")) {
         return []; // すべて通る前提
     }
-    // https://node.green/#ES2025
     if (semver.cmp(process.version, ">=", "24.0.0")) {
         return ["2026"]; // Map/WeakMap upsertがサポートされていない
     }
