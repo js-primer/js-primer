@@ -152,115 +152,97 @@ console.log(JSON.stringify(data, null, "\t"));
 `space`引数は第三引数であるため、インデントを指定したい場合には第二引数の`replacer`に`null`を指定することが一般的です。
 `replacer`の活用方法については後述します。
 
-## JSONにシリアライズできないオブジェクト {#not-serialization-object}
+<!-- TODO: 見出しIDを見直す -->
+## JSONで扱える値 {#not-serialization-object}
 
-`JSON.stringify`静的メソッドはJSONで表現可能な値だけをシリアライズします。
-シリアライズできない一部の値は別の値に変換されたりJSONから取り除かれることに注意してください。
+JSONはJavaScriptに限らず、さまざまなプログラミング言語で生成したりパースすることができます。
+そのため、一部のプログラミング言語でしか扱えないデータ型の値はJSONで扱うことができません。
+JSONで値として許容されるデータ型は、オブジェクト、配列、文字列、数値、真偽値、`null`です。
 
-次に、JSON変換後に値がどのように扱われるかを表に示します。
-
-| # | 元の値 | JSON変換後の値 |
-| :---: | --- | --- |
-| 1 | String（文字列） | その値そのもの |
-| 2 | Number（有限の数値） | その値そのもの |
-| 3 | Boolean（真偽値） | その値そのもの |
-| 4 | null | nullそのもの |
-| 5 | undefined（オブジェクトの値） | プロパティごと削除される |
-| 6 | undefined（配列の値） | nullに変換される |
-| 7 | undefined（引数自体） | undefined |
-| 8 | Function（関数） | 上記undefinedと同じ |
-| 9 | Symbol（シンボル） | 上記undefinedと同じ |
-| 10 | BigInt（長整数） | 例外が発生する |
-| 11 | Infinity（無限）やNaN（非数） | nullに変換される |
-| 12 | Array（配列） | 配列として扱われる |
-| 13 | Object（オブジェクト） | オブジェクトとして扱われる |
-| 14 | 循環参照オブジェクト | 例外が発生する |
-| 15 | Date | toISOStringメソッドの結果の文字列 |
-| 16 | RegExp（正規表現リテラル） | 空オブジェクト {} に変換される |
-| 17 | Map, Set | 空オブジェクト {} に変換される |
-
-実際に実行できるサンプルコードは以下です。
+JavaScriptの関数やシンボル、`undefined`値は削除され、MapやSetあるいは正規表現のインスタンスは空オブジェクト`{}`に変換されます。
 
 {{book.console}}
 ```js
-function test(arg) {
-    try {
-        console.log(JSON.stringify(arg));
-    } catch (e) {
-        console.error(e.message);
-    }
-}
-
-test({ v1: "foo" });
-test({ v2: { a: -1, b: 10, c: 123.45, d: 1e+30 } });
-test({ v3: { a: true, b: false } });
-test({ v4: null });
-test({ v5: { a: 1, b: undefined, c: 3 } });
-test({ v6: [1, undefined, 3] });
-test(undefined);
-test({ v8a: { a: 1, b: function() {}, c: () => 0, d: 4 } });
-test({ v8b: [1, function() {}, () => 0, 4] });
-test(function() {});
-test({ v9a: { a: 1, b: Symbol("foo"), c: Symbol.for("bar"), d: 4 } });
-test({ v9b: [1, Symbol("foo"), Symbol.for("bar"), 4] });
-test(Symbol("foo"));
-test({ v10: 112233445566778899n });
-test({ v11: { a: 1 / 0, b: -1 / 0, c: 0 / 0 } });
-test({ v12: [1, 2, 3, 4] });
-test({ v13: { a: 1, b: 2, [Symbol.for("foo")]: 3, d: 4 } });
-const obj = { a: 1 }; obj.b = obj; test({ v14: obj });
-test({ v15: new Date("2000-01-01T10:20:30Z") });
-test({ v16: { a: /\d+/, b: new RegExp("/.+/") } });
-test({ v17a: { map: new Map([["foo", 1], ["bar", 2]]) } });
-test({ v17b: { set: new Set(["foo", "bar"]) } });
-
+const data = {
+    v1: "Hello, World!",
+    v2: 123.45,
+    v3: true,
+    v4: false,
+    v5: null,
+    v6: function() {},
+    v7: Symbol("foo"),
+    v8: undefined,
+    v9: new Map([["a", 1], ["b", 2]]),
+    v10: new Set(["a", "b", "c"]),
+    v11: /\d+/g,
+};
+console.log(JSON.stringify(data, null, 4));
 /*
-{"v1":"foo"}
-{"v2":{"a":-1,"b":10,"c":123.45,"d":1e+30}}
-{"v3":{"a":true,"b":false}}
-{"v4":null}
-{"v5":{"a":1,"c":3}}
-{"v6":[1,null,3]}
-undefined
-{"v8a":{"a":1,"d":4}}
-{"v8b":[1,null,null,4]}
-undefined
-{"v9a":{"a":1,"d":4}}
-{"v9b":[1,null,null,4]}
-undefined
-// v10: 例外エラー（BigInt値はJSONにシリアライズできません）
-{"v11":{"a":null,"b":null,"c":null}}
-{"v12":[1,2,3,4]}
-{"v13":{"a":1,"b":2,"d":4}}
-// v14: 例外エラー（オブジェクトが循環参照しています）
-{"v15":"2000-01-01T10:20:30.000Z"}
-{"v16":{"a":{},"b":{}}}
-{"v17a":{"map":{}}}
-{"v17b":{"set":{}}}
+{
+    "v1": "Hello, World!",
+    "v2": 123.45,
+    "v3": true,
+    "v4": false,
+    "v5": null,
+    "v9": {},
+    "v10": {},
+    "v11": {}
+}
 */
 ```
 
-オブジェクトがシリアライズされる際は、そのオブジェクト自身の列挙可能な文字列キーのプロパティだけが再帰的にシリアライズされます。
-キーが文字列ではなくシンボルであったり、列挙可能でないプロパティは無視されます。
-`RegExp`や`Map`、`Set`などのインスタンスは列挙可能なプロパティを持たないため、結果的に空のオブジェクトに変換されます。
-
-また、`JSON.stringify`静的メソッドは実行時に例外を投げてシリアライズに失敗することもあります。
-`JSON.parse`静的メソッドだけでなく、`JSON.stringify`静的メソッドも必要に応じて例外処理を行って安全に使いましょう。
-
-## `toJSON`メソッドを使ったシリアライズ {#serialization-by-toJSON}
-
-オブジェクトが`toJSON`メソッドを持っている場合、`JSON.stringify`静的メソッドはオブジェクトそのものの代わりに`toJSON`メソッドの返り値を使ってシリアライズを試みます。
+関数やシンボル、`undefined`値が配列の要素であった場合は削除されず`null`に変換されます。
 
 {{book.console}}
 ```js
-const obj = {
-    foo: "foo",
-    toJSON() {
-        return "bar";
-    }
+const data = {
+    array: [1, function() {}, 3, Symbol("foo"), 5, undefined],
 };
-console.log(JSON.stringify(obj)); // => '"bar"'
-console.log(JSON.stringify({ x: obj })); // => '{"x":"bar"}'
+console.log(JSON.stringify(data));
+// => '{"array":[1,null,3,null,5,null]}'
+```
+
+また、`JSON.stringify`静的メソッドは、JSON文字列に変換しようとしているデータに特定の値が含まれる場合に例外が投げられます。
+たとえば、BigInt型の値を含む場合や、オブジェクトが循環参照している場合が該当します。
+
+{{book.console}}
+```js
+// 12345nはBigInt型の値でありJSONとしてシリアライズできない
+const data = { v1: 123, v2: 12345n };
+try {
+    console.log(JSON.stringify(data));
+} catch (error) {
+    console.error("JSONの生成に失敗しました");
+}
+// => "JSONの生成に失敗しました"
+```
+
+{{book.console}}
+```js
+const data = { v1: 123 };
+data.v2 = data; // data.v2がdataを指す循環参照オブジェクト
+try {
+    console.log(JSON.stringify(data));
+} catch (error) {
+    console.error("JSONの生成に失敗しました");
+}
+// => "JSONの生成に失敗しました"
+```
+
+`JSON.stringify`静的メソッドは、例外を投げずに返り値が得られたときでも、その値が妥当なJSONではない場合があります。
+`JSON.stringify`静的メソッドの第一引数が関数、シンボル、`undefined`値である場合には、JSON文字列ではなく`undefined`値が返されます。
+このため、`JSON.stringify`静的メソッドで生成した値を`JSON.parse`静的メソッドでパースできないことがあります。
+
+{{book.console}}
+```js
+const data = undefined;
+const json = JSON.stringify(data);
+try {
+    console.log(JSON.parse(json));
+} catch (error) {
+    console.error("JSONのパースに失敗しました");
+}
+// => "JSONのパースに失敗しました"
 ```
 
 `toJSON`メソッドは特定のクラスのインスタンスなどのオブジェクトをJSONとして使いやすい形式でシリアライズするために使われます。
