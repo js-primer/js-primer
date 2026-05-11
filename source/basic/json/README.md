@@ -245,55 +245,89 @@ try {
 // => "JSONのパースに失敗しました"
 ```
 
-`toJSON`メソッドは特定のクラスのインスタンスなどのオブジェクトをJSONとして使いやすい形式でシリアライズするために使われます。
+## JSONで扱えない値を扱う方法 {#json-extended-serialization}
+
+`JSON.parse`静的メソッドや`JSON.stringify`静的メソッドを使う際に、値に独自の処理を施してから変換処理を実行する仕組みが用意されています。
+
+### `JSON.stringify`で使われる`toJSON`メソッド {#serialization-by-toJSON}
+
+`JSON.stringify`静的メソッドは、シリアライズしようとする値が`toJSON`メソッドを持っていた場合、その値の代わりに`toJSON`メソッドの返り値を使ってシリアライズを試みます。
+
+次のコードは、JSONシリアライズの際に正規表現インスタンスを空オブジェクトではなく`toString`メソッドの返り値が使われるように`toJSON`メソッドを設定する例です。
 
 {{book.console}}
 ```js
-const date = new Date("2000-01-01T10:20:30Z");
-console.log(JSON.stringify(date)); // => '"2000-01-01T10:20:30.000Z"'
+const data = { regexp: /\d+/g };
+console.log(JSON.stringify(data)); // => {"regexp":{}}
+
+RegExp.prototype.toJSON = function() {
+    return this.toString();
+};
+console.log(JSON.stringify(data)); // => {"regexp":"/\\d+/g"}
 ```
 
-`Date`クラスのインスタンスをシリアライズするとき`toISOString`メソッドの結果に変換されるのは、`Date.prototype.toJSON`メソッドが定義されているためです。
+`toJSON`メソッドは特定のオブジェクトやインスタンスをJSONとして使いやすい形式でシリアライズするために使われます。
 
-## JSONで扱えない値を扱う方法 {#json-extended-serialization}
+また、次のコードは`Date`インスタンスをJSONシリアライズするコードです。
 
-`JSON.parse`静的メソッドや`JSON.stringify`静的メソッドを使うにあたって、値の変換前に特殊な処理を施したい場合は、それを行うための仕組みが用意されています。
+{{book.console}}
+```js
+const data = { date: new Date("2000-01-01T10:20:30Z") };
+console.log(JSON.stringify(data)); // => {"date":"2000-01-01T10:20:30.000Z"}
+```
+
+このコードでは明示的に`toJSON`メソッドを設定していませんが、`Date`インスタンスをJSONシリアライズすると`toISOString`メソッドの返り値に変換されます。
+これは`Date.prototype.toJSON`メソッドが標準で定義されているためです。
+
+このシリアライズ結果を変更したければ、`Date.prototype.toJSON`メソッドを書き換えるか`Date`インスタンスに`toJSON`メソッドを定義することで挙動を変更できます。
+ただし、標準で定義されているプロトタイプメソッドを書き換えるのは影響範囲が広いため、行う場合は慎重に行ってください。
 
 ### `JSON.parse`の`reviver`引数 {#json-parse-reviver}
 
-`JSON.parse`静的メソッドにはオプショナルな引数が1つあります。
-第二引数はreviver引数とも呼ばれ、関数を渡せます。
-関数を渡した場合は引数にプロパティのキーと値が渡され、その返り値によってJSONの値をデシリアライズする際の挙動をコントロールできます。
+`JSON.parse`静的メソッドは、`JSON.parse(text, reviver)`の形で第二引数まで指定することができます。
+`reviver`には関数を渡すことができます。
+関数を渡した場合、JSONをデシリアライズする際に独自の処理を施してからJavaScriptのデータに変換することができます。
+
+典型的な例としては、64ビット整数値をJSONで扱うケースが挙げられます。
+JavaScriptでは整数値と実数値が同じNumber型で表現されるため、絶対値が`2^53-1`（`9007199254740991`）よりも大きな整数値を正確に扱うことができません。
+しかし他のプログラミング言語では64ビット整数値（符号なし64ビット整数であれば最大値は`2^64-1`）が一般的に使われるため、桁数の大きな64ビット整数値を正確に扱うための工夫が必要です。
+
+JavaScriptでも64ビット整数値を正確に扱えるよう、JSONに数値リテラルではなく文字列リテラルとしてシリアライズすることがあります。
+このとき、JavaScriptでJSONをデシリアライズする際に文字列ではなく整数演算が可能なデータ型として扱いたい場合があります。
+JSON上は整数値を文字列リテラルにしておき、JavaScript上では巨大な整数値が表現できるBigInt型の値として扱うために`reviver`引数を利用することができます。
 
 <!-- textlint-disable eslint -->
 {{book.console}}
 ```js
-const json = '{ "valueof(2**64)_int_as_str": "18446744073709551616" }';
-
+// value = 112233445566778899 (2^56 <= value < 2^57)
+const json = '{ "value": 112233445566778899, "value_as_str": "112233445566778899" }';
 console.log(JSON.parse(json));
-// => { "valueof(2**64)_int_as_str": "18446744073709551616" };
+// Number型では精度が足りず下3桁の値が正確に扱えていない
+// => { value: 112233445566778900, value_as_str: "112233445566778899" }
 
 const reviver = (key, value) => {
-    if (key.endsWith("_int_as_str")) {
-        return Number.isSafeInteger(Number(value)) ? Number(value) : BigInt(value);
+    if (key === "value_as_str") {
+        return BigInt(value);
     }
     return value;
 };
 console.log(JSON.parse(json, reviver));
-// => { "valueof(2**64)_int_as_str": 18446744073709551616n }
+// => { value: 112233445566778900, value_as_str: 112233445566778899n }
 ```
 <!-- textlint-enable eslint -->
 
-上記のコードは、JSONの値が整数を表す文字列の値の場合に`Number`または`BigInt`のリテラルに変換する例です。
-
 ### `JSON.stringify`の`replacer`引数 {#json-stringify-replacer}
 
-`JSON.stringify`静的メソッドの第二引数はreplacer引数とも呼ばれ、関数を渡せます。
-関数を渡した場合は引数にプロパティのキーと値が渡され、その返り値によって値をJSONにシリアライズする際の挙動をコントロールできます。
+`JSON.stringify`静的メソッドは、`JSON.stringify(value, replacer, space)`の形で第三引数まで指定することができます。
+`replacer`には関数を渡すことができます。
+関数を渡した場合、JSONをシリアライズする際に独自の処理を施してからJSONに変換することができます。
+
+`JSON.parse`の`reviver`引数での操作と逆のことをしたい場合には`replacer`引数を利用することができます。
+つまり、一例としてBigInt型の値を文字列としてシリアライズすることができます。
 
 {{book.console}}
 ```js
-const data = [-(2n ** 64n), -(2 ** 32), 0, 2 ** 32, 2n ** 64n];
+const data = { value: 112233445566778899n };
 
 const replacer = (key, value) => {
     if (typeof value === "bigint") {
@@ -302,22 +336,29 @@ const replacer = (key, value) => {
     return value;
 };
 console.log(JSON.stringify(data, replacer));
-// => '["-18446744073709551616",-4294967296,0,4294967296,"18446744073709551616"]'
+// => {"value":"112233445566778899"}
 ```
 
-上記のコードは、変換前の値としてBigInt型の値があれば文字列に変換してJSONを構築する例です。
+`replacer`関数の`value`引数は、シリアライズしようとする値が`toJSON`メソッドを持っていた場合には`toJSON`メソッドの返り値が渡ってきます。
 
 ### [ES2026] `JSON.parse`における`reviver`関数の`context`引数 {#json-parse-reviver-context}
 
-実際のJSONには、JavaScriptで安全に扱える範囲を超えた整数値が（文字列リテラルではなく）数値リテラルとして与えられる場合があります。
-従来はこのような数値を精度を落とさずにJavaScriptで受け取る手段がありませんでしたが、それを可能にする仕組みが`context`引数です。
+桁数の大きな整数値を正確に扱うために整数値をJSON上で文字列リテラルとして扱うには、JSONを生成する側との調整が必要です。
+また、すでにJSON上に数値リテラルとして桁数の大きな整数値が出力されていた場合、その整数値をJavaScriptで正確に受け取る方法がないことは問題でした。
+
+この問題を解決するため、`JSON.parse`の`reviver`関数の引数が拡張され、`reviver`関数の第三引数に`context`引数が追加されました。
+`context`引数はJSONの値をデシリアライズする際に、JSONの値のデータ型によらずその値を文字列として取得できる仕組みです。
+その文字列値は`context.source`プロパティで参照できます。
+ただし、`context.source`プロパティは値がオブジェクトまたは配列の場合にはセットされません。
 
 <!-- textlint-disable eslint -->
 {{book.console}}
 ```js
-const json = '{ "valueof(2**64)": 18446744073709551616 }';
-console.log(JSON.parse(json)); // => { "valueof(2**64)": 18446744073709552000 }
-// number（IEEE 754の倍精度浮動小数点数）では精度不足のため、絶対値が2**53以上の整数を正確に扱えない
+// value = 112233445566778899 (2^56 <= value < 2^57)
+const json = '{ "value": 112233445566778899 }';
+console.log(JSON.parse(json));
+// Number型では精度が足りず下3桁の値が正確に扱えていない
+// => { value: 112233445566778900 }
 
 const reviver = (key, value, context) => {
     if (typeof value === "number") {
@@ -328,21 +369,21 @@ const reviver = (key, value, context) => {
     }
     return value;
 };
-console.log(JSON.parse(json, reviver)); // => { "valueof(2**64)": 18446744073709551616n }
+console.log(JSON.parse(json, reviver));
+// => { value: 112233445566778899n }
 ```
 <!-- textlint-enable eslint -->
 
-`reviver`関数の引数では第二引数として`value`がありますが、第三引数として`context`が渡ってくるようになりました。
-`context.source`を参照することで、JSONに書かれている元の値を文字列として扱えるようになります。
-なお、JSONの値がオブジェクトまたは配列の場合は`context.source`がセットされません。
-
 ### [ES2026] `JSON.stringify`で使う`JSON.rawJSON`静的メソッド {#json-rawjson}
 
-`JSON.parse`の例とは逆に、JavaScriptで安全に扱える範囲を超えた整数値を数値リテラルとしてシリアライズする目的にも使える仕組みが[JSON.rawJSONメソッド][]です。
+JavaScript上でJSONを生成する際に、桁数の大きな整数値を文字列リテラルではなく数値リテラルとしてシリアライズする目的にも利用できる仕組みが[JSON.rawJSONメソッド][]です。
+`JSON.rawJSON`静的メソッドを用いると、与えた文字列を（文字列リテラルではなく）生成されるJSONの値としてそのまま埋め込むことができます。
+ただし、`JSON.rawJSON`静的メソッドの第一引数に指定できる文字列は、JSONで許容されるプリミティブ型の値（文字列、数値、真偽値、`null`）のみです。
+それ以外の値を渡した場合には例外が投げられます。
 
 {{book.console}}
 ```js
-const data = [-(2n ** 64n), -(2 ** 32), 0, 2 ** 32, 2n ** 64n];
+const data = { value: 112233445566778899n };
 
 const replacer = (key, value) => {
     if (typeof value === "bigint") {
@@ -351,10 +392,8 @@ const replacer = (key, value) => {
     return value;
 };
 console.log(JSON.stringify(data, replacer));
-// => '[-18446744073709551616,-4294967296,0,4294967296,18446744073709551616]'
+// => {"value":112233445566778899}
 ```
-
-`JSON.rawJSON`静的メソッドを用いることで、JSONのシリアライズ結果として値を直接埋め込むことができるようになります。
 
 ## まとめ {#conclusion}
 
