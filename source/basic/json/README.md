@@ -10,37 +10,46 @@ sponsors: []
 
 ## JSONとは {#what-is-json}
 
-コンピュータやプログラム上でデータを扱う際には、データをテキストデータとして構造化する必要があります。
-一定の規則に基づいて構造化されたテキストデータを「データフォーマット」と呼びます。
+JSONはJavaScript Object Notationの略で、JavaScriptのオブジェクトリテラルをベースに作られたテキスト形式のデータフォーマットです。
 
-JSONはJavaScript Object Notationの略で、JavaScriptのオブジェクトリテラルをベースに作られたデータフォーマットのひとつです。
-JSONの仕様は[ECMA-404][]として標準化されています。
+他のテキスト形式のデータフォーマットとしては代表的なものにCSV（カンマ区切り）やXML（マークアップ言語）があります。
+JSONはJavaScriptのオブジェクト記法をベースにしているためプログラムと親和性が高く、多くのプログラミング言語でサポートされている主流なデータフォーマットです。
 
-他のデータフォーマットとしては、CSV（カンマ区切りのデータ）やXML（マークアップ言語）なども存在しています。
-CSVはシンプルであるものの、標準的な形式では階層化（ネスト）されたデータを表現することができません。
-XMLは表現力が高い反面、複雑過ぎるためにXMLを生成したり解析したりするコストを無視できない問題がありました。
-JSONはシンプルでありながら階層化されたデータ表現が可能であり、プログラムとも親和性が高いため多くのプログラミング言語でサポートされています。
-
-JSONの構文は、JavaScriptのオブジェクトの構文に制約を加えたものになっています。
-オブジェクトのキーは必ずダブルクォートで括る必要があります。
-JSONの値はオブジェクト、配列、文字列、数値、真偽値、nullから構成されます。
-数値は`0xFF`のような別の基数表記は使えず、JSONで定義された数値リテラル（整数・小数・指数表記）に限られます。
-オブジェクトや配列の末尾の要素の後ろにはカンマをつけることができません。
-これらの制約は、さまざまなコンピュータ言語でデータを広く利用できるようにする目的で定められています。
+具体的なJSONを見てみましょう。次の例は、あるシステムのユーザー情報を表すJSONです。
 
 ```json
 {
-    "object": {
-        "number": 1,
-        "string": "js-primer",
-        "boolean": true,
-        "null": null,
-        "array": [1, 2, 3]
-    }
+    "id": 1,
+    "email": "alice@example.com",
+    "name": "Alice",
+    "isPremium": true,
+    "following": [2],
+    "followers": [2, 3]
 }
 ```
 
-JSONの細かい仕様に関しては[json.orgの日本語ドキュメント][]にわかりやすくまとまっているので、参考にするとよいでしょう。
+JSONの構文は、JavaScriptのオブジェクトの構文に制約を加えたものになっています。
+たとえば、オブジェクトのキーや文字列値は常にダブルクォートで括る必要があり、オブジェクトや配列の最後の要素の末尾にカンマを付けてはいけません。
+
+JSONは文字列リテラルの内部を除いてインデントや改行に意味を持ちません。
+前述のJSONは次のJSONと等価です。
+
+```json
+{"id":1,"email":"alice@example.com","name":"Alice","isPremium":true,"following":[2],"followers":[2,3]}
+```
+
+JSONのトップレベルには、オブジェクトリテラルでなく配列リテラルを用いることもできます。
+
+```json
+[
+  { "id": 1, "email": "alice@example.com", "name": "Alice", "isPremium": true, "following": [2], "followers": [2,3] },
+  { "id": 2, "email": "bob@example.com", "name": "Bob", "isPremium": false, "following": [1], "followers": [1] },
+  { "id": 3, "email": "charlie@example.com", "name": "Charlie", "isPremium": false, "following": [1], "followers": [] }
+]
+```
+
+JSONの仕様は[ECMA-404][]として標準化されており、ECMA-404をベースに[RFC 8259][]も発行されています。
+JSONの詳細な仕様は[json.orgの日本語ドキュメント][]にわかりやすくまとまっているので参考にするとよいでしょう。
 
 ## `JSON`オブジェクト {#json-object}
 
@@ -389,7 +398,8 @@ console.log(JSON.stringify(data, replacer));
 - `JSON.stringify`はシリアライズ対象の`toJSON`メソッドを利用する
 - JSONで扱えない値を扱いたい場合は`reviver`関数と`replacer`関数を利用する
 
-[ECMA-404]: https://www.ecma-international.org/publications-and-standards/standards/ecma-404/
+[ECMA-404]: https://ecma-international.org/publications-and-standards/standards/ecma-404/
+[RFC 8259]: https://www.rfc-editor.org/rfc/rfc8259
 [json.orgの日本語ドキュメント]: https://www.json.org/json-ja.html
 [JSONオブジェクト]: https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/JSON
 [JSON.parseメソッド]: https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
