@@ -268,7 +268,7 @@ console.log(JSON.stringify(data)); // => {"regexp":"/\\d+/g"}
 
 `toJSON`メソッドは特定のオブジェクトやインスタンスをJSONとして使いやすい形式でシリアライズするために使われます。
 
-また、次のコードは`Date`インスタンスをJSONシリアライズするコードです。
+また、次のコードは`Date`インスタンスをJSONシリアライズする例です。
 
 {{book.console}}
 ```js
