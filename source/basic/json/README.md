@@ -92,9 +92,8 @@ try {
     const data = JSON.parse(json);
     console.log(data.name);
 } catch (error) {
-    console.error("JSON.parseの実行に失敗しました");
+    console.error("JSON.parseの実行に失敗しました"); // ここが実行される
 }
-// => "JSON.parseの実行に失敗しました"
 // ... 後続の処理は引き続き実行される
 ```
 <!-- textlint-enable eslint -->
@@ -226,9 +225,8 @@ const data = { a: 123, b: 12345n };
 try {
     console.log(JSON.stringify(data));
 } catch (error) {
-    console.error("JSON.stringifyの実行に失敗しました");
+    console.error("JSON.stringifyの実行に失敗しました"); // ここが実行される
 }
-// => "JSON.stringifyの実行に失敗しました"
 ```
 
 {{book.console}}
@@ -238,9 +236,8 @@ data.b = data; // data.bがdataを指す循環参照オブジェクト
 try {
     console.log(JSON.stringify(data));
 } catch (error) {
-    console.error("JSON.stringifyの実行に失敗しました");
+    console.error("JSON.stringifyの実行に失敗しました"); // ここが実行される
 }
-// => "JSON.stringifyの実行に失敗しました"
 ```
 
 `JSON.stringify`静的メソッドは、例外を投げずに返り値が得られたときでも、その値が妥当なJSONではない場合があります。
@@ -254,9 +251,8 @@ const json = JSON.stringify(data);
 try {
     console.log(JSON.parse(json));
 } catch (error) {
-    console.error("JSON.parseの実行に失敗しました");
+    console.error("JSON.parseの実行に失敗しました"); // ここが実行される
 }
-// => "JSON.parseの実行に失敗しました"
 ```
 
 ## JSONで扱えない値を扱う方法 {#json-extended-serialization}
@@ -273,12 +269,12 @@ try {
 ```js
 const regexpValue = /\d+/g;
 const data = { regexp: regexpValue };
-console.log(JSON.stringify(data)); // => {"regexp":{}}
+console.log(JSON.stringify(data)); // => '{"regexp":{}}'
 
 regexpValue.toJSON = function() {
     return this.toString();
 };
-console.log(JSON.stringify(data)); // => {"regexp":"/\\d+/g"}
+console.log(JSON.stringify(data)); // => '{"regexp":"/\\\\d+/g"}'
 ```
 
 `toJSON`メソッドは特定のオブジェクトをJSONとして使いやすい形式でシリアライズするために使われます。
@@ -288,7 +284,7 @@ console.log(JSON.stringify(data)); // => {"regexp":"/\\d+/g"}
 {{book.console}}
 ```js
 const data = { date: new Date("2000-01-01T10:20:30Z") };
-console.log(JSON.stringify(data)); // => {"date":"2000-01-01T10:20:30.000Z"}
+console.log(JSON.stringify(data)); // => '{"date":"2000-01-01T10:20:30.000Z"}'
 ```
 
 このコードでは明示的に`toJSON`メソッドを設定していませんが、`Date`オブジェクトをJSONシリアライズすると`toISOString`メソッドの返り値に変換されます。
@@ -355,7 +351,7 @@ const replacer = (key, value) => {
     return value;
 };
 console.log(JSON.stringify(data, replacer));
-// => {"value":"112233445566778899"}
+// => '{"value":"112233445566778899"}'
 ```
 
 `replacer`関数の`value`引数は、シリアライズしようとする値が`toJSON`メソッドを持っていた場合には`toJSON`メソッドの返り値が渡ってきます。
@@ -411,7 +407,7 @@ const replacer = (key, value) => {
     return value;
 };
 console.log(JSON.stringify(data, replacer));
-// => {"value":112233445566778899}
+// => '{"value":112233445566778899}'
 ```
 
 ## まとめ {#conclusion}
