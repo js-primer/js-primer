@@ -135,62 +135,94 @@ console.log(JSON.stringify(data, null, 4));
 `replacer`の活用方法については後述します。
 
 <!-- TODO: 見出しIDを見直す -->
-## JSONで扱える値 {#not-serialization-object}
+## JSONで扱えない値 {#not-serialization-object}
 
 JSONはJavaScriptに限らず、さまざまなプログラミング言語で生成したり利用することができます。
 そのため、一部のプログラミング言語でしか扱えないデータ型の値はJSONで扱うことができません。
 JSONで値として許容されるデータ型は、オブジェクト、配列、文字列、数値、真偽値、`null`です。
 
-JavaScriptの関数やシンボル、`undefined`値は削除され、MapやSetあるいは正規表現のインスタンスは空オブジェクト`{}`に変換されます。
-
 {{book.console}}
 ```js
 const data = {
-    v1: "Hello, World!",
-    v2: 123.45,
-    v3: true,
-    v4: false,
-    v5: null,
-    v6: function() {},
-    v7: Symbol("foo"),
-    v8: undefined,
-    v9: new Map([["a", 1], ["b", 2]]),
-    v10: new Set(["a", "b", "c"]),
-    v11: /\d+/g,
+    objectValue: { a: 1, b: 2 },
+    arrayValue: [1, 2],
+    stringValue: "Hello, World!",
+    numberValue: 123.45,
+    booleanValue_true: true,
+    booleanValue_false: false,
+    nullValue: null,
 };
 console.log(JSON.stringify(data, null, 4));
 /*
 {
-    "v1": "Hello, World!",
-    "v2": 123.45,
-    "v3": true,
-    "v4": false,
-    "v5": null,
-    "v9": {},
-    "v10": {},
-    "v11": {}
+    "objectValue": {
+        "a": 1,
+        "b": 2
+    },
+    "arrayValue": [
+        1,
+        2
+    ],
+    "stringValue": "Hello, World!",
+    "numberValue": 123.45,
+    "booleanValue_true": true,
+    "booleanValue_false": false,
+    "nullValue": null
 }
 */
 ```
 
-関数やシンボル、`undefined`値が配列の要素であった場合は削除されず`null`に変換されます。
+上記以外のデータ型はJSONで扱うことができません。
+特にJSONでは`undefined`値が扱えないことに注意してください。
 
 {{book.console}}
 ```js
 const data = {
-    array: [1, function() {}, 3, Symbol("foo"), 5, undefined],
+    objectValue: { a: 1, b: undefined, c: 3 },
+    arrayValue: [1, undefined, 3],
 };
-console.log(JSON.stringify(data));
-// => '{"array":[1,null,3,null,5,null]}'
+console.log(JSON.stringify(data, null, 4));
+/*
+{
+    "objectValue": {
+        "a": 1,
+        "c": 3
+    },
+    "arrayValue": [
+        1,
+        null,
+        3
+    ]
+}
+*/
 ```
 
-また、`JSON.stringify`静的メソッドは、JSON文字列に変換しようとしているデータに特定の値が含まれる場合に例外が投げられます。
+また、MapやSet、正規表現のようなオブジェクトをJSONにシリアライズしようとすると空オブジェクト`{}`に変換されます。
+
+{{book.console}}
+```js
+const data = {
+    regexp: /\d+/g,
+    map: new Map([["a", 1], ["b", 2]]),
+    set: new Set(["a", "b"]),
+};
+console.log(JSON.stringify(data, null, 4));
+/*
+{
+    "regexp": {},
+    "map": {},
+    "set": {}
+}
+*/
+```
+
+`JSON.stringify`静的メソッドは、JSON文字列に変換しようとしているデータに特定の値が含まれる場合に例外が投げられます。
 たとえば、BigInt型の値を含む場合や、オブジェクトが循環参照している場合が該当します。
 
 {{book.console}}
 ```js
 // 12345nはBigInt型の値でありJSONとしてシリアライズできない
-const data = { v1: 123, v2: 12345n };
+const data = { a: 123, b: 12345n };
 try {
     console.log(JSON.stringify(data));
 } catch (error) {
@@ -201,8 +233,8 @@ try {
 
 {{book.console}}
 ```js
-const data = { v1: 123 };
-data.v2 = data; // data.v2がdataを指す循環参照オブジェクト
+const data = { a: 123 };
+data.b = data; // data.bがdataを指す循環参照オブジェクト
 try {
     console.log(JSON.stringify(data));
 } catch (error) {
@@ -212,7 +244,7 @@ try {
 ```
 
 `JSON.stringify`静的メソッドは、例外を投げずに返り値が得られたときでも、その値が妥当なJSONではない場合があります。
-`JSON.stringify`静的メソッドの第一引数が関数、シンボル、`undefined`値である場合には、JSON文字列ではなく`undefined`値が返されます。
+`JSON.stringify`静的メソッドの第一引数が`undefined`値である場合には、JSON文字列ではなく`undefined`値が返されます。
 このため、`JSON.stringify`静的メソッドで生成した値を`JSON.parse`静的メソッドでデシリアライズできないことがあります。
 
 {{book.console}}
@@ -235,22 +267,23 @@ try {
 
 `JSON.stringify`静的メソッドは、シリアライズしようとする値が`toJSON`メソッドを持っていた場合、その値の代わりに`toJSON`メソッドの返り値を使ってシリアライズを試みます。
 
-次のコードは、JSONシリアライズの際に正規表現インスタンスを空オブジェクトではなく`toString`メソッドの返り値が使われるように`toJSON`メソッドを設定する例です。
+次のコードは、JSONシリアライズの際に正規表現オブジェクトを空オブジェクトではなく`toString`メソッドの返り値が使われるように`toJSON`メソッドを設定する例です。
 
 {{book.console}}
 ```js
-const data = { regexp: /\d+/g };
+const regexpValue = /\d+/g;
+const data = { regexp: regexpValue };
 console.log(JSON.stringify(data)); // => {"regexp":{}}
 
-RegExp.prototype.toJSON = function() {
+regexpValue.toJSON = function() {
     return this.toString();
 };
 console.log(JSON.stringify(data)); // => {"regexp":"/\\d+/g"}
 ```
 
-`toJSON`メソッドは特定のオブジェクトやインスタンスをJSONとして使いやすい形式でシリアライズするために使われます。
+`toJSON`メソッドは特定のオブジェクトをJSONとして使いやすい形式でシリアライズするために使われます。
 
-また、次のコードは`Date`インスタンスをJSONシリアライズする例です。
+また、次のコードは`Date`オブジェクトをJSONシリアライズする例です。
 
 {{book.console}}
 ```js
@@ -258,11 +291,15 @@ const data = { date: new Date("2000-01-01T10:20:30Z") };
 console.log(JSON.stringify(data)); // => {"date":"2000-01-01T10:20:30.000Z"}
 ```
 
-このコードでは明示的に`toJSON`メソッドを設定していませんが、`Date`インスタンスをJSONシリアライズすると`toISOString`メソッドの返り値に変換されます。
+このコードでは明示的に`toJSON`メソッドを設定していませんが、`Date`オブジェクトをJSONシリアライズすると`toISOString`メソッドの返り値に変換されます。
 これは`Date.prototype.toJSON`メソッドが標準で定義されているためです。
 
-このシリアライズ結果を変更したければ、`Date.prototype.toJSON`メソッドを書き換えるか`Date`インスタンスに`toJSON`メソッドを定義することで挙動を変更できます。
-ただし、標準で定義されているプロトタイプメソッドを書き換えるのは影響範囲が広いため、行う場合は慎重に行ってください。
+`toJSON`メソッドによってJSONシリアライズ時の結果を操作できますが、独自にこのメソッドを定義することはあまり推奨されません。
+`RegExp.prototype.toJSON`メソッドや`Date.prototype.toJSON`メソッドを書き換えてしまうと、自身が書いたコード以外の挙動まで変わってしまうためです。
+独自に定義したクラスやオブジェクト型でない限り、プロトタイプメソッドを書き換えることはバグの原因となることがあります。
+
+インスタンスオブジェクトに対して`toJSON`メソッドを定義することは問題ありませんが、その方法ではすべての同じ型のオブジェクトを特定の形でシリアライズしたい場合に対応できません。
+`toJSON`メソッドを使う代わりに後述する`JSON.stringify`の`replacer`引数を活用することで、特定のオブジェクトのJSONシリアライズ時の結果を一括で操作できます。
 
 ### `JSON.parse`の`reviver`引数 {#json-parse-reviver}
 
