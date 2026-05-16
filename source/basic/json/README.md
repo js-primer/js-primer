@@ -134,7 +134,7 @@ console.log(JSON.stringify(data, null, 4));
 `replacer`の活用方法については後述します。
 
 <!-- TODO: 見出しIDを見直す -->
-## JSONで扱えない値 {#not-serialization-object}
+## JSONで扱える値と扱えない値 {#not-serialization-object}
 
 JSONはJavaScriptに限らず、さまざまなプログラミング言語で生成したり利用することができます。
 そのため、一部のプログラミング言語でしか扱えないデータ型の値はJSONで扱うことができません。
