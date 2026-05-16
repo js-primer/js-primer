@@ -415,9 +415,9 @@ console.log(JSON.stringify(data, replacer));
 この章では、JSONについて学びました。
 
 - JSONはJavaScriptのオブジェクトリテラルをベースに作られたテキスト形式のデータフォーマット
-- `JSON`オブジェクトを使ったシリアライズとデシリアライズ
-- JSONで扱えない値もある
-- `JSON.stringify`はシリアライズ対象の`toJSON`メソッドを利用する
+- `JSON`オブジェクトを使ってJSONのシリアライズとデシリアライズができる
+- JSONで扱えない値がある
+- `JSON.stringify`はシリアライズ対象の`toJSON`メソッドを自動的に呼び出す
 - JSONで扱えない値を扱いたい場合は`reviver`関数と`replacer`関数を利用する
 
 [ECMA-404]: https://ecma-international.org/publications-and-standards/standards/ecma-404/
