@@ -21,29 +21,32 @@ const sourceDir = path.join(__dirname, "..", "source");
  * @type {string[]} サポートしてないECMAScriptバージョン
  */
 const IgnoredECMAScriptVersions = (() => {
-    // https://node.green/#ES2025
-    if (semver.cmp(process.version, ">=", "24.0.0")) {
+    // https://node.green/#ES2026
+    if (semver.cmp(process.version, ">=", "26.0.0")) {
         return []; // すべて通る前提
     }
+    if (semver.cmp(process.version, ">=", "24.0.0")) {
+        return ["2026"]; // Map/WeakMap upsertがサポートされていない
+    }
     if (semver.cmp(process.version, ">=", "22.0.0")) {
-        return ["2025"]; // RegExp Pattern Modifiersは通らない
+        return ["2025", "2026"]; // RegExp Pattern Modifiersは通らない
     }
     if (semver.cmp(process.version, ">=", "20.0.0")) {
-        return ["2024", "2025"]; // Object.groupByがサポートされていない
+        return ["2024", "2025", "2026"]; // Object.groupByがサポートされていない
     }
     if (semver.cmp(process.version, ">=", "18.0.0")) {
-        return ["2023", "2024", "2025"]; // Array.prototype.withがサポートされていない
+        return ["2023", "2024", "2025", "2026"]; // Array.prototype.withがサポートされていない
     }
     if (semver.cmp(process.version, ">=", "16.0.0")) {
         // Array.prototype.findLastIndex をサポートしていない
-        return ["2023", "2024", "2025"];
+        return ["2023", "2024", "2025", "2026"];
     }
     if (semver.cmp(process.version, ">=", "14.0.0")) {
         // String#replaceAll をサポートしていない
         // Top-Level await をサポートしていない
-        return ["2021", "2022", "2023", "2024", "2025"];
+        return ["2021", "2022", "2023", "2024", "2025", "2026"];
     }
-    return ["2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025"];
+    return ["2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026"];
 })();
 
 /**
