@@ -114,30 +114,15 @@ console.log(JSON.stringify(data));
 
 `JSON.stringify`静的メソッドは、`JSON.stringify(value, replacer, space)`の形で第三引数まで指定することができます。
 第三引数の`space`引数を指定することで、生成されるJSON文字列にインデントと改行を付けて整形することができます。
-`space`引数は数値または文字列が指定できます。
-数値の場合はその数だけスペースでインデントされ、文字列の場合はその文字列でインデントされます。
 
-次のコードはスペース2個でインデントされたJSONを得る例です。
-
-{{book.console}}
-```js
-const data = { id: 1, name: "Alice" };
-console.log(JSON.stringify(data, null, 2));
-/*
-{
-  "id": 1,
-  "name": "Alice"
-}
-*/
-```
-
-また、次のコードはタブ文字でインデントされたJSONを得る例です。
+`space`引数には1以上の整数を指定できます（10以上の数値は10として扱われます）。
+0など不正な値を指定した場合は、`space`引数を指定しなかった場合と同じ扱いになります。
+次のコードはスペース4個でインデントされたJSONを得る例です。
 
 {{book.console}}
 ```js
 const data = { id: 1, name: "Alice" };
-console.log(JSON.stringify(data, null, "\t"));
-// このコードを実際に実行するとインデントはスペースではなくタブ文字になります
+console.log(JSON.stringify(data, null, 4));
 /*
 {
     "id": 1,
