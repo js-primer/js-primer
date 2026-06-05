@@ -425,6 +425,30 @@ Array/Map/Setでは`keys`/`values`/`entries`メソッドが、新しいイテレ
 {{book.console}}
 [import, title="Map.prototype.entriesで取得したイテレータをfor...ofで反復する"](./examples/basic/map-entries.example.js)
 
+### [ES2026] `Iterator.concat`静的メソッド {#iterator-concat}
+
+`Iterator.concat`メソッドは、複数のIterableオブジェクトを順番に連結したイテレータを作成します。
+このメソッドは、[配列の`concat`メソッド][配列のconcat]のイテレータ版といえるメソッドです。
+
+次のコードでは、`Iterator.concat`を使って複数の配列からイテレータを作成し、`for...of`文でイテレータから要素を取り出しています。
+
+{{book.console}}
+<!-- doctest:meta:{ "ECMAScript": "2026" } -->
+```js
+// 複数の配列からIteratorを作成
+const iterator = Iterator.concat([1, 2], [3, 4], [5]);
+
+const results = [];
+for (const value of iterator) {
+    results.push(value);
+}
+console.log(results); // => [1, 2, 3, 4, 5]
+```
+
+`Iterator.concat`メソッドに渡せるのは、Iterableプロトコルを実装したオブジェクトです。
+Generatorオブジェクトや配列の`values`メソッドが返すイテレータは、Iterableプロトコルも実装しているため、そのまま`Iterator.concat`メソッドに渡せます。
+一方で、`next`メソッドだけを持つIterableではないIteratorは、まず`Iterator.from`メソッドでイテレータに変換する必要があります。
+
 ### `Iterator.prototype.toArray`メソッド {#iterator-toarray}
 
 `Iterator.prototype.toArray`メソッドは、Iteratorのすべての要素を列挙した配列を返します。
@@ -599,6 +623,7 @@ console.log(result); // => [4, 16, 36]
 特に実際のアプリケーションでは、一度にメモリへ載せられない大きなデータや、サーバーからのストリーミングのように終わりが見えないデータを扱う場面で有効です。
 
 [配列]: ../array/README.md
+[配列のconcat]: ../array/README.md#concat
 [配列のmap]: ../array/README.md#array-map
 [配列のfilter]: ../array/README.md#array-filter
 [配列のflatMap]: ../array/README.md#array-flatmap
