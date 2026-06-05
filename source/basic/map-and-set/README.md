@@ -219,7 +219,7 @@ const computeExpensiveValue = (key) => {
 };
 
 // キーが存在しない場合だけ、コールバックでデフォルト値を作成する
-map.getOrInsertComputed("js", computeExpensiveValue).push("Map"); // => "Compute expensive value for js"
+map.getOrInsertComputed("js", computeExpensiveValue).push("Map");
 console.log(map.get("js")); // => ["Map"]
 // 既にキーが存在するためコールバック関数は評価されず、ログも出ない
 map.getOrInsertComputed("js", computeExpensiveValue).push("Set");
