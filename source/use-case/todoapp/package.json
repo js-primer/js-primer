@@ -16,6 +16,6 @@
     "start": "npx --yes @js-primer/local-server --port 3000"
   },
   "devDependencies": {
-    "@playwright/test": "^1.49.1"
+    "@playwright/test": "^1.60.0"
   }
 }
