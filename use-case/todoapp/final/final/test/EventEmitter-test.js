@@ -2,7 +2,13 @@ import assert from "node:assert";
 import { describe, it } from "node:test";
 import { EventEmitter } from "../src/EventEmitter.js";
 
-describe("EventEmitter", function() {
+// EventEmitterはMap.prototype.getOrInsertComputed(ES2026)を使うためNode 26以降でのみ実行する
+const skipBelowNode26 =
+    Number(process.versions.node.split(".")[0]) < 26
+        ? "Node.js >= 26 が必要 (Map.prototype.getOrInsertComputed)"
+        : false;
+
+describe("EventEmitter", { skip: skipBelowNode26 }, function() {
     describe("#addEventListener", function() {
         it("should set event listener to the key", () => {
             return new Promise((resolve) => {

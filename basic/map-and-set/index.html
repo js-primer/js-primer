@@ -1736,6 +1736,41 @@ map.<span class="hljs-title function_">forEach</span>(<span class="hljs-function
 <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(groupedVotes.<span class="hljs-title function_">get</span>(<span class="hljs-string">"yes"</span>)); <span class="hljs-comment">// =&gt; [{ id: 1, vote: "yes" }, { id: 3, vote: "yes" }, { id: 4, vote: "yes" }]</span>
 <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(groupedVotes.<span class="hljs-title function_">get</span>(<span class="hljs-string">"no"</span>)); <span class="hljs-comment">// =&gt; [{ id: 2, vote: "no" }, { id: 5, vote: "no" }]</span>
 </code></pre>
+<h3 id="map-get-or-insert"><a name="map-get-or-insert" class="plugin-anchor" href="#map-get-or-insert"><i class="fa fa-link" aria-hidden="true"></i></a>[ES2026] <code>Map.getOrInsert</code> / <code>getOrInsertComputed</code>メソッド </h3>
+<p><code>getOrInsert</code>メソッドは、<code>get</code>メソッドと同じく指定したキーに対応する値を取得します。
+ただしキーが存在しない場合は、第二引数のデフォルト値をそのキーに追加したうえで、その値を返却します。</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a>
+<!-- doctest:meta:{ "ECMAScript": "2026" } --></p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Map</span>();
+
+<span class="hljs-comment">// キーが存在しない場合は、デフォルト値を追加して返す</span>
+map.<span class="hljs-title function_">getOrInsert</span>(<span class="hljs-string">"js"</span>, []).<span class="hljs-title function_">push</span>(<span class="hljs-string">"Map"</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(map.<span class="hljs-title function_">get</span>(<span class="hljs-string">"js"</span>)); <span class="hljs-comment">// =&gt; ["Map"]</span>
+
+<span class="hljs-comment">// キーが存在する場合は、対応する値を取得する</span>
+map.<span class="hljs-title function_">getOrInsert</span>(<span class="hljs-string">"js"</span>, []).<span class="hljs-title function_">push</span>(<span class="hljs-string">"Set"</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(map.<span class="hljs-title function_">get</span>(<span class="hljs-string">"js"</span>)); <span class="hljs-comment">// =&gt; ["Map", "Set"]</span>
+</code></pre>
+<p>ただし、<code>getOrInsert</code>メソッドではキーの有無にかかわらず、第二引数のデフォルト値が事前に評価されます。
+そのため、デフォルト値の計算コストが高い場合や副作用を伴う場合には、<code>getOrInsertComputed</code>メソッドが有用です。</p>
+<p><code>getOrInsertComputed</code>メソッドは、指定したキーが存在しない場合にのみコールバック関数を実行し、その返り値を値として追加して返します。
+これによりデフォルト値を遅延評価でき、不要な計算を避けられます。</p>
+<p><a class="gitbook-plugin-js-console" aria-hidden="true"></a>
+<!-- doctest:meta:{ "ECMAScript": "2026" } --></p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> map = <span class="hljs-keyword">new</span> <span class="hljs-title class_">Map</span>();
+
+<span class="hljs-keyword">const</span> <span class="hljs-title function_">computeExpensiveValue</span> = (<span class="hljs-params">key</span>) =&gt; {
+    <span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(<span class="hljs-string">`Compute expensive value for <span class="hljs-subst">${key}</span>`</span>);
+    <span class="hljs-keyword">return</span> [];
+};
+
+<span class="hljs-comment">// キーが存在しない場合だけ、コールバックでデフォルト値を作成する</span>
+map.<span class="hljs-title function_">getOrInsertComputed</span>(<span class="hljs-string">"js"</span>, computeExpensiveValue).<span class="hljs-title function_">push</span>(<span class="hljs-string">"Map"</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(map.<span class="hljs-title function_">get</span>(<span class="hljs-string">"js"</span>)); <span class="hljs-comment">// =&gt; ["Map"]</span>
+<span class="hljs-comment">// 既にキーが存在するためコールバック関数は評価されず、ログも出ない</span>
+map.<span class="hljs-title function_">getOrInsertComputed</span>(<span class="hljs-string">"js"</span>, computeExpensiveValue).<span class="hljs-title function_">push</span>(<span class="hljs-string">"Set"</span>);
+<span class="hljs-variable language_">console</span>.<span class="hljs-title function_">log</span>(map.<span class="hljs-title function_">get</span>(<span class="hljs-string">"js"</span>)); <span class="hljs-comment">// =&gt; ["Map", "Set"]</span>
+</code></pre>
 <h3 id="object-and-map"><a name="object-and-map" class="plugin-anchor" href="#object-and-map"><i class="fa fa-link" aria-hidden="true"></i></a>マップとしてのObjectとMap </h3>
 <p>ES2015で<code>Map</code>が導入されるまで、JavaScriptにおいてマップ型を実現するために<code>Object</code>が利用されてきました。
 何かをキーにして値にアクセスするという点で、<code>Map</code>と<code>Object</code>はよく似ています。
@@ -1849,14 +1884,14 @@ obj = <span class="hljs-literal">null</span>;
 イベントリスナーとは、イベントが発生したときに呼び出される関数のことです。
 このマップを<code>Map</code>で実装してしまうと、明示的に削除されるまでイベントリスナーはメモリ上に残り続けます。
 ここで<code>WeakMap</code>を使うと、<code>addListener</code> メソッドに渡された<code>listener</code>は <code>EventEmitter</code> インスタンスが参照されなくなった際、自動的に解放されます。</p>
-<!-- doctest:meta:{ "ECMAScript": 2020 } -->
+<!-- doctest:meta:{ "ECMAScript": "2026" } -->
 <pre><code class="lang-js"><span class="hljs-comment">// イベントリスナーを管理するマップ</span>
 <span class="hljs-keyword">const</span> listenersMap = <span class="hljs-keyword">new</span> <span class="hljs-title class_">WeakMap</span>();
 
 <span class="hljs-keyword">class</span> <span class="hljs-title class_">EventEmitter</span> {
     <span class="hljs-title function_">addListener</span>(<span class="hljs-params">listener</span>) {
-        <span class="hljs-comment">// this(インスタンス)にひもづいたリスナーの配列を取得する</span>
-        <span class="hljs-keyword">const</span> listeners = listenersMap.<span class="hljs-title function_">get</span>(<span class="hljs-variable language_">this</span>) ?? [];
+        <span class="hljs-comment">// this(インスタンス)にひもづいたリスナーの配列を取得する（なければ空配列を追加して返す）</span>
+        <span class="hljs-keyword">const</span> listeners = listenersMap.<span class="hljs-title function_">getOrInsert</span>(<span class="hljs-variable language_">this</span>, []);
         <span class="hljs-keyword">const</span> newListeners = listeners.<span class="hljs-title function_">concat</span>(listener);
         <span class="hljs-comment">// this をキーにして、新しいリスナーの配列をセットする</span>
         listenersMap.<span class="hljs-title function_">set</span>(<span class="hljs-variable language_">this</span>, newListeners);
@@ -1876,16 +1911,12 @@ event = <span class="hljs-literal">null</span>;
 </code></pre>
 <p>また、あるオブジェクトから計算した結果を一時的に保存する用途でもよく使われます。
 次の例ではHTML要素の高さを計算した結果を保存して、2回目以降に同じ計算をしないようにしています。</p>
+<!-- doctest:meta:{ "ECMAScript": "2026" } -->
 <pre><code class="lang-js"><span class="hljs-keyword">const</span> cache = <span class="hljs-keyword">new</span> <span class="hljs-title class_">WeakMap</span>();
 
 <span class="hljs-keyword">function</span> <span class="hljs-title function_">getHeight</span>(<span class="hljs-params">element</span>) {
-    <span class="hljs-keyword">if</span> (cache.<span class="hljs-title function_">has</span>(element)) {
-        <span class="hljs-keyword">return</span> cache.<span class="hljs-title function_">get</span>(element);
-    }
-    <span class="hljs-keyword">const</span> height = element.<span class="hljs-title function_">getBoundingClientRect</span>().<span class="hljs-property">height</span>;
     <span class="hljs-comment">// elementオブジェクトに対して高さをひもづけて保存している</span>
-    cache.<span class="hljs-title function_">set</span>(element, height);
-    <span class="hljs-keyword">return</span> height;
+    <span class="hljs-keyword">return</span> cache.<span class="hljs-title function_">getOrInsertComputed</span>(element, <span class="hljs-function">(<span class="hljs-params">el</span>) =&gt;</span> el.<span class="hljs-title function_">getBoundingClientRect</span>().<span class="hljs-property">height</span>);
 }
 </code></pre>
 <h3 id="key-and-nan"><a name="key-and-nan" class="plugin-anchor" href="#key-and-nan"><i class="fa fa-link" aria-hidden="true"></i></a>[コラム] キーの等価性とNaN </h3>
@@ -2119,7 +2150,7 @@ set.<span class="hljs-title function_">forEach</span>(<span class="hljs-function
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"author":"laco","description":"データの集合を扱うビルトインオブジェクトであるMapとSetについてを紹介します。オブジェクトの作成方法や更新方法から実際にどのようなケースで使うのかを紹介します。","sponsors":[],"title":"Map/Set","level":"1.3.23","depth":2,"next":{"title":"イテレータとジェネレータ","level":"1.3.24","depth":2,"path":"basic/iterator-generator/README.md","ref":"./basic/iterator-generator/README.md","articles":[]},"previous":{"title":"非同期処理:Promise/Async Function","level":"1.3.22","depth":2,"path":"basic/async/README.md","ref":"./basic/async/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-search","-lunr","page-toc-button","include-codeblock","anchors","canonical-link","js-console","github-issue-feedback","sandpack"],"root":"./source/","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"docSearch":{"index":"83I8JIFICQ","apiKey":"9169ce4cd84fcf2376f29d9585c89254"},"github-issue-feedback":{"repo":"js-primer/js-primer","label":"問題を報告する"},"fontsettings":{"theme":"white","family":"sans","size":2},"js-console":{},"canonical-link":{"baseURL":"https://jsprimer.net"},"highlight":{},"page-toc-button":{"maxTocDepth":2,"minTocSize":2},"include-codeblock":{"check":false,"edit":false,"lang":"","fixlang":false,"template":"./resources/gitbook-plugin-include-codeblock.hbs","theme":"chrome","unindent":false},"sandpack":{},"edit-link":{"base":"https://github.com/js-primer/js-primer/edit/master/source/","label":"Edit"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"IPAexMincho","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"index.md","glossary":"GLOSSARY.md","summary":"README.md"},"variables":{"esversion":"2025","nodeversion":"22.18.0","npmversion":"10.8.2","triplebackticks":"```","console":"<a class=\"gitbook-plugin-js-console\" aria-hidden=\"true\"></a>"},"title":"JavaScript Primer #jsprimer","gitbook":">=3.0.0","description":"JavaScriptの基本的な書き方からアプリケーションの作成などのユースケースを学ぶための入門書です"},"file":{"path":"basic/map-and-set/README.md","mtime":"2026-05-29T20:45:18.694Z","type":"markdown"},"gitbook":{"version":"6.1.4","time":"2026-05-29T20:45:32.967Z"},"basePath":"../..","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"author":"laco","description":"データの集合を扱うビルトインオブジェクトであるMapとSetについてを紹介します。オブジェクトの作成方法や更新方法から実際にどのようなケースで使うのかを紹介します。","sponsors":[],"title":"Map/Set","level":"1.3.23","depth":2,"next":{"title":"イテレータとジェネレータ","level":"1.3.24","depth":2,"path":"basic/iterator-generator/README.md","ref":"./basic/iterator-generator/README.md","articles":[]},"previous":{"title":"非同期処理:Promise/Async Function","level":"1.3.22","depth":2,"path":"basic/async/README.md","ref":"./basic/async/README.md","articles":[]},"dir":"ltr"},"config":{"plugins":["-search","-lunr","page-toc-button","include-codeblock","anchors","canonical-link","js-console","github-issue-feedback","sandpack"],"root":"./source/","styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"pluginsConfig":{"docSearch":{"index":"83I8JIFICQ","apiKey":"9169ce4cd84fcf2376f29d9585c89254"},"github-issue-feedback":{"repo":"js-primer/js-primer","label":"問題を報告する"},"fontsettings":{"theme":"white","family":"sans","size":2},"js-console":{},"canonical-link":{"baseURL":"https://jsprimer.net"},"highlight":{},"page-toc-button":{"maxTocDepth":2,"minTocSize":2},"include-codeblock":{"check":false,"edit":false,"lang":"","fixlang":false,"template":"./resources/gitbook-plugin-include-codeblock.hbs","theme":"chrome","unindent":false},"sandpack":{},"edit-link":{"base":"https://github.com/js-primer/js-primer/edit/master/source/","label":"Edit"},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"anchors":{}},"theme":"default","pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"IPAexMincho","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56},"embedFonts":false},"structure":{"langs":"LANGS.md","readme":"index.md","glossary":"GLOSSARY.md","summary":"README.md"},"variables":{"esversion":"2025","nodeversion":"22.18.0","npmversion":"10.8.2","triplebackticks":"```","console":"<a class=\"gitbook-plugin-js-console\" aria-hidden=\"true\"></a>"},"title":"JavaScript Primer #jsprimer","gitbook":">=3.0.0","description":"JavaScriptの基本的な書き方からアプリケーションの作成などのユースケースを学ぶための入門書です"},"file":{"path":"basic/map-and-set/README.md","mtime":"2026-06-07T23:40:31.100Z","type":"markdown"},"gitbook":{"version":"6.1.4","time":"2026-06-07T23:40:46.878Z"},"basePath":"../..","book":{"language":""}});
         });
     </script>
 </div>
