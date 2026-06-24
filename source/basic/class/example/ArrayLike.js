@@ -15,7 +15,7 @@ class ArrayLike {
     }
 
     set length(newLength) {
-        const currentItemLength = this.items.length;
+        const currentItemLength = this.length;
         // 現在要素数より小さな`newLength`が指定された場合、指定した要素数となるように末尾を削除する
         if (newLength < currentItemLength) {
             this._items = this.items.slice(0, newLength);
