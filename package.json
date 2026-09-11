@@ -79,7 +79,7 @@
     "gitbook-plugin-page-toc-button": "^0.1.1",
     "gitbook-summary-to-path": "^2.0.0",
     "globby": "^14.1.0",
-    "honkit": "^6.1.4",
+    "honkit": "^6.1.7",
     "honkit-plugin-sandpack": "^1.4.0",
     "js-levenshtein": "^1.1.6",
     "jsdom": "^20.0.0",
