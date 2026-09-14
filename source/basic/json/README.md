@@ -1,5 +1,5 @@
 ---
-author: laco
+author: debiru
 description: "JavaScriptのオブジェクトリテラルをベースに作られたデータフォーマットであるJSONを紹介します。また、JavaScriptからのJSONの読み書きするビルトインオブジェクトの使い方を紹介します。"
 sponsors: []
 ---
@@ -10,230 +10,420 @@ sponsors: []
 
 ## JSONとは {#what-is-json}
 
-JSONはJavaScript Object Notationの略で、JavaScriptのオブジェクトリテラルをベースに作られた軽量なデータフォーマットです。
-JSONの仕様は[ECMA-404][]として標準化されています。
-JSONは、人間にとって読み書きが容易で、マシンにとっても簡単にパースや生成を行える形式になっています。
-そのため、多くのプログラミング言語がJSONを扱う機能を備えています。
+JSONはJavaScript Object Notationの略で、JavaScriptのオブジェクトリテラルをベースに作られたテキスト形式のデータフォーマットです。
 
-JSONはJavaScriptのオブジェクトリテラル、配列リテラル、各種プリミティブ型の値を組み合わせたものです。
-ただしJSONとJavaScriptは一部の構文に違いがあります。
-たとえばJSONでは、オブジェクトリテラルのキーを必ずダブルクォートで囲まなければいけません。
-また、小数点から書きはじめる数値リテラルや、先頭がゼロからはじまる数値リテラルも使えません。
-これらは機械がパースしやすくするために仕様で定められた制約です。
+他のテキスト形式のデータフォーマットとしては代表的なものにCSV（カンマ区切り）やXML（マークアップ言語）があります。
+JSONはJavaScriptのオブジェクト記法をベースにしているためプログラムと親和性が高く、多くのプログラミング言語でサポートされている主流なデータフォーマットです。
+
+具体的なJSONを見てみましょう。次の例は、あるユーザーの情報を表すJSON文字列です。
 
 ```json
 {
-    "object": {
-        "number": 1,
-        "string": "js-primer",
-        "boolean": true,
-        "null": null,
-        "array": [1, 2, 3]
-    }
+    "id": 1,
+    "name": "Alice",
+    "isPremium": true,
+    "friends": [2]
 }
 ```
 
-JSONの細かい仕様に関しては[json.orgの日本語ドキュメント][]にわかりやすくまとまっているので、参考にするとよいでしょう。
+JSONの構文は、JavaScriptのオブジェクトの構文に制約を加えたものになっています。
+たとえば、オブジェクトのキーや文字列値は常にダブルクォートで括る必要があり、オブジェクトや配列の最後の要素の末尾にカンマを付けてはいけません。
+
+JSONは文字列リテラルの内部を除いてインデントや改行に意味を持ちません。
+前述のJSONは次のJSONと等価です。
+
+```json
+{"id":1,"name":"Alice","isPremium":true,"friends":[2]}
+```
+
+JSONのトップレベルリテラルには、オブジェクトでなく配列を用いることもできます。
+
+```json
+[
+  { "id": 1, "name": "Alice", "isPremium": true, "friends": [2] },
+  { "id": 2, "name": "Bob", "isPremium": false, "friends": [1] },
+  { "id": 3, "name": "Charlie", "isPremium": false, "friends": [] }
+]
+```
+
+JSONの仕様は[ECMA-404][]として標準化されており、ECMA-404をベースに[RFC 8259][]も発行されています。
+JSONの詳細な仕様は[json.orgの日本語ドキュメント][]にわかりやすくまとまっているので参考にするとよいでしょう。
 
 ## `JSON`オブジェクト {#json-object}
 
 JavaScriptでJSONを扱うには、ビルトインオブジェクトである[JSONオブジェクト][]を利用します。
-`JSON`オブジェクトはJSON形式の文字列とJavaScriptのオブジェクトを相互に変換するための`parse`メソッドと`stringify`メソッドを提供します。
 
-### JSON文字列をオブジェクトに変換する {#json-parse}
+`JSON`オブジェクトには2つの主要な静的メソッドが用意されています。
+ひとつは`JSON.parse`静的メソッドで、JSON文字列をJavaScriptのデータに変換します。
+もうひとつは`JSON.stringify`静的メソッドで、JavaScriptのデータをJSON文字列に変換します。
 
-[JSON.parseメソッド][]は引数に与えられた文字列をJSONとしてパースし、その結果をJavaScriptのオブジェクトとして返す関数です。
-次のコードは簡単なJSON形式の文字列をJavaScriptのオブジェクトに変換する例です。
+また一般に、データをバイト列や文字列に変換することを「シリアライズ」、シリアライズされた値をデータに戻すことを「デシリアライズ」と呼びます。
+ここでは、`JSON.parse`の処理が「デシリアライズ」、`JSON.stringify`の処理が「シリアライズ」に対応します。
+
+### JSON文字列をJavaScriptのデータに変換する {#json-parse}
+
+[JSON.parseメソッド][]は、第一引数に与えられたJSON文字列をデシリアライズし、その結果をJavaScriptのデータとして返します。
+
+`JSON.parse`静的メソッドを使う例を見てみましょう。
 
 <!-- textlint-disable eslint -->
-
 {{book.console}}
 ```js
-// JSONはダブルクォートのみを許容するため、シングルクォートでJSON文字列を記述
-const json = '{ "id": 1, "name": "js-primer" }';
-const obj = JSON.parse(json);
-console.log(obj.id); // => 1
-console.log(obj.name); // => "js-primer"
+const json = '{ "id": 1, "name": "Alice" }';
+const data = JSON.parse(json);
+console.log(data.id); // => 1
+console.log(data.name); // => "Alice"
 ```
-
 <!-- textlint-enable eslint -->
 
-文字列がJSONの配列を表す場合は、`JSON.parse`静的メソッドの返り値も配列になります。
+`JSON.parse`静的メソッドの第一引数にはJSON文字列を渡します。
+返り値はJSON文字列のトップレベルリテラルに対応するJavaScriptの値です。
+この例では`data`はオブジェクトになりますが、JSON文字列のトップレベルリテラルが配列であれば`data`は配列になります。
+
+`JSON.parse`静的メソッドは、第一引数にJSONとして妥当な文字列が渡されなかった場合に例外が投げられます。
+JSON文字列のデシリアライズに失敗する場合でもプログラム全体を止めないためには、`try...catch`構文を用いて例外処理をする必要があります。
+
+<!-- textlint-disable eslint -->
+{{book.console}}
+```js
+// オブジェクトのキーがダブルクォートで括られていないため、JSONとして不正な例
+const json = '{ id: 1, name: "Alice" }';
+try {
+    const data = JSON.parse(json);
+    console.log(data.name);
+} catch (error) {
+    console.error("JSON.parseの実行に失敗しました"); // ここが実行される
+}
+// ... 後続の処理は引き続き実行される
+```
+<!-- textlint-enable eslint -->
+
+### JavaScriptのデータをJSON文字列に変換する {#json-format}
+
+[JSON.stringifyメソッド][]は、第一引数に与えられたデータをJSONとしてシリアライズし、その結果の文字列を返します。
+
+`JSON.stringify`静的メソッドを使う例を見てみましょう。
 
 {{book.console}}
 ```js
-const json = "[1, 2, 3]";
-console.log(JSON.parse(json)); // => [1, 2, 3]
+const data = { id: 1, name: "Alice" };
+console.log(JSON.stringify(data));
+// => '{"id":1,"name":"Alice"}'
 ```
 
-与えられた文字列がJSON形式でパースできない場合は例外が投げられます。
-また、実際のアプリケーションでJSONを扱うのは、外部のプログラムとデータを交換する用途がほとんどです。
-外部のプログラムが送ってくるデータが常にJSONとして正しい保証はありません。
-そのため、`JSON.parse`静的メソッドは基本的に`try...catch`構文で例外処理をするべきです。
+`JSON.stringify`静的メソッドは、`JSON.stringify(value, replacer, space)`の形で第三引数まで指定することができます。
+第三引数の`space`引数を指定することで、生成されるJSON文字列にインデントと改行を付けて整形することができます。
+
+`space`引数には1以上の整数を指定できます（10以上の数値は10として扱われます）。
+0など不正な値を指定した場合は、`space`引数を指定しなかった場合と同じ扱いになります。
+次のコードはスペース4個でインデントされたJSONを得る例です。
 
 {{book.console}}
 ```js
-const userInput = "not json value";
+const data = { id: 1, name: "Alice" };
+console.log(JSON.stringify(data, null, 4));
+/*
+{
+    "id": 1,
+    "name": "Alice"
+}
+*/
+```
+
+`space`引数は第三引数であるため、インデントを指定したい場合には第二引数の`replacer`に`null`を指定することが一般的です。
+`replacer`の活用方法については後述します。
+
+<!-- TODO: 見出しIDを見直す -->
+## JSONで扱える値と扱えない値 {#not-serialization-object}
+
+JSONはJavaScriptに限らず、さまざまなプログラミング言語で生成したり利用することができます。
+そのため、一部のプログラミング言語でしか扱えないデータ型の値はJSONで扱うことができません。
+JSONで値として許容されるデータ型は、オブジェクト、配列、文字列、数値、真偽値、`null`です。
+
+{{book.console}}
+```js
+const data = {
+    objectValue: { a: 1, b: 2 },
+    arrayValue: [1, 2],
+    stringValue: "Hello, World!",
+    numberValue: 123.45,
+    booleanValue_true: true,
+    booleanValue_false: false,
+    nullValue: null,
+};
+console.log(JSON.stringify(data, null, 4));
+/*
+{
+    "objectValue": {
+        "a": 1,
+        "b": 2
+    },
+    "arrayValue": [
+        1,
+        2
+    ],
+    "stringValue": "Hello, World!",
+    "numberValue": 123.45,
+    "booleanValue_true": true,
+    "booleanValue_false": false,
+    "nullValue": null
+}
+*/
+```
+
+上記以外のデータ型はJSONで扱うことができません。
+特にJSONでは`undefined`値が扱えないことに注意してください。
+
+{{book.console}}
+```js
+const data = {
+    objectValue: { a: 1, b: undefined, c: 3 },
+    arrayValue: [1, undefined, 3],
+};
+console.log(JSON.stringify(data, null, 4));
+/*
+{
+    "objectValue": {
+        "a": 1,
+        "c": 3
+    },
+    "arrayValue": [
+        1,
+        null,
+        3
+    ]
+}
+*/
+```
+
+また、MapやSet、正規表現のようなオブジェクトをJSONにシリアライズしようとすると空オブジェクト`{}`に変換されます。
+
+{{book.console}}
+```js
+const data = {
+    regexp: /\d+/g,
+    map: new Map([["a", 1], ["b", 2]]),
+    set: new Set(["a", "b"]),
+};
+console.log(JSON.stringify(data, null, 4));
+/*
+{
+    "regexp": {},
+    "map": {},
+    "set": {}
+}
+*/
+```
+
+`JSON.stringify`静的メソッドは、JSON文字列に変換しようとしているデータに特定の値が含まれる場合に例外が投げられます。
+たとえば、BigInt型の値を含む場合や、オブジェクトが循環参照している場合が該当します。
+
+{{book.console}}
+```js
+// 12345nはBigInt型の値でありJSONとしてシリアライズできない
+const data = { a: 123, b: 12345n };
 try {
-    const json = JSON.parse(userInput);
+    console.log(JSON.stringify(data));
 } catch (error) {
-    console.log("パースできませんでした");
+    console.error("JSON.stringifyの実行に失敗しました"); // ここが実行される
 }
 ```
 
-### オブジェクトをJSON文字列に変換する {#json-format}
-
-[JSON.stringifyメソッド][]は第一引数に与えられたオブジェクトをJSON形式の文字列に変換して返す関数です。
-HTTP通信でサーバーにデータを送信するときや、
-アプリケーションが保持している状態を外部に保存するときなどに必要になります。
-次のコードはJavaScriptのオブジェクトをJSON形式の文字列に変換する例です。
-
 {{book.console}}
 ```js
-const obj = { id: 1, name: "js-primer", bio: null };
-console.log(JSON.stringify(obj)); // => '{"id":1,"name":"js-primer","bio":null}'
+const data = { a: 123 };
+data.b = data; // data.bがdataを指す循環参照オブジェクト
+try {
+    console.log(JSON.stringify(data));
+} catch (error) {
+    console.error("JSON.stringifyの実行に失敗しました"); // ここが実行される
+}
 ```
 
-`JSON.stringify`静的メソッドにはオプショナルな引数が2つあります。
-第二引数はreplacer引数とも呼ばれ、関数あるいは配列を渡せます。
-関数を渡した場合は引数にプロパティのキーと値が渡され、その返り値によって文字列に変換される際の挙動をコントロールできます。
-次の例は値がnullであるプロパティを除外してJSONに変換するreplacer引数の例です。
-replacer引数の関数で`undefined`が返されたプロパティは、変換後のJSONに含まれなくなります。
+`JSON.stringify`静的メソッドは、例外を投げずに返り値が得られたときでも、その値が妥当なJSONではない場合があります。
+`JSON.stringify`静的メソッドの第一引数が`undefined`値である場合には、JSON文字列ではなく`undefined`値が返されます。
+このため、`JSON.stringify`静的メソッドで生成した値を`JSON.parse`静的メソッドでデシリアライズできないことがあります。
 
 {{book.console}}
 ```js
-const obj = { id: 1, name: "js-primer", bio: null };
-const replacer = (key, value) => {
-    if (value === null) {
-        return undefined;
+const data = undefined;
+const json = JSON.stringify(data);
+try {
+    console.log(JSON.parse(json));
+} catch (error) {
+    console.error("JSON.parseの実行に失敗しました"); // ここが実行される
+}
+```
+
+## JSONで扱えない値を扱う方法 {#json-extended-serialization}
+
+`JSON.parse`静的メソッドや`JSON.stringify`静的メソッドを使う際に、値に独自の処理を施してから変換処理を実行する仕組みが用意されています。
+
+### `JSON.stringify`で使われる`toJSON`メソッド {#serialization-by-toJSON}
+
+`JSON.stringify`静的メソッドは、シリアライズしようとする値が`toJSON`メソッドを持っていた場合、その値の代わりに`toJSON`メソッドの返り値を使ってシリアライズを試みます。
+
+次のコードは、JSONシリアライズの際に正規表現オブジェクトを空オブジェクトではなく`toString`メソッドの返り値が使われるように`toJSON`メソッドを設定する例です。
+
+{{book.console}}
+```js
+const regexpValue = /\d+/g;
+const data = { regexp: regexpValue };
+console.log(JSON.stringify(data)); // => '{"regexp":{}}'
+
+regexpValue.toJSON = function() {
+    return this.toString();
+};
+console.log(JSON.stringify(data)); // => '{"regexp":"/\\\\d+/g"}'
+```
+
+`toJSON`メソッドは特定のオブジェクトをJSONとして使いやすい形式でシリアライズするために使われます。
+
+また、次のコードは`Date`オブジェクトをJSONシリアライズする例です。
+
+{{book.console}}
+```js
+const data = { date: new Date("2000-01-01T10:20:30Z") };
+console.log(JSON.stringify(data)); // => '{"date":"2000-01-01T10:20:30.000Z"}'
+```
+
+このコードでは明示的に`toJSON`メソッドを設定していませんが、`Date`オブジェクトをJSONシリアライズすると`toISOString`メソッドの返り値に変換されます。
+これは`Date.prototype.toJSON`メソッドが標準で定義されているためです。
+
+`toJSON`メソッドによってJSONシリアライズ時の結果を操作できますが、独自にこのメソッドを定義することはあまり推奨されません。
+`RegExp.prototype.toJSON`メソッドや`Date.prototype.toJSON`メソッドを書き換えてしまうと、自身が書いたコード以外の挙動まで変わってしまうためです。
+独自に定義したクラスやオブジェクト型でない限り、プロトタイプメソッドを書き換えることはバグの原因となることがあります。
+
+インスタンスオブジェクトに対して`toJSON`メソッドを定義することは問題ありませんが、その方法ではすべての同じ型のオブジェクトを特定の形でシリアライズしたい場合に対応できません。
+`toJSON`メソッドを使う代わりに後述する`JSON.stringify`の`replacer`引数を活用することで、特定のオブジェクトのJSONシリアライズ時の結果を一括で操作できます。
+
+### `JSON.parse`の`reviver`引数 {#json-parse-reviver}
+
+`JSON.parse`静的メソッドは、`JSON.parse(text, reviver)`の形で第二引数まで指定することができます。
+`reviver`には関数を渡すことができます。
+関数を渡した場合、JSONをデシリアライズする際に独自の処理を施してからJavaScriptのデータに変換することができます。
+
+典型的な例としては、64ビット整数値をJSONで扱うケースが挙げられます。
+JavaScriptでは整数値と実数値が同じNumber型で表現されるため、絶対値が`2^53-1`（`9007199254740991`）よりも大きな整数値を正確に扱うことができません。
+しかし他のプログラミング言語では64ビット整数値（符号なし64ビット整数であれば最大値は`2^64-1`）が一般的に使われるため、桁数の大きな64ビット整数値を正確に扱うための工夫が必要です。
+
+JavaScriptでも64ビット整数値を正確に扱えるよう、JSONに数値リテラルではなく文字列リテラルとしてシリアライズすることがあります。
+このとき、JavaScriptでJSONをデシリアライズする際に文字列ではなく整数演算が可能なデータ型として扱いたい場合があります。
+JSON上は整数値を文字列リテラルにしておき、JavaScript上では巨大な整数値が表現できるBigInt型の値として扱うために`reviver`引数を利用することができます。
+
+<!-- textlint-disable eslint -->
+{{book.console}}
+```js
+// value = 112233445566778899 (2^56 <= value < 2^57)
+const json = '{ "value": 112233445566778899, "value_as_str": "112233445566778899" }';
+console.log(JSON.parse(json));
+// Number型では精度が足りず下3桁の値が正確に扱えていない
+// => { value: 112233445566778900, value_as_str: "112233445566778899" }
+
+const reviver = (key, value) => {
+    if (key === "value_as_str") {
+        return BigInt(value);
     }
     return value;
 };
-console.log(JSON.stringify(obj, replacer)); // => '{"id":1,"name":"js-primer"}'
+console.log(JSON.parse(json, reviver));
+// => { value: 112233445566778900, value_as_str: 112233445566778899n }
 ```
+<!-- textlint-enable eslint -->
 
-replacer引数に配列を渡した場合はプロパティの許可リストとして使われ、
-その配列に含まれる名前のプロパティだけが変換されます。
+### `JSON.stringify`の`replacer`引数 {#json-stringify-replacer}
+
+`JSON.stringify`静的メソッドは、`JSON.stringify(value, replacer, space)`の形で第三引数まで指定することができます。
+`replacer`には関数を渡すことができます。
+関数を渡した場合、JSONをシリアライズする際に独自の処理を施してからJSONに変換することができます。
+
+`JSON.parse`の`reviver`引数での操作と逆のことをしたい場合には`replacer`引数を利用することができます。
+つまり、一例としてBigInt型の値を文字列としてシリアライズすることができます。
 
 {{book.console}}
 ```js
-const obj = { id: 1, name: "js-primer", bio: null };
-const replacer = ["id", "name"];
-console.log(JSON.stringify(obj, replacer)); // => '{"id":1,"name":"js-primer"}'
-```
+const data = { value: 112233445566778899n };
 
-第三引数はspace引数とも呼ばれ、変換後のJSON形式の文字列を読みやすくフォーマットする際のインデントを設定できます。
-数値を渡すとその数値分の長さのスペースで、文字列を渡すとその文字列でインデントされます。
-次のコードはスペース2個でインデントされたJSONを得る例です。
-
-{{book.console}}
-```js
-const obj = { id: 1, name: "js-primer" };
-// replacer引数を使わない場合はnullを渡して省略するのが一般的です
-console.log(JSON.stringify(obj, null, 2));
-/*
-{
-   "id": 1,
-   "name": "js-primer"
-}
-*/
-```
-
-また、次のコードはタブ文字でインデントされたJSONを得る例です。
-
-{{book.console}}
-```js
-const obj = { id: 1, name: "js-primer" };
-console.log(JSON.stringify(obj, null, "\t"));
-/*
-{
-   "id": 1,
-   "name": "js-primer"
-}
-*/
-```
-
-## JSONにシリアライズできないオブジェクト {#not-serialization-object}
-
-`JSON.stringify`静的メソッドはJSONで表現可能な値だけをシリアライズします。
-そのため、値が関数や`Symbol`、あるいは`undefined`であるプロパティなどは変換されません。
-ただし、配列の値としてそれらが見つかったときには例外的に`null`に置き換えられます。
-またキーが`Symbol`である場合にもシリアライズの対象外になります。
-代表的な変換の例を次の表とサンプルコードに示します。
-
-| シリアライズ前の値 | シリアライズ後の値 |
-| ---             |  ---            |
-| 文字列・数値・真偽値 |  対応する値       |
-| null            |  null           |
-| 配列             |  配列           |
-| オブジェクト      |  オブジェクト     |
-| 関数             |  変換されない（配列のときはnull）     |
-| undefined       |  変換されない（配列のときはnull）     |
-| Symbol          |  変換されない（配列のときはnull）     |
-| RegExp          |  {}             |
-| Map, Set        |  {}             |
-| BigInt          |  例外が発生する    |
-
-{{book.console}}
-```js
-// 値が関数のプロパティ
-console.log(JSON.stringify({ x: function() {} })); // => '{}'
-// 値がSymbolのプロパティ
-console.log(JSON.stringify({ x: Symbol("") })); // => '{}'
-// 値がundefinedのプロパティ
-console.log(JSON.stringify({ x: undefined })); // => '{}'
-// 配列の場合
-console.log(JSON.stringify({ x: [10, function() {}] })); // => '{"x":[10,null]}'
-// キーがSymbolのプロパティ
-JSON.stringify({ [Symbol("foo")]: "foo" }); // => '{}'
-// 値がRegExpのプロパティ
-console.log(JSON.stringify({ x: /foo/ })); // => '{"x":{}}'
-// 値がMapのプロパティ
-const map = new Map();
-map.set("foo", "foo");
-console.log(JSON.stringify({ x: map })); // => '{"x":{}}'
-```
-
-オブジェクトがシリアライズされる際は、そのオブジェクトの列挙可能なプロパティだけが再帰的にシリアライズされます。
-`RegExp`や`Map`、`Set`などのインスタンスは列挙可能なプロパティを持たないため、空のオブジェクトに変換されます。
-
-また、`JSON.stringify`静的メソッドがシリアライズに失敗することもあります。
-よくあるのは、参照が循環しているオブジェクトをシリアライズしようとしたときに例外が投げられるケースです。
-たとえば次の例のように、あるオブジェクトのプロパティを再帰的にたどって自分自身が見つかるような場合はシリアライズが不可能となります。
-`JSON.parse`静的メソッドだけでなく、`JSON.stringify`静的メソッドも例外処理を行って安全に使いましょう。
-
-[import circular-reference.js](src/circular-reference.js)
-
-## `toJSON`メソッドを使ったシリアライズ {#serialization-by-toJSON}
-
-オブジェクトが`toJSON`メソッドを持っている場合、`JSON.stringify`静的メソッドは既定の文字列変換ではなく`toJSON`メソッドの返り値を使います。
-次の例のように、引数に直接渡されたときだけでなく引数のプロパティとして登場したときにも再帰的に処理されます。
-
-{{book.console}}
-```js
-const obj = {
-    foo: "foo",
-    toJSON() {
-        return "bar";
+const replacer = (key, value) => {
+    if (typeof value === "bigint") {
+        return String(value);
     }
+    return value;
 };
-console.log(JSON.stringify(obj)); // => '"bar"'
-console.log(JSON.stringify({ x: obj })); // => '{"x":"bar"}'
+console.log(JSON.stringify(data, replacer));
+// => '{"value":"112233445566778899"}'
 ```
 
-`toJSON`メソッドは自作のクラスを特殊な形式でシリアライズする目的などに使われます。
+`replacer`関数の`value`引数は、シリアライズしようとする値が`toJSON`メソッドを持っていた場合には`toJSON`メソッドの返り値が渡ってきます。
+
+### [ES2026] `JSON.parse`における`reviver`関数の`context`引数 {#json-parse-reviver-context}
+
+桁数の大きな整数値を正確に扱うために整数値をJSON上で文字列リテラルとして扱うには、JSONを生成する側との調整が必要です。
+また、すでにJSON上に数値リテラルとして桁数の大きな整数値が出力されていた場合、その整数値をJavaScriptで正確に受け取る方法がないことは問題でした。
+
+この問題を解決するため、`JSON.parse`の`reviver`関数の引数が拡張され、`reviver`関数の第三引数に`context`引数が追加されました。
+`context`引数はJSONの値をデシリアライズする際に、JSONの値のデータ型によらずその値を文字列として取得できる仕組みです。
+その文字列値は`context.source`プロパティで参照できます。
+ただし、`context.source`プロパティは値がオブジェクトまたは配列の場合にはセットされません。
+
+<!-- textlint-disable eslint -->
+{{book.console}}
+```js
+// value = 112233445566778899 (2^56 <= value < 2^57)
+const json = '{ "value": 112233445566778899 }';
+console.log(JSON.parse(json));
+// Number型では精度が足りず下3桁の値が正確に扱えていない
+// => { value: 112233445566778900 }
+
+const reviver = (key, value, context) => {
+    if (typeof value === "number") {
+        const INTEGER_TOKEN = /^-?(0|[1-9]\d*)$/;
+        if (INTEGER_TOKEN.test(context.source) && !Number.isSafeInteger(value)) {
+            return BigInt(context.source);
+        }
+    }
+    return value;
+};
+console.log(JSON.parse(json, reviver));
+// => { value: 112233445566778899n }
+```
+<!-- textlint-enable eslint -->
+
+### [ES2026] `JSON.stringify`で使う`JSON.rawJSON`静的メソッド {#json-rawjson}
+
+JavaScript上でJSONを生成する際に、桁数の大きな整数値を文字列リテラルではなく数値リテラルとしてシリアライズする目的にも利用できる仕組みが[JSON.rawJSONメソッド][]です。
+`JSON.rawJSON`静的メソッドを用いると、与えた文字列を（文字列リテラルではなく）生成されるJSONの値としてそのまま埋め込むことができます。
+ただし、`JSON.rawJSON`静的メソッドの第一引数に指定できる文字列は、JSONで許容されるプリミティブ型の値（文字列、数値、真偽値、`null`）のみです。
+それ以外の値を渡した場合には例外が投げられます。
+
+{{book.console}}
+```js
+const data = { value: 112233445566778899n };
+
+const replacer = (key, value) => {
+    if (typeof value === "bigint") {
+        return JSON.rawJSON(String(value));
+    }
+    return value;
+};
+console.log(JSON.stringify(data, replacer));
+// => '{"value":112233445566778899}'
+```
 
 ## まとめ {#conclusion}
 
 この章では、JSONについて学びました。
 
-- JSONはJavaScriptのオブジェクトリテラルをベースに作られた軽量なデータフォーマット
-- `JSON`オブジェクトを使ったシリアライズとデシリアライズ
-- JSON形式にシリアライズできないオブジェクトもある
-- `JSON.stringify`はシリアライズ対象の`toJSON`メソッドを利用する
+- JSONはJavaScriptのオブジェクトリテラルをベースに作られたテキスト形式のデータフォーマット
+- `JSON`オブジェクトを使ってJSONのシリアライズとデシリアライズができる
+- JSONで扱えない値がある
+- `JSON.stringify`はシリアライズ対象の`toJSON`メソッドを自動的に呼び出す
+- JSONで扱えない値を扱いたい場合は`reviver`関数と`replacer`関数を利用する
 
-[ECMA-404]: https://www.ecma-international.org/publications-and-standards/standards/ecma-404/
+[ECMA-404]: https://ecma-international.org/publications-and-standards/standards/ecma-404/
+[RFC 8259]: https://www.rfc-editor.org/rfc/rfc8259
 [json.orgの日本語ドキュメント]: https://www.json.org/json-ja.html
 [JSONオブジェクト]: https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/JSON
 [JSON.parseメソッド]: https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/JSON/parse
 [JSON.stringifyメソッド]: https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/JSON/stringify
+[JSON.rawJSONメソッド]: https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Global_Objects/JSON/rawJSON
