@@ -174,6 +174,8 @@ console.log(JSON.stringify(obj, null, "\t"));
 | Map, Set        |  {}             |
 | BigInt          |  例外が発生する    |
 
+`BigInt`などを扱うには ES2026 の `JSON.rawJSON` を使う必要があります。
+
 {{book.console}}
 ```js
 // 値が関数のプロパティ
