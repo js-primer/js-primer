@@ -315,6 +315,19 @@ try {
 
 ![safeParseIntのスタックトレースが含まれたconsole.errorの出力結果](./img/error-cause.png)
 
+## [ES2026] Error.isError {#error-is-error}
+
+これまでエラーの種類（`TypeError` か `ReferenceError` かなど）を判定する方法として `instanceof` 演算子を見てきました。
+ES2026で追加された `Error.isError` 静的メソッドを使うと、種類までは判定せず「エラーオブジェクトかどうか」だけをシンプルに判定できます。
+
+{{book.console}}
+```js
+// エラーオブジェクトかどうかだけを判定したい場合は Error.isError を使う
+console.log(Error.isError(new Error()));      // => true
+console.log(Error.isError(new TypeError()));  // => true
+console.log(Error.isError({ message: "..." })); // => false
+```
+
 ## まとめ {#conclusion}
 
 この章では、例外処理とエラーオブジェクトについて学びました。
@@ -325,6 +338,7 @@ try {
 - `Error`オブジェクトには、ECMAScript仕様や実行環境で定義されたビルトインエラーがある
 - `Error`オブジェクトには、スタックトレースが記録され、デバッグに役立てられる
 - Error Causeを使うことで、別のエラーのスタックトレースを引き継いだ新しいエラーを作成できる
+- Error.isErrorを使うことで、エラーオブジェクトかどうかを判定できる
 
 [try...catch]: https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Statements/try...catch
 [throw]: https://developer.mozilla.org/ja/docs/Web/JavaScript/Reference/Statements/throw
