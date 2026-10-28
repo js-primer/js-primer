@@ -282,6 +282,18 @@ function fn(arg1, ...restArgs) {
 fn("a", "b", "c");
 ```
 
+JavaScriptでは定義した仮引数よりも少ない引数で関数を呼び出すことができます。
+呼び出し時の引数が少ない場合、通常の仮引数には`undefined`が入りますが、Rest parametersは必ず配列となるため、空の配列が入ります。
+
+{{book.console}}
+```js
+function fn(arg1, ...restArgs) {
+    console.log(arg1); // => undefined
+    console.log(restArgs); // => []
+}
+fn();
+```
+
 Rest parametersは、引数をまとめた配列を仮引数に定義する構文でした。
 一方で、配列を展開して関数の引数に渡すSpread構文もあります。
 
