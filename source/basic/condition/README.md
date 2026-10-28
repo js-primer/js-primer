@@ -163,13 +163,9 @@ if (条件式A) {
 
 うるう年の条件は次のとおりです。
 
-<!-- textlint-disable preset-ja-technical-writing/no-start-duplicated-conjunction -->
-
 - 西暦で示した年が4で割り切れる年はうるう年です
 - ただし、西暦で示した年が100で割り切れる年はうるう年ではありません
-- ただし、西暦で示した年が400で割り切れる年はうるう年です
-
-<!-- textlint-enable preset-ja-technical-writing/no-start-duplicated-conjunction -->
+- そのうち、西暦で示した年が400で割り切れる年はうるう年です
 
 西暦での現在の年は `new Date().getFullYear();` で取得できます。
 このうるう年の条件をif文で表現すると次のように書けます。
