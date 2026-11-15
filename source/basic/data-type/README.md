@@ -614,6 +614,7 @@ console.log(str.length); // => 3
 -->
 
 [^1]: JavaScriptが最初にNetscapeで実装された際に`typeof null === "object"`となるバグがありました。このバグを修正するとすでにこの挙動に依存しているコードが壊れるため、修正が見送られ現在の挙動が仕様となりました。 詳しくは<https://2ality.com/2013/10/typeof-null.html>を参照。
+
 [IEEE 754]: https://ja.wikipedia.org/wiki/IEEE_754
 [文字列]: ../string/README.md
 [配列]: ../array/README.md
