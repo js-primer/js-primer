@@ -650,6 +650,15 @@ const spaceCount = 3;
 const pattern = new RegExp(`\\s{${spaceCount}}`);
 ```
 
+また、後述する[タグつきテンプレート関数](#tagged-template-function)である`String.raw`静的メソッド<sup>[ES2015]</sup>を使うと、テンプレートリテラル中のエスケープシーケンスをそのままの文字として扱えます。
+そのため、`String.raw`静的メソッドと組み合わせることで、`\`の二重エスケープをせずに正規表現のパターンを記述できます。
+
+```js
+const spaceCount = 3;
+// String.rawを使うことで"\"を二重にエスケープする必要がなくなる
+const pattern = new RegExp(String.raw`\s{${spaceCount}}`);
+```
+
 このように、`RegExp`コンストラクタは文字列から正規表現オブジェクトを作成できますが、特殊文字のエスケープが必要となります。
 そのため、正規表現リテラルで表現できる場合は、リテラルを利用したほうが簡潔でパフォーマンスもよいです。
 正規表現のパターンに変数を利用する場合などは、`RegExp`コンストラクタを利用します。
